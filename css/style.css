@@ -4,12 +4,12 @@
 }
 
 #palleta .component{
-	border : 1px solid yellow;
+	border : 1px solid silver;
 	cursor: move;
 }
 
 #project .component{
-	border : 1px solid blue;
+	border : 1px solid silver;
 	cursor: move;
 }
 

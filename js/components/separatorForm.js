@@ -2,7 +2,7 @@ var templates = templates || {};
 
 templates.separatorForm = (function () {
 
-	var templ = '<hr class="col-md-12"/>';
+	var templ = '<hr class="col-md-10"/>';
 
 	var property = {};	
 	property.largura = '12';	
