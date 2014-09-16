@@ -105,8 +105,17 @@ $(function () {
 
 			var $this = $(this);
 
-			$( "#dialog" ).html('');
+			$( "#dialog" ).html('');			
 			$( "#dialog" ).html(montaPropriedades(comp));
+
+			var btnremover = $('<hr/><span class="btn btn-danger glyphicon glyphicon-remove"> Remover</span>');
+
+			btnremover.on('click', function () {
+				$this.remove();
+				$( "#dialog" ).dialog( "close" );
+			});
+
+			$( "#dialog" ).append(btnremover);
 			$( "#dialog" ).dialog( "open" );
 
 			$( "#dialog" ).off('focusout', 'input, select');
