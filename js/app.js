@@ -17,7 +17,23 @@ $(function () {
 			console.debug(i+'::'+comp.property[i]);
 			var tr = $('<tr></tr>');
 			tr.append('<td>'+i+'</td>');
-			tr.append('<td><input name="'+i+'" type="text" class="form-control" value="'+comp.property[i]+'"></input></td>');
+			var td = $('<td></td>');
+			
+			if(typeof comp.property[i] === 'object' && comp.property[i].options){
+				var select = $('<select name="'+i+'" class="form-control"></select>');
+				
+				for(var ii in comp.property[i].options){					
+					select.append('<option value="'+comp.property[i].options[ii]+'">'+comp.property[i].options[ii]+'</option>');
+				}
+				td.append(select);
+			}
+			else{
+				var input = $('<input name="'+i+'" type="text" class="form-control" value="'+comp.property[i]+'"></input>');			
+				td.append(input);
+			}	
+			
+			
+			tr.append(td);
 			table.find('tbody').append(tr);	
 		}	
 		return table.html();
@@ -93,11 +109,15 @@ $(function () {
 			$( "#dialog" ).html(montaPropriedades(comp));
 			$( "#dialog" ).dialog( "open" );
 
-			$( "#dialog" ).off('focusout', 'input');
-			$( "#dialog" ).on('focusout', 'input', function() {
-				var name = $(this).attr('name');
+			$( "#dialog" ).off('focusout', 'input, select');
+			$( "#dialog" ).on('focusout', 'input, select', function() {
+				var name = $(this).attr('name');				
 				var val = $(this).val();
-				comp.property[name] = val;
+
+				if(comp.property[name].val)
+					comp.property[name].val = val;
+				else
+					comp.property[name] = val;
 			
 				$this.attr('comp', JSON.stringify(comp, function(key, value) {
 					if (typeof value === 'function') {
