@@ -18,6 +18,7 @@ templates.label = (function () {
 		'templ' : templ,
 		'name' : 'label',
 		'property' : property,
-		'update' : update
+		'update' : update,
+		'category' : 'label'
 	};
 })();

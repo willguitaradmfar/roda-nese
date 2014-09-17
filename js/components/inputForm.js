@@ -22,6 +22,7 @@ templates.inputForm = (function () {
 		'templ' : templ,
 		'name' : 'inputForm',
 		'property' : property,
-		'update' : update
+		'update' : update,
+		'category' : 'input'
 	};
 })();

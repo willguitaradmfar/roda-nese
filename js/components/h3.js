@@ -16,6 +16,7 @@ templates.h3 = (function () {
 		'templ' : templ,
 		'name' : 'h3',
 		'property' : property,
-		'update' : update
+		'update' : update,
+		'category' : 'label'
 	};
 })();

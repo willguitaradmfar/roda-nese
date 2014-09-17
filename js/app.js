@@ -47,7 +47,7 @@ $(function () {
 			console.debug('ADD COMPONENT TO PALLETA ('+i+')');
 			var templ = $(template.templ);
 			templ.addClass('component');			
-			palleta.append(templ);
+			palleta.find('#'+template.category).find('.panel-body').append(templ);
 			templ.attr('comp', JSON.stringify(template, function(key, value) {
 				if (typeof value === 'function') {
 					return value.toString();

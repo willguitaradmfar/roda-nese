@@ -16,6 +16,7 @@ templates.h4 = (function () {
 		'templ' : templ,
 		'name' : 'h4',
 		'property' : property,
-		'update' : update
+		'update' : update,
+		'category' : 'label'
 	};
 })();

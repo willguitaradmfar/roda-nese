@@ -16,6 +16,7 @@ templates.h2 = (function () {
 		'templ' : templ,
 		'name' : 'h2',
 		'property' : property,
-		'update' : update
+		'update' : update,
+		'category' : 'label'
 	};
 })();

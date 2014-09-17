@@ -26,6 +26,7 @@ templates.textareaForm = (function () {
 		'templ' : templ,
 		'name' : 'textareaForm',
 		'property' : property,
-		'update' : update
+		'update' : update,
+		'category' : 'input'
 	};
 })();

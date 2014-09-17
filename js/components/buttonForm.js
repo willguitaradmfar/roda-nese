@@ -20,6 +20,7 @@ templates.buttonForm = (function () {
 		'templ' : templ,
 		'name' : 'buttonForm',
 		'property' : property,
-		'update' : update
+		'update' : update,
+		'category' : 'input'
 	};
 })();

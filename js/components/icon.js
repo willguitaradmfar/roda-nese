@@ -16,6 +16,7 @@ templates.icon = (function () {
 		'templ' : templ,
 		'name' : 'icon',
 		'property' : property,
-		'update' : update
+		'update' : update,
+		'category' : 'label'
 	};
 })();

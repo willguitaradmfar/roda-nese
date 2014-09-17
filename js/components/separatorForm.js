@@ -15,6 +15,7 @@ templates.separatorForm = (function () {
 		'templ' : templ,
 		'name' : 'separatorForm',
 		'property' : property,
-		'update' : update
+		'update' : update,
+		'category' : 'label'
 	};
 })();
