@@ -21,7 +21,7 @@
 		<script src="js/components/textareaForm.js"></script>
 		<script src="js/components/buttonForm.js"></script>
 		<script src="js/components/separatorForm.js"></script>
-		<script src="js/components/icon.js"></script>
+		<script src="js/components/icon.js"></script>		
 		<!-- COMPONENTES -->
 
 		<script src="js/app.js"></script>	
@@ -31,20 +31,34 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-		  		<h1 style="text-align: center">Desenhador</h1>		  				  		
+		  		<h2 style="text-align: center">Desenhador</h2>
 		  	</div>	
 		</div>
 		<hr/>		
 		<div class="row">
-			<div class="col-md-12">
-				<button class="btn btn-info" id="visualizar">Visualizar</button>	
+			<div class="col-md-12">				
+				<div class="dropdown">
+				  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+				    Visualizar
+				    <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="v240">240</a></li>
+				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="v320">320</a></li>
+				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="v480">480</a></li>
+				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="v768">768</a></li>
+				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="v1024">1024</a></li>				    
+				    <li role="presentation" class="divider"></li>
+				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="vFull">Full</a></li>
+				  </ul>
+				</div>
 			</div>		
 			<div class="col-md-2" id="palleta">
 
 			  		
 			</div>
 			<div class="col-md-10">		  		
-			  		<div class="row" id="project">
+			  		<div class="row project-container">
 						
 					</div>
 			</div>

@@ -1,4 +1,4 @@
-#palleta, #project{
+#palleta, .project-container{
 	border : 1px solid cadetblue;
 	height: 85%;
 }
@@ -8,11 +8,19 @@
 	cursor: move;
 }
 
-#project .component{
+.project-container .component{
 	border : 1px solid silver;
 	cursor: move;
 }
 
 .col-md-12{	
 	height: 5%;
+}
+
+
+#palleta .component:hover{
+	
+	border-right-width: 6px; 
+	border-bottom-width: 6px;	
+	
 }
