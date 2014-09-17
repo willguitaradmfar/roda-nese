@@ -1,5 +1,7 @@
 <html>
-	<head>	
+	<head>
+
+		<title>Desenhador</title>
 		<script src="file:///home/william/git/server-websocket/client/logQueue.js"></script>
 		<script src="dependency/jquery-1.11.0.min.js"></script>
 
@@ -13,6 +15,8 @@
 		<link rel="stylesheet" href="dependency/bootstrap-theme.min.css">
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="dependency/bootstrap.min.js"></script>
+
+		<script src="dependency/exceptions.js"></script>
 
 		<link rel="stylesheet" href="css/style.css">
 
@@ -31,26 +35,23 @@
 		<script src="js/components/h6.js"></script>
 		<script src="js/components/alertMessage.js"></script>
 		<script src="js/components/image.js"></script>
+		<script src="js/components/selectForm.js"></script>
 		<!-- COMPONENTES -->
 
 		<script src="js/app.js"></script>	
 
 	</head>
 	<body>
-	<div class="container-fluid">
+	<div class="container-fluid">	
+		
 		<div class="row">
 			<div class="col-md-12">
-		  		<h2 style="text-align: center">Desenhador</h2>
-		  	</div>	
-		</div>
-		<hr/>		
-		<div class="row">
-			<div class="col-md-12">				
+
 				<div class="dropdown">
-				  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+				  <span class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
 				    Visualizar
 				    <span class="caret"></span>
-				  </button>
+				  </span>
 				  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="v240">240</a></li>
 				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="v320">320</a></li>
@@ -60,7 +61,14 @@
 				    <li role="presentation" class="divider"></li>
 				    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="vFull">Full</a></li>
 				  </ul>
+				  <span class="btn btn-info dropdown-toggle glyphicon glyphicon-trash" type="button" id="limpar">
+				    
+				  </span>
+				  <span class="btn btn-success dropdown-toggle glyphicon glyphicon-save" type="button" id="salvar">
+				    
+				  </span>
 				</div>
+
 			</div>		
 			<div class="col-md-2" id="palleta">
 
@@ -71,7 +79,7 @@
 				      <h4 class="panel-title">
 				        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#label">
 				          Label
-				        </a><i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
+				        <i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i></a>
 				      </h4>
 				    </div>
 				    <div id="label" class="panel-collapse collapse">
@@ -85,7 +93,7 @@
 				      <h4 class="panel-title">
 				        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#input">
 				          Input
-				        </a><i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
+				        <i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i></a>
 				      </h4>
 				    </div>
 				    <div id="input" class="panel-collapse collapse">
@@ -94,7 +102,19 @@
 				    </div>
 				  </div>
 
-
+				  <div class="panel panel-default">
+				    <div class="panel-heading">
+				      <h4 class="panel-title">
+				        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#imagem">
+				          Imagem
+				        <i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i></a>
+				      </h4>
+				    </div>
+				    <div id="imagem" class="panel-collapse collapse">
+				      <div class="panel-body">				        
+				      </div>
+				    </div>
+				  </div>
 				</div>
 			  		
 			</div>

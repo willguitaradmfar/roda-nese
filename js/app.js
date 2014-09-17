@@ -143,34 +143,44 @@ $(function () {
 
 	var visualizar = function () {
 		$('#vFull').on('click', function () {
-			console.debug('VISUALIZAR PROJETO');
+			console.debug('VISUALIZAR PROJETO vFull');
 			$('<div></div>').html($('.project-container').html()).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
 		});
 
 		$('#v240').on('click', function () {
-			console.debug('VISUALIZAR PROJETO');
+			console.debug('VISUALIZAR PROJETO v240');
 			$('<div></div>').html($('.project-container').html()).dialog({width : 240, height : 420, title : 'v240'});
 		});
 
 		$('#v320').on('click', function () {
-			console.debug('VISUALIZAR PROJETO');
+			console.debug('VISUALIZAR PROJETO v320');
 			$('<div></div>').html($('.project-container').html()).dialog({width : 320, height : 420, title : 'v320'});
 		});
 
 		$('#v480').on('click', function () {
-			console.debug('VISUALIZAR PROJETO');
+			console.debug('VISUALIZAR PROJETO v480');
 			$('<div></div>').html($('.project-container').html()).dialog({width : 480, height : 570, title : 'v480'});
 		});
 
 		$('#v768').on('click', function () {
-			console.debug('VISUALIZAR PROJETO');
+			console.debug('VISUALIZAR PROJETO v768');
 			$('<div></div>').html($('.project-container').html()).dialog({width : 768, height : 570, title : 'v768'});
 		});
 
 		$('#v1024').on('click', function () {
-			console.debug('VISUALIZAR PROJETO');
+			console.debug('VISUALIZAR PROJETO v1024');
 			$('<div></div>').html($('.project-container').html()).dialog({width : 1024, height : 570, title : 'v1024'});
+		});		
+
+		$('#limpar').on('click', function () {
+			console.debug('LIMPANDO PROJETO');
+			$('.project-container').html('');
 		});
+
+		$('#salvar').on('click', function () {
+			console.debug('SALVANDO PROJETO');
+			
+		});	
 
 	};
 

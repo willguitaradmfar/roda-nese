@@ -23,6 +23,6 @@ templates.image = (function () {
 		'name' : 'image',
 		'property' : property,
 		'update' : update,
-		'category' : 'label'
+		'category' : 'imagem'
 	};
 })();
