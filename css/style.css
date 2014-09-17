@@ -1,5 +1,4 @@
-#palleta, .project-container{
-	border : 1px solid cadetblue;
+#palleta, .project-container{	
 	height: 93%;
 }
 
@@ -15,6 +14,7 @@
 
 .col-md-12{	
 	height: 5%;
+	padding-top: 4px;
 	background-color: cornsilk;
 }
 
@@ -24,10 +24,16 @@
 }
 
 #palleta{
-	margin-top: 5px;
+	padding-top: 5px;
+	margin-top: 1px;
 	background-color: cornsilk;
 }
 .project-container{
-	margin-top: 5px;	
+	margin-top: 1px;	
+}
+
+.logoTOTVS{
+	padding-top: 13px;
+	float: right;
 }
 
