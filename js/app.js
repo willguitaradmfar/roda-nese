@@ -46,8 +46,7 @@ $(function () {
 			var template = templates[i];
 			console.debug('ADD COMPONENT TO PALLETA ('+i+')');
 			var templ = $(template.templ);
-			templ.addClass('component');
-			palleta.append('<br/>');
+			templ.addClass('component');			
 			palleta.append(templ);
 			templ.attr('comp', JSON.stringify(template, function(key, value) {
 				if (typeof value === 'function') {
@@ -76,9 +75,7 @@ $(function () {
 					
 			    },
 		    	stop: function(event, ui) {	    		
-		        	console.debug('stop draggable'+$(this).html());	        	
-		        	console.debug($(this));        	
-		        	
+		        	console.debug('stop draggable'+$(this).html());
 		      	}
 		});
 
