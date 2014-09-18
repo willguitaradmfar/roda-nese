@@ -22,10 +22,14 @@ $(function () {
 			if(typeof comp.property[i] === 'object' && comp.property[i].options){
 				var select = $('<select name="'+i+'" class="form-control"></select>');
 				
-				for(var ii in comp.property[i].options){					
-					select.append('<option value="'+comp.property[i].options[ii]+'">'+comp.property[i].options[ii]+'</option>');
+				for(var ii in comp.property[i].options){
+					if(comp.property[i].val === comp.property[i].options[ii]){
+						select.append('<option value="'+comp.property[i].options[ii]+'" selected>'+comp.property[i].options[ii]+'</option>');
+					}else{
+						select.append('<option value="'+comp.property[i].options[ii]+'">'+comp.property[i].options[ii]+'</option>');	
+					}					
 				}
-				td.append(select);
+				td.append(select);				
 			}
 			else{
 				var input = $('<input name="'+i+'" type="text" class="form-control" value="'+comp.property[i]+'"></input>');			
