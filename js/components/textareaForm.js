@@ -12,14 +12,15 @@ templates.textareaForm = (function () {
 	property.placeholder = 'Placeholder';
 	property.rows = '5';
 	property.cols = '5';
+	property.bind = 'model';
 
-	var update = function (target, comp) {
-		console.debug('UPDATE COMPONENT :'+comp.name);		
+	var update = function (target, comp) {		
 		$(target).attr('class', 'input-group component ');
 		$(target).find('textarea').attr('rows', comp.property.rows);
 		$(target).find('textarea').attr('cols', comp.property.cols);
 		$(target).find('textarea').attr('placeholder', comp.property.placeholder);
 		$(target).find('label').text(comp.property.label);
+		$(target).find('textarea').attr('data-ng-model', comp.property.bind);
 	};
 
 	return {

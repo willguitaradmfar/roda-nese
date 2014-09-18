@@ -6,10 +6,15 @@ templates.h3 = (function () {
 
 	var property = {};		
 	property.label = 'H3';
+	property.bind = 'model';
 
-	var update = function (target, comp) {
-		console.debug('UPDATE COMPONENT :'+comp.name);		
+	var update = function (target, comp) {		
 		$(target).text(comp.property.label);
+
+		if(comp.property.bind && comp.property.bind.length > 0)
+			$(target).attr('data-ng-bind', comp.property.bind);
+		else
+			$(target).removeAttr('data-ng-bind');
 	};
 
 	return {

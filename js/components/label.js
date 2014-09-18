@@ -8,8 +8,7 @@ templates.label = (function () {
 	property.label = 'Label';
 	property.tipo = {val : 'default', options : ['default', 'info', 'danger', 'success', 'warning']};	
 
-	var update = function (target, comp) {
-		console.debug('UPDATE COMPONENT :'+comp.name);		
+	var update = function (target, comp) {		
 		$(target).attr('class', 'component label label-'+comp.property.tipo.val);
 		$(target).text(comp.property.label);
 	};

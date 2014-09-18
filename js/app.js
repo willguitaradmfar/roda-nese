@@ -120,10 +120,9 @@ $(function () {
 			$( "#dialog" ).append(btnremover);
 			$( "#dialog" ).dialog( "open" );
 
-			$( "#dialog" ).off('focusout', 'input, select');
-			$( "#dialog" ).on('focusout', 'input, select', function() {
-				var name = $(this).attr('name');				
-				var val = $(this).val();
+			var update = function (_this) {
+				var name = $(_this).attr('name');				
+				var val = $(_this).val();
 
 				if(comp.property[name].val)
 					comp.property[name].val = val;
@@ -137,9 +136,20 @@ $(function () {
 						return value;
 					}
 				}));
-
+				
+				console.debug('UPDATE COMPONENT :'+comp.name);
 				comp.update($this, comp);
 				console.debug('LOST-FOCUS '+name+':'+val);
+			};
+
+			$( "#dialog" ).off('focusout', 'input, select');
+			$( "#dialog" ).on('focusout', 'input, select', function() {
+				update(this);
+			});
+
+			$( "#dialog" ).off('change', 'select');
+			$( "#dialog" ).on('change', 'select', function() {
+				update(this);
 			});
 			
 		});
@@ -148,9 +158,9 @@ $(function () {
 	var visualizar = function (html) {
 		$('#vFull').on('click', function () {
 			console.debug('VISUALIZAR PROJETO vFull');
-			var body = $('<div></div>');
+			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 			body.html(html.html()).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
-			angular.bootstrap(body);
+			angular.bootstrap(body, ['desenhador']);
 		});
 
 		$('#v240').on('click', function () {
@@ -254,7 +264,9 @@ $(function () {
 		var mapearEventoVisualizarProjeto = function (btn, projeto) {
 			btn.on('click', function () {
 				console.debug('VISUALIZANDO PROJETO ('+projeto.name+')');				
-				$('<div></div>').html(projeto.content).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
+				var body = $('<div></div>');
+				body.html(projeto.content).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
+				angular.bootstrap(body);
 				
 			});
 		};

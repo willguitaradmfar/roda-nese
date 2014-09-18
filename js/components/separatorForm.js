@@ -6,8 +6,7 @@ templates.separatorForm = (function () {
 
 	var property = {};
 
-	var update = function (target, comp) {
-		console.debug('UPDATE COMPONENT :'+comp.name);		
+	var update = function (target, comp) {		
 		$(target).attr('class', 'component ');
 	};
 

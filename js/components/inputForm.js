@@ -4,7 +4,7 @@ templates.inputForm = (function () {
 
 	var templ = '<div class="input-group">'
 					+'<label>Input Text</label>'
-					+'<input type="text" class="form-control" placeholder="Placeholder" data-ng-model="model">'
+					+'<input type="text" class="form-control" placeholder="Placeholder">'
 				+'</div>';
 
 	var property = {};
@@ -12,8 +12,7 @@ templates.inputForm = (function () {
 	property.placeholder = 'Placeholder';
 	property.bind = 'model';
 
-	var update = function (target, comp) {
-		console.debug('UPDATE COMPONENT :'+comp.name);		
+	var update = function (target, comp) {		
 		$(target).attr('class', 'input-group component ');
 		$(target).find('input').attr('placeholder', comp.property.placeholder);
 		$(target).find('label').text(comp.property.label);

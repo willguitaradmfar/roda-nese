@@ -15,8 +15,7 @@ templates.selectForm = (function () {
 	property.label = 'Select';
 	property.options = 'Option 1,Option 2,Option 3';
 
-	var update = function (target, comp) {
-		console.debug('UPDATE COMPONENT :'+comp.name);		
+	var update = function (target, comp) {		
 		$(target).attr('class', 'input-group component');
 		$(target).find('label').text(comp.property.label);
 		$(target).find('select').html('');

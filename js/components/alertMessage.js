@@ -12,8 +12,7 @@ templates.alertMessage = (function () {
 	property.mensagem = 'Mensagem';
 	property.tipo = {val : 'default', options : ['default', 'info', 'danger', 'success', 'warning']};	
 
-	var update = function (target, comp) {
-		console.debug('UPDATE COMPONENT :'+comp.name);		
+	var update = function (target, comp) {		
 		$(target).attr('class', 'alert-dismissible component alert alert-'+comp.property.tipo.val);
 		$(target).find('strong').text(comp.property.titulo);
 		$(target).find('> span').text(comp.property.mensagem);
