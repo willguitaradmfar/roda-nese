@@ -14,6 +14,7 @@ templates.selectForm = (function () {
 	var property = {};
 	property.label = 'Select';
 	property.options = 'Option 1,Option 2,Option 3';
+	property.bind = 'model';
 
 	var update = function (target, comp) {		
 		$(target).attr('class', 'input-group component');
@@ -23,6 +24,7 @@ templates.selectForm = (function () {
 		for(var i in options){
 			$(target).find('select').append('<option value="'+options[i]+'">'+options[i]+'</option>');
 		}
+		$(target).find('select').attr('data-ng-model', comp.property.bind);
 	};
 
 	return {
