@@ -1,8 +1,8 @@
-angular.module('desenhador', []).controller('desenhadorCtrl', ['$scope', 'User', function($scope, User) {
-	console.debug('CHAMANDO CONTROLLER [desenhadorCtrl]');
+var desenhador = desenhador || {};
+desenhador.services = desenhador.services || [];
 
-	User.get(function (data) {
-		$scope.models = data;	
-	});
-    
-}]);
+desenhador.service = function (nameService, fun) {
+	var service = JSON.stringify(fun.toString());
+	console.debug('REGISTRANDO SERVICO : '+nameService);	
+	desenhador.services.push(service);
+};

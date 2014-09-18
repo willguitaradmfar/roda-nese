@@ -60,7 +60,11 @@ $(function () {
 				}
 			}));
 		}
-	};		
+	};
+
+	var montaPalletaService = function () {
+		
+	};
 		
 	var pluginDraggable = function () {
 		$( ".project-container" ).sortable({
@@ -328,6 +332,7 @@ $(function () {
 
 	visualizar($('.project-container'));
 	montaPalleta();
+	montaPalletaService();
 	pluginDraggable();
 	clickOpenProperty();
 });
