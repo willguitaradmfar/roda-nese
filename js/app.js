@@ -145,35 +145,35 @@ $(function () {
 		});
 	};
 
-	var visualizar = function () {
+	var visualizar = function (html) {
 		$('#vFull').on('click', function () {
 			console.debug('VISUALIZAR PROJETO vFull');
-			$('<div></div>').html($('.project-container').html()).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
+			$('<div></div>').html(html.html()).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
 		});
 
 		$('#v240').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v240');
-			$('<div></div>').html($('.project-container').html()).dialog({width : 240, height : 420, title : 'v240'});
+			$('<div></div>').html(html.html()).dialog({width : 240, height : 420, title : 'v240'});
 		});
 
 		$('#v320').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v320');
-			$('<div></div>').html($('.project-container').html()).dialog({width : 320, height : 420, title : 'v320'});
+			$('<div></div>').html(html.html()).dialog({width : 320, height : 420, title : 'v320'});
 		});
 
 		$('#v480').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v480');
-			$('<div></div>').html($('.project-container').html()).dialog({width : 480, height : 570, title : 'v480'});
+			$('<div></div>').html(html.html()).dialog({width : 480, height : 570, title : 'v480'});
 		});
 
 		$('#v768').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v768');
-			$('<div></div>').html($('.project-container').html()).dialog({width : 768, height : 570, title : 'v768'});
+			$('<div></div>').html(html.html()).dialog({width : 768, height : 570, title : 'v768'});
 		});
 
 		$('#v1024').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v1024');
-			$('<div></div>').html($('.project-container').html()).dialog({width : 1024, height : 570, title : 'v1024'});
+			$('<div></div>').html(html.html()).dialog({width : 1024, height : 570, title : 'v1024'});
 		});		
 
 		$('#limpar').on('click', function () {
@@ -218,40 +218,52 @@ $(function () {
 		var head = $('<tr></tr>')
 					.append('<th>Nome</th>')
 					.append('<th>Data</th>')
-					.append('<th colspan="2">...</th>');
+					.append('<th colspan="3">...</th>');
 
 		table.find('thead').append(head);
 
 		var projetos = getProjectsLocalStorage();
 
-		var mapearEventoAbrirProjeto = function (btnAbrir, projeto) {
-			btnAbrir.on('click', function () {
+		var mapearEventoAbrirProjeto = function (btn, projeto) {
+			btn.on('click', function () {
 				console.debug('ABRINDO PROJETO ('+projeto.name+')');
 				$('.project-container').html(projeto.content);
 			});
 		};
 
-		var mapearEventoRemoverProjeto = function (btnRemover, projeto) {
-			btnRemover.on('click', function () {
+		var mapearEventoRemoverProjeto = function (btn, projeto) {
+			btn.on('click', function () {
 				console.debug('REMOVENDO PROJETO ('+projeto.name+')');
 				localStorage.removeItem(projeto.name);
 				$(this).parents('tr').remove();
 			});
 		};
 
+		var mapearEventoVisualizarProjeto = function (btn, projeto) {
+			btn.on('click', function () {
+				console.debug('VISUALIZANDO PROJETO ('+projeto.name+')');				
+				$('<div></div>').html(projeto.content).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
+				
+			});
+		};
+
+
 		for(var i in projetos){
 
 			var projeto = projetos[i];
 
-			var btnAbrir = $('<span class="btn btn-info glyphicon glyphicon-open"></span>');
+			var btnAbrir = $('<span class="btn btn-warning glyphicon glyphicon-pencil"></span>');
 			var btnRemover = $('<span class="btn btn-danger glyphicon glyphicon-trash"></span>');
+			var btnVisualizar = $('<span class="btn btn-info glyphicon glyphicon-eye-open"></span>');
 			
 			mapearEventoAbrirProjeto(btnAbrir, projeto);
 			mapearEventoRemoverProjeto(btnRemover, projeto);
+			mapearEventoVisualizarProjeto(btnVisualizar, projeto);
 
 			var tr = $('<tr></tr>')
 					.append($('<td></td>').text(projeto.name))
 					.append($('<td></td>').text(projeto.date))
+					.append($('<td></td>').html(btnVisualizar))
 					.append($('<td></td>').html(btnAbrir))
 					.append($('<td></td>').html(btnRemover));
 			table.find('tbody').append(tr);
@@ -290,7 +302,7 @@ $(function () {
 		body.dialog({width : 768, height : 570, title : 'Salvar Projeto'});
 	};
 
-	visualizar();
+	visualizar($('.project-container'));
 	montaPalleta();
 	pluginDraggable();
 	clickOpenProperty();
