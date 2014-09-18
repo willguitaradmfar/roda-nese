@@ -2,23 +2,22 @@
 	<head>
 
 		<title>Desenhador</title>
+
+		<!-- LOG -->
 		<script src="file:///home/william/git/server-websocket/client/logQueue.js"></script>
+		<!-- LOG -->
+
+		<!-- JQUERY -->
 		<script src="dependency/jquery-1.11.0.min.js"></script>
-
-		<link rel="stylesheet" href="dependency/jquery-ui.css">
-				
 		<script src="dependency/jquery-ui.js"></script>
+		<link rel="stylesheet" href="dependency/jquery-ui.css">
+		<!-- JQUERY -->
 
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="dependency/bootstrap.min.css">
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="dependency/bootstrap-theme.min.css">
-		<!-- Latest compiled and minified JavaScript -->
+		<!-- BOOTSTRAP -->
+		<link rel="stylesheet" href="dependency/bootstrap.min.css">		
+		<link rel="stylesheet" href="dependency/bootstrap-theme.min.css">		
 		<script src="dependency/bootstrap.min.js"></script>
-
-		<script src="dependency/exceptions.js"></script>
-
-		<link rel="stylesheet" href="css/style.css">
+		<!-- BOOTSTRAP -->		
 
 		<!-- COMPONENTES -->
 		<script src="js/components/inputForm.js"></script>
@@ -38,12 +37,14 @@
 		<script src="js/components/selectForm.js"></script>
 		<!-- COMPONENTES -->
 
+		<!-- APP -->
+		<link rel="stylesheet" href="css/style.css">
 		<script src="js/app.js"></script>	
+		<!-- APP -->
 
 	</head>
 	<body>
-	<div class="container-fluid">	
-		
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
 
@@ -76,9 +77,8 @@
 				  <div class="panel panel-default">
 				    <div class="panel-heading">
 				      <h4 class="panel-title">
-				        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#label">
-				          Label
-				        <i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i></a>
+				        <a class="accordion-toggle glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion" href="#label"> Label
+				        </a>
 				      </h4>
 				    </div>
 				    <div id="label" class="panel-collapse collapse">
@@ -90,9 +90,7 @@
 				  <div class="panel panel-default">
 				    <div class="panel-heading">
 				      <h4 class="panel-title">
-				        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#input">
-				          Input
-				        <i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i></a>
+				        <a class="accordion-toggle  glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion" href="#input"> Input</a>
 				      </h4>
 				    </div>
 				    <div id="input" class="panel-collapse collapse">
@@ -104,9 +102,7 @@
 				  <div class="panel panel-default">
 				    <div class="panel-heading">
 				      <h4 class="panel-title">
-				        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#imagem">
-				          Imagem
-				        <i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i></a>
+				        <a class="accordion-toggle  glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion" href="#imagem"> Imagem</a>
 				      </h4>
 				    </div>
 				    <div id="imagem" class="panel-collapse collapse">
@@ -114,8 +110,7 @@
 				      </div>
 				    </div>
 				  </div>
-				</div>
-			  		
+				</div>			  		
 			</div>
 			<div class="col-md-10">		  		
 			  		<div class="row project-container">

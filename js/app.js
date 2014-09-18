@@ -277,7 +277,7 @@ $(function () {
 
 		var inputGroup = $('<div class="input-group"></div>')						
 						.append('<label>Nome do projeto</label>')
-						.append('<div class="input-group"><input type="text" class="input-control"><span class=" btn btn-success">Ok</span></div>');
+						.append('<div class="input-group"><input type="text" class="input-control"><span class=" btn btn-success glyphicon glyphicon-save" ></span></div>');
 
 		inputGroup.find('span.btn').on('click', function () {
 			var content = $('.project-container').html();
