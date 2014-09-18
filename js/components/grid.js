@@ -19,8 +19,7 @@ templates.grid = (function () {
 	property.cols = 'Nome,Idade,RG';
 	property.rows = 'name,age,rg';
 	property.collection = 'models';
-	property.filter = 'model';
-	
+	property.filter = 'model';	
 
 	var update = function (target, comp) {
 		if(comp.property.collection && comp.property.collection.length > 0){
