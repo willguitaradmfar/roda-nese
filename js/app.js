@@ -79,7 +79,7 @@ $(function () {
 					
 			    },
 		    	stop: function(event, ui) {	    		
-		        	console.debug('stop draggable'+$(this).html());
+		        	console.debug('stop draggable'+$(this).html());		        	
 		      	}
 		});
 
@@ -148,32 +148,44 @@ $(function () {
 	var visualizar = function (html) {
 		$('#vFull').on('click', function () {
 			console.debug('VISUALIZAR PROJETO vFull');
-			$('<div></div>').html(html.html()).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
+			var body = $('<div></div>');
+			body.html(html.html()).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
+			angular.bootstrap(body);
 		});
 
 		$('#v240').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v240');
-			$('<div></div>').html(html.html()).dialog({width : 240, height : 420, title : 'v240'});
+			var body = $('<div></div>');
+			body.html(html.html()).dialog({width : 240, height : 420, title : 'v240'});
+			angular.bootstrap(body);
 		});
 
 		$('#v320').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v320');
-			$('<div></div>').html(html.html()).dialog({width : 320, height : 420, title : 'v320'});
+			var body = $('<div></div>');
+			body.html(html.html()).dialog({width : 320, height : 420, title : 'v320'});
+			angular.bootstrap(body);
 		});
 
 		$('#v480').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v480');
-			$('<div></div>').html(html.html()).dialog({width : 480, height : 570, title : 'v480'});
+			var body = $('<div></div>');
+			body.html(html.html()).dialog({width : 480, height : 570, title : 'v480'});
+			angular.bootstrap(body);
 		});
 
 		$('#v768').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v768');
-			$('<div></div>').html(html.html()).dialog({width : 768, height : 570, title : 'v768'});
+			var body = $('<div></div>');
+			body.html(html.html()).dialog({width : 768, height : 570, title : 'v768'});
+			angular.bootstrap(body);
 		});
 
 		$('#v1024').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v1024');
-			$('<div></div>').html(html.html()).dialog({width : 1024, height : 570, title : 'v1024'});
+			var body = $('<div></div>');
+			body.html(html.html()).dialog({width : 1024, height : 570, title : 'v1024'});
+			angular.bootstrap(body);
 		});		
 
 		$('#limpar').on('click', function () {
