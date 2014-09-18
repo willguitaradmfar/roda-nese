@@ -165,37 +165,37 @@ $(function () {
 
 		$('#v240').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v240');
-			var body = $('<div></div>');
+			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 			body.html(html.html()).dialog({width : 240, height : 420, title : 'v240'});
-			angular.bootstrap(body);
+			angular.bootstrap(body, ['desenhador']);
 		});
 
 		$('#v320').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v320');
-			var body = $('<div></div>');
+			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 			body.html(html.html()).dialog({width : 320, height : 420, title : 'v320'});
-			angular.bootstrap(body);
+			angular.bootstrap(body, ['desenhador']);
 		});
 
 		$('#v480').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v480');
-			var body = $('<div></div>');
+			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 			body.html(html.html()).dialog({width : 480, height : 570, title : 'v480'});
-			angular.bootstrap(body);
+			angular.bootstrap(body, ['desenhador']);
 		});
 
 		$('#v768').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v768');
-			var body = $('<div></div>');
+			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 			body.html(html.html()).dialog({width : 768, height : 570, title : 'v768'});
-			angular.bootstrap(body);
+			angular.bootstrap(body, ['desenhador']);
 		});
 
 		$('#v1024').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v1024');
-			var body = $('<div></div>');
+			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 			body.html(html.html()).dialog({width : 1024, height : 570, title : 'v1024'});
-			angular.bootstrap(body);
+			angular.bootstrap(body, ['desenhador']);
 		});		
 
 		$('#limpar').on('click', function () {
@@ -264,9 +264,9 @@ $(function () {
 		var mapearEventoVisualizarProjeto = function (btn, projeto) {
 			btn.on('click', function () {
 				console.debug('VISUALIZANDO PROJETO ('+projeto.name+')');				
-				var body = $('<div></div>');
+				var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 				body.html(projeto.content).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
-				angular.bootstrap(body);
+				angular.bootstrap(body, ['desenhador']);
 				
 			});
 		};
