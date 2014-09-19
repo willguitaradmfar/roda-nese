@@ -1,51 +1,69 @@
 var resources = resources || {};
 
-resources.servicoRest = (function () {
- 
+resources.servicoRest = (function () { 
 
-    var template = function($http){
-            var get = function (fun) {
-                $http({ method: 'GET', url: '$host$$url$' }).
-                    success(function(data, status, headers, config) {                        
-                        fun(data);
-                    }).
-                    error(function(data, status, headers, config) {
-                        console.error('ERROR : HTTP REQUEST : '+status);
-                    });
-            };
-
-            return {
-                'get' : get
-            };
+    var get = function(){            
+        $http({ method: 'GET', url: 'http://localhost:3005$pathGet$' }).
+            success(function(data, status, headers, config) {                        
+                $scope.$collection$ = data;
+            }).
+            error(function(data, status, headers, config) {
+                $scope.$error$.code = status;
+                $scope.$error$.msg = data;
+                console.error('ERROR : HTTP REQUEST : '+status);
+            });            
     };
 
-    desenhador.services.setFunction(template);    
+     var post = function(data){            
+        $http({ method: 'POST', url: 'http://localhost:3005$pathPost$', data: data }).
+            success(function(data, status, headers, config) {                        
+                $scope.$collection$ = data;
+            }).
+            error(function(data, status, headers, config) {
+                $scope.$error$.code = status;
+                $scope.$error$.msg = data;
+                console.error('ERROR : HTTP REQUEST : '+status);
+            });            
+    };
+
+    var set = function (model, property) {
+        $scope[property] = model;
+    };
 
     var property = {};
     property.nameService = 'modelservice';
-    property.host =  'http://localhost:3005/';
-    property.url =  'listaDePessoas.json';
     property.collection =  'models';
-    
+    property.error =  'error';
+    property.pathGet =  '/listaDePessoas.json';
+    property.pathPost =  '/pessoa';
 
     var update = function (target, comp) {
+        var name = comp.property.nameService;
+        $(target).find('b').text(' '+name);
 
-        var name = comp.property.nameService
+        comp.get = comp.templateGet
+                    .replace(/\$pathGet\$/g, comp.property.pathGet)
+                    .replace(/\$collection\$/g, comp.property.collection)
+                    .replace(/\$error\$/g, comp.property.error);
 
-       $(target).find('b').text(' '+name);
-       desenhador.services.makeService(name, comp);
+         comp.post = comp.templatePost
+                    .replace(/\$pathPost\$/g, comp.property.pathPost)                    
+                    .replace(/\$error\$/g, comp.property.error);
+        
 
-       var body = 
-            '$scope.'+name+'.get = '+name+'.get(function (data){'
-                +'\n\t$scope.'+comp.property.collection+' = data;'
-            +'\n})';
-
-       desenhador.services.setHand(comp.property.nameService, 'get', body);       
-
+        desenhador.controller.setVariables(comp.property.error, '{}');
+        desenhador.controller.setInject('$http', '$http');
+        desenhador.controller.setFunctions('get', comp.get);
+        desenhador.controller.setFunctions('post', comp.post);
+        desenhador.controller.setFunctions('set', comp.set);
     };    
 
     return {
-        'template' : template,
+        'templateGet' : get,
+        'templatePost' : post,
+        'post' : post,
+        'get' : get,
+        'set' : set,
         'property' : property,
         'category' : 'datasource',
         'update' : update

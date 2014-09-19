@@ -19,7 +19,8 @@ templates.grid = (function () {
 	property.cols = 'Nome,Idade,RG';
 	property.rows = 'name,age,rg';
 	property.collection = 'models';
-	property.filter = 'model';	
+	property.filter = 'model';
+	property.actionClick = 'select()';
 
 	var update = function (target, comp) {
 		if(comp.property.collection && comp.property.collection.length > 0){
@@ -33,7 +34,7 @@ templates.grid = (function () {
 			for(var i in _cols){
 				var col = _cols[i];
 				$(target).find('thead > tr').append('<th>'+col+'</th>');
-			}
+			}			
 		}
 
 		if(comp.property.rows && comp.property.rows.length > 0){
@@ -42,10 +43,10 @@ templates.grid = (function () {
 			$(target).find('tbody > tr').html('');
 			for(var i in _rows){
 				var row = _rows[i];
+				$(target).find('tbody > tr').attr('data-ng-click', comp.property.actionClick);
 				$(target).find('tbody > tr').append('<td data-ng-bind="_m.'+row+'"></td>');
 			}
 		}
-
 	};
 
 	return {

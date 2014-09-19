@@ -72,6 +72,9 @@ desenhador.controller = (function () {
 
 		bodyController += '\n\t}])';
 
+		console.debug(bodyController);
+		
+
 		return bodyController;
 	};
 
@@ -82,6 +85,7 @@ desenhador.controller = (function () {
 		'removeInject' : removeInject,
 		'removeFunctions' : removeFunctions,
 		'removeVariables' : removeVariables,
-		'makeController' : makeController
+		'makeController' : makeController,
+		'struct' : struct
 	};
 })();
