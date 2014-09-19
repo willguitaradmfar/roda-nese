@@ -19,7 +19,7 @@ templates.grid = (function () {
 	property.cols = 'Nome,Idade,RG';
 	property.rows = 'name,age,rg';
 	property.collection = 'models';
-	property.filter = 'model';
+	property.filter = 'modelFilter';
 	property.actionClick = 'select()';
 
 	var update = function (target, comp) {
