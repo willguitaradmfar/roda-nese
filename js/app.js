@@ -137,6 +137,7 @@ $(function () {
 
 			var comp = JSON.parse($(this).attr('comp'));
 			comp.update = eval('('+comp.update+')');
+			comp.remove = eval('('+comp.remove+')');
 
 			var $this = $(this);
 
@@ -147,6 +148,8 @@ $(function () {
 
 			btnremover.on('click', function () {
 				$this.remove();
+				console.debug('CHAMANDO A FUNCAO REMOVE DO COMPONENTE');				
+				if(comp.remove)comp.remove($this, comp);
 				$( "#dialog" ).dialog( "close" );
 			});
 

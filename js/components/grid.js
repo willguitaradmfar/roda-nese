@@ -20,7 +20,7 @@ templates.grid = (function () {
 	property.rows = 'name,age,rg';
 	property.collection = 'models';
 	property.filter = 'modelFilter';
-	property.actionClick = 'select()';
+	property.actionClick = 'set(_m)';
 
 	var update = function (target, comp) {
 		if(comp.property.collection && comp.property.collection.length > 0){

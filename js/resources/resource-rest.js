@@ -58,6 +58,14 @@ resources.servicoRest = (function () {
         desenhador.controller.setFunctions('set', comp.set);
     };    
 
+    var remove = function (target, comp) {
+        desenhador.controller.removeVariables(comp.property.error, '{}');
+        desenhador.controller.removeInject('$http', '$http');
+        desenhador.controller.removeFunctions('get', comp.get);
+        desenhador.controller.removeFunctions('post', comp.post);
+        desenhador.controller.removeFunctions('set', comp.set);
+    };
+
     return {
         'templateGet' : get,
         'templatePost' : post,
@@ -66,7 +74,8 @@ resources.servicoRest = (function () {
         'set' : set,
         'property' : property,
         'category' : 'datasource',
-        'update' : update
+        'update' : update,
+        'remove' : remove
     };
 
 })();
