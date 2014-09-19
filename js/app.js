@@ -43,9 +43,11 @@ $(function () {
 		return table.html();
 	};
 
-	var palleta = $('#palleta');
+	
 
 	var montaPalleta = function () {
+		var palleta = $('#palleta');
+
 		for(var i in templates){
 			var template = templates[i];
 			console.debug('ADD COMPONENT TO PALLETA ('+i+')');
@@ -63,6 +65,28 @@ $(function () {
 	};
 
 	var montaPalletaService = function () {
+
+		var palleta = $('#palleta');
+
+		var templSpan = $('<span class="btn btn-warning glyphicon glyphicon-cloud"><b></b></span>');
+
+		for(var i in resources){
+			var servico = resources[i];
+			templSpan.addClass('component');
+			templSpan.addClass('nonvisual');
+			templSpan.find('b').text(' '+i);
+			
+			templSpan.attr('comp', JSON.stringify(servico, function(key, value) {
+				if (typeof value === 'function') {
+					return value.toString();
+				} else {
+					return value;
+				}
+			}));
+
+			palleta.find('#'+servico.category).find('.panel-body').append(templSpan);
+			console.debug('ADD RESOURCE TO PALLETA ('+i+')');						
+		}
 		
 	};
 		
@@ -105,6 +129,11 @@ $(function () {
 	var clickOpenProperty = function () {
 		$('.project-container').on('dblclick', '.component', function () {
 			console.debug('dblclick em componente já arrastado !!! :: '+$(this).attr('comp'));
+
+			if(!$(this).attr('comp')){
+				console.warn('COMPONENTE CLICADO NAO TEM O ATRIBUTO (comp)');
+				return;
+			}
 
 			var comp = JSON.parse($(this).attr('comp'));
 			comp.update = eval('('+comp.update+')');
@@ -160,8 +189,14 @@ $(function () {
 	};
 
 	var visualizar = function (html) {
+
+		var makeController = function () {
+			eval('('+desenhador.controller.makeController()+')');
+		};
+
 		$('#vFull').on('click', function () {
 			console.debug('VISUALIZAR PROJETO vFull');
+			makeController();
 			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 			body.html(html.html()).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
 			angular.bootstrap(body, ['desenhador']);
@@ -169,6 +204,7 @@ $(function () {
 
 		$('#v240').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v240');
+			makeController();
 			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 			body.html(html.html()).dialog({width : 240, height : 420, title : 'v240'});
 			angular.bootstrap(body, ['desenhador']);
@@ -176,6 +212,7 @@ $(function () {
 
 		$('#v320').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v320');
+			makeController();
 			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 			body.html(html.html()).dialog({width : 320, height : 420, title : 'v320'});
 			angular.bootstrap(body, ['desenhador']);
@@ -183,6 +220,7 @@ $(function () {
 
 		$('#v480').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v480');
+			makeController();
 			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 			body.html(html.html()).dialog({width : 480, height : 570, title : 'v480'});
 			angular.bootstrap(body, ['desenhador']);
@@ -190,6 +228,7 @@ $(function () {
 
 		$('#v768').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v768');
+			makeController();
 			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 			body.html(html.html()).dialog({width : 768, height : 570, title : 'v768'});
 			angular.bootstrap(body, ['desenhador']);
@@ -197,6 +236,7 @@ $(function () {
 
 		$('#v1024').on('click', function () {
 			console.debug('VISUALIZAR PROJETO v1024');
+			makeController();
 			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 			body.html(html.html()).dialog({width : 1024, height : 570, title : 'v1024'});
 			angular.bootstrap(body, ['desenhador']);
@@ -267,7 +307,8 @@ $(function () {
 
 		var mapearEventoVisualizarProjeto = function (btn, projeto) {
 			btn.on('click', function () {
-				console.debug('VISUALIZANDO PROJETO ('+projeto.name+')');				
+				console.debug('VISUALIZANDO PROJETO ('+projeto.name+')');
+				makeController();
 				var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 				body.html(projeto.content).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
 				angular.bootstrap(body, ['desenhador']);

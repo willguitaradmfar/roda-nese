@@ -15,19 +15,14 @@
 
 		<!-- ANGULAR -->
 		<script src="dependency/angular.min.js"></script>
-		<script src="js/angular-app/app.js"></script>		
+		<script src="js/angular-app/app.js"></script>
 		<!-- ANGULAR -->
 
 		<!-- BOOTSTRAP -->
 		<link rel="stylesheet" href="dependency/bootstrap.min.css">		
 		<link rel="stylesheet" href="dependency/bootstrap-theme.min.css">		
 		<script src="dependency/bootstrap.min.js"></script>
-		<!-- BOOTSTRAP -->
-
-		<!-- APP -->
-		<link rel="stylesheet" href="css/style.css">
-		<script src="js/app.js"></script>
-		<!-- APP -->
+		<!-- BOOTSTRAP -->		
 
 		<!-- COMPONENTES -->
 		<script src="js/components/inputForm.js"></script>
@@ -49,8 +44,13 @@
 		<!-- COMPONENTES -->
 
 		<!-- RESOURCES -->
-		<script src="js/resources/resource-rest.js"></script>
-		<!-- RESOURCES -->		
+		<script src="js/resources/resource-rest.js"></script>		
+		<!-- RESOURCES -->
+
+		<!-- APP -->
+		<link rel="stylesheet" href="css/style.css">
+		<script src="js/app.js"></script>
+		<!-- APP -->
 
 	</head>
 	<body>
@@ -82,12 +82,12 @@
 			</div>		
 			<div class="col-md-2" id="palleta">
 
-				<div class="panel-group" id="accordion">
+				<div class="panel-group" id="accordion-comp">
 
 				  <div class="panel panel-default">
 				    <div class="panel-heading">
 				      <h4 class="panel-title">
-				        <a class="accordion-toggle glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion" href="#label"> Label</a>
+				        <a class="accordion-toggle glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion-comp" href="#label"> Label</a>
 				      </h4>
 				    </div>
 				    <div id="label" class="panel-collapse collapse">
@@ -99,7 +99,7 @@
 				  <div class="panel panel-default">
 				    <div class="panel-heading">
 				      <h4 class="panel-title">
-				        <a class="accordion-toggle  glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion" href="#input"> Input</a>
+				        <a class="accordion-toggle  glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion-comp" href="#input"> Input</a>
 				      </h4>
 				    </div>
 				    <div id="input" class="panel-collapse collapse">
@@ -111,7 +111,7 @@
 				  <div class="panel panel-default">
 				    <div class="panel-heading">
 				      <h4 class="panel-title">
-				        <a class="accordion-toggle  glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion" href="#imagem"> Imagem</a>
+				        <a class="accordion-toggle  glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion-comp" href="#imagem"> Imagem</a>
 				      </h4>
 				    </div>
 				    <div id="imagem" class="panel-collapse collapse">
@@ -123,7 +123,7 @@
 				  <div class="panel panel-default">
 				    <div class="panel-heading">
 				      <h4 class="panel-title">
-				        <a class="accordion-toggle  glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion" href="#grids"> Grid</a>
+				        <a class="accordion-toggle  glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion-comp" href="#grids"> Grid</a>
 				      </h4>
 				    </div>
 				    <div id="grids" class="panel-collapse collapse">
@@ -131,8 +131,25 @@
 				      </div>
 				    </div>
 				  </div>
+				</div>
 
-				</div>			  		
+				 
+
+				 <div class="panel-group" id="accordion">
+
+				  <div class="panel panel-default">
+				    <div class="panel-heading">
+				      <h4 class="panel-title">
+				        <a class="accordion-toggle glyphicon glyphicon-tag" data-toggle="collapse" data-parent="#accordion" href="#datasource"> Datasource</a>
+				      </h4>
+				    </div>
+				    <div id="datasource" class="panel-collapse collapse">
+				      <div class="panel-body">				      	
+				      </div>
+				    </div>
+				  </div>
+				 
+				</div>
 			</div>
 			<div class="col-md-10">		  		
 			  		<div class="row project-container">

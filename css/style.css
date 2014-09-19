@@ -35,3 +35,7 @@
 .logoTOTVS{	
 	float: right;
 }
+
+.project-container .component.nonvisual{
+	opacity: 0.4;
+}
