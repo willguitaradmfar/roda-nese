@@ -1,14 +1,7 @@
 var resources = resources || {};
 
 resources.servicoRest = (function () {
-
-    var hands = {};
-    hands._functions = {};
-    hands._variable = {};
-
-    hands.__functions.get = function () {
-        alert('$nameService$');
-    };
+ 
 
     var template = function($http){
             var get = function (fun) {
@@ -26,29 +19,36 @@ resources.servicoRest = (function () {
             };
     };
 
+    desenhador.services.setFunction(template);    
+
     var property = {};
     property.nameService = 'modelservice';
     property.host =  'http://localhost:3005/';
     property.url =  'listaDePessoas.json';
+    property.collection =  'models';
+    
 
     var update = function (target, comp) {
-        $(target).find('b').text(' '+comp.property.nameService);
 
-        for(var i in comp.property){            
-            var property = comp.property[i];
-            console.debug(property);
-            comp.template = comp.template.replace('\$'+i+'\$', property);
-        }
+        var name = comp.property.nameService
 
-        comp.servico = "angular.module('desenhador').service('"+comp.property.nameService+"', "+comp.template+");";        
+       $(target).find('b').text(' '+name);
+       desenhador.services.makeService(name, comp);
+
+       var body = 
+            '$scope.'+name+'.get = '+name+'.get(function (data){'
+                +'\n\t$scope.'+comp.property.collection+' = data;'
+            +'\n})';
+
+       desenhador.services.setHand(comp.property.nameService, 'get', body);       
+
     };    
 
-    return {        
+    return {
         'template' : template,
         'property' : property,
         'category' : 'datasource',
-        'update' : update,
-        'hands' : hands
+        'update' : update
     };
 
 })();

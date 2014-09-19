@@ -306,6 +306,9 @@ $(function () {
 		};
 
 		var mapearEventoVisualizarProjeto = function (btn, projeto) {
+			var makeController = function () {
+				eval('('+desenhador.controller.makeController()+')');
+			};
 			btn.on('click', function () {
 				console.debug('VISUALIZANDO PROJETO ('+projeto.name+')');
 				makeController();

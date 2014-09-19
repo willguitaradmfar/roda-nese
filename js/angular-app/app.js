@@ -13,32 +13,32 @@ desenhador.controller = (function () {
 	struct._variable = {};	
 
 	var setInject = function (name, _inject) {
-		console.debug('ADD INJECTS : '+name);
+		console.debug('ADD INJECTS CONTROLLER : '+name);
 		struct._injects[name] = _inject;
 	};
 
 	var setFunctions = function (name, _function) {
-		console.debug('ADD FUNCTIONS : '+name);
+		console.debug('ADD FUNCTIONS CONTROLLER : '+name);
 		struct._functions[name] = _function.toString();
 	};
 
 	var setVariables = function (name, _variable) {
-		console.debug('ADD VARIABLES : '+name);
+		console.debug('ADD VARIABLES CONTROLLER : '+name);
 		struct._variable[name] = _variable;
 	};
 
 	var removeInject = function (name, _inject) {
-		console.debug('REMOVE INJECTS : '+name);
+		console.debug('REMOVE INJECTS CONTROLLER : '+name);
 		delete struct._injects[name];
 	};
 
 	var removeFunctions = function (name, _function) {
-		console.debug('REMOVE FUNCTIONS : '+name);
+		console.debug('REMOVE FUNCTIONS CONTROLLER : '+name);
 		delete struct._functions[name];
 	};
 
 	var removeVariables = function (name, _variable) {
-		console.debug('REMOVE VARIABLES : '+name);
+		console.debug('REMOVE VARIABLES CONTROLLER : '+name);
 		delete struct._variable[name];
 	};
 
