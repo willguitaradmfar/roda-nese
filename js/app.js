@@ -1,5 +1,6 @@
-logQueue.urlPost = "http://localhost:3000/";
-logQueue.objHeader.tenant = 'DESENHADOR';      
+logQueue.urlPost = "http://172.16.84.95:3000/";
+logQueue.objHeader.tenant = 'DESENHADOR';
+logQueue.objHeader.session = 'S-'+Math.round(Math.random()*10000);
 logQueue.showMessageConsole = true;
 logQueue.qtdeMessageSent = 500;
 logQueue.debug = false;
