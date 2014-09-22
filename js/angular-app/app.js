@@ -45,14 +45,14 @@ desenhador.controller = (function () {
 		return _functions;
 	};
 
-	var makeController = function (target) {		
+	var makeController = function (target) {
 
 		var comps;
 
 		if(target){
 			comps = $(target).find('.nonvisual');
 		}else{
-			comps = $('.project-container').find('.nonvisual');
+			comps = $('.datasource-container').find('.nonvisual');
 		}
 
 		struct._functions = {};

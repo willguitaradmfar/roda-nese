@@ -110,13 +110,17 @@ $(function () {
 	      revert: true
 	    });
 
+		$( ".datasource-container" ).sortable({
+	      revert: true
+	    });
+
 		$('.component').draggable({
 		    connectToSortable: ".project-container",
 		    cursor: "move",
 		    helper: "clone",
 		    revert: "invalid",
 		    	start: function(event, ui) {	        
-		        	console.debug('start draggable '+$(this));	        	
+		        	console.debug('start draggable '+$(this));		        	
 		      	},
 		      	drag: function(event, ui) {
 					
@@ -126,7 +130,42 @@ $(function () {
 		      	}
 		});
 
+		$('.nonvisual').draggable({
+		    connectToSortable: ".datasource-container",
+		    cursor: "move",
+		    helper: "clone",
+		    revert: "invalid",
+		    	start: function(event, ui) {	        
+		        	console.debug('start draggable '+$(this));		        	
+		        	$('.datasource-container').addClass('datasource-container-evident', 300);
+		      	},
+		      	drag: function(event, ui) {
+					
+			    },
+		    	stop: function(event, ui) {	    		
+		        	console.debug('stop draggable'+$(this).html());
+		        	$('.datasource-container').removeClass('datasource-container-evident', 1000);		        	
+		      	}
+		});
+
 		$('.project-container').droppable({
+			over : function (event, ui) {
+					var $this = $(ui.draggable);
+					var comp = JSON.parse($this.attr('comp'));
+					comp.update = eval('('+comp.update+')');
+					
+					console.debug('CHAMANDO FUNCTION update() ....');
+					comp.update($this, comp);
+
+					updateCompSerializable($this, comp);
+
+					console.debug('ATUALIZANDO CONTROLLER OBJECT ....');
+
+					desenhador.controller.makeController(event.target);					
+				}
+		});
+
+		$('.datasource-container').droppable({
 			over : function (event, ui) {
 					var $this = $(ui.draggable);
 					var comp = JSON.parse($this.attr('comp'));
@@ -173,7 +212,7 @@ $(function () {
 	};
 
 	var clickOpenProperty = function () {
-		$('.project-container').on('dblclick', '.component', function () {
+		$('.project-container, .datasource-container').on('dblclick', '.component', function () {
 			console.debug('dblclick em componente já arrastado !!! :: '+$(this).attr('comp'));					
 
 			if(!$(this).attr('comp')){

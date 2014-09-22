@@ -39,3 +39,23 @@
 .project-container .component.nonvisual{
 	opacity: 0.4;
 }
+
+.datasource-container{
+	background-color: cornsilk;
+	position: absolute;	
+	top: 6%;
+	right : 0%;	
+	width: 50px;
+	height: 93%;
+	
+}
+
+.datasource-container-evident{
+	background-color: bisque;
+	position: absolute;	
+	top: 6%;
+	right : 0%;	
+	height: 93%;
+	width: 50px;
+	z-index: -100;	
+}
