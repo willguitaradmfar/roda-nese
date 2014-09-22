@@ -59,13 +59,15 @@ $(function () {
 			var templ = $(template.templ);
 			templ.addClass('component');			
 			palleta.find('#'+template.category).find('.panel-body').append(templ);
-			templ.attr('comp', JSON.stringify(template, function(key, value) {
+			updateCompSerializable(templ, template);
+			
+			/*templ.attr('comp', JSON.stringify(template, function(key, value) {
 				if (typeof value === 'function') {
 					return value.toString();
 				} else {
 					return value;
 				}
-			}));
+			}));*/
 		}
 	};
 
@@ -80,13 +82,16 @@ $(function () {
 			templSpan.addClass('component');
 			templSpan.addClass('nonvisual');			
 			
+			updateCompSerializable(templSpan, servico);
+
+			/*
 			templSpan.attr('comp', JSON.stringify(servico, function(key, value) {
 				if (typeof value === 'function') {
 					return value.toString();
 				} else {
 					return value;
 				}
-			}));
+			}));*/
 
 			palleta.find('#'+servico.category).find('.panel-body').append(templSpan);
 			console.debug('ADD RESOURCE TO PALLETA ('+i+')');						
@@ -354,7 +359,7 @@ $(function () {
 				if(projeto.name && projeto.content){
 					projetos.push(projeto);
 				}else{
-					console.debug('A CHAVE ('+i+') NÃO É UM PROJETO');
+					console.warn('A CHAVE ('+i+') NÃO É UM PROJETO');
 				}
 			}catch(e){
 				console.error('ERRO NA RECUPERACAO DE PROJETOS NA CHAVE ('+i+') : '+e);
