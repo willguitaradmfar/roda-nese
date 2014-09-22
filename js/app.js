@@ -23,10 +23,14 @@ $(function () {
 				var select = $('<select name="'+i+'" class="form-control"></select>');
 				
 				for(var ii in comp.property[i].options){
-					if(comp.property[i].val === comp.property[i].options[ii]){
-						select.append('<option value="'+comp.property[i].options[ii]+'" selected>'+comp.property[i].options[ii]+'</option>');
+					var option = comp.property[i].options[ii];
+					var value = option.value || option;
+					var label = option.label || option;
+
+					if(comp.property[i].val === value){
+						select.append('<option value="'+option+'" selected>'+option+'</option>');
 					}else{
-						select.append('<option value="'+comp.property[i].options[ii]+'">'+comp.property[i].options[ii]+'</option>');	
+						select.append('<option value="'+option+'">'+option+'</option>');	
 					}					
 				}
 				td.append(select);				
@@ -68,13 +72,12 @@ $(function () {
 
 		var palleta = $('#palleta');
 
-		var templSpan = $('<span class="btn btn-warning glyphicon glyphicon-cloud"><b></b></span>');
+		var templSpan = $('<span class="btn btn-warning glyphicon glyphicon-cloud"></span>');
 
 		for(var i in resources){
 			var servico = resources[i];
 			templSpan.addClass('component');
-			templSpan.addClass('nonvisual');
-			templSpan.find('b').text(' '+i);
+			templSpan.addClass('nonvisual');			
 			
 			templSpan.attr('comp', JSON.stringify(servico, function(key, value) {
 				if (typeof value === 'function') {
@@ -88,6 +91,17 @@ $(function () {
 			console.debug('ADD RESOURCE TO PALLETA ('+i+')');						
 		}
 		
+	};
+
+	var povoarAction = function (comp, actions) {
+		var properties = comp.property;		
+		for(var i in properties){
+			var property = properties[i];
+			if(i.substr(0, 6) === 'action'){
+				properties[i] = {val : property.val, options : actions};
+			}
+			
+		}
 	};
 		
 	var pluginDraggable = function () {
@@ -111,6 +125,23 @@ $(function () {
 		      	}
 		});
 
+		$('.project-container').droppable({
+			over : function (event, ui) {
+					var $this = $(ui.draggable);
+					var comp = JSON.parse($this.attr('comp'));
+					comp.update = eval('('+comp.update+')');
+					
+					console.debug('CHAMANDO FUNCTION update() ....');
+					comp.update($this, comp);
+
+					updateCompSerializable($this, comp);
+
+					console.debug('ATUALIZANDO CONTROLLER OBJECT ....');
+
+					desenhador.controller.makeController(event.target);					
+				}
+		});
+
 		$( "#dialog" ).dialog({
 	    	  width : 500,
 	    	  height : 500,
@@ -122,13 +153,27 @@ $(function () {
 			  hide: {
 			    effect: "explode",
 			    duration: 300
+			  },
+			  close: function( event, ui ) {
+			  	console.debug('ATUALIZANDO CONTROLLER OBJECT ....');
+				desenhador.controller.makeController();	
 			  }
 	    });
 	};
 
+	var updateCompSerializable = function ($this, comp) {
+		$this.attr('comp', JSON.stringify(comp, function(key, value) {
+			if (typeof value === 'function') {
+				return value.toString();
+			} else {
+				return value;
+			}
+		}));
+	};
+
 	var clickOpenProperty = function () {
 		$('.project-container').on('dblclick', '.component', function () {
-			console.debug('dblclick em componente já arrastado !!! :: '+$(this).attr('comp'));
+			console.debug('dblclick em componente já arrastado !!! :: '+$(this).attr('comp'));					
 
 			if(!$(this).attr('comp')){
 				console.warn('COMPONENTE CLICADO NAO TEM O ATRIBUTO (comp)');
@@ -140,6 +185,10 @@ $(function () {
 			comp.remove = eval('('+comp.remove+')');
 
 			var $this = $(this);
+
+			//POVOAR AÇÕES DE CONTROLER EM OPÇÕES DE COMPONENTES
+			povoarAction(comp, desenhador.controller.getFunctions());
+			updateCompSerializable($this, comp);
 
 			$( "#dialog" ).html('');			
 			$( "#dialog" ).html(montaPropriedades(comp));
@@ -156,22 +205,18 @@ $(function () {
 			$( "#dialog" ).append(btnremover);
 			$( "#dialog" ).dialog( "open" );
 
-			var update = function (_this) {
+
+			var update = function (_this) {				
 				var name = $(_this).attr('name');				
 				var val = $(_this).val();
+			
 
 				if(comp.property[name].val)
 					comp.property[name].val = val;
 				else
 					comp.property[name] = val;
 			
-				$this.attr('comp', JSON.stringify(comp, function(key, value) {
-					if (typeof value === 'function') {
-						return value.toString();
-					} else {
-						return value;
-					}
-				}));
+				updateCompSerializable($this, comp);
 				
 				console.debug('UPDATE COMPONENT :'+comp.name);
 				comp.update($this, comp);
