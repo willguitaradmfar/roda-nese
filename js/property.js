@@ -9,7 +9,7 @@ var desenhador = desenhador || {};
 
 			console.debug('MONTANDO PROPRIEDADES '+comp.name);
 
-			var table = $('<table class="table"><thead><tr><th>Propriedade</th></tr></thead><tbody></tbody></table>');
+			var table = $('<table class="table"><thead><tr><th>Propriedade</th><th></th><th></th></tr></thead><tbody></tbody></table>');
 
 			for(var i in comp.property){
 				var property = comp.property[i];
@@ -17,6 +17,8 @@ var desenhador = desenhador || {};
 				console.debug(i+'::'+property);
 				var tr = $('<tr></tr>');
 				tr.append('<td>'+i+'</td>');
+
+				
 
 				var td = $('<td></td>');				
 				if(typeof property === 'object' && property.options){
@@ -43,8 +45,37 @@ var desenhador = desenhador || {};
 				
 				tr.append(td);
 				table.find('tbody').append(tr);
-			}	
+			}
+
+			for(var i in comp.actions){
+				var property = comp.actions[i];
+
+				console.debug(i+'::'+property);
+				var tr = $('<tr></tr>');
+				tr.addClass('warning');
+				tr.append('<td>'+i+'</td>');
+
+				var td = $('<td></td>');
+
+				var select = $('<select name="'+i+'" class="form-control"></select>');
+				
+				var functions = desenhador.controller.getFunctions();				
+
+				for(var ii in functions){
+					var option = functions[ii];
+					var value = option.value || option;
+					var label = option.label || option;
+
+					select.append('<option value="'+value+'">'+label+'</option>');
+
+				}
+				td.append(select);
+				tr.append(td);				
+
+				table.find('tbody').append(tr);
+			}
 			this.table = table;
+			return;
 		};
 
 		this.clickOpenProperty = function () {
@@ -67,10 +98,10 @@ var desenhador = desenhador || {};
 				comp.remove = desenhador.util.eval(comp.remove);
 
 				//POVOAR AÇÕES DE CONTROLER EM OPÇÕES DE COMPONENTES
-				//povoarAction(comp, desenhador.controller.getFunctions());
-
-				desenhador.util.updateCompSerializable($this, comp);				
+				//povoarAction(comp, desenhador.controller.getFunctions());						
 				
+				desenhador.controller.update();
+
 				self._contruct(comp);
 
 				$( "#dialog" ).html('');
@@ -85,35 +116,40 @@ var desenhador = desenhador || {};
 					$( "#dialog" ).dialog( "close" );
 				});
 
-				$( "#dialog" ).append(btnremover);
+				$( "#dialog" ).append(btnremover);			
+				
 				$( "#dialog" ).dialog( "open" );
 
-
-				var update = function (_this) {				
-					var name = $(_this).attr('name');				
+				var updateProperty = function (_this) {
+					var name = $(_this).attr('name');
 					var val = $(_this).val();
-				
 
-					if(comp.property[name].val)
+					if(comp.property && comp.property[name] && comp.property[name].val){
 						comp.property[name].val = val;
-					else
+					}
+					else if(comp.property && comp.property[name]){
 						comp.property[name] = val;
-				
+					} else if(comp.actions && comp.actions[name]){						
+						comp.actions[name] = val;
+					}
+
 					desenhador.util.updateCompSerializable($this, comp);
-					
+
 					console.debug('UPDATE COMPONENT :'+comp.name);
 					comp.update($this, comp);
 					console.debug('LOST-FOCUS '+name+':'+val);
+					
+					
 				};
 
 				$( "#dialog" ).off('focusout', 'input, select');
 				$( "#dialog" ).on('focusout', 'input, select', function() {
-					update(this);
+					updateProperty(this);					
 				});
 
 				$( "#dialog" ).off('change', 'select');
 				$( "#dialog" ).on('change', 'select', function() {
-					update(this);
+					updateProperty(this);					
 				});
 				
 			});

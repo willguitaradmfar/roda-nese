@@ -6,7 +6,7 @@ var desenhador = desenhador || {};
 	desenhador.palleta = function(target) {
 		var palleta = $(target);
 
-		var templSpan = $('<span class="btn btn-warning glyphicon glyphicon-cloud"></span>');
+		
 
 		for(var i in templates){
 			var template = templates[i];
@@ -18,13 +18,18 @@ var desenhador = desenhador || {};
 		}
 
 		for(var i in resources){
+
 			var servico = resources[i];
+
+			var templSpan = $('<span class="btn btn-warning glyphicon glyphicon-'+(servico.icon || 'cloud')+'"></span>');
+			
 			templSpan.addClass('component');
 			templSpan.addClass('nonvisual');			
 			
 			desenhador.util.updateCompSerializable(templSpan, servico);		
 
 			palleta.find('#'+servico.category).find('.panel-body').append(templSpan);
+
 			console.debug('ADD RESOURCE TO PALLETA ('+i+')');						
 		}
 	};	

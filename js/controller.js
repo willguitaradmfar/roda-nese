@@ -37,18 +37,20 @@ var desenhador = desenhador || {};
 		var _functions = [];		
 		for(var i in struct._functions){
 			for(var ii in struct._functions[i]){
-				/*var o = {};
+				var o = {};
 				o.value = i+'.'+ii+'()';
-				o.label = i+' >> '+ii+'()';*/			
+				o.label = i+' >> '+ii;
 
-				_functions.push(i+'.'+ii);
+				_functions.push(o);
 			}
 		}
 		return _functions;
 	};
 
-	var makeController = function (target) {
+	var update = function (target) {
 
+		console.debug('UPDATE CONTROLLER OBJ GLOBAL');
+		
 		var comps;
 
 		if(target){
@@ -80,7 +82,12 @@ var desenhador = desenhador || {};
 				var _function = comp.controller._functions[i];
 				setFunctions(nameService, i, _function);
 			}				
-		}		
+		}
+	}
+
+	var makeController = function () {
+
+		update();
 
 		return _makeController();
 	};
@@ -125,6 +132,10 @@ var desenhador = desenhador || {};
 			}
 		}
 
+		bodyController += '\n\t\t\t$scope.set = '+(function (value, path) {
+			$scope[path] = value;
+		}).toString()+';';
+
 		for(var i in struct._functions){
 			for(var ii in struct._functions[i]){
 				var _function = struct._functions[i][ii];
@@ -140,6 +151,7 @@ var desenhador = desenhador || {};
 	};
 
 	desenhador.controller =  {
+		'update' : update,
 		'setInject' : setInject,
 		'setFunctions' : setFunctions,
 		'setVariables' : setVariables,

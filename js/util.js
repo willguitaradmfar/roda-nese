@@ -3,14 +3,19 @@ var desenhador = desenhador || {};
 (function(desenhador) {
 	desenhador.util = desenhador.util || {};
 
-	desenhador.util.updateCompSerializable = function ($this, comp) {
-		$this.attr('comp', JSON.stringify(comp, function(key, value) {
+	desenhador.util.updateCompSerializable = function ($this, comp) {		
+
+		var hand = function(key, value) {
 			if (typeof value === 'function') {
 				return value.toString();
 			} else {
 				return value;
 			}
-		}));
+		};
+
+		var stringify = JSON.stringify(comp, hand);
+
+		$this.attr('comp', stringify);		
 	};
 
 	desenhador.util.eval = function (script) {

@@ -20,7 +20,7 @@ templates.grid = (function () {
 	property.rows = 'name,age,rg';
 	property.collection = 'models';
 	property.filter = 'modelFilter';
-	property.actionClick = 'set(_m)';
+	property.select = 'modelSelect';
 
 	var update = function (target, comp) {
 		if(comp.property.collection && comp.property.collection.length > 0){
@@ -43,7 +43,7 @@ templates.grid = (function () {
 			$(target).find('tbody > tr').html('');
 			for(var i in _rows){
 				var row = _rows[i];
-				$(target).find('tbody > tr').attr('data-ng-click', comp.property.actionClick);
+				$(target).find('tbody > tr').attr('data-ng-click', 'set(_m, \''+comp.property.select+'\')');
 				$(target).find('tbody > tr').append('<td data-ng-bind="_m.'+row+'"></td>');
 			}
 		}

@@ -20,12 +20,7 @@ var desenhador = desenhador || {};
 				
 				console.debug('CHAMANDO FUNCTION update() ....');
 				comp.update($this, comp);
-
-				desenhador.util.updateCompSerializable($this, comp);
-
-				console.debug('ATUALIZANDO CONTROLLER OBJECT ....');
-
-				desenhador.controller.makeController(event.target);	
+				desenhador.util.updateCompSerializable($this, comp);				
 		});
 
 
@@ -41,13 +36,7 @@ var desenhador = desenhador || {};
 			
 			console.debug('CHAMANDO FUNCTION update() ....');
 			comp.update($this, comp);
-
 			desenhador.util.updateCompSerializable($this, comp);
-
-			console.debug('ATUALIZANDO CONTROLLER OBJECT ....');
-
-			desenhador.controller.makeController(event.target);
-
 		});		
 
 		$( "#dialog" ).dialog({

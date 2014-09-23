@@ -43,6 +43,8 @@ var desenhador = desenhador || {};
 			btn.on('click', function () {
 				console.debug('ABRINDO PROJETO ('+projeto.name+')');
 				$('.project-container').html(projeto.content);
+				$('.datasource-container').html(projeto.contentDatasource);
+				
 			});
 		};
 
@@ -103,6 +105,7 @@ var desenhador = desenhador || {};
 
 		inputGroup.find('span.btn').on('click', function () {
 			var content = $('.project-container').html();
+			var contentDatasource = $('.datasource-container').html();
 			var _nomeProjeto = inputGroup.find('input');
 			var nomeProjeto = _nomeProjeto.val();
 			if(!nomeProjeto)return;			
@@ -112,6 +115,7 @@ var desenhador = desenhador || {};
 			var projeto = {};
 			projeto.name = nomeProjeto;
 			projeto.content = content;
+			projeto.contentDatasource = contentDatasource;
 			projeto.date = new Date;
 			localStorage[nomeProjeto] = JSON.stringify(projeto);
 
