@@ -6,98 +6,9 @@ logQueue.qtdeMessageSent = 500;
 logQueue.debug = false;
 logQueue.trace = true;
 logQueue.sleepThread = 1000;
-logQueue.start();
+//logQueue.start();
 
 $(function () {
-
-	var montaPropriedades = function (comp) {
-		console.debug('HTML CLICADO '+comp.name);
-
-		var table = $('<table class="table"><thead><tr><th>Propriedade</th></tr></thead><tbody></tbody></table>');
-		for(var i in comp.property){
-			console.debug(i+'::'+comp.property[i]);
-			var tr = $('<tr></tr>');
-			tr.append('<td>'+i+'</td>');
-			var td = $('<td></td>');
-			
-			if(typeof comp.property[i] === 'object' && comp.property[i].options){
-				var select = $('<select name="'+i+'" class="form-control"></select>');
-				
-				for(var ii in comp.property[i].options){
-					var option = comp.property[i].options[ii];
-					var value = option.value || option;
-					var label = option.label || option;
-
-					if(comp.property[i].val === value){
-						select.append('<option value="'+option+'" selected>'+option+'</option>');
-					}else{
-						select.append('<option value="'+option+'">'+option+'</option>');	
-					}					
-				}
-				td.append(select);				
-			}
-			else{
-				var input = $('<input name="'+i+'" type="text" class="form-control" value="'+comp.property[i]+'"></input>');			
-				td.append(input);
-			}	
-			
-			
-			tr.append(td);
-			table.find('tbody').append(tr);	
-		}	
-		return table.html();
-	};
-
-	
-
-	var montaPalleta = function () {
-		var palleta = $('#palleta');
-
-		for(var i in templates){
-			var template = templates[i];
-			console.debug('ADD COMPONENT TO PALLETA ('+i+')');
-			var templ = $(template.templ);
-			templ.addClass('component');			
-			palleta.find('#'+template.category).find('.panel-body').append(templ);
-			updateCompSerializable(templ, template);
-			
-			/*templ.attr('comp', JSON.stringify(template, function(key, value) {
-				if (typeof value === 'function') {
-					return value.toString();
-				} else {
-					return value;
-				}
-			}));*/
-		}
-	};
-
-	var montaPalletaService = function () {
-
-		var palleta = $('#palleta');
-
-		var templSpan = $('<span class="btn btn-warning glyphicon glyphicon-cloud"></span>');
-
-		for(var i in resources){
-			var servico = resources[i];
-			templSpan.addClass('component');
-			templSpan.addClass('nonvisual');			
-			
-			updateCompSerializable(templSpan, servico);
-
-			/*
-			templSpan.attr('comp', JSON.stringify(servico, function(key, value) {
-				if (typeof value === 'function') {
-					return value.toString();
-				} else {
-					return value;
-				}
-			}));*/
-
-			palleta.find('#'+servico.category).find('.panel-body').append(templSpan);
-			console.debug('ADD RESOURCE TO PALLETA ('+i+')');						
-		}
-		
-	};
 
 	var povoarAction = function (comp, actions) {
 		var properties = comp.property;		
@@ -162,7 +73,7 @@ $(function () {
 					console.debug('CHAMANDO FUNCTION update() ....');
 					comp.update($this, comp);
 
-					updateCompSerializable($this, comp);
+					desenhador.util.updateCompSerializable($this, comp);
 
 					console.debug('ATUALIZANDO CONTROLLER OBJECT ....');
 
@@ -179,7 +90,7 @@ $(function () {
 					console.debug('CHAMANDO FUNCTION update() ....');
 					comp.update($this, comp);
 
-					updateCompSerializable($this, comp);
+					desenhador.util.updateCompSerializable($this, comp);
 
 					console.debug('ATUALIZANDO CONTROLLER OBJECT ....');
 
@@ -206,15 +117,7 @@ $(function () {
 	    });
 	};
 
-	var updateCompSerializable = function ($this, comp) {
-		$this.attr('comp', JSON.stringify(comp, function(key, value) {
-			if (typeof value === 'function') {
-				return value.toString();
-			} else {
-				return value;
-			}
-		}));
-	};
+	
 
 	var clickOpenProperty = function () {
 		$('.project-container, .datasource-container').on('dblclick', '.component', function () {
@@ -233,10 +136,12 @@ $(function () {
 
 			//POVOAR AÇÕES DE CONTROLER EM OPÇÕES DE COMPONENTES
 			povoarAction(comp, desenhador.controller.getFunctions());
-			updateCompSerializable($this, comp);
+			desenhador.util.updateCompSerializable($this, comp);
 
-			$( "#dialog" ).html('');			
-			$( "#dialog" ).html(montaPropriedades(comp));
+			var montaPropriedades = new desenhador.property(comp);
+
+			$( "#dialog" ).html('');
+			$( "#dialog" ).html(montaPropriedades.getTable());
 
 			var btnremover = $('<hr/><span class="btn btn-danger glyphicon glyphicon-remove"> Remover</span>');
 
@@ -261,7 +166,7 @@ $(function () {
 				else
 					comp.property[name] = val;
 			
-				updateCompSerializable($this, comp);
+				desenhador.util.updateCompSerializable($this, comp);
 				
 				console.debug('UPDATE COMPONENT :'+comp.name);
 				comp.update($this, comp);
@@ -468,8 +373,10 @@ $(function () {
 	};
 
 	visualizar($('.project-container'));
-	montaPalleta();
-	montaPalletaService();
+
+
+	var palleta = new desenhador.palleta($('#palleta'));
+
 	pluginDraggable();
 	clickOpenProperty();
 });
