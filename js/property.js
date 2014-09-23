@@ -3,8 +3,11 @@ var desenhador = desenhador || {};
 (function(desenhador) {
 	desenhador.property = desenhador.property || {};
 
-	desenhador.property = function (comp) {
-		this._contruct = function (comp) {	
+	desenhador.property = function () {
+
+		
+
+		this._contruct = function (comp) {
 
 			console.debug('MONTANDO PROPRIEDADES '+comp.name);
 
@@ -44,11 +47,78 @@ var desenhador = desenhador || {};
 			this.table = table.html();
 		};
 
+		this.clickOpenProperty = function () {
+			$('.project-container, .datasource-container').on('dblclick', '.component', function () {
+
+				var $this = $(this);
+
+				console.debug('dblclick em componente já arrastado !!! :: '+$(this).attr('comp'));					
+
+				if(!$(this).attr('comp')){
+					console.warn('COMPONENTE CLICADO NAO TEM O ATRIBUTO (comp)');
+					return;
+				}
+
+				var comp = JSON.parse($(this).attr('comp'));
+				comp.update = eval('('+comp.update+')');
+				comp.remove = eval('('+comp.remove+')');				
+
+				//POVOAR AÇÕES DE CONTROLER EM OPÇÕES DE COMPONENTES
+				//povoarAction(comp, desenhador.controller.getFunctions());
+
+				desenhador.util.updateCompSerializable($this, comp);
+				
+				this._contruct(comp);
+
+				$( "#dialog" ).html('');
+				$( "#dialog" ).html(this.getTable());
+
+				var btnremover = $('<hr/><span class="btn btn-danger glyphicon glyphicon-remove"> Remover</span>');
+
+				btnremover.on('click', function () {
+					$this.remove();
+					console.debug('CHAMANDO A FUNCAO REMOVE DO COMPONENTE');				
+					if(comp.remove)comp.remove($this, comp);
+					$( "#dialog" ).dialog( "close" );
+				});
+
+				$( "#dialog" ).append(btnremover);
+				$( "#dialog" ).dialog( "open" );
+
+
+				var update = function (_this) {				
+					var name = $(_this).attr('name');				
+					var val = $(_this).val();
+				
+
+					if(comp.property[name].val)
+						comp.property[name].val = val;
+					else
+						comp.property[name] = val;
+				
+					desenhador.util.updateCompSerializable($this, comp);
+					
+					console.debug('UPDATE COMPONENT :'+comp.name);
+					comp.update($this, comp);
+					console.debug('LOST-FOCUS '+name+':'+val);
+				};
+
+				$( "#dialog" ).off('focusout', 'input, select');
+				$( "#dialog" ).on('focusout', 'input, select', function() {
+					update(this);
+				});
+
+				$( "#dialog" ).off('change', 'select');
+				$( "#dialog" ).on('change', 'select', function() {
+					update(this);
+				});
+				
+			});
+		};
+
 		this.getTable = function (argument) {
 			return this.table;
-		}
-
-		this._contruct(comp);
+		}		
 	};		
 	
 	console.log(desenhador);

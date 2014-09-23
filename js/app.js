@@ -19,172 +19,9 @@ $(function () {
 			}
 			
 		}
-	};
-		
-	var pluginDraggable = function () {
-		$( ".project-container" ).sortable({
-	      revert: true
-	    });
-
-		$( ".datasource-container" ).sortable({
-	      revert: true
-	    });
-
-		$('.component').draggable({
-		    connectToSortable: ".project-container",
-		    cursor: "move",
-		    helper: "clone",
-		    revert: "invalid",
-		    	start: function(event, ui) {	        
-		        	console.debug('start draggable '+$(this));		        	
-		      	},
-		      	drag: function(event, ui) {
-					
-			    },
-		    	stop: function(event, ui) {	    		
-		        	console.debug('stop draggable'+$(this).html());		        	
-		      	}
-		});
-
-		$('.nonvisual').draggable({
-		    connectToSortable: ".datasource-container",
-		    cursor: "move",
-		    helper: "clone",
-		    revert: "invalid",
-		    	start: function(event, ui) {	        
-		        	console.debug('start draggable '+$(this));		        	
-		        	$('.datasource-container').addClass('datasource-container-evident', 300);
-		      	},
-		      	drag: function(event, ui) {
-					
-			    },
-		    	stop: function(event, ui) {	    		
-		        	console.debug('stop draggable'+$(this).html());
-		        	$('.datasource-container').removeClass('datasource-container-evident', 1000);		        	
-		      	}
-		});
-
-		$('.project-container').droppable({
-			over : function (event, ui) {
-					var $this = $(ui.draggable);
-					var comp = JSON.parse($this.attr('comp'));
-					comp.update = eval('('+comp.update+')');
-					
-					console.debug('CHAMANDO FUNCTION update() ....');
-					comp.update($this, comp);
-
-					desenhador.util.updateCompSerializable($this, comp);
-
-					console.debug('ATUALIZANDO CONTROLLER OBJECT ....');
-
-					desenhador.controller.makeController(event.target);					
-				}
-		});
-
-		$('.datasource-container').droppable({
-			over : function (event, ui) {
-					var $this = $(ui.draggable);
-					var comp = JSON.parse($this.attr('comp'));
-					comp.update = eval('('+comp.update+')');
-					
-					console.debug('CHAMANDO FUNCTION update() ....');
-					comp.update($this, comp);
-
-					desenhador.util.updateCompSerializable($this, comp);
-
-					console.debug('ATUALIZANDO CONTROLLER OBJECT ....');
-
-					desenhador.controller.makeController(event.target);					
-				}
-		});
-
-		$( "#dialog" ).dialog({
-	    	  width : 500,
-	    	  height : 500,
-			  autoOpen: false,
-			  show: {
-			    effect: "explode",
-			    duration: 300
-			  },
-			  hide: {
-			    effect: "explode",
-			    duration: 300
-			  },
-			  close: function( event, ui ) {
-			  	console.debug('ATUALIZANDO CONTROLLER OBJECT ....');
-				desenhador.controller.makeController();	
-			  }
-	    });
-	};
+	};	
 
 	
-
-	var clickOpenProperty = function () {
-		$('.project-container, .datasource-container').on('dblclick', '.component', function () {
-			console.debug('dblclick em componente já arrastado !!! :: '+$(this).attr('comp'));					
-
-			if(!$(this).attr('comp')){
-				console.warn('COMPONENTE CLICADO NAO TEM O ATRIBUTO (comp)');
-				return;
-			}
-
-			var comp = JSON.parse($(this).attr('comp'));
-			comp.update = eval('('+comp.update+')');
-			comp.remove = eval('('+comp.remove+')');
-
-			var $this = $(this);
-
-			//POVOAR AÇÕES DE CONTROLER EM OPÇÕES DE COMPONENTES
-			povoarAction(comp, desenhador.controller.getFunctions());
-			desenhador.util.updateCompSerializable($this, comp);
-
-			var montaPropriedades = new desenhador.property(comp);
-
-			$( "#dialog" ).html('');
-			$( "#dialog" ).html(montaPropriedades.getTable());
-
-			var btnremover = $('<hr/><span class="btn btn-danger glyphicon glyphicon-remove"> Remover</span>');
-
-			btnremover.on('click', function () {
-				$this.remove();
-				console.debug('CHAMANDO A FUNCAO REMOVE DO COMPONENTE');				
-				if(comp.remove)comp.remove($this, comp);
-				$( "#dialog" ).dialog( "close" );
-			});
-
-			$( "#dialog" ).append(btnremover);
-			$( "#dialog" ).dialog( "open" );
-
-
-			var update = function (_this) {				
-				var name = $(_this).attr('name');				
-				var val = $(_this).val();
-			
-
-				if(comp.property[name].val)
-					comp.property[name].val = val;
-				else
-					comp.property[name] = val;
-			
-				desenhador.util.updateCompSerializable($this, comp);
-				
-				console.debug('UPDATE COMPONENT :'+comp.name);
-				comp.update($this, comp);
-				console.debug('LOST-FOCUS '+name+':'+val);
-			};
-
-			$( "#dialog" ).off('focusout', 'input, select');
-			$( "#dialog" ).on('focusout', 'input, select', function() {
-				update(this);
-			});
-
-			$( "#dialog" ).off('change', 'select');
-			$( "#dialog" ).on('change', 'select', function() {
-				update(this);
-			});
-			
-		});
-	};
 
 	var visualizar = function (html) {
 
@@ -377,6 +214,10 @@ $(function () {
 
 	var palleta = new desenhador.palleta($('#palleta'));
 
-	pluginDraggable();
-	clickOpenProperty();
+	var dragdrop = desenhador.dragdrop();
+
+	var property = new desenhador.property();
+	property.clickOpenProperty();
+
+	
 });
