@@ -2,7 +2,7 @@ var resources = resources || {};
 
 resources.servicoYql = (function () {
 
-    var get = function(){
+    var query = function(){
 
                     $.ajax({
                         url: "$url$",
@@ -21,9 +21,8 @@ resources.servicoYql = (function () {
                      
                         // work with the response
                         success: function( res ) {
-                            if(res.error){
-                                $scope.$error$ = {};                                
-                                $scope.$error$.msg = res.description;
+                            if(res.error){                                
+                                $scope.$nameService$.$error$.msg = res.description;
                                 console.error('ERROR : HTTP REQUEST : '+res.description);
                                 return ;
                             }
@@ -37,7 +36,7 @@ resources.servicoYql = (function () {
             };    
 
     var property = {};
-    property.nameService = 'serv';
+    property.nameService = 'servYql';
     property.collection =  'models';
     property.error =  'error';
     property.url =  'http://query.yahooapis.com/v1/public/yql';
@@ -51,22 +50,20 @@ resources.servicoYql = (function () {
 
     var update = function (target, comp) {
 
-        var keys = ['collection', 'error', 'url', 'yql'];
-        var values = [comp.property.collection, comp.property.error, comp.property.url, comp.property.yql];
-        comp.get = desenhador.util.processTemplate(keys, values, comp.templateGet);
+        var keys = ['nameService', 'collection', 'error', 'url', 'yql'];
+        var values = [comp.property.nameService, comp.property.collection, comp.property.error, comp.property.url, comp.property.yql];
+        comp.query = desenhador.util.processTemplate(keys, values, comp.templateQuery);
 
         comp.controller._variables = {};
         comp.controller._variables[comp.property.error] = '{}';
 
-        comp.controller._functions.get = comp.get;
-        comp.controller._functions.post = comp.post;
-        comp.controller._functions.set = comp.set;        
+        comp.controller._functions.query = comp.query;               
     };
 
     return {
         'icon' : 'upload',
-        'templateGet' : get,
-        'get' : get,        
+        'templateQuery' : query,
+        'query' : query,        
         'property' : property,
         'controller' : controller,
         'category' : 'datasource',

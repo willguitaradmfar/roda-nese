@@ -4,40 +4,15 @@ resources.servicoRest = (function () {
 
     var get = function(){                
 
-                $http({ method: 'jsonp', url: '$url$$pathGet$' }).
+                $http({ method: 'GET', url: '$url$$pathGet$' }).
                     success(function(data, status, headers, config) {                        
                         $scope.$collection$ = data;
                     }).
-                    error(function(data, status, headers, config) {
-                        $scope.$error$ = {};
-                        $scope.$error$.code = status;
-                        $scope.$error$.msg = data;
+                    error(function(data, status, headers, config) {                        
+                        $scope.$nameService$.$error$.code = status;
+                        $scope.$nameService$.$error$.msg = data;
                         console.error('ERROR : HTTP REQUEST : '+status);
                     });
-
-
-                    $.ajax({
-    url: "http://query.yahooapis.com/v1/public/yql",
- 
-    // the name of the callback parameter, as specified by the YQL service
-    jsonp: "callback",
- 
-    // tell jQuery we're expecting JSONP
-    dataType: "jsonp",
- 
-    // tell YQL what we want and that we want JSON
-    data: {
-        q: "select title,abstract,url from search.news where query=\"cat\"",
-        format: "json"
-    },
- 
-    // work with the response
-    success: function( response ) {
-        console.log( response ); // server response
-    }
-});
-
-
 
             };
 
@@ -46,10 +21,9 @@ resources.servicoRest = (function () {
                     success(function(data, status, headers, config) {                        
                         $scope.$collection$ = data;
                     }).
-                    error(function(data, status, headers, config) {
-                        $scope.$error$ = {};
-                        $scope.$error$.code = status;
-                        $scope.$error$.msg = data;
+                    error(function(data, status, headers, config) {                        
+                        $scope.$nameService$.$error$.code = status;
+                        $scope.$nameService$.$error$.msg = data;
                         console.error('ERROR : HTTP REQUEST : '+status);
                     });            
             };
@@ -76,12 +50,12 @@ resources.servicoRest = (function () {
 
     var update = function (target, comp) {
 
-        var keys = ['pathGet', 'collection', 'error', 'url'];
-        var values = [comp.property.pathGet, comp.property.collection, comp.property.error, comp.property.url];
+        var keys = ['nameService', 'pathGet', 'collection', 'error', 'url'];
+        var values = [comp.property.nameService, comp.property.pathGet, comp.property.collection, comp.property.error, comp.property.url];
         comp.get = desenhador.util.processTemplate(keys, values, comp.templateGet);         
 
-        keys = ['pathPost', 'error', 'url'];
-        values = [comp.property.pathPost, comp.property.error, comp.property.url];
+        keys = ['nameService', 'pathPost', 'error', 'url'];
+        values = [comp.property.nameService, comp.property.pathPost, comp.property.error, comp.property.url];
         comp.post = desenhador.util.processTemplate(keys, values, comp.templatePost);         
 
         comp.controller._variables = {};
