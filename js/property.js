@@ -3,9 +3,7 @@ var desenhador = desenhador || {};
 (function(desenhador) {
 	desenhador.property = desenhador.property || {};
 
-	desenhador.property = function () {
-
-		
+	desenhador.property = function () {		
 
 		this._contruct = function (comp) {
 
@@ -44,10 +42,13 @@ var desenhador = desenhador || {};
 				tr.append(td);
 				table.find('tbody').append(tr);
 			}	
-			this.table = table.html();
+			this.table = table;
 		};
 
 		this.clickOpenProperty = function () {
+
+			var self = this;
+
 			$('.project-container, .datasource-container').on('dblclick', '.component', function () {
 
 				var $this = $(this);
@@ -60,18 +61,18 @@ var desenhador = desenhador || {};
 				}
 
 				var comp = JSON.parse($(this).attr('comp'));
-				comp.update = eval('('+comp.update+')');
-				comp.remove = eval('('+comp.remove+')');				
+				comp.update = desenhador.util.eval(comp.update);
+				comp.remove = desenhador.util.eval(comp.remove);
 
 				//POVOAR AÇÕES DE CONTROLER EM OPÇÕES DE COMPONENTES
 				//povoarAction(comp, desenhador.controller.getFunctions());
 
-				desenhador.util.updateCompSerializable($this, comp);
+				desenhador.util.updateCompSerializable($this, comp);				
 				
-				this._contruct(comp);
+				self._contruct(comp);
 
 				$( "#dialog" ).html('');
-				$( "#dialog" ).html(this.getTable());
+				$( "#dialog" ).html(self.getTable());
 
 				var btnremover = $('<hr/><span class="btn btn-danger glyphicon glyphicon-remove"> Remover</span>');
 

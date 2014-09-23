@@ -12,6 +12,10 @@ var desenhador = desenhador || {};
 			}
 		}));
 	};
+
+	desenhador.util.eval = function (script) {
+		return eval('('+script+')');
+	};
 	
 	console.log(desenhador);
 

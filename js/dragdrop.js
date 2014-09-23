@@ -47,7 +47,7 @@ var desenhador = desenhador || {};
 			over : function (event, ui) {
 					var $this = $(ui.draggable);
 					var comp = JSON.parse($this.attr('comp'));
-					comp.update = eval('('+comp.update+')');
+					comp.update = desenhador.util.eval(comp.update);
 					
 					console.debug('CHAMANDO FUNCTION update() ....');
 					comp.update($this, comp);
@@ -64,7 +64,7 @@ var desenhador = desenhador || {};
 			over : function (event, ui) {
 					var $this = $(ui.draggable);
 					var comp = JSON.parse($this.attr('comp'));
-					comp.update = eval('('+comp.update+')');
+					comp.update = desenhador.util.eval(comp.update);
 					
 					console.debug('CHAMANDO FUNCTION update() ....');
 					comp.update($this, comp);

@@ -1,7 +1,9 @@
 var desenhador = desenhador || {};
-desenhador.controller = desenhador.controller || {};
 
-desenhador.controller = (function () {
+
+(function (desenhador) {
+
+	desenhador.controller = desenhador.controller || {};
 
 	var struct = {}
 	struct._injects = {};
@@ -60,7 +62,7 @@ desenhador.controller = (function () {
 
 		for(var y = 0 ; y < comps.length ; y++){
 
-			var comp = eval('('+$(comps[y]).attr('comp')+')');			
+			var comp = desenhador.util.eval($(comps[y]).attr('comp'));
 			if(!comp)continue;
 			var nameService = comp.property.nameService;
 
@@ -137,11 +139,11 @@ desenhador.controller = (function () {
 		return bodyController;
 	};
 
-	return {
+	desenhador.controller =  {
 		'setInject' : setInject,
 		'setFunctions' : setFunctions,
 		'setVariables' : setVariables,
 		'getFunctions' : getFunctions,
 		'makeController' : makeController
 	};
-})();
+})(desenhador);
