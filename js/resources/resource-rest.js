@@ -14,8 +14,8 @@ resources.servicoRest = (function () {
                     });            
             };
 
-     var post = function(data){            
-                $http({ method: 'POST', url: 'http://localhost:3005$pathPost$', data: data }).
+     var post = function(model){
+                $http({ method: 'POST', url: 'http://localhost:3005$pathPost$', data: model }).
                     success(function(data, status, headers, config) {                        
                         $scope.$collection$ = data;
                     }).
@@ -57,6 +57,7 @@ resources.servicoRest = (function () {
 
         comp.controller._variables = {};
         comp.controller._variables[comp.property.error] = '{}';
+
         comp.controller._functions.get = comp.get;
         comp.controller._functions.post = comp.post;
         comp.controller._functions.set = comp.set;        

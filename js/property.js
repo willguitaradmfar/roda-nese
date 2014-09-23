@@ -12,21 +12,23 @@ var desenhador = desenhador || {};
 			var table = $('<table class="table"><thead><tr><th>Propriedade</th></tr></thead><tbody></tbody></table>');
 
 			for(var i in comp.property){
-				console.debug(i+'::'+comp.property[i]);
+				var property = comp.property[i];
+
+				console.debug(i+'::'+property);
 				var tr = $('<tr></tr>');
 				tr.append('<td>'+i+'</td>');
 
 				var td = $('<td></td>');				
-				if(typeof comp.property[i] === 'object' && comp.property[i].options){
+				if(typeof property === 'object' && property.options){
 
 					var select = $('<select name="'+i+'" class="form-control"></select>');
 					
-					for(var ii in comp.property[i].options){
-						var option = comp.property[i].options[ii];
+					for(var ii in property.options){
+						var option = property.options[ii];
 						var value = option.value || option;
 						var label = option.label || option;
 
-						if(comp.property[i].val === value){
+						if(property.val === value){
 							select.append('<option value="'+option+'" selected>'+option+'</option>');
 						}else{
 							select.append('<option value="'+option+'">'+option+'</option>');	
@@ -35,7 +37,7 @@ var desenhador = desenhador || {};
 					td.append(select);				
 				}
 				else{
-					var input = $('<input name="'+i+'" type="text" class="form-control" value="'+comp.property[i]+'"></input>');
+					var input = $('<input name="'+i+'" type="text" class="form-control" value="'+property+'"></input>');
 					td.append(input);
 				}				
 				
