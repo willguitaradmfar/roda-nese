@@ -16,6 +16,16 @@ var desenhador = desenhador || {};
 	desenhador.util.eval = function (script) {
 		return eval('('+script+')');
 	};
+
+	desenhador.util.processTemplate = function (keys, values, template) {
+		var result = template;
+		for(var i in keys){
+			var key = keys[i];
+			var regex = new RegExp('\\$'+key+'\\$', "ig");
+			result = result.replace(regex, values[i]);
+		}
+		return result;
+	};
 	
 	console.log(desenhador);
 

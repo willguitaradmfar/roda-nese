@@ -46,23 +46,20 @@ resources.servicoRest = (function () {
 
 
     var update = function (target, comp) {
-        
-        comp.get = comp.templateGet
-                    .replace(/\$pathGet\$/g, comp.property.pathGet)
-                    .replace(/\$collection\$/g, comp.property.collection)
-                    .replace(/\$error\$/g, comp.property.error);
 
-         comp.post = comp.templatePost
-                    .replace(/\$pathPost\$/g, comp.property.pathPost)                    
-                    .replace(/\$error\$/g, comp.property.error);
+        var keys = ['pathGet', 'collection', 'error'];
+        var values = [comp.property.pathGet, comp.property.collection, comp.property.error];
+        comp.get = desenhador.util.processTemplate(keys, values, comp.templateGet);         
+
+        keys = ['pathPost', 'error'];
+        values = [comp.property.pathPost, comp.property.error];
+        comp.post = desenhador.util.processTemplate(keys, values, comp.templatePost);         
 
         comp.controller._variables = {};
-
         comp.controller._variables[comp.property.error] = '{}';
         comp.controller._functions.get = comp.get;
         comp.controller._functions.post = comp.post;
-        comp.controller._functions.set = comp.set;
-        
+        comp.controller._functions.set = comp.set;        
     };
 
     return {
