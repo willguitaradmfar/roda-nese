@@ -6,7 +6,7 @@ logQueue.qtdeMessageSent = 500;
 logQueue.debug = false;
 logQueue.trace = true;
 logQueue.sleepThread = 1000;
-//logQueue.start();
+logQueue.start();
 
 $(function () {	
 
