@@ -30,8 +30,6 @@ var desenhador = desenhador || {};
 			result = result.replace(regex, values[i]);
 		}
 		return result;
-	};
-	
-	console.log(desenhador);
+	};	
 
 })(desenhador);

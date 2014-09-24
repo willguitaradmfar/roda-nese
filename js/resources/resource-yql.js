@@ -30,7 +30,6 @@ resources.servicoYql = (function () {
                                 $scope.$collection$ = res.query.results;
                                 $scope.$apply();
                             }
-                            console.log( res ); // server response
                         }
                     });
             };    

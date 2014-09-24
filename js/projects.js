@@ -138,9 +138,6 @@ var desenhador = desenhador || {};
 			console.debug('ABRINDO DIALOG PARA SALVAR PROJETO');
 			openSaveDialog();
 		});		
-	}
-
-	
-	console.log(desenhador);
+	};
 
 })(desenhador);

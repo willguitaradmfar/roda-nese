@@ -58,7 +58,4 @@ var desenhador = desenhador || {};
 			angular.bootstrap(body, ['desenhador']);
 		});
 	};
-
-	console.log(desenhador);
-
 })(desenhador);

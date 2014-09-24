@@ -15,13 +15,13 @@ var desenhador = desenhador || {};
 		    helper: "clone",
 		    revert: "invalid",
 		    	start: function(event, ui) {	        
-		        	console.debug('start draggable '+$(this));		        	
+		        	console.debug('start draggable '+$(this));
 		      	},
 		      	drag: function(event, ui) {
 					
 			    },
-		    	stop: function(event, ui) {	    		
-		        	console.debug('stop draggable'+$(this).html());		        	
+		    	stop: function(event, ui) {
+		        	console.debug('stop draggable'+$(this));
 		      	}
 		});
 
@@ -85,6 +85,4 @@ var desenhador = desenhador || {};
 	    });
 	};
 	
-	console.log(desenhador);
-
 })(desenhador);

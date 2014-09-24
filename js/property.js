@@ -7,7 +7,7 @@ var desenhador = desenhador || {};
 
 		this._contruct = function (comp) {
 
-			console.debug('MONTANDO PROPRIEDADES '+comp.name);
+			console.debug('MONTANDO PROPRIEDADES DO COMPONENTE ('+(comp.name || comp.property.nameService)+')');
 
 			var table = $('<table class="table"><thead><tr><th>Propriedade</th><th></th><th></th></tr></thead><tbody></tbody></table>');
 
@@ -86,7 +86,7 @@ var desenhador = desenhador || {};
 
 				var $this = $(this);
 
-				console.debug('dblclick em componente já arrastado !!! :: '+$(this).attr('comp'));					
+				console.debug('dblclick em componente já arrastado !!! :: '+$(this));
 
 				if(!$(this).attr('comp')){
 					console.warn('COMPONENTE CLICADO NAO TEM O ATRIBUTO (comp)');
@@ -135,11 +135,8 @@ var desenhador = desenhador || {};
 
 					desenhador.util.updateCompSerializable($this, comp);
 
-					console.debug('UPDATE COMPONENT :'+comp.name);
-					comp.update($this, comp);
-					console.debug('LOST-FOCUS '+name+':'+val);
-					
-					
+					console.debug('UPDATE COMPONENT : ('+(comp.name || comp.property.nameService)+')');		
+					comp.update($this, comp);					
 				};
 
 				$( "#dialog" ).off('focusout', 'input, select');
@@ -158,8 +155,6 @@ var desenhador = desenhador || {};
 		this.getTable = function (argument) {
 			return this.table;
 		}		
-	};		
-	
-	console.log(desenhador);
+	};
 
 })(desenhador);

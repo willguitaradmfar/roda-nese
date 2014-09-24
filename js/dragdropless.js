@@ -58,6 +58,4 @@ var desenhador = desenhador || {};
 	    });
 	};
 	
-	console.log(desenhador);
-
 })(desenhador);

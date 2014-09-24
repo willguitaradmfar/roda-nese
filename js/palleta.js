@@ -32,8 +32,6 @@ var desenhador = desenhador || {};
 
 			console.debug('ADD RESOURCE TO PALLETA ('+i+')');						
 		}
-	};	
-		
-	console.log(desenhador);
+	};
 
 })(desenhador);
