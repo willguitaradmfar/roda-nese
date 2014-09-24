@@ -32,9 +32,10 @@ var desenhador = desenhador || {};
 
 						if(property.val === value){
 							select.append('<option value="'+option+'" selected>'+option+'</option>');
-						}else{
-							select.append('<option value="'+option+'">'+option+'</option>');	
+							continue;
 						}
+
+						select.append('<option value="'+option+'">'+option+'</option>');
 					}
 					td.append(select);				
 				}
@@ -65,9 +66,47 @@ var desenhador = desenhador || {};
 					var option = functions[ii];
 					var value = option.value || option;
 					var label = option.label || option;
+					if(value == property){
+						select.append('<option value="'+value+'" selected>'+label+'</option>');
+						continue;
+					}
 
 					select.append('<option value="'+value+'">'+label+'</option>');
 
+				}
+				td.append(select);
+				tr.append(td);				
+
+				table.find('tbody').append(tr);
+			}
+
+			for(var i in comp.binds){
+				var property = comp.binds[i];
+
+				console.debug(i+'::'+property);
+				var tr = $('<tr></tr>');
+				tr.addClass('success');
+				tr.append('<td>'+i+'</td>');
+
+				var td = $('<td></td>');
+
+				var select = $('<select name="'+i+'" class="form-control"></select>');
+				
+				var services = desenhador.metadata.metadata;
+
+				for(var ii in services){
+					var metadata = services[ii];
+					var nameservice = ii;
+
+					for(var iii in metadata){						
+						var _type = metadata[iii];
+						var field = iii.replace('root\.', '');
+						if(field == property){
+							select.append('<option value="'+field+'" selected>'+nameservice+':'+field+' ['+_type+']</option>');
+							continue;
+						}
+						select.append('<option value="'+field+'">'+nameservice+':'+field+' ['+_type+']</option>');	
+					}
 				}
 				td.append(select);
 				tr.append(td);				
@@ -101,8 +140,9 @@ var desenhador = desenhador || {};
 				//povoarAction(comp, desenhador.controller.getFunctions());						
 				
 				desenhador.controller.update();
+				desenhador.metadata.update();
 
-				self._contruct(comp);
+				self._contruct(comp);				
 
 				$( "#dialog" ).html('');
 				$( "#dialog" ).html(self.getTable());
@@ -122,21 +162,29 @@ var desenhador = desenhador || {};
 
 				var updateProperty = function (_this) {
 					var name = $(_this).attr('name');
-					var val = $(_this).val();
+					var val = $(_this).val();					
 
 					if(comp.property && comp.property[name] && comp.property[name].val){
 						comp.property[name].val = val;
-					}
-					else if(comp.property && comp.property[name]){
+					}  else	if(comp.property && comp.property[name]){
 						comp.property[name] = val;
-					} else if(comp.actions && comp.actions[name]){						
+					}  
+
+
+					
+					if(comp.actions && comp.actions[name]){						
 						comp.actions[name] = val;
+					}  
+					if(comp.binds && comp.binds[name]){		
+						comp.binds[name] = val;
 					}
 
 					desenhador.util.updateCompSerializable($this, comp);
 
 					console.debug('UPDATE COMPONENT : ('+(comp.name || comp.property.nameService)+')');		
-					comp.update($this, comp);					
+					comp.update($this, comp, function () {
+						desenhador.util.updateCompSerializable($this, comp);						
+					});					
 				};
 
 				$( "#dialog" ).off('focusout', 'input, select');
@@ -152,7 +200,7 @@ var desenhador = desenhador || {};
 			});
 		};
 
-		this.getTable = function (argument) {
+		this.getTable = function () {
 			return this.table;
 		}		
 	};

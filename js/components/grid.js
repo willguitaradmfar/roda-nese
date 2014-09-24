@@ -18,13 +18,18 @@ templates.grid = (function () {
 	var property = {};
 	property.cols = 'Nome,Idade,RG';
 	property.rows = 'name,age,rg';
-	property.collection = 'models';
+	property.limit = 10;
+	property.model = 'model';
 	property.filter = 'modelFilter';
 	property.select = 'modelSelect';
 
+	var binds = {}
+	binds.collection = '...';
+
 	var update = function (target, comp) {
-		if(comp.property.collection && comp.property.collection.length > 0){
-			$(target).find('tbody > tr').attr('data-ng-repeat', '_m in '+comp.property.collection+' | filter:'+comp.property.filter);
+
+		if(comp.property.model && comp.property.model.length > 0){
+			$(target).find('tbody > tr').attr('data-ng-repeat', '_m in '+comp.property.model+'.'+comp.binds.collection+' | filter:'+comp.property.filter+' | limitTo:'+comp.property.limit);
 		}
 
 		if(comp.property.cols && comp.property.cols.length > 0){			
@@ -50,6 +55,7 @@ templates.grid = (function () {
 	};
 
 	return {
+		'binds' : binds,
 		'templ' : templ,
 		'name' : 'grid',
 		'property' : property,

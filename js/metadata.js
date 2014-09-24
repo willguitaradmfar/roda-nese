@@ -1,10 +1,15 @@
 var desenhador = desenhador || {};
 
-(function(desenhador) {
-	desenhador.metadata = desenhador.metadata || {};
+(function(desenhador) {	 
+
 	
-	desenhador.metadata = function (_obj) {
-		this.metadado = {};
+
+	var setMetadata = function (nameService, metadata) {		
+		desenhador.metadata.metadata[nameService] = metadata;
+	};
+	
+	var dynamic = function (_obj) {
+		this.metadata = {};
 
 		this.nav = function (obj, parent) {
 			for(var i in obj){
@@ -20,10 +25,44 @@ var desenhador = desenhador || {};
 				
 				var path = (parent+'.'+i);
 				path = path.replace(/\.\d+/g, '');
-				this.metadado[path] = otype;
+				this.metadata[path] = otype;				
 			}
 		};
+
 		this.nav(_obj, 'root');
 	};
-	
+
+	var update = function (target) {
+		console.debug('UPDATE METADATA OBJ GLOBAL');
+		desenhador.metadata.metadata = {};
+		
+		var comps;
+
+		if(target){
+			comps = $(target).find('.nonvisual');
+		}else{
+			comps = $('.datasource-container').find('.nonvisual');
+		}			
+
+		for(var y = 0 ; y < comps.length ; y++){
+
+			var comp = desenhador.util.eval($(comps[y]).attr('comp'));
+
+			if(!comp)continue;
+			if(!comp.metadata)continue;
+
+			var nameService = comp.property.nameService;
+
+			console.debug('ATUALIZANDO METADATA DE :'+nameService);
+			setMetadata(nameService, comp.metadata);			
+		}
+	};
+
+	desenhador.metadata = {
+		'dynamic' : dynamic,
+		'update' : update,
+		'metadata': {}
+	};
+			
+
 })(desenhador);

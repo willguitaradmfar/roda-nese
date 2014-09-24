@@ -6,28 +6,20 @@ resources.servicoYql = (function () {
 
                     $.ajax({
                         url: "$url$",
-                     
-                        // the name of the callback parameter, as specified by the YQL service
                         jsonp: "callback",
-                     
-                        // tell jQuery we're expecting JSONP
                         dataType: "jsonp",
-                     
-                        // tell YQL what we want and that we want JSON
                         data: {
-                            q: $scope.$yql$,
+                            q: '$yql$',
                             format: "json"
                         },
-                     
-                        // work with the response
                         success: function( res ) {
                             if(res.error){                                
                                 $scope.$nameService$.$error$.msg = res.description;
                                 console.error('ERROR : HTTP REQUEST : '+res.description);
-                                return ;
+                                return;
                             }
                             if(res.query){
-                                $scope.$collection$ = res.query.results;
+                                $scope.$collection$ = res;
                                 $scope.$apply();
                             }
                         }
@@ -39,15 +31,16 @@ resources.servicoYql = (function () {
     property.collection =  'models';
     property.error =  'error';
     property.url =  'http://query.yahooapis.com/v1/public/yql';
-    property.yql =  'model.yql';
+    property.yql =  'select * from local.search where query=\"sushi\" and location=\"san francisco, ca\" and Rating.AverageRating=4';
 
     var controller = {};
     controller._functions = {};
     controller._variables = {};
     controller._injects = {};    
 
+    var metadata = {};    
 
-    var update = function (target, comp) {
+    var update = function (target, comp, cb) {
 
         var keys = ['nameService', 'collection', 'error', 'url', 'yql'];
         var values = [comp.property.nameService, comp.property.collection, comp.property.error, comp.property.url, comp.property.yql];
@@ -56,10 +49,22 @@ resources.servicoYql = (function () {
         comp.controller._variables = {};
         comp.controller._variables[comp.property.error] = '{}';
 
-        comp.controller._functions.query = comp.query;               
+        comp.controller._functions.query = comp.query;
+
+        desenhador.util.rest({
+            url:comp.property.url,
+            data:{ q: comp.property.yql, format: "json"},
+            success:function (res) {
+                var m = new desenhador.metadata.dynamic(res);            
+                comp.metadata = m.metadata;
+                if(cb)cb();
+            }
+        });
+
     };
 
     return {
+        'metadata' : metadata,
         'icon' : 'upload',
         'templateQuery' : query,
         'query' : query,        

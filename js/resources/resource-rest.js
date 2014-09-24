@@ -13,7 +13,6 @@ resources.servicoRest = (function () {
                         $scope.$nameService$.$error$.msg = data;
                         console.error('ERROR : HTTP REQUEST : '+status);
                     });
-
             };
 
      var post = function(model){

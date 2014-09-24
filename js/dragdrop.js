@@ -50,8 +50,10 @@ var desenhador = desenhador || {};
 					comp.update = desenhador.util.eval(comp.update);
 					
 					console.debug('CHAMANDO FUNCTION update() ....');
-					comp.update($this, comp);
-					desenhador.util.updateCompSerializable($this, comp);							
+					comp.update($this, comp, function () {
+						desenhador.util.updateCompSerializable($this, comp);
+					});
+					
 				}
 		});
 
@@ -61,8 +63,10 @@ var desenhador = desenhador || {};
 					var comp = JSON.parse($this.attr('comp'));
 					comp.update = desenhador.util.eval(comp.update);					
 					console.debug('CHAMANDO FUNCTION update() ....');
-					comp.update($this, comp);
-					desenhador.util.updateCompSerializable($this, comp);
+					comp.update($this, comp, function () {
+						desenhador.util.updateCompSerializable($this, comp);
+					});
+					
 
 				}
 		});
