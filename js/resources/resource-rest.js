@@ -36,7 +36,7 @@ resources.servicoRest = (function () {
     property.collection =  'models';
     property.error =  'error';
     property.url =  'http://localhost:3005';
-    property.pathGet =  '/listaDePessoas.json';
+    property.pathGet =  '/chart';
     property.pathPost =  '/pessoa';
 
 
@@ -53,8 +53,8 @@ resources.servicoRest = (function () {
         var values = [comp.property.nameService, comp.property.pathGet, comp.property.collection, comp.property.error, comp.property.url];
         comp.get = desenhador.util.processTemplate(keys, values, comp.templateGet);
 
-        keys = ['nameService', 'pathPost', 'error', 'url'];
-        values = [comp.property.nameService, comp.property.pathPost, comp.property.error, comp.property.url];
+        keys = ['nameService', 'pathPost', 'error', 'url', 'collection'];
+        values = [comp.property.nameService, comp.property.pathPost, comp.property.error, comp.property.url, comp.property.collection];
         comp.post = desenhador.util.processTemplate(keys, values, comp.templatePost);
 
         comp.controller._variables = {};

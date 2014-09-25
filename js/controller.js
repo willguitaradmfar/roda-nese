@@ -93,7 +93,7 @@ var desenhador = desenhador || {};
 	};
 
 	var _makeController = function () {
-		var bodyController = "angular.module('desenhador', [])";
+		var bodyController = "angular.module('desenhador', ['ng-nvd3'])";
 		var inj = "\n\t.controller('desenhadorCtrl', [";
 		for(var i in struct._injects){
 			inj += "'"+struct._injects[i]+"', ";

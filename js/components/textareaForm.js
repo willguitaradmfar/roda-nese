@@ -12,15 +12,18 @@ templates.textareaForm = (function () {
 	property.placeholder = 'Placeholder';
 	property.rows = '5';
 	property.cols = '5';
-	property.bind = 'model';
+	property.model = 'model';
+
+	var binds = {};
+	binds.field = 'field';
 
 	var update = function (target, comp) {
 		$(target).attr('class', 'input-group component ');
 		$(target).find('textarea').attr('rows', comp.property.rows);
 		$(target).find('textarea').attr('cols', comp.property.cols);
 		$(target).find('textarea').attr('placeholder', comp.property.placeholder);
-		$(target).find('label').text(comp.property.label);
-		$(target).find('textarea').attr('data-ng-model', comp.property.bind);
+		$(target).find('label').text(comp.property.label);		
+		$(target).find('textarea').attr('data-ng-model', comp.property.model+'.'+comp.binds.field);
 	};
 
 	return {
@@ -28,6 +31,7 @@ templates.textareaForm = (function () {
 		'name' : 'textareaForm',
 		'property' : property,
 		'update' : update,
-		'category' : 'input'
+		'category' : 'input',
+		'binds' : binds
 	};
 })();

@@ -14,7 +14,12 @@ templates.selectForm = (function () {
 	var property = {};
 	property.label = 'Select';
 	property.options = 'Option 1,Option 2,Option 3';
-	property.bind = 'model';
+	property.modelSelect = 'model';
+	property.collection = 'models';
+
+	var binds = {};
+	binds.field = 'model';
+	binds.array = 'array';
 
 	var update = function (target, comp) {
 		$(target).attr('class', 'input-group component');
@@ -23,12 +28,15 @@ templates.selectForm = (function () {
 		var options = comp.property.options.split(',');
 		for(var i in options){
 			$(target).find('select').append('<option value="'+options[i]+'">'+options[i]+'</option>');
-		}
-		$(target).find('select').attr('data-ng-model', comp.property.bind);
+		}		
+		$(target).find('select').attr('data-ng-model', comp.property.modelSelect);
+
+		$(target).find('select').attr('data-ng-options', '_m.'+comp.binds.field+' for _m in '+comp.property.collection+'.'+comp.binds.array);
 	};
 
 	return {
 		'templ' : templ,
+		'binds' : binds,
 		'name' : 'selectForm',
 		'property' : property,
 		'update' : update,

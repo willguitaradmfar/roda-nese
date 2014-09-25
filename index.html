@@ -24,8 +24,14 @@
 		<!-- JQUERY -->
 
 		<!-- ANGULAR -->
-		<script src="dependency/angular.min.js"></script>		
+		<script src="dependency/angular.min.js"></script>
 		<!-- ANGULAR -->
+
+		<!-- NVD3 -->
+		<script type="text/javascript" src="dependency/nvd3/d3.v3.min.js"></script>
+    	<script type="text/javascript" src="dependency/nvd3/nv.d3.js"></script>
+    	<script type="text/javascript" src="dependency/nvd3/ng-nvd3.js"></script>
+    	<!-- NVD3 -->
 
 		<!-- BOOTSTRAP -->
 		<link rel="stylesheet" href="dependency/bootstrap.min.css">		
@@ -50,6 +56,8 @@
 		<script src="js/components/image.js"></script>
 		<script src="js/components/selectForm.js"></script>
 		<script src="js/components/grid.js"></script>
+		<script src="js/components/chartPie.js"></script>
+		<script src="js/components/chartLine.js"></script>		
 		<!-- COMPONENTES -->
 
 		<!-- RESOURCES -->
@@ -80,6 +88,7 @@
 				    <li role="presentation"><a role="menuitem" class="glyphicon glyphicon-eye-open" tabindex="-1" href="#" id="v1024"> 1024</a></li>				    
 				    <li role="presentation" class="divider"></li>
 				    <li role="presentation"><a role="menuitem" class="glyphicon glyphicon-eye-open" tabindex="-1" href="#" id="vFull"> Full</a></li>
+				    <li role="presentation"><a role="menuitem" class="glyphicon glyphicon-eye-open" tabindex="-1" href="#" id="popup"> PopUp</a></li>
 				  </ul>
 				  <span class="btn btn-danger dropdown-toggle glyphicon glyphicon-trash" type="button" id="limpar">
 				    
@@ -114,6 +123,18 @@
 				      </h4>
 				    </div>
 				    <div id="input" class="panel-collapse collapse">
+				      <div class="panel-body">				        
+				      </div>
+				    </div>
+				  </div>
+
+				  <div class="panel panel-default">
+				    <div class="panel-heading">
+				      <h4 class="panel-title">
+				        <a class="accordion-toggle  glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion-comp" href="#chart"> Chart</a>
+				      </h4>
+				    </div>
+				    <div id="chart" class="panel-collapse collapse">
 				      <div class="panel-body">				        
 				      </div>
 				    </div>
