@@ -5,10 +5,10 @@ templates.selectForm = (function () {
 	var templ = '<div class="input-group">'
 					+'<label>Select</label>'
 					+'<select name="selectbasic" class="form-control">'
-				      +'<option>Option 1</option>'				      
-				      +'<option>Option 2</option>'
-				      +'<option>Option 3</option>'
-				    +'</select>'
+     +'<option>Option 1</option>'
+     +'<option>Option 2</option>'
+     +'<option>Option 3</option>'
+   +'</select>'
 				+'</div>';
 
 	var property = {};
@@ -16,7 +16,7 @@ templates.selectForm = (function () {
 	property.options = 'Option 1,Option 2,Option 3';
 	property.bind = 'model';
 
-	var update = function (target, comp) {		
+	var update = function (target, comp) {
 		$(target).attr('class', 'input-group component');
 		$(target).find('label').text(comp.property.label);
 		$(target).find('select').html('');

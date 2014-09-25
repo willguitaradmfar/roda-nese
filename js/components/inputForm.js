@@ -8,17 +8,18 @@ templates.inputForm = (function () {
 				+'</div>';
 
 	var property = {};
-	property.label = 'Input Text';	
-	property.placeholder = 'Placeholder';	
+	property.label = 'Input Text';
+	property.placeholder = 'Placeholder';
+	property.model = 'model';
 
 	var binds = {};
-	binds.bind = 'model';
+	binds.field = 'model';
 
-	var update = function (target, comp) {		
+	var update = function (target, comp) {
 		$(target).attr('class', 'input-group component ');
 		$(target).find('input').attr('placeholder', comp.property.placeholder);
 		$(target).find('label').text(comp.property.label);
-		$(target).find('input').attr('data-ng-model', comp.binds.bind);
+		$(target).find('input').attr('data-ng-model', comp.property.model+'.'+comp.binds.field);
 	};
 
 	return {

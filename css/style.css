@@ -15,7 +15,7 @@
 .col-md-12{	
 	height: 6%;
 	padding-top: 4px;
-	background-color: cornsilk;
+	background-color: #eeeeee;
 }
 
 #palleta .component:hover{	
@@ -26,7 +26,7 @@
 #palleta{
 	padding-top: 5px;
 	margin-top: 1px;
-	background-color: cornsilk;
+	background-color: #eeeeee;
 }
 .project-container{
 	margin-top: 1px;

@@ -31,10 +31,10 @@ var desenhador = desenhador || {};
 		if(!struct._variable[nameService])struct._variable[nameService] = {};
 		struct._variable[nameService][name] = _variable;
 	};
-	
+
 	var getFunctions = function() {
 		console.debug('GET ALL FUNCTIONS CONTROLLER');
-		var _functions = [];		
+		var _functions = [];
 		for(var i in struct._functions){
 			for(var ii in struct._functions[i]){
 				var o = {};
@@ -50,7 +50,7 @@ var desenhador = desenhador || {};
 	var update = function (target) {
 
 		console.debug('UPDATE CONTROLLER OBJ GLOBAL');
-		
+
 		var comps;
 
 		if(target){
@@ -81,7 +81,7 @@ var desenhador = desenhador || {};
 			for(var i in comp.controller._functions){
 				var _function = comp.controller._functions[i];
 				setFunctions(nameService, i, _function);
-			}				
+			}
 		}
 	}
 
@@ -98,7 +98,7 @@ var desenhador = desenhador || {};
 		for(var i in struct._injects){
 			inj += "'"+struct._injects[i]+"', ";
 		}
-		
+
 		bodyController += inj;
 
 		inj = '';
@@ -111,21 +111,21 @@ var desenhador = desenhador || {};
 		bodyController += "\n\t\tconsole.debug('CHAMANDO CONTROLLER [desenhadorCtrl]');";
 
 		var services = {};
-		
+
 		//MERGE DE FUNCTION E VARIABLE
-		for(var i in struct._variable){			
+		for(var i in struct._variable){
 			services[i] = {};
 		}
-		for(var i in struct._functions){			
+		for(var i in struct._functions){
 			services[i] = {};
 		}
 
 		for(var i in services){
 			var service = services[i];
 			bodyController += '\n\t\t\t$scope.'+i+' = {}';
-		}		
+		}
 
-		for(var i in struct._variable){			
+		for(var i in struct._variable){
 			for(var ii in struct._variable[i]){
 				var variable = struct._variable[i][ii];
 				bodyController += '\n\t\t\t$scope.'+i+'.'+ii+' = '+variable+';';

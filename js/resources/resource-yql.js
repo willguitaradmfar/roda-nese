@@ -3,7 +3,6 @@ var resources = resources || {};
 resources.servicoYql = (function () {
 
     var query = function(){
-
                     $.ajax({
                         url: "$url$",
                         jsonp: "callback",
@@ -13,7 +12,7 @@ resources.servicoYql = (function () {
                             format: "json"
                         },
                         success: function( res ) {
-                            if(res.error){                                
+                            if(res.error){
                                 $scope.$nameService$.$error$.msg = res.description;
                                 console.error('ERROR : HTTP REQUEST : '+res.description);
                                 return;
@@ -24,7 +23,7 @@ resources.servicoYql = (function () {
                             }
                         }
                     });
-            };    
+            };
 
     var property = {};
     property.nameService = 'servYql';
@@ -36,9 +35,11 @@ resources.servicoYql = (function () {
     var controller = {};
     controller._functions = {};
     controller._variables = {};
-    controller._injects = {};    
+    controller._injects = {};
 
-    var metadata = {};    
+    var metadata = {};
+    var arrays = {};
+    var models = {};
 
     var update = function (target, comp, cb) {
 
@@ -54,9 +55,11 @@ resources.servicoYql = (function () {
         desenhador.util.rest({
             url:comp.property.url,
             data:{ q: comp.property.yql, format: "json"},
-            success:function (res) {
-                var m = new desenhador.metadata.dynamic(res);            
+            success:function (res) {                
+                var m = new desenhador.util.dynamicMetadata(res);                
                 comp.metadata = m.metadata;
+                comp.arrays = m.arrays;
+                comp.models = m.models;
                 if(cb)cb();
             }
         });
@@ -65,9 +68,11 @@ resources.servicoYql = (function () {
 
     return {
         'metadata' : metadata,
+        'arrays' : metadata,
+        'models' : metadata,
         'icon' : 'upload',
         'templateQuery' : query,
-        'query' : query,        
+        'query' : query,
         'property' : property,
         'controller' : controller,
         'category' : 'datasource',

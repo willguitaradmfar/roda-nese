@@ -8,7 +8,7 @@ logQueue.trace = true;
 logQueue.sleepThread = 1000;
 //logQueue.start();
 
-$(function () {	
+$(function () {
 
 	var visualizar = new desenhador.preview($('.project-container'));
 
@@ -20,5 +20,5 @@ $(function () {
 	property.clickOpenProperty();
 
 	var projects = new desenhador.projects();
-	
+
 });

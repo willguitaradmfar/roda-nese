@@ -14,7 +14,7 @@ templates.textareaForm = (function () {
 	property.cols = '5';
 	property.bind = 'model';
 
-	var update = function (target, comp) {		
+	var update = function (target, comp) {
 		$(target).attr('class', 'input-group component ');
 		$(target).find('textarea').attr('rows', comp.property.rows);
 		$(target).find('textarea').attr('cols', comp.property.cols);

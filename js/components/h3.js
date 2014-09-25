@@ -4,11 +4,11 @@ templates.h3 = (function () {
 
 	var templ = '<h3>H3</h3>';
 
-	var property = {};		
+	var property = {};
 	property.label = 'H3';
 	property.bind = 'model';
 
-	var update = function (target, comp) {		
+	var update = function (target, comp) {
 		$(target).text(comp.property.label);
 
 		if(comp.property.bind && comp.property.bind.length > 0)

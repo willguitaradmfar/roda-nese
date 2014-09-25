@@ -24,22 +24,22 @@ templates.grid = (function () {
 	property.select = 'modelSelect';
 
 	var binds = {}
-	binds.collection = '...';
+	binds.array = '...';
 
 	var update = function (target, comp) {
 
 		if(comp.property.model && comp.property.model.length > 0){
-			$(target).find('tbody > tr').attr('data-ng-repeat', '_m in '+comp.property.model+'.'+comp.binds.collection+' | filter:'+comp.property.filter+' | limitTo:'+comp.property.limit);
+			$(target).find('tbody > tr').attr('data-ng-repeat', '_m in '+comp.property.model+'.'+comp.binds.array+' | filter:'+comp.property.filter+' | limitTo:'+comp.property.limit);
 		}
 
-		if(comp.property.cols && comp.property.cols.length > 0){			
+		if(comp.property.cols && comp.property.cols.length > 0){
 			var cols = [];
 			var _cols = comp.property.cols.split(',');
 			$(target).find('thead > tr').html('');
 			for(var i in _cols){
 				var col = _cols[i];
 				$(target).find('thead > tr').append('<th>'+col+'</th>');
-			}			
+			}
 		}
 
 		if(comp.property.rows && comp.property.rows.length > 0){

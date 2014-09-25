@@ -10,37 +10,37 @@ var desenhador = desenhador || {};
 		$( ".datasource-container" ).sortable({revert: true});
 
 		$('.component').draggable({
-		    connectToSortable: ".project-container",
-		    cursor: "move",
-		    helper: "clone",
-		    revert: "invalid",
-		    	start: function(event, ui) {	        
-		        	console.debug('start draggable '+$(this));
-		      	},
-		      	drag: function(event, ui) {
-					
-			    },
-		    	stop: function(event, ui) {
-		        	console.debug('stop draggable'+$(this));
-		      	}
+   connectToSortable: ".project-container",
+   cursor: "move",
+   helper: "clone",
+   revert: "invalid",
+   	start: function(event, ui) {
+       	console.debug('start draggable '+$(this));
+     	},
+     	drag: function(event, ui) {
+
+   },
+   	stop: function(event, ui) {
+       	console.debug('stop draggable'+$(this));
+     	}
 		});
 
 		$('.nonvisual').draggable({
-		    connectToSortable: ".datasource-container",
-		    cursor: "move",
-		    helper: "clone",
-		    revert: "invalid",
-		    	start: function(event, ui) {	        
-		        	console.debug('start draggable '+$(this));		        	
-		        	$('.datasource-container').addClass('datasource-container-evident', 300);
-		      	},
-		      	drag: function(event, ui) {
-					
-			    },
-		    	stop: function(event, ui) {	    		
-		        	console.debug('stop draggable'+$(this).html());
-		        	$('.datasource-container').removeClass('datasource-container-evident', 1000);		        	
-		      	}
+   connectToSortable: ".datasource-container",
+   cursor: "move",
+   helper: "clone",
+   revert: "invalid",
+   	start: function(event, ui) {
+       	console.debug('start draggable '+$(this));
+       	$('.datasource-container').addClass('datasource-container-evident', 300);
+     	},
+     	drag: function(event, ui) {
+
+   },
+   	stop: function(event, ui) {
+       	console.debug('stop draggable'+$(this).html());
+       	$('.datasource-container').removeClass('datasource-container-evident', 1000);
+     	}
 		});
 
 		$('.project-container').droppable({
@@ -48,12 +48,12 @@ var desenhador = desenhador || {};
 					var $this = $(ui.draggable);
 					var comp = JSON.parse($this.attr('comp'));
 					comp.update = desenhador.util.eval(comp.update);
-					
+
 					console.debug('CHAMANDO FUNCTION update() ....');
 					comp.update($this, comp, function () {
 						desenhador.util.updateCompSerializable($this, comp);
 					});
-					
+
 				}
 		});
 
@@ -61,32 +61,29 @@ var desenhador = desenhador || {};
 			over : function (event, ui) {
 					var $this = $(ui.draggable);
 					var comp = JSON.parse($this.attr('comp'));
-					comp.update = desenhador.util.eval(comp.update);					
+					comp.update = desenhador.util.eval(comp.update);
 					console.debug('CHAMANDO FUNCTION update() ....');
 					comp.update($this, comp, function () {
 						desenhador.util.updateCompSerializable($this, comp);
 					});
-					
+
 
 				}
 		});
 
-		$( "#dialog" ).dialog({
-	    	  width : 500,
-	    	  height : 500,
-			  autoOpen: false,
-			  show: {
-			    effect: "explode",
-			    duration: 300
-			  },
-			  hide: {
-			    effect: "explode",
-			    duration: 300
-			  },
-			  close: function( event, ui ) {
-			  	
-			  }
-	    });
+    $( "#dialog" ).dialog({
+      width : 500,
+      height : 600,
+      autoOpen: false,
+      show: {
+        effect: "explode",
+        duration: 300
+        },
+      hide: {
+        effect: "explode",
+        duration: 300
+      }
+    });
 	};
-	
+
 })(desenhador);

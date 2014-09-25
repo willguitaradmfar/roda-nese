@@ -6,7 +6,7 @@ var desenhador = desenhador || {};
 	var getProjectsLocalStorage = function () {
 
 		var projetos = [];
-		
+
 		for(var i in localStorage){
 			try{
 				var property = localStorage[i];
@@ -44,7 +44,7 @@ var desenhador = desenhador || {};
 				console.debug('ABRINDO PROJETO ('+projeto.name+')');
 				$('.project-container').html(projeto.content);
 				$('.datasource-container').html(projeto.contentDatasource);
-				
+
 			});
 		};
 
@@ -66,7 +66,7 @@ var desenhador = desenhador || {};
 				var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
 				body.html(projeto.content).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
 				angular.bootstrap(body, ['desenhador']);
-				
+
 			});
 		};
 
@@ -78,7 +78,7 @@ var desenhador = desenhador || {};
 			var btnAbrir = $('<span class="btn btn-warning glyphicon glyphicon-pencil"></span>');
 			var btnRemover = $('<span class="btn btn-danger glyphicon glyphicon-trash"></span>');
 			var btnVisualizar = $('<span class="btn btn-info glyphicon glyphicon-eye-open"></span>');
-			
+
 			mapearEventoAbrirProjeto(btnAbrir, projeto);
 			mapearEventoRemoverProjeto(btnRemover, projeto);
 			mapearEventoVisualizarProjeto(btnVisualizar, projeto);
@@ -92,14 +92,14 @@ var desenhador = desenhador || {};
 			table.find('tbody').append(tr);
 		}
 		return table;
-		
+
 	};
 
 	var openSaveDialog = function () {
 
 		var body = $('<div></div>');
 
-		var inputGroup = $('<div class="input-group"></div>')						
+		var inputGroup = $('<div class="input-group"></div>')
 						.append('<label>Nome do projeto</label>')
 						.append('<div class="input-group"><input type="text" class="input-control"><span class=" btn btn-success glyphicon glyphicon-save" ></span></div>');
 
@@ -108,7 +108,7 @@ var desenhador = desenhador || {};
 			var contentDatasource = $('.datasource-container').html();
 			var _nomeProjeto = inputGroup.find('input');
 			var nomeProjeto = _nomeProjeto.val();
-			if(!nomeProjeto)return;			
+			if(!nomeProjeto)return;
 
 			console.debug('SALVANDO PROJETO ('+nomeProjeto+')');
 
@@ -122,7 +122,7 @@ var desenhador = desenhador || {};
 			body.find('table').remove();
 			body.append(povoarTabelaProjetos());
 			_nomeProjeto.val('');
-		});		
+		});
 
 		body.append(inputGroup).append('<hr/>').append(povoarTabelaProjetos());
 		body.dialog({width : 768, height : 570, title : 'Salvar Projeto'});
@@ -137,7 +137,7 @@ var desenhador = desenhador || {};
 		$('#salvar').on('click', function () {
 			console.debug('ABRINDO DIALOG PARA SALVAR PROJETO');
 			openSaveDialog();
-		});		
+		});
 	};
 
 })(desenhador);
