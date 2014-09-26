@@ -10,81 +10,135 @@ var desenhador = desenhador || {};
 			desenhador.util.eval(desenhador.controller.makeController());
 		};
 
-		var makeControllerPopupScript = function () {
-			var script = $('<script></script>');
-			script.html(desenhador.controller.makeController());
-			return script;
+		var makeDependencyJS = function (dependencys) {
+			var _dependencys = [];
+			for(var i in dependencys){
+				var dependency = dependencys[i];
+				var script = $('<script></script>');
+				script.attr('src', dependency);
+				script.attr('type', 'text/javascript');
+				_dependencys.push(script);
+			}			
+			return _dependencys;
 		};
 
-		$('#popup').on('click', function () {
-			console.debug('VISUALIZAR PROJETO popup');
-			var script = makeControllerPopupScript();
-			script.append("angular.bootstrap(body, ['desenhador']);");
+		var makeDependencyCSS = function (dependencys) {
+			var _dependencys = [];
+			for(var i in dependencys){
+				var dependency = dependencys[i];
+				var script = $('<link rel="stylesheet" href="'+dependency+'">');				
+				_dependencys.push(script);
+			}			
+			return _dependencys;
+		};
 
-			var popup = open('', 'Projeto', 'width=700,height=700');
+		var openPopup = function (config) {
 
-			popup.document.head.innerHTML = script.html();
+			if(!config) throw 'config não passado';
 
-			//TODO NÃO ESTA APLICANDO O CONTROLLER ANGULAR
-			var body = $('<div></div>');
-			body.append('<div data-ng-controller="desenhadorCtrl"></div>');
-			body.html(html.html());
+			var title = config.title || 'Titulo do Projeto';
+			var ctrl = config.ctrl || 'desenhadorCtrl';
+			var appName = config.appName || 'desenhador';
+			var width = config.width || 1024;
+			var height = config.height || 768;
 			
-			popup.document.body.innerHTML = body.html();
-		});
+			console.debug('VISUALIZAR PROJETO '+title);
+
+			var head = $('<head></head>');
+
+			var script = $('<script type="text/javascript"></script>');
+			script.append(desenhador.controller.makeController());
+
+			var dependencysJS = makeDependencyJS([
+				'dependency/jquery/jquery-ui-1.11.1/external/jquery/jquery.js',
+				'dependency/angular.min.js', 
+				'dependency/nvd3/d3.v3.min.js',
+				'dependency/nvd3/nv.d3.js',
+				'dependency/nvd3/ng-nvd3.js',
+				'dependency/bootstrap.min.js'
+			]);
+
+			var dependencysCSS = makeDependencyCSS([
+				'dependency/bootstrap.min.css', 
+				'dependency/bootstrap-theme.min.css'
+			]);			
+
+			var content = $('<div></div>');
+			for(var i in dependencysCSS){
+				var dependency = dependencysCSS[i];
+				content.append(dependency);
+			}
+			for(var i in dependencysJS){
+				var dependency = dependencysJS[i];
+				content.append(dependency);
+			}
+			content.append(script);
+			content.append($('<title></title>').text(title));
+			head.append(content.html());
+
+			var popup = open('', '_blank', 'width='+width+',height='+height);
+			
+			
+			var body = $('<body></body>');
+			var ctrl = $('<div data-ng-controller="'+ctrl+'"></div>');
+			ctrl.append(html.html());			
+			body.attr('data-ng-app', appName);
+
+			body.append(ctrl);			
+			var _temp = $('<div></div>');						
+			_temp.append(head);
+			_temp.append(body);			
+			popup.document.open();
+			popup.document.write('<html>'+_temp.html()+'</html>');
+			popup.document.close();
+		};
 
 		$('#vFull').on('click', function () {
-			console.debug('VISUALIZAR PROJETO vFull');
-			makeController();
-			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
-			body.html(html.html()).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
-			angular.bootstrap(body, ['desenhador']);
-
+			openPopup({
+				width : $('html').width(), 
+				height : $('html').height(),
+				title : 'Projeto vFull'
+			});
 		});
 
 		$('#v240').on('click', function () {
-			console.debug('VISUALIZAR PROJETO v240');
-			makeController();
-			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
-			body.html(html.html()).dialog({width : 240, height : 420, title : 'v240'});
-			angular.bootstrap(body, ['desenhador']);
-
+			openPopup({
+				width : 240, 
+				height : 420,
+				title : 'Projeto v240'
+			});
 		});
 
 		$('#v320').on('click', function () {
-			console.debug('VISUALIZAR PROJETO v320');
-			makeController();
-			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
-			body.html(html.html()).dialog({width : 320, height : 420, title : 'v320'});
-			angular.bootstrap(body, ['desenhador']);
-
+			openPopup({
+				width : 320, 
+				height : 420,
+				title : 'Projeto v320'
+			});			
 		});
 
 		$('#v480').on('click', function () {
-			console.debug('VISUALIZAR PROJETO v480');
-			makeController();
-			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
-			body.html(html.html()).dialog({width : 480, height : 570, title : 'v480'});
-			angular.bootstrap(body, ['desenhador']);
-
+			openPopup({
+				width : 480, 
+				height : 570,
+				title : 'Projeto v480'
+			});			
 		});
 
 		$('#v768').on('click', function () {
-			console.debug('VISUALIZAR PROJETO v768');
-			makeController();
-			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
-			body.html(html.html()).dialog({width : 768, height : 570, title : 'v768'});
-			angular.bootstrap(body, ['desenhador']);
-
+			openPopup({
+				width : 768, 
+				height : 570,
+				title : 'Projeto v768'
+			});
 		});
 
 		$('#v1024').on('click', function () {
-			console.debug('VISUALIZAR PROJETO v1024');
-			makeController();
-			var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
-			body.html(html.html()).dialog({width : 1024, height : 570, title : 'v1024'});
-			angular.bootstrap(body, ['desenhador']);
-
+			openPopup({
+				width : 1024, 
+				height : 570,
+				title : 'Projeto v1024'
+			});
 		});
 	};
 })(desenhador);
