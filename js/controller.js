@@ -85,9 +85,9 @@ var desenhador = desenhador || {};
 		}
 	}
 
-	var makeController = function () {
+	var makeController = function (target) {
 
-		update();
+		update(target);
 
 		return _makeController();
 	};

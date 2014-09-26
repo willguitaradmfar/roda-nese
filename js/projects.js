@@ -57,16 +57,23 @@ var desenhador = desenhador || {};
 		};
 
 		var mapearEventoVisualizarProjeto = function (btn, projeto) {
-			var makeController = function () {
-				desenhador.util.eval(desenhador.controller.makeController());
-			};
-			btn.on('click', function () {
-				console.debug('VISUALIZANDO PROJETO ('+projeto.name+')');
-				makeController();
-				var body = $('<div data-ng-controller="desenhadorCtrl"></div>');
-				body.html(projeto.content).dialog({width : $('html').width(), height : $('html').height(), title : 'Projeto'});
-				angular.bootstrap(body, ['desenhador']);
 
+			var _datasourceTmp = $('<div></div>');			
+			_datasourceTmp.append(projeto.contentDatasource);
+
+			var contentTmp = $('<div></div>');			
+			contentTmp.append(projeto.content);		
+
+			btn.on('click', function () {				
+				var preview = desenhador.preview(contentTmp.html());
+				preview.openPopup({
+					width : 480, 
+					height : 570,
+					title : 'Projeto v480',
+					makeController : function () {
+						return desenhador.controller.makeController(_datasourceTmp);
+					}
+				});
 			});
 		};
 

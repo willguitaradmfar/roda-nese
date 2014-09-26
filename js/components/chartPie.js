@@ -13,7 +13,15 @@ templates.chartPie = (function () {
 	binds.array = '...';
 
 	var update = function (target, comp) {
-		$(target).attr('data', comp.property.model+'.'+comp.binds.array);
+		var model = comp.property.model;
+		var array = comp.property.array;
+
+		if(model && array){
+			$(target).attr('data', model+'.'+array);
+		}else if(model){
+			$(target).attr('data', model);
+		}
+
 		$(target).attr('width', comp.property.width);
 		$(target).attr('height', comp.property.height);
 	};

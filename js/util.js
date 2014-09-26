@@ -22,6 +22,17 @@ var desenhador = desenhador || {};
 		return eval('('+script+')');
 	};
 
+	desenhador.util.removeAttrComp = function (contentTmp) {
+		return contentTmp
+			.find('[comp]')
+			.each(function(i, c){
+				$(c).removeAttr('comp')
+			});
+
+	};
+
+	
+
 	desenhador.util.dynamicMetadata = function (_obj) {
 
 		this.metadata = {};
@@ -102,6 +113,7 @@ var desenhador = desenhador || {};
 	};
 
 	desenhador.util.processTemplate = function (keys, values, template) {
+		if(!template) throw 'Template indefinido';		
 		var result = template;
 		for(var i in keys){
 			var key = keys[i];
@@ -133,7 +145,7 @@ var desenhador = desenhador || {};
 			dataType: dataType,
 			method : method,
 			data: data,
-			success: function( res ) {
+			success: function( res ) {				
 				_success(res);
 			},
 			error : function(jqXHR, textStatus, errorThrown) {

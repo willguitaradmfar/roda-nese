@@ -6,9 +6,7 @@ var desenhador = desenhador || {};
 
 	desenhador.preview = function (html) {
 
-		var makeController = function () {
-			desenhador.util.eval(desenhador.controller.makeController());
-		};
+		var self = this;	
 
 		var makeDependencyJS = function (dependencys) {
 			var _dependencys = [];
@@ -32,22 +30,23 @@ var desenhador = desenhador || {};
 			return _dependencys;
 		};
 
-		var openPopup = function (config) {
+		self.openPopup = function (config) {
 
 			if(!config) throw 'config não passado';
 
 			var title = config.title || 'Titulo do Projeto';
-			var ctrl = config.ctrl || 'desenhadorCtrl';
+			var ctrlName = config.ctrl || 'desenhadorCtrl';
 			var appName = config.appName || 'desenhador';
 			var width = config.width || 1024;
 			var height = config.height || 768;
+			var makeController = config.makeController || desenhador.controller.makeController;
 			
 			console.debug('VISUALIZAR PROJETO '+title);
 
 			var head = $('<head></head>');
 
 			var script = $('<script type="text/javascript"></script>');
-			script.append(desenhador.controller.makeController());
+			script.append(makeController());
 
 			var dependencysJS = makeDependencyJS([
 				'dependency/jquery/jquery-ui-1.11.1/external/jquery/jquery.js',
@@ -57,7 +56,7 @@ var desenhador = desenhador || {};
 				'dependency/nvd3/ng-nvd3.js',
 				'dependency/bootstrap.min.js'
 			]);
-
+debugger;
 			var dependencysCSS = makeDependencyCSS([
 				'dependency/bootstrap.min.css', 
 				'dependency/bootstrap-theme.min.css'
@@ -76,12 +75,18 @@ var desenhador = desenhador || {};
 			content.append($('<title></title>').text(title));
 			head.append(content.html());
 
-			var popup = open('', '_blank', 'width='+width+',height='+height);
+			var popup = open('', '_blank', 'width='+width+',height='+height);			
 			
 			
 			var body = $('<body></body>');
-			var ctrl = $('<div data-ng-controller="'+ctrl+'"></div>');
-			ctrl.append(html.html());			
+			var ctrl = $('<div data-ng-controller="'+ctrlName+'"></div>');
+			
+			if(!html)throw 'Conteudo HTML não passado';
+			if(!html.html)html=$(html);
+
+			desenhador.util.removeAttrComp(html);
+
+			ctrl.append(html);
 			body.attr('data-ng-app', appName);
 
 			body.append(ctrl);			
@@ -94,7 +99,7 @@ var desenhador = desenhador || {};
 		};
 
 		$('#vFull').on('click', function () {
-			openPopup({
+			self.openPopup({
 				width : $('html').width(), 
 				height : $('html').height(),
 				title : 'Projeto vFull'
@@ -102,7 +107,7 @@ var desenhador = desenhador || {};
 		});
 
 		$('#v240').on('click', function () {
-			openPopup({
+			self.openPopup({
 				width : 240, 
 				height : 420,
 				title : 'Projeto v240'
@@ -110,7 +115,7 @@ var desenhador = desenhador || {};
 		});
 
 		$('#v320').on('click', function () {
-			openPopup({
+			self.openPopup({
 				width : 320, 
 				height : 420,
 				title : 'Projeto v320'
@@ -118,7 +123,7 @@ var desenhador = desenhador || {};
 		});
 
 		$('#v480').on('click', function () {
-			openPopup({
+			self.openPopup({
 				width : 480, 
 				height : 570,
 				title : 'Projeto v480'
@@ -126,7 +131,7 @@ var desenhador = desenhador || {};
 		});
 
 		$('#v768').on('click', function () {
-			openPopup({
+			self.openPopup({
 				width : 768, 
 				height : 570,
 				title : 'Projeto v768'
@@ -134,11 +139,15 @@ var desenhador = desenhador || {};
 		});
 
 		$('#v1024').on('click', function () {
-			openPopup({
+			self.openPopup({
 				width : 1024, 
 				height : 570,
 				title : 'Projeto v1024'
 			});
 		});
+
+		return {
+			'openPopup' : self.openPopup
+		}
 	};
 })(desenhador);
