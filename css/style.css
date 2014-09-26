@@ -1,3 +1,4 @@
+
 #palleta, .project-container{	
 	height: 93%;
 }
@@ -19,8 +20,8 @@
 }
 
 #palleta .component:hover{	
-	border-right-width: 6px;
-	border-bottom-width: 6px;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
 }
 
 #palleta{

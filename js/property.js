@@ -175,15 +175,14 @@ var desenhador = desenhador || {};
 								var afterType = afters[a];
 
 								if(a == property){
-									select.append('<option value="'+a+'" selected>'+nameservice+' -> '+a+' ['+afterType+']</option>');
+									select.append('<option value="'+a+'" selected>'+field+' -> '+a+' ['+afterType+']</option>');
 									continue;
 								}
-								select.append('<option value="'+a+'">'+nameservice+' -> '+a+' ['+afterType+']</option>');
+								select.append('<option value="'+a+'">'+field+' -> '+a+' ['+afterType+']</option>');
 							}							
 						}
 					}
 				}
-
 
 				td.append(select);
 				tr.append(td);
@@ -198,7 +197,7 @@ var desenhador = desenhador || {};
 
 			var self = this;
 
-			$('.project-container, .datasource-container').on('dblclick', '.component', function () {
+			$('.project-container, .datasource-container').on('dblclick', '.component, .nonvisual', function () {
 
 				var $this = $(this);
 

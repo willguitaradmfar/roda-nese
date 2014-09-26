@@ -9,7 +9,8 @@ var desenhador = desenhador || {};
 
 		$( ".datasource-container" ).sortable({revert: true});
 
-		$('.component').draggable({
+		$('.component')      
+      .draggable({
    connectToSortable: ".project-container",
    cursor: "move",
    helper: "clone",
@@ -25,7 +26,8 @@ var desenhador = desenhador || {};
      	}
 		});
 
-		$('.nonvisual').draggable({
+		$('.nonvisual')      
+      .draggable({
    connectToSortable: ".datasource-container",
    cursor: "move",
    helper: "clone",
@@ -45,29 +47,36 @@ var desenhador = desenhador || {};
 
 		$('.project-container').droppable({
 			over : function (event, ui) {
-					var $this = $(ui.draggable);
-					var comp = JSON.parse($this.attr('comp'));
-					comp.update = desenhador.util.eval(comp.update);
 
-					console.debug('CHAMANDO FUNCTION update() ....');
-					comp.update($this, comp, function () {
-						desenhador.util.updateCompSerializable($this, comp);
-					});
+        var $this = $(ui.draggable);
 
+          if(!$this.hasClass('component'))return;
+
+          var comp = JSON.parse($this.attr('comp'));
+          
+          comp.update = desenhador.util.eval(comp.update);
+          console.debug('CHAMANDO FUNCTION update() ....');
+          comp.update($this, comp, function () {
+            desenhador.util.updateCompSerializable($this, comp);
+          });
+
+                
 				}
 		});
 
 		$('.datasource-container').droppable({
 			over : function (event, ui) {
 					var $this = $(ui.draggable);
+
+          if(!$this.hasClass('nonvisual'))return;
+
 					var comp = JSON.parse($this.attr('comp'));
+          
 					comp.update = desenhador.util.eval(comp.update);
 					console.debug('CHAMANDO FUNCTION update() ....');
 					comp.update($this, comp, function () {
 						desenhador.util.updateCompSerializable($this, comp);
 					});
-
-
 				}
 		});
 
