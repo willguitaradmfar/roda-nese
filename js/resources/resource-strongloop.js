@@ -3,7 +3,6 @@ var resources = resources || {};
 resources.strongLoop = (function () {
 
     var get = function(){
-
                 $http({ method: 'GET', url: '$url$$pathGet$' }).
                     success(function(data, status, headers, config) {
                         $scope.$collection$ = data;

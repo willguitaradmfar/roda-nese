@@ -50,25 +50,27 @@ var desenhador = desenhador || {};
 
 			var dependencysJS = makeDependencyJS([
 				'dependency/jquery/jquery-ui-1.11.1/external/jquery/jquery.js',
-				'dependency/angular.min.js', 
+				'dependency/angular.min.js',
+				'dependency/bootstrap.min.js',
 				'dependency/nvd3/d3.v3.min.js',
 				'dependency/nvd3/nv.d3.js',
-				'dependency/nvd3/ng-nvd3.js',
-				'dependency/bootstrap.min.js'
+				'dependency/nvd3/ng-nvd3.js'
 			]);
-debugger;
+			
 			var dependencysCSS = makeDependencyCSS([
-				'dependency/bootstrap.min.css', 
+				'dependency/bootstrap.min.css',
 				'dependency/bootstrap-theme.min.css'
 			]);			
 
 			var content = $('<div></div>');
 			for(var i in dependencysCSS){
 				var dependency = dependencysCSS[i];
+				console.debug('ADICIONANDO DEPENDENCIA CSS '+$(dependency).attr('href'));
 				content.append(dependency);
 			}
 			for(var i in dependencysJS){
 				var dependency = dependencysJS[i];
+				console.debug('ADICIONANDO DEPENDENCIA JS '+$(dependency).attr('src'));
 				content.append(dependency);
 			}
 			content.append(script);
@@ -76,7 +78,6 @@ debugger;
 			head.append(content.html());
 
 			var popup = open('', '_blank', 'width='+width+',height='+height);			
-			
 			
 			var body = $('<body></body>');
 			var ctrl = $('<div data-ng-controller="'+ctrlName+'"></div>');
@@ -86,7 +87,7 @@ debugger;
 
 			desenhador.util.removeAttrComp(html);
 
-			ctrl.append(html);
+			ctrl.append(html.html());
 			body.attr('data-ng-app', appName);
 
 			body.append(ctrl);			

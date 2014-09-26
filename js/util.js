@@ -14,7 +14,6 @@ var desenhador = desenhador || {};
 		};
 
 		var stringify = JSON.stringify(comp, hand);
-
 		$this.attr('comp', stringify);
 	};
 
@@ -31,10 +30,7 @@ var desenhador = desenhador || {};
 
 	};
 
-	
-
 	desenhador.util.dynamicMetadata = function (_obj) {
-
 		this.metadata = {};
 		this.models = {};
 		this.arrays = {};
@@ -128,7 +124,6 @@ var desenhador = desenhador || {};
 		var url = config.url || 'http://httpbin.org/get'
 		var data = config.data || {};
 		var dataType = config.dataType;
-
 		var method = config.method;
 
 		var _success = config.success || function (res) {
@@ -145,10 +140,12 @@ var desenhador = desenhador || {};
 			dataType: dataType,
 			method : method,
 			data: data,
-			success: function( res ) {				
+			success: function( res ) {
+				console.debug('SUCESSO NA CONSULTA PARA CRIAR METADATA');				
 				_success(res);
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
+				console.error('ERRO NA CONSULTA PARA CRIAR METADATA');
 				var e = {};
 				e.jqXHR = jqXHR;
 				e.textStatus = textStatus;
@@ -156,7 +153,5 @@ var desenhador = desenhador || {};
 				_error(e);
 			}
 		});
-
 	};
-
 })(desenhador);

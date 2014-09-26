@@ -54,8 +54,10 @@ var desenhador = desenhador || {};
 		var comps;
 
 		if(target){
+			console.debug('FOI PASSADO UM ALVO PARA COMPOR O CONTEUDO HTML');			
 			comps = $(target).find('.nonvisual');
 		}else{
+			console.debug('NÃO FOI PASSADO UM ALVO');
 			comps = $('.datasource-container').find('.nonvisual');
 		}
 
@@ -86,9 +88,7 @@ var desenhador = desenhador || {};
 	}
 
 	var makeController = function (target) {
-
 		update(target);
-
 		return _makeController();
 	};
 
@@ -132,9 +132,9 @@ var desenhador = desenhador || {};
 			}
 		}
 
-		bodyController += '\n\t\t\t$scope.set = '+(function (value, path) {
+		bodyController += '\n\t\t\$scope.set = '+(function (value, path) {
 			$scope[path] = value;
-		}).toString()+';';
+		}).toString()+';';		
 
 		for(var i in struct._functions){
 			for(var ii in struct._functions[i]){

@@ -67,8 +67,8 @@ var desenhador = desenhador || {};
 			btn.on('click', function () {				
 				var preview = desenhador.preview(contentTmp.html());
 				preview.openPopup({
-					width : 480, 
-					height : 570,
+					width : $('html').width(), 
+					height : $('html').height(),
 					title : 'Projeto v480',
 					makeController : function () {
 						return desenhador.controller.makeController(_datasourceTmp);
