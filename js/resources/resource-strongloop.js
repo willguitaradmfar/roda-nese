@@ -30,6 +30,7 @@ resources.strongLoop = (function () {
     controller._injects['$http'] = '$http';
 
 
+
     var update = function (target, comp, cb) {
 
         var keys = ['nameService', 'pathGet', 'collection', 'error', 'url'];

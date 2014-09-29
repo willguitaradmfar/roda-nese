@@ -22,12 +22,13 @@ var desenhador = desenhador || {};
 	};
 
 	desenhador.util.removeAttrComp = function (contentTmp) {
-		return contentTmp
+		/*return contentTmp
 			.find('[comp]')
 			.each(function(i, c){
 				$(c).removeAttr('comp')
-			});
-
+			});*/
+			//TODO : CORRIGIR POIS ESTA EXCLUINDO O comp DO PROJETO TODO, É SÓ PRA EXCLUIR DO VISUALIZAR
+			return contentTmp;
 	};
 
 	desenhador.util.dynamicMetadata = function (_obj) {

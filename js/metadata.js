@@ -1,56 +1,167 @@
-var desenhador = desenhador || {};
+(function(global, undefined) {
+	var db = TAFFY();	
+	global.desenhador = global.desenhador || {};
+	global.desenhador.metadata = global.desenhador.metadata || {};
 
-(function(desenhador) {
-
-
-	var setMetadata = function (nameService, metadata) {
-		desenhador.metadata.metadata[nameService] = metadata;
-	};
-	var setArrays = function (nameService, arrays) {
-		desenhador.metadata.arrays[nameService] = arrays;
-	};
-	var setModels = function (nameService, models) {
-		desenhador.metadata.models[nameService] = models;
+	var insert = function (doc) {
+		 db.insert(doc);
 	};
 
+	var find = function (query, hand) {
+		db(query).each(hand);
+	};
 
-	var update = function (target) {
-		
-		console.debug('UPDATE METADATA OBJ GLOBAL');
-		desenhador.metadata.metadata = {};
+	var find = function (query, hand) {
+		db(query).each(hand);
+	};
 
-		var comps;
+	var count = function (query) {
+		return db(query).count();
+	};
 
-		if(target){
-			comps = $(target).find('.nonvisual');
-		}else{
-			comps = $('.datasource-container').find('.nonvisual');
+	var update = function (query, _update) {
+		return db(query).update(_update);
+	};
+
+	var Metadata = function (_doc) {
+		var doc = {};
+		//MODELO DE DADOS
+		doc.resource = '';
+		doc.models = '';		
+		doc.actions = '';
+
+		this.set = function (key, value) {
+			if(!key) throw 'Key not defined';
+			if(doc[key] === undefined) throw 'Campo '+key+' inexistente';
+			doc[key] = value;
+			return this;
+		};		
+
+		this.save = function () {
+			if(count(doc) > 1){
+				console.warn('EXISTE MAIS DE UM OBJETO REPETIDO');
+			}else if(count(doc) == 0){
+				insert(doc);
+			}else if(count(doc) == 1){
+				update(doc, doc);
+			}
+			return this;
+		};
+
+		for (var key in _doc) {
+	    	this.set(key, _doc[key]);
+	    }
+	};
+
+	global.desenhador.metadata.factory = function (doc) {
+		return new Metadata(doc);
+	};
+
+	global.desenhador.metadata.find = find;
+	
+})(window);
+
+
+//###################################################################################################//
+
+var models = {};
+models.carro = {	
+	nome : {
+		type : 'string',
+		required : true
+	},
+	modelo : {
+		type : ':modelo'			
+	}	
+};
+
+models.modelo = {	
+	nome : {
+		type : 'string',
+		required : true
+	},
+	marca : {
+		type : ':marca'
+	}
+};
+
+models.marca = {
+	nome : {
+		type : 'string',
+		required : true
+	}
+};
+
+var actions = {};
+actions.save = {
+	model : ':carro',
+	parameter : [':carro'],
+	result : {
+		type : 'object',
+		model : {
+			message : 'bla bla bla'
 		}
+	},
+	messages : {
+		'200' : 'Veículo criado com sucesso',
+		'erroServer' : 'Ocorreu um erro no servidor',
+		'500' : 'Erro'
+	}
+};
 
-		for(var y = 0 ; y < comps.length ; y++){
-
-			var comp = desenhador.util.eval($(comps[y]).attr('comp'));
-
-			if(!comp)continue;		
-
-			var nameService = comp.property.nameService;
-
-			console.debug('ATUALIZANDO METADATA DE :'+nameService);
-			if(comp.metadata)
-				setMetadata(nameService, comp.metadata);
-			if(comp.arrays)
-				setArrays(nameService, comp.arrays);
-			if(comp.models)
-				setModels(nameService, comp.models);
+actions.update = {
+	model : ':carro',
+	parameter : [':carro.id', ':carro'],
+	result : {
+		type : 'object',
+		model : {
+			message : 'atualizado'
 		}
-	};
+	},
+	messages : {
+		'200' : 'Veículo atualizado com sucesso',		
+		'500' : 'Erro'
+	}
+};
 
-	desenhador.metadata = {
-		'update' : update,
-		'metadata': {},
-		'arrays': {},
-		'models': {}
-	};
+actions.list = {
+	model : ':carro',
+	parameter : [':carro.modelo.nome'],
+	result : {
+		type : 'array',
+		model : models.carro
+	},
+	messages : {
+		'200' : 'Veículo atualizado com sucesso',		
+		'500' : 'Erro'
+	}
+};
+
+desenhador.metadata.factory()
+	.set('resource', 'LoopBack1')
+	.set('models', models)
+	.set('actions', actions)
+	.save();
+
+desenhador.metadata.find({}, function (doc) {
+	console.log(doc);
+
+	console.debug('=== models ===');
+	for(var i in doc.models){
+		var model = doc.models[i];
+		console.debug(i);
+		for(var ii in model){
+			var field = model[ii];
+			if(field.type.substring(0,1) == ':'){				
+				console.debug('\t'+i+'.'+ii);
+			}else{
+				console.debug('\t'+ii+'('+field.type+')');	
+			}			
+		}	
+	}
+	
+
+})
 
 
-})(desenhador);
+
