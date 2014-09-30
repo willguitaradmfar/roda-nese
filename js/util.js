@@ -3,12 +3,18 @@ var desenhador = desenhador || {};
 (function(desenhador) {
 	desenhador.util = desenhador.util || {};
 
-	desenhador.util.clone = function (oldObj) {
-		var newObj = {};
-		for(var i in oldObj){
-			newObj[i] = oldObj[i];
-		}
-		return newObj;
+	desenhador.util.clone = function (obj) {
+		if(obj == null || typeof(obj) != 'object')
+	        return obj;
+
+	    var temp = obj.constructor(); // changed
+
+	    for(var key in obj) {
+	        if(obj.hasOwnProperty(key)) {
+	            temp[key] = desenhador.util.clone(obj[key]);
+	        }
+	    }
+	    return temp;
 	};
 
 	desenhador.util.updateCompDB = function ($this, comp, field) {

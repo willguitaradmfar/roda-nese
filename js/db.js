@@ -50,5 +50,11 @@
 	global.desenhador.db.remove = remove;
 	global.desenhador.db.findOne = findOne;
 	global.desenhador.db.findOneById = findOneById;
+
+	global.desenhador.db.show = function () {
+		db().each(function (i, o) {
+			  console.warn(i.___id, i);
+			})
+	};	
 	
 })(window);

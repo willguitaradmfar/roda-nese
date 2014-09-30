@@ -295,7 +295,7 @@ var desenhador = desenhador || {};
 					}
 				};
 
-				var updatePropertyComp = function($_this, _comp) {
+				var updatePropertyComp = function($_this, _comp) {					
 					desenhador.util.updateCompDB($_this, _comp);
 					console.debug('UPDATE COMPONENT : ('+(_comp.name || _comp.property.nameService) + ' '+comp.___id+')');
 					_comp.update($_this, _comp, function () {
