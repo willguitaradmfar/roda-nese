@@ -1,6 +1,6 @@
-var templates = templates || {};
+var componentes = componentes || {};
 
-templates.grid = (function () {
+componentes.grid = (function () {
 
 	var templ = '<table class="table table-hover">'
 					+'<thead><tr>'

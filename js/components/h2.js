@@ -1,6 +1,6 @@
-var templates = templates || {};
+var componentes = componentes || {};
 
-templates.h2 = (function () {
+componentes.h2 = (function () {
 
 	var templ = '<h2>H2</h2>';
 

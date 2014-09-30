@@ -1,6 +1,6 @@
-var templates = templates || {};
+var componentes = componentes || {};
 
-templates.icon = (function () {
+componentes.icon = (function () {
 
 	var templ = '<span class="glyphicon glyphicon-user"></span>';
 

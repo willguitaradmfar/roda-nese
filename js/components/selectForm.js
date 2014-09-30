@@ -1,6 +1,6 @@
-var templates = templates || {};
+var componentes = componentes || {};
 
-templates.selectForm = (function () {
+componentes.selectForm = (function () {
 
 	var templ = '<div class="input-group">'
 					+'<label>Select</label>'

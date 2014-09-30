@@ -48,7 +48,7 @@ var desenhador = desenhador || {};
 		$('.project-container').droppable({
 			over : function (event, ui) {
 
-        var $this = $(ui.draggable);
+        var $this = $(ui.draggable);          
 
           if(!$this.hasClass('component'))return;
 

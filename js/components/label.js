@@ -1,6 +1,6 @@
-var templates = templates || {};
+var componentes = componentes || {};
 
-templates.label = (function () {
+componentes.label = (function () {
 
 	var templ = '<label class="label label-default">Label</label>';
 

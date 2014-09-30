@@ -1,6 +1,6 @@
-var templates = templates || {};
+var componentes = componentes || {};
 
-templates.textareaForm = (function () {
+componentes.textareaForm = (function () {
 
 	var templ = '<div class="input-group">'
 					+'<label>Text Area</label>'

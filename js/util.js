@@ -3,30 +3,25 @@ var desenhador = desenhador || {};
 (function(desenhador) {
 	desenhador.util = desenhador.util || {};
 
-	/*
-	desenhador.util.updateCompSerializable = function ($this, comp) {
-
-		var hand = function(key, value) {
-			if (typeof value === 'function') {
-				return value.toString();
-			} else {
-				return value;
-			}
-		};
-
-		var stringify = JSON.stringify(comp, hand);
-		$this.attr('comp', stringify);
-	};*/
+	desenhador.util.clone = function (oldObj) {
+		var newObj = {};
+		for(var i in oldObj){
+			newObj[i] = oldObj[i];
+		}
+		return newObj;
+	};
 
 	desenhador.util.updateCompDB = function ($this, comp, field) {
 		var _field = field || 'data-comp-id';
-
+		
 		var id = $($this).attr(_field);
 		if(id) {
+			console.debug('ATUALIZANDO COMPONENTE ('+id+') attr('+_field+')');
 			desenhador.db.update(id, comp);
 			return id;
-		}else{
-			id = desenhador.db.insert(comp).___id;
+		}else{			
+			id = desenhador.db.insert(desenhador.util.clone(comp)).___id;
+			console.debug('CRIANDO COMPONENTE ('+id+') attr('+_field+')');
 			$($this).attr(_field, id);
 			return id;
 		}		
@@ -38,36 +33,29 @@ var desenhador = desenhador || {};
 		var id = $($this).attr(_field);		
 		var r = desenhador.db.remove(id);
 		if(r == 1){
-			console.debug('COMPONENTE REMOVIDO DA BASE DE DADOS');
+			console.debug('COMPONENTE ('+id+') REMOVIDO DA BASE DE DADOS attr('+_field+')');
 		}else{
-			console.error('O COMPONENTE '+id+' NÃO PODE SER REMOVIDO OU NÃO FOI ENCONTRADO');
+			console.error('O COMPONENTE '+id+' NÃO PODE SER REMOVIDO OU NÃO FOI ENCONTRADO attr('+_field+')');
 		}
 	};
 
 	desenhador.util.getCompDBById = function ($this, field) {
-
 		var _field = field || 'data-comp-id';
 
 		var id = $($this).attr(_field);
 		if(id) {
-			return desenhador.db.find(id);
+			var result = desenhador.db.findOneById(id);
+			if(!result){
+				throw 'COMPONENTE ('+id+') NÃO ENCONTRADO NA MASE DE DADOS attr('+_field+')';
+			}
+			console.debug('COMPONENTE ('+result.___id+') ENCONTRADO COM ARGUMENTO ID '+id+' attr('+_field+')');
+			return result;
 		}	
 	};
 
 	desenhador.util.eval = function (script) {
 		return eval('('+script+')');
-	};
-
-	/*
-	desenhador.util.removeAttrComp = function (contentTmp) {
-		return contentTmp
-			.find('[comp]')
-			.each(function(i, c){
-				$(c).removeAttr('comp')
-			});
-			//TODO : CORRIGIR POIS ESTA EXCLUINDO O comp DO PROJETO TODO, É SÓ PRA EXCLUIR DO VISUALIZAR
-			return contentTmp;
-	};*/
+	};	
 
 	desenhador.util.dynamicMetadata = function (_obj) {
 		this.metadata = {};

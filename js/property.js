@@ -240,18 +240,17 @@ var desenhador = desenhador || {};
 
 			var self = this;
 
-			$('.project-container, .datasource-container').on('dblclick', '.component, .nonvisual', function () {
+			var removerComponente = function ($this, comp) {
+				desenhador.util.removeCompDB($this);
+				$this.remove();
+				if(comp.remove)comp.remove($this, comp);					
+				$( "#dialog" ).dialog( "close" );
+			};
 
-				var $this = $(this);
-
-				console.debug('dblclick em componente já arrastado !!! :: '+$(this));
-
-				if(!$(this).attr('data-comp-id')){
-					console.warn('COMPONENTE CLICADO NAO TEM O ATRIBUTO (data-comp-id)');
-					return;
-				}				
-
+			var dblclickProperty = function ($this) {
 				var comp = desenhador.util.getCompDBById($this, 'data-comp-id');
+
+				console.debug('dblclick em componente já arrastado '+comp.___id+' !!! :: ');								
 
 				desenhador.controller.update();
 				desenhador.metadata.update();			
@@ -271,12 +270,8 @@ var desenhador = desenhador || {};
 
 				var btnremover = frame.find('.removeComponent');
 
-				btnremover.on('click', function () {
-					$this.remove();
-					desenhador.util.removeCompDB($this);
-					console.debug('CHAMANDO A FUNCAO REMOVE DO COMPONENTE');
-					if(comp.remove)comp.remove($this, comp);					
-					$( "#dialog" ).dialog( "close" );
+				btnremover.on('click', function () {					
+					removerComponente($this, comp);
 				});
 
 				$( "#dialog" ).dialog({title : (comp.name || comp.property.nameService) + ' '+comp.___id});
@@ -317,6 +312,12 @@ var desenhador = desenhador || {};
 					});
 					updatePropertyComp($this, comp);
 				});
+			};
+
+			$('.project-container, .datasource-container').on('dblclick', '.component, .nonvisual', function () {
+
+				var $this = $(this);
+				dblclickProperty($this);
 			});
 		};
 	};

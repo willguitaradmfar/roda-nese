@@ -5,14 +5,16 @@ var desenhador = desenhador || {};
 
 	desenhador.palleta = function(target) {
 		var palleta = $(target);
+		try{if(!componentes){}}catch(e){throw 'NÃO EXITE COMPONENTES PARA IMPORTAÇÃO NA PALLETA';}
+		
 
-		for(var i in templates){
-			var template = templates[i];
+		for(var i in componentes){
+			var componente = componentes[i];
 			console.debug('ADD COMPONENT TO PALLETA ('+i+')');
-			var templ = $(template.templ);
+			var templ = $(componente.templ);
 			templ.addClass('component');
-			palleta.find('#'+template.category).find('.panel-body').append(templ);
-			desenhador.util.updateCompDB(templ, template, 'data-palleta-id');
+			palleta.find('#'+componente.category).find('.panel-body').append(templ);
+			desenhador.util.updateCompDB(templ, componente, 'data-palleta-id');
 		}
 
 		for(var i in resources){

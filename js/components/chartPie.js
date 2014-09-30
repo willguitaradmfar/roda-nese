@@ -1,6 +1,6 @@
-var templates = templates || {};
+var componentes = componentes || {};
 
-templates.chartPie = (function () {
+componentes.chartPie = (function () {
 
 	var templ = '<nvd3-pie-chart data="data" width="700" height="700" duration="500" label-type="percent" responsive="true"></nvd3-pie-chart>';
 

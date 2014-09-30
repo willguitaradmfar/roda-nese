@@ -1,6 +1,6 @@
-var templates = templates || {};
+var componentes = componentes || {};
 
-templates.separatorForm = (function () {
+componentes.separatorForm = (function () {
 
 	var templ = '<hr/>';
 

@@ -83,9 +83,7 @@ var desenhador = desenhador || {};
 			var ctrl = $('<div data-ng-controller="'+ctrlName+'"></div>');
 			
 			if(!html)throw 'Conteudo HTML não passado';
-			if(!html.html)html=$(html);
-
-			//desenhador.util.removeAttrComp(html);
+			if(!html.html)html=$(html);			
 
 			ctrl.append(html.html());
 			body.attr('data-ng-app', appName);

@@ -1,6 +1,6 @@
-var templates = templates || {};
+var componentes = componentes || {};
 
-templates.buttonForm = (function () {
+componentes.buttonForm = (function () {
 
 	var templ = '<span type="button" class="btn btn-default" data-toggle="dropdown">Button</span>'
 				;
