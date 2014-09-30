@@ -15,12 +15,11 @@ var desenhador = desenhador || {};
 				var $this = $(this).clone();
 				$('.project-container').append($this);
 
-				var comp = JSON.parse($this.attr('comp'));
-				comp.update = desenhador.util.eval(comp.update);
+				var comp = desenhador.util.getCompDBById($this, 'data-palleta-id');			
 
 				console.debug('CHAMANDO FUNCTION update() ....');
-				comp.update($this, comp);
-				desenhador.util.updateCompSerializable($this, comp);
+				comp.update($this, comp);				
+				desenhador.util.updateCompDB($this, comp);
 		});
 
 
@@ -31,12 +30,11 @@ var desenhador = desenhador || {};
 			$('.datasource-container').addClass('datasource-container-evident', 300);
 			$('.datasource-container').removeClass('datasource-container-evident', 1000);
 
-			var comp = JSON.parse($this.attr('comp'));
-			comp.update = desenhador.util.eval(comp.update);
+			var comp = desenhador.util.getCompDBById($this, 'data-palleta-id');
 
 			console.debug('CHAMANDO FUNCTION update() ....');
 			comp.update($this, comp);
-			desenhador.util.updateCompSerializable($this, comp);
+			desenhador.util.updateCompDB($this, comp);
 		});
 
 		$( "#dialog" ).dialog({

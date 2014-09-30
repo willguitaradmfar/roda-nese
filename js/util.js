@@ -3,6 +3,7 @@ var desenhador = desenhador || {};
 (function(desenhador) {
 	desenhador.util = desenhador.util || {};
 
+	/*
 	desenhador.util.updateCompSerializable = function ($this, comp) {
 
 		var hand = function(key, value) {
@@ -15,10 +16,9 @@ var desenhador = desenhador || {};
 
 		var stringify = JSON.stringify(comp, hand);
 		$this.attr('comp', stringify);
-	};
+	};*/
 
 	desenhador.util.updateCompDB = function ($this, comp, field) {
-
 		var _field = field || 'data-comp-id';
 
 		var id = $($this).attr(_field);
@@ -30,6 +30,18 @@ var desenhador = desenhador || {};
 			$($this).attr(_field, id);
 			return id;
 		}		
+	};
+
+	desenhador.util.removeCompDB = function ($this, field) {
+		var _field = field || 'data-comp-id';
+
+		var id = $($this).attr(_field);		
+		var r = desenhador.db.remove(id);
+		if(r == 1){
+			console.debug('COMPONENTE REMOVIDO DA BASE DE DADOS');
+		}else{
+			console.error('O COMPONENTE '+id+' NÃO PODE SER REMOVIDO OU NÃO FOI ENCONTRADO');
+		}
 	};
 
 	desenhador.util.getCompDBById = function ($this, field) {
@@ -46,15 +58,16 @@ var desenhador = desenhador || {};
 		return eval('('+script+')');
 	};
 
+	/*
 	desenhador.util.removeAttrComp = function (contentTmp) {
-		/*return contentTmp
+		return contentTmp
 			.find('[comp]')
 			.each(function(i, c){
 				$(c).removeAttr('comp')
-			});*/
+			});
 			//TODO : CORRIGIR POIS ESTA EXCLUINDO O comp DO PROJETO TODO, É SÓ PRA EXCLUIR DO VISUALIZAR
 			return contentTmp;
-	};
+	};*/
 
 	desenhador.util.dynamicMetadata = function (_obj) {
 		this.metadata = {};
@@ -136,7 +149,7 @@ var desenhador = desenhador || {};
 
 	desenhador.util.processTemplate = function (keys, values, template) {
 		if(!template) throw 'Template indefinido';		
-		var result = template;
+		var result = template.toString();
 		for(var i in keys){
 			var key = keys[i];
 			var regex = new RegExp('\\$'+key+'\\$', "ig");

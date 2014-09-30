@@ -23,8 +23,8 @@ var desenhador = desenhador || {};
 
 			templSpan
 				.addClass('nonvisual');
-
-			desenhador.util.updateCompSerializable(templSpan, servico);
+				
+			desenhador.util.updateCompDB(templSpan, servico, 'data-palleta-id');
 
 			palleta.find('#'+servico.category).find('.panel-body').append(templSpan);
 

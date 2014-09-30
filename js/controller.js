@@ -65,9 +65,10 @@ var desenhador = desenhador || {};
 		struct._functions = {};
 		struct._variable = {};
 
-		for(var y = 0 ; y < comps.length ; y++){
+		for(var y = 0 ; y < comps.length ; y++){			
 
-			var comp = desenhador.util.eval($(comps[y]).attr('comp'));
+			var comp = desenhador.util.getCompDBById($(comps[y]), 'data-comp-id');
+
 			if(!comp)continue;
 			var nameService = comp.property.nameService;
 

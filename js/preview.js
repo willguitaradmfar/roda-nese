@@ -85,7 +85,7 @@ var desenhador = desenhador || {};
 			if(!html)throw 'Conteudo HTML não passado';
 			if(!html.html)html=$(html);
 
-			desenhador.util.removeAttrComp(html);
+			//desenhador.util.removeAttrComp(html);
 
 			ctrl.append(html.html());
 			body.attr('data-ng-app', appName);

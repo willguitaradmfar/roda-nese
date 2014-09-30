@@ -273,8 +273,9 @@ var desenhador = desenhador || {};
 
 				btnremover.on('click', function () {
 					$this.remove();
+					desenhador.util.removeCompDB($this);
 					console.debug('CHAMANDO A FUNCAO REMOVE DO COMPONENTE');
-					if(comp.remove)comp.remove($this, comp);
+					if(comp.remove)comp.remove($this, comp);					
 					$( "#dialog" ).dialog( "close" );
 				});
 

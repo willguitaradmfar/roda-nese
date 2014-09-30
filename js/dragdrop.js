@@ -67,14 +67,12 @@ var desenhador = desenhador || {};
 			over : function (event, ui) {
 					var $this = $(ui.draggable);
 
-          if(!$this.hasClass('nonvisual'))return;
-
-					var comp = JSON.parse($this.attr('comp'));
+          if(!$this.hasClass('nonvisual'))return;					
+          var comp = desenhador.util.getCompDBById($this, 'data-palleta-id');
           
-					comp.update = desenhador.util.eval(comp.update);
 					console.debug('CHAMANDO FUNCTION update() ....');
 					comp.update($this, comp, function () {
-						desenhador.util.updateCompSerializable($this, comp);
+						desenhador.util.updateCompDB($this, comp);
 					});
 				}
 		});
