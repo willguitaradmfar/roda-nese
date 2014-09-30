@@ -30,7 +30,7 @@ resources.servicoYql = (function () {
     property.collection =  'models';
     property.error =  'error';
     property.url =  'http://query.yahooapis.com/v1/public/yql';
-    property.yql =  'select * from local.search where query=\"sushi\" and location=\"san francisco, ca\" and Rating.AverageRating=4';
+    property.yql =  'show tables';
 
     var controller = {};
     controller._functions = {};
