@@ -6,11 +6,7 @@
 	var insert = function (doc) {
 		 db.insert(doc);
 	};
-
-	var find = function (query, hand) {
-		db(query).each(hand);
-	};
-
+		
 	var find = function (query, hand) {
 		db(query).each(hand);
 	};
@@ -95,7 +91,7 @@ models.marca = {
 var actions = {};
 actions.save = {
 	model : ':carro',
-	parameter : [':carro'],
+	parameter : [[':carro']],
 	result : {
 		type : 'object',
 		model : {
@@ -111,7 +107,7 @@ actions.save = {
 
 actions.update = {
 	model : ':carro',
-	parameter : [':carro.id', ':carro'],
+	parameter : [[':carro.id', ':carro']],
 	result : {
 		type : 'object',
 		model : {
@@ -126,10 +122,10 @@ actions.update = {
 
 actions.list = {
 	model : ':carro',
-	parameter : [':carro.modelo.nome'],
+	parameter : [[':carro.modelo.nome']],
 	result : {
 		type : 'array',
-		model : models.carro
+		model : ':carro'
 	},
 	messages : {
 		'200' : 'Veículo atualizado com sucesso',		
@@ -145,23 +141,7 @@ desenhador.metadata.factory()
 
 desenhador.metadata.find({}, function (doc) {
 	console.log(doc);
-
-	console.debug('=== models ===');
-	for(var i in doc.models){
-		var model = doc.models[i];
-		console.debug(i);
-		for(var ii in model){
-			var field = model[ii];
-			if(field.type.substring(0,1) == ':'){				
-				console.debug('\t'+i+'.'+ii);
-			}else{
-				console.debug('\t'+ii+'('+field.type+')');	
-			}			
-		}	
-	}
-	
-
-})
+});
 
 
 

@@ -17,6 +17,31 @@ var desenhador = desenhador || {};
 		$this.attr('comp', stringify);
 	};
 
+	desenhador.util.updateCompDB = function ($this, comp, field) {
+
+		var _field = field || 'data-comp-id';
+
+		var id = $($this).attr(_field);
+		if(id) {
+			desenhador.db.update(id, comp);
+			return id;
+		}else{
+			id = desenhador.db.insert(comp).___id;
+			$($this).attr(_field, id);
+			return id;
+		}		
+	};
+
+	desenhador.util.getCompDBById = function ($this, field) {
+
+		var _field = field || 'data-comp-id';
+
+		var id = $($this).attr(_field);
+		if(id) {
+			return desenhador.db.find(id);
+		}	
+	};
+
 	desenhador.util.eval = function (script) {
 		return eval('('+script+')');
 	};

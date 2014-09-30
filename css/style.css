@@ -59,3 +59,11 @@
 	width: 50px;
 	z-index: -100;	
 }
+
+
+.ms-sel-ctn{
+    overflow: auto;
+    line-height: 18px;
+    padding-right: 0px;
+    width: 100% !important;
+}

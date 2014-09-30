@@ -52,15 +52,14 @@ var desenhador = desenhador || {};
 
           if(!$this.hasClass('component'))return;
 
-          var comp = JSON.parse($this.attr('comp'));
-          
-          comp.update = desenhador.util.eval(comp.update);
+          var comp = desenhador.util.getCompDBById($this, 'data-palleta-id');
+
           console.debug('CHAMANDO FUNCTION update() ....');
           comp.update($this, comp, function () {
-            desenhador.util.updateCompSerializable($this, comp);
+              //COMPONENTES VISUAIS NÃO INVOCAM CALLBACK
           });
 
-                
+          desenhador.util.updateCompDB($this, comp);
 				}
 		});
 

@@ -38,6 +38,7 @@ var desenhador = desenhador || {};
 		for(var i in struct._functions){
 			for(var ii in struct._functions[i]){
 				var o = {};
+				o.id = i+' >> '+ii;
 				o.value = i+'.'+ii+'()';
 				o.label = i+' >> '+ii;
 

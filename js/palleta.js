@@ -12,8 +12,8 @@ var desenhador = desenhador || {};
 			var templ = $(template.templ);
 			templ.addClass('component');
 			palleta.find('#'+template.category).find('.panel-body').append(templ);
-			desenhador.util.updateCompSerializable(templ, template);
-		}		
+			desenhador.util.updateCompDB(templ, template, 'data-palleta-id');
+		}
 
 		for(var i in resources){
 

@@ -76,6 +76,49 @@ var desenhador = desenhador || {};
 			return table;
 		};
 
+		this._buildTableAction = function (comp) {
+			if(!comp.actions)return;
+
+			console.debug('MONTA TABELA DE AÇÕES');
+			var table = $('<table class="table"><thead><tr><th></th><th></th><th></th></tr></thead><tbody></tbody></table>');
+
+			for(var i in comp.actions){
+				var property = comp.actions[i];
+
+				console.debug('actions -> '+i+'::'+property);
+				var tr = $('<tr></tr>');
+				tr.addClass('warning');
+				tr.append('<td>'+i+'</td>');
+
+				var td = $('<td></td>');
+
+				var select = $('<div class="magicSuggest"></div>');				
+			    
+				var functions = desenhador.controller.getFunctions();			
+				
+				td.append(select);
+				tr.append(td);
+				
+				select.magicSuggest({
+			        placeholder: 'Select...',
+			        allowFreeEntries: false,
+			        data: functions,
+			        selectionPosition: 'bottom',
+			        selectionStacked: true,
+			        renderer: function(data){
+			            return data.label + ' (<b>' + data.value + '</b>)';
+			        },
+			        selectionRenderer: function(data){
+			            return data.label + ' (<b>' + data.value + '</b>)';
+			        }
+			    });
+
+				table.find('tbody').append(tr);
+			}
+
+			return table;
+		};
+
 		this.buildTableAction = function (comp) {
 			if(!comp.actions)return;
 
@@ -203,22 +246,15 @@ var desenhador = desenhador || {};
 
 				console.debug('dblclick em componente já arrastado !!! :: '+$(this));
 
-				if(!$(this).attr('comp')){
-					console.warn('COMPONENTE CLICADO NAO TEM O ATRIBUTO (comp)');
+				if(!$(this).attr('data-comp-id')){
+					console.warn('COMPONENTE CLICADO NAO TEM O ATRIBUTO (data-comp-id)');
 					return;
-				}
+				}				
 
-				var comp = JSON.parse($(this).attr('comp'));
-				comp.update = desenhador.util.eval(comp.update);
-				comp.remove = desenhador.util.eval(comp.remove);
-
-				//POVOAR AÇÕES DE CONTROLER EM OPÇÕES DE COMPONENTES
-				//povoarAction(comp, desenhador.controller.getFunctions());
+				var comp = desenhador.util.getCompDBById($this, 'data-comp-id');
 
 				desenhador.controller.update();
-				desenhador.metadata.update();
-
-				//self._contruct(comp);
+				desenhador.metadata.update();			
 
 				accordion = self.buildAccordion();
 
@@ -242,10 +278,10 @@ var desenhador = desenhador || {};
 					$( "#dialog" ).dialog( "close" );
 				});
 
-				$( "#dialog" ).dialog({title : (comp.name || comp.property.nameService)});
+				$( "#dialog" ).dialog({title : (comp.name || comp.property.nameService) + ' '+comp.___id});
 				$( "#dialog" ).dialog( "open" );
 
-				var updatePropertyPerField = function (_this, _comp) {
+				var updatePropertyPerField = function (_this, _comp) {					
 					var name = $(_this).attr('name');
 					var val = $(_this).val();
 
@@ -264,10 +300,10 @@ var desenhador = desenhador || {};
 				};
 
 				var updatePropertyComp = function($_this, _comp) {
-					desenhador.util.updateCompSerializable($_this, _comp);
-					console.debug('UPDATE COMPONENT : ('+(_comp.name || _comp.property.nameService)+')');
+					desenhador.util.updateCompDB($_this, _comp);
+					console.debug('UPDATE COMPONENT : ('+(_comp.name || _comp.property.nameService) + ' '+comp.___id+')');
 					_comp.update($_this, _comp, function () {
-						desenhador.util.updateCompSerializable($_this, _comp);
+						desenhador.util.updateCompDB($_this, _comp);
 					});
 				}
 
