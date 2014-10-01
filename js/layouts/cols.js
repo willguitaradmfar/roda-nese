@@ -7,26 +7,30 @@
 	self.name = 'cols';
 	self.category = 'layout';
 
-	self.templ = '<div class="col-xs-6 col-sm-6 col-md-6 project-layout">.col-xs-6 .col-sm-6 .col-md-6</div>';				 
+	self.templ = '<div class="col-lg-6 col-xs-6 col-sm-6 col-md-6 project-layout">layout</div>';				 
 
 	self.property = {};		
 	self.property.context = 'context';
-	self.property.xs = '6';
-	self.property.sm = '6';
-	self.property.md = '6';
+	self.property.bigDesktops = '6';
+	self.property.phones = '6';
+	self.property.tablets = '6';
+	self.property.desktops = '6';
 
 	self.update = function (target, comp) {	
 
 		var _class = [];
 		_class.push('project-layout');
-		if(comp.property.xs){
-			_class.push('col-xs-'+comp.property.xs);
+		if(comp.property.bigDesktops){
+			_class.push('col-lg-'+comp.property.bigDesktops);
 		}
-		if(comp.property.sm){
-			_class.push('col-sm-'+comp.property.sm);
+		if(comp.property.phones){
+			_class.push('col-xs-'+comp.property.phones);
 		}
-		if(comp.property.md){
-			_class.push('col-md-'+comp.property.md);
+		if(comp.property.tablets){
+			_class.push('col-sm-'+comp.property.tablets);
+		}
+		if(comp.property.desktops){
+			_class.push('col-md-'+comp.property.desktops);
 		}
 		$(target).attr('class', _class.join(' '));
 	};

@@ -18,10 +18,12 @@ var desenhador = desenhador || {};
         scroll: true,
         start: function(event, ui) {
           console.debug('start draggable '+$(this));
+          $(target).addClass('ui-state-highlight');
         }, drag: function(event, ui) {
 
         }, stop: function(event, ui) {
           console.debug('stop draggable'+$(this));
+          $(target).removeClass('ui-state-highlight');
         }
       });
   };
@@ -76,14 +78,14 @@ var desenhador = desenhador || {};
 
       desenhador.util.updateCompDB($this, comp);
 
-      sortable($this);
+      sortable($this);      
       draggable($this, $('.component'));
       droppable($this, overComponent);
   };
 
   var droppable = function (target, over) {
       $(target).droppable({  
-        tolerance: 'pointer',
+        tolerance: 'pointer',        
         over : over
       });
   };
