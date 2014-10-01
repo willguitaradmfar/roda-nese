@@ -1,20 +1,20 @@
 (function (global) {
 	global.desenhador = global.desenhador || {};
 	global.desenhador.properties = global.desenhador.properties || {};
-	global.desenhador.properties.binds = global.desenhador.properties.binds || {};
-	var self = global.desenhador.properties.binds;
+	global.desenhador.properties.models = global.desenhador.properties.models || {};
+	var self = global.desenhador.properties.models;
 
-	self.name = 'BINDS';
+	self.name = 'MODELS';
 
 	self.buildProperty = function (comp) {
-			if(!comp.binds)return;
-			console.debug('MONTA TABELA DE BINDS');
+			if(!comp.models)return;
+			console.debug('MONTA TABELA DE MODELS');
 			var table = $('<table class="table"><thead><tr><th></th><th></th><th></th></tr></thead><tbody></tbody></table>');
 
-			for(var i in comp.binds){
-				var property = comp.binds[i];
+			for(var i in comp.models){
+				var property = comp.models[i];
 
-				var name = 'binds.'+i;
+				var name = 'models.'+i;
 				
 				var tr = $('<tr></tr>');
 				tr.addClass('success');
@@ -29,19 +29,15 @@
 				desenhador.metadata.find({}, function(meta){
 					for(var ii in meta.models){
 						var model = meta.models[ii];
-						for(var  iii in model){
-							var field = model[iii];
-							var type = field.type;
-							if(type.substring(0,1) == ':') continue;
 
-							var key = ':'+ii+'.'+iii+'['+type+']';
-							var value = meta.resource + ' -> ' + ii+'.'+iii+'['+type+']';
+						var key = ':'+ii;
+						var value = meta.resource + ' -> ' + ii;
 
-							if(key == property)
-								select.append('<option value="'+key+'" selected>'+value+'</option>');
-							else
-								select.append('<option value="'+key+'">'+value+'</option>');
-						}
+						if(key == property)
+							select.append('<option value="'+key+'" selected>'+value+'</option>');
+						else
+							select.append('<option value="'+key+'">'+value+'</option>');
+						
 					}
 				});				
 

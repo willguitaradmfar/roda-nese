@@ -24,24 +24,21 @@
 	self.property.cols = 'Nome,Idade,RG';
 	self.property.rows = 'name,age,rg';
 	self.property.limit = 10;
-	self.property.model = 'model';
+	self.property.context = 'context';
 	self.property.filter = 'modelFilter';
-	self.property.select = 'modelSelect';
+	self.property.select = 'modelSelect';	
 
-	self.binds = {}
-	self.binds.array = '...';
+	self.arrays = {}
+	self.arrays.lista = '...';
 
 	self.update = function (target, comp) {
 
-		if(comp.property.model 
-			&& comp.property.model.length > 0 
-			&& comp.binds.array){
-			var model = comp.property.model;
-			var array = comp.binds.array;
-			$(target).find('tbody > tr').attr('data-ng-repeat', '_m in '+model+'.'+array+' | filter:'+comp.property.filter+' | limitTo:'+comp.property.limit);
-		}else if(comp.property.model && comp.property.model.length > 0){
-			var model = comp.property.model;
-			$(target).find('tbody > tr').attr('data-ng-repeat', '_m in '+model+' | filter:'+comp.property.filter+' | limitTo:'+comp.property.limit);
+		if(comp.property.context && comp.arrays.lista){
+			var context = comp.property.context;
+			var lista = comp.arrays.lista.replace(':', context+'.');
+			$(target)
+				.find('tbody > tr')
+				.attr('data-ng-repeat', '_m in '+lista+' | filter:'+comp.property.filter+' | limitTo:'+comp.property.limit);
 		}
 
 		if(comp.property.cols && comp.property.cols.length > 0){

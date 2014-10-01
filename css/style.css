@@ -67,3 +67,11 @@
     padding-right: 0px;
     width: 100% !important;
 }
+
+#palleta {
+    font-size: 12px;
+}
+
+#palleta .panel-title {
+	font-size: 12px;	
+}

@@ -77,18 +77,13 @@ var desenhador = desenhador || {};
 					var name = $(_this).attr('name');
 					var val = $(_this).val();
 
-					if(_comp.property && _comp.property[name] && _comp.property[name].val){
-						_comp.property[name].val = val;
-					}  else	if(_comp.property && _comp.property[name]){
-						_comp.property[name] = val;
-					}
+					var sufix = name.split('.')[1];
 
-					if(_comp.actions && _comp.actions[name]){
-						_comp.actions[name] = val;
-					}
-					if(_comp.binds && _comp.binds[name]){
-						_comp.binds[name] = val;
-					}
+					if(_comp.property && _comp.property[sufix] && _comp.property[sufix].val){
+						_comp.property[sufix].val = val;
+					}  else	{
+						eval('comp.'+name + ' = "'+val+'"');					
+					}					
 				};
 
 				var updatePropertyComp = function($_this, _comp) {					

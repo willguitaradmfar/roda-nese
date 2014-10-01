@@ -11,6 +11,10 @@
 		db(query).each(hand);
 	};
 
+	var findByResource = function (resource, hand) {
+		db({resource : resource}).each(hand);
+	};
+
 	var count = function (query) {
 		return db(query).count();
 	};
@@ -54,90 +58,179 @@
 	};
 
 	global.desenhador.metadata.find = find;
+	global.desenhador.metadata.findByResource = findByResource;
 	
 })(window);
 
 
 //###################################################################################################//
+{
+	var models = {};
+	models.carro = {	
+		nome : {
+			type : 'string',
+			required : true
+		},
+		modelo : {
+			type : ':modelo'			
+		}	
+	};
 
-var models = {};
-models.carro = {	
-	nome : {
-		type : 'string',
-		required : true
-	},
-	modelo : {
-		type : ':modelo'			
-	}	
-};
-
-models.modelo = {	
-	nome : {
-		type : 'string',
-		required : true
-	},
-	marca : {
-		type : ':marca'
-	}
-};
-
-models.marca = {
-	nome : {
-		type : 'string',
-		required : true
-	}
-};
-
-var actions = {};
-actions.save = {
-	model : ':carro',
-	parameter : [[':carro']],
-	result : {
-		type : 'object',
-		model : {
-			message : 'bla bla bla'
+	models.modelo = {	
+		nome : {
+			type : 'string',
+			required : true
+		},
+		marca : {
+			type : ':marca'
 		}
-	},
-	messages : {
-		'200' : 'Veículo criado com sucesso',
-		'erroServer' : 'Ocorreu um erro no servidor',
-		'500' : 'Erro'
-	}
-};
+	};
 
-actions.update = {
-	model : ':carro',
-	parameter : [[':carro.id', ':carro']],
-	result : {
-		type : 'object',
-		model : {
-			message : 'atualizado'
+	models.marca = {
+		nome : {
+			type : 'string',
+			required : true
 		}
-	},
-	messages : {
-		'200' : 'Veículo atualizado com sucesso',		
-		'500' : 'Erro'
-	}
-};
+	};
 
-actions.list = {
-	model : ':carro',
-	parameter : [[':carro.modelo.nome']],
-	result : {
-		type : 'array',
-		model : ':carro'
-	},
-	messages : {
-		'200' : 'Veículo atualizado com sucesso',		
-		'500' : 'Erro'
+	models.message = {
+		message : {
+			type : 'string'
+		}
 	}
-};
 
-desenhador.metadata.factory()
-	.set('resource', 'LoopBack1')
-	.set('models', models)
-	.set('actions', actions)
-	.save();
+	var actions = {};
+	actions.save = {
+		model : ':carro',
+		parameter : [[':carro'], [':marca']],
+		result : {
+			type : 'object',
+			model : ':message'
+		},
+		messages : {
+			'200' : 'Veículo criado com sucesso',
+			'erroServer' : 'Ocorreu um erro no servidor',
+			'500' : 'Erro'
+		}
+	};
+
+	actions.update = {
+		model : ':carro',
+		parameter : [[':carro.id', ':carro']],
+		result : {
+			type : 'object',
+			model : ':message'
+		},
+		messages : {
+			'200' : 'Veículo atualizado com sucesso',		
+			'500' : 'Erro'
+		}
+	};
+
+	actions.list = {
+		model : ':carro',
+		parameter : [[':carro.modelo.nome']],
+		result : {
+			type : 'array',
+			model : ':carro'
+		},
+		messages : {				
+			'500' : 'Erro'
+		}
+	};
+
+	desenhador.metadata.factory()
+		.set('resource', 'LoopBack1')
+		.set('models', models)
+		.set('actions', actions)
+		.save();
+}
+
+{
+	var models = {};
+	models.pessoa = {	
+		nome : {
+			type : 'string',
+			required : true
+		},
+		idade : {
+			type : 'number',
+			required : true
+		},
+		end : {
+			type : ':end'			
+		}	
+	};
+
+	models.end = {
+		nome : {
+			type : 'string',
+			required : true
+		},
+		cidade : {
+			type : ':cidade'
+		}
+	};
+
+	models.cidade = {
+		nome : {
+			type : 'string',
+			required : true
+		}
+	};
+
+	models.message = {
+		message : {
+			type : 'string'
+		}
+	}
+
+	var actions = {};
+	actions.save = {
+		model : ':pessoa',
+		parameter : [[':pessoa']],
+		result : {
+			type : 'object',
+			model : ':message'
+		},
+		messages : {
+			'200' : 'Pessoa criada com sucesso',
+			'erroServer' : 'Ocorreu um erro no servidor',
+			'500' : 'Erro'
+		}
+	};
+
+	actions.update = {
+		model : ':pessoa',
+		parameter : [[':pessoa.id', ':pessoa']],
+		result : {
+			type : 'array',
+			model : ':message'
+		},
+		messages : {
+			'200' : 'Pessoa atualizada com sucesso',		
+			'500' : 'Erro'
+		}
+	};
+
+	actions.list = {
+		model : ':pessoa',
+		parameter : [[':pessoa.cidade.nome']],
+		result : {
+			type : 'array',
+			model : ':pessoa'
+		},
+		messages : {			
+			'500' : 'Erro'
+		}
+	};
+
+	desenhador.metadata.factory()
+		.set('resource', 'LoopBack2')
+		.set('models', models)
+		.set('actions', actions)
+		.save();
+}
 
 desenhador.metadata.find({}, function (doc) {
 	console.log(doc);

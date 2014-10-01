@@ -16,9 +16,11 @@
 				var tr = $('<tr></tr>');
 				tr.append('<td>'+i+'</td>');
 
+				var name = 'property.'+i;				
+
 				var td = $('<td></td>');
 				if(typeof property === 'object' && property.options){
-					var select = $('<select name="'+i+'" class="form-control"></select>');
+					var select = $('<select name="'+name+'" class="form-control"></select>');
 
 					for(var ii in property.options){
 						var option = property.options[ii];
@@ -33,7 +35,7 @@
 					}
 					td.append(select);
 				}else{
-					var input = $('<input name="'+i+'" type="text" class="form-control" value="'+property+'"></input>');
+					var input = $('<input name="'+name+'" type="text" class="form-control" value="'+property+'"></input>');
 					td.append(input);
 				}
 				tr.append(td);

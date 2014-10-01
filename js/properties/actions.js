@@ -10,31 +10,43 @@
 			if(!comp.actions)return;
 			console.debug('MONTA PROPERTY ACTIONS');			
 			var table = $('<table class="table"><thead><tr><th></th><th></th><th></th></tr></thead><tbody></tbody></table>');
+				
+				for(var i in comp.actions){
+					var property = comp.actions[i];					
+					var tr = $('<tr></tr>');
+					tr.addClass('warning');
+					tr.append('<td>'+i+'</td>');
 
-			for(var i in comp.actions){
-				var property = comp.actions[i];				
-				var tr = $('<tr></tr>');
-				tr.addClass('warning');
-				tr.append('<td>'+i+'</td>');
+					var name = 'actions.'+i;
 
-				var td = $('<td></td>');
-				var select = $('<select name="'+i+'" class="form-control"></select>');
-				var functions = desenhador.controller.getFunctions();
+					var td = $('<td></td>');
+					var select = $('<select name="'+name+'" class="form-control"></select>');
+					var functions = desenhador.controller.getFunctions();
+					desenhador.metadata.find({}, function(meta){						
 
-				for(var ii in functions){
-					var option = functions[ii];
-					var value = option.value || option;
-					var label = option.label || option;
-					if(value == property){
-						select.append('<option value="'+value+'" selected>'+label+'</option>');
-						continue;
-					}
-					select.append('<option value="'+value+'">'+label+'</option>');
-				}
-				td.append(select);
-				tr.append(td);
-				table.find('tbody').append(tr);
-			}
+						for(var ii in meta.actions){
+							var action = meta.actions[ii];
+							for(var  iii in action.parameter){
+								var parameter = action.parameter[iii];
+								var parameters = parameter.join(', ');
+
+								var key = ':'+ii+'('+parameters+')';
+								var value = meta.resource + ' -> ' + ii+'('+parameters.replace(/:/g, '')+')';
+
+								if(key == property)
+									select.append('<option value="'+key+'" selected>'+value+'</option>');
+								else
+									select.append('<option value="'+key+'">'+value+'</option>');
+							}
+						}
+					});
+
+					td.append(select);
+					tr.append(td);
+					table.find('tbody').append(tr);
+				}			
+
+			//AQUI POSSO DEVOLVER ASYNCRONO, NÃO PERDE A REFERENCIA
 			return table;
 		};
 
