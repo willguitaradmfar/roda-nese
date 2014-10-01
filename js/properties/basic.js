@@ -20,8 +20,7 @@
 
 				var td = $('<td></td>');
 				if(typeof property === 'object' && property.options){
-					var select = $('<select name="'+name+'" class="form-control"></select>');
-					select.append('<option value="" selected>Selecione ...</option>');
+					var select = $('<select name="'+name+'" class="form-control"></select>');				
 
 					for(var ii in property.options){
 						var option = property.options[ii];
