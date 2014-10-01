@@ -11,20 +11,20 @@ var desenhador = desenhador || {};
 
 		$('.component')      
       .draggable({
-   connectToSortable: ".project-container",
-   cursor: "move",
-   helper: "clone",
-   revert: "invalid",
-   	start: function(event, ui) {
-       	console.debug('start draggable '+$(this));
-     	},
-     	drag: function(event, ui) {
+         connectToSortable: ".project-container",
+         cursor: "move",
+         helper: "clone",
+         revert: "invalid",
+         	start: function(event, ui) {
+             	console.debug('start draggable '+$(this));
+           	},
+           	drag: function(event, ui) {
 
-   },
-   	stop: function(event, ui) {
-       	console.debug('stop draggable'+$(this));
-     	}
-		});
+         },
+         	stop: function(event, ui) {
+             	console.debug('stop draggable'+$(this));
+           	}
+      		});   
 
 		$('.nonvisual')      
       .draggable({

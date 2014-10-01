@@ -8,6 +8,15 @@ var desenhador = desenhador || {};
 
 		try{if(!desenhador.componentes){}}catch(e){throw 'NÃO EXITE COMPONENTES PARA IMPORTAÇÃO NA PALLETA';}
 
+		for(var i in desenhador.layouts){
+			var layout = desenhador.layouts[i];
+			console.debug('ADD LAYOUT TO PALLETA ('+i+')');
+			var templ = $(layout.templ);
+			templ.addClass('component');
+			palleta.find('#'+layout.category).find('.panel-body').append(templ);
+			desenhador.util.updateCompDB(templ, layout, 'data-palleta-id');
+		}
+
 		for(var i in desenhador.componentes){
 			var componente = desenhador.componentes[i];
 			console.debug('ADD COMPONENT TO PALLETA ('+i+')');
