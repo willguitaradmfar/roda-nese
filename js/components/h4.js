@@ -11,7 +11,7 @@
 
 	self.property = {};
 	self.property.label = 'H4';
-	self.property.bind = 'model';
+	self.property.context = 'context';
 
 	self.binds = {};
 	self.binds.field = 'model';

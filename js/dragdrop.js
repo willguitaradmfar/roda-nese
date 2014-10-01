@@ -4,7 +4,9 @@ var desenhador = desenhador || {};
 	desenhador.dragdrop = desenhador.dragdrop || {};
 
   var sortable = function (target) {
-    $( target ).sortable({revert: true});    
+    $( target ).sortable({      
+      revert: true
+    });
   };
 
   var draggable = function (target, source) {
@@ -13,6 +15,7 @@ var desenhador = desenhador || {};
         cursor: "move",
         helper: "clone",
         revert: "invalid",
+        scroll: true,
         start: function(event, ui) {
           console.debug('start draggable '+$(this));
         }, drag: function(event, ui) {
@@ -31,48 +34,15 @@ var desenhador = desenhador || {};
         }
 
         var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
-        var comp = desenhador.util.getCompDBById($this, attr);
-        console.debug('CHAMANDO FUNCTION update() ....');
-        comp.update($this, comp, function () {
-            //COMPONENTES VISUAIS NÃO INVOCAM CALLBACK
-        });
+        var comp = desenhador.util.getCompDBById($this, attr);        
+        if(comp.drag){
+          console.debug('CHAMANDO FUNCTION drag() ....');
+          comp.drag($this, comp);
+        }
         desenhador.util.updateCompDB($this, comp);
   };
 
-  var droppable = function (target, over) {
-      $(target).droppable({over : over});
-  };
-
-	desenhador.dragdrop = function () {
-
-    sortable($('.project-container'));    
-    sortable($('.datasource-container'));
-
-    draggable($('.project-layout'), $('.component'));
-    draggable($('.project-container'), $('.project-layout'));
-    draggable($('.datasource-container'), $('.nonvisual'));	  
-
-    droppable($('.project-container'), function (event, ui) {
-          var $this = $(ui.draggable);
-          if(!$this.hasClass('project-layout')){
-            console.debug('COMPONENTE NÃO POSSUI A CLASS project-layout [return]');
-            return;
-          }
-
-          var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
-          var comp = desenhador.util.getCompDBById($this, attr);
-          console.debug('CHAMANDO FUNCTION update() ....');
-          comp.update($this, comp, function () {
-              //COMPONENTES VISUAIS NÃO INVOCAM CALLBACK
-          });
-          desenhador.util.updateCompDB($this, comp);
-
-          sortable($this);
-          draggable($this, $('.component'));
-          droppable($this, overComponent);
-    });  	
-
-    droppable($('.datasource-container'), function (event, ui) {
+  var overComponentNonvisual = function (event, ui) {
       var $this = $(ui.draggable);
       if(!$this.hasClass('nonvisual')){
         console.debug('COMPONENTE NÃO POSSUI A CLASS nonvisual [return]');
@@ -80,13 +50,53 @@ var desenhador = desenhador || {};
       }
 
       var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
-      var comp = desenhador.util.getCompDBById($this, attr);      
-      console.debug('CHAMANDO FUNCTION update() ....');
-      comp.update($this, comp, function () {
-          //COMPONENTES NÃO INVOCAM CALLBACK
-      });
+      var comp = desenhador.util.getCompDBById($this, attr);
+      if(comp.drag){
+        console.debug('CHAMANDO FUNCTION drag() ....');
+        comp.drag($this, comp);
+      }
+
       desenhador.util.updateCompDB($this, comp);
-    });  
+  };
+
+  var overComponentProjectLayout = function (event, ui) {
+      var $this = $(ui.draggable);
+      if(!$this.hasClass('project-layout')){
+        console.debug('COMPONENTE NÃO POSSUI A CLASS project-layout [return]');
+        return;
+      }
+
+      var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
+      var comp = desenhador.util.getCompDBById($this, attr);      
+
+      if(comp.drag){
+        console.debug('CHAMANDO FUNCTION drag() ....');
+        comp.drag($this, comp);
+      }
+
+      desenhador.util.updateCompDB($this, comp);
+
+      sortable($this);
+      draggable($this, $('.component'));
+      droppable($this, overComponent);
+  };
+
+  var droppable = function (target, over) {
+      $(target).droppable({  
+        tolerance: 'pointer',
+        over : over
+      });
+  };
+
+	desenhador.dragdrop = function () {
+
+    sortable($('.project-container'));    
+    sortable($('.datasource-container'));
+    draggable($('.project-layout'), $('.component'));
+    draggable($('.project-container'), $('.project-layout'));
+    draggable($('.datasource-container'), $('.nonvisual'));
+    droppable($('.project-container'), overComponentProjectLayout);
+    droppable($('.datasource-container'), overComponentNonvisual);
 
     $( "#dialog" ).dialog({
         width : 500,
