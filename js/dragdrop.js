@@ -52,7 +52,9 @@ var desenhador = desenhador || {};
 
           if(!$this.hasClass('component'))return;
 
-          var comp = desenhador.util.getCompDBById($this, 'data-palleta-id');
+          var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
+
+          var comp = desenhador.util.getCompDBById($this, attr);
 
           console.debug('CHAMANDO FUNCTION update() ....');
           comp.update($this, comp, function () {
@@ -68,7 +70,10 @@ var desenhador = desenhador || {};
 					var $this = $(ui.draggable);
 
           if(!$this.hasClass('nonvisual'))return;					
-          var comp = desenhador.util.getCompDBById($this, 'data-palleta-id');
+
+          var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
+
+          var comp = desenhador.util.getCompDBById($this, attr);
           
 					console.debug('CHAMANDO FUNCTION update() ....');
 					comp.update($this, comp, function () {
