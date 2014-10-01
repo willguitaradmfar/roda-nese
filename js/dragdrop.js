@@ -3,98 +3,103 @@ var desenhador = desenhador || {};
 (function(desenhador) {
 	desenhador.dragdrop = desenhador.dragdrop || {};
 
+  var sortable = function (target) {
+    $( target ).sortable({revert: true});    
+  };
+
+  var draggable = function (target, source) {
+      $(source).draggable({
+        connectToSortable: target,
+        cursor: "move",
+        helper: "clone",
+        revert: "invalid",
+        start: function(event, ui) {
+          console.debug('start draggable '+$(this));
+        }, drag: function(event, ui) {
+
+        }, stop: function(event, ui) {
+          console.debug('stop draggable'+$(this));
+        }
+      });
+  };
+
+ var overComponent = function (event, ui) {
+        var $this = $(ui.draggable);
+        if(!$this.hasClass('component')){
+          console.debug('COMPONENTE NÃO POSSUI A CLASS component [return]');
+          return;
+        }
+
+        var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
+        var comp = desenhador.util.getCompDBById($this, attr);
+        console.debug('CHAMANDO FUNCTION update() ....');
+        comp.update($this, comp, function () {
+            //COMPONENTES VISUAIS NÃO INVOCAM CALLBACK
+        });
+        desenhador.util.updateCompDB($this, comp);
+  };
+
+  var droppable = function (target, over) {
+      $(target).droppable({over : over});
+  };
+
 	desenhador.dragdrop = function () {
 
-		$( ".project-container" ).sortable({revert: true});
+    sortable($('.project-container'));    
+    sortable($('.datasource-container'));
 
-		$( ".datasource-container" ).sortable({revert: true});
+    draggable($('.project-layout'), $('.component'));
+    draggable($('.project-container'), $('.project-layout'));
+    draggable($('.datasource-container'), $('.nonvisual'));	  
 
-		$('.component')      
-      .draggable({
-         connectToSortable: ".project-container",
-         cursor: "move",
-         helper: "clone",
-         revert: "invalid",
-         	start: function(event, ui) {
-             	console.debug('start draggable '+$(this));
-           	},
-           	drag: function(event, ui) {
-
-         },
-         	stop: function(event, ui) {
-             	console.debug('stop draggable'+$(this));
-           	}
-      		});   
-
-		$('.nonvisual')      
-      .draggable({
-         connectToSortable: ".datasource-container",
-         cursor: "move",
-         helper: "clone",
-         revert: "invalid",
-         	start: function(event, ui) {
-             	console.debug('start draggable '+$(this));
-             	$('.datasource-container').addClass('datasource-container-evident', 300);
-           	},
-           	drag: function(event, ui) {
-
-         },
-         	stop: function(event, ui) {
-             	console.debug('stop draggable'+$(this).html());
-             	$('.datasource-container').removeClass('datasource-container-evident', 1000);
-           	}
-		});
-
-		$('.project-container').droppable({
-			over : function (event, ui) {
-
-        var $this = $(ui.draggable);          
-
-          if(!$this.hasClass('component'))return;
+    droppable($('.project-container'), function (event, ui) {
+          var $this = $(ui.draggable);
+          if(!$this.hasClass('project-layout')){
+            console.debug('COMPONENTE NÃO POSSUI A CLASS project-layout [return]');
+            return;
+          }
 
           var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
-
           var comp = desenhador.util.getCompDBById($this, attr);
-
           console.debug('CHAMANDO FUNCTION update() ....');
           comp.update($this, comp, function () {
               //COMPONENTES VISUAIS NÃO INVOCAM CALLBACK
           });
-
           desenhador.util.updateCompDB($this, comp);
-				}
-		});
 
-		$('.datasource-container').droppable({
-			over : function (event, ui) {
-					var $this = $(ui.draggable);
+          sortable($this);
+          draggable($this, $('.component'));
+          droppable($this, overComponent);
+    });  	
 
-          if(!$this.hasClass('nonvisual'))return;					
+    droppable($('.datasource-container'), function (event, ui) {
+      var $this = $(ui.draggable);
+      if(!$this.hasClass('nonvisual')){
+        console.debug('COMPONENTE NÃO POSSUI A CLASS nonvisual [return]');
+        return;
+      }
 
-          var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
-
-          var comp = desenhador.util.getCompDBById($this, attr);
-          
-					console.debug('CHAMANDO FUNCTION update() ....');
-					comp.update($this, comp, function () {
-						  //COMPONENTES NÃO INVOCAM CALLBACK
-					});
-          desenhador.util.updateCompDB($this, comp);
-				}
-		});
+      var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
+      var comp = desenhador.util.getCompDBById($this, attr);      
+      console.debug('CHAMANDO FUNCTION update() ....');
+      comp.update($this, comp, function () {
+          //COMPONENTES NÃO INVOCAM CALLBACK
+      });
+      desenhador.util.updateCompDB($this, comp);
+    });  
 
     $( "#dialog" ).dialog({
-      width : 500,
-      height : 600,
-      autoOpen: false,
-      show: {
-        effect: "explode",
-        duration: 300
-        },
-      hide: {
-        effect: "explode",
-        duration: 300
-      }
+        width : 500,
+        height : 600,
+        autoOpen: false,
+        show: {
+          effect: "explode",
+          duration: 300
+          },
+        hide: {
+          effect: "explode",
+          duration: 300
+        }
     });
 	};
 

@@ -23,12 +23,24 @@
 			      +'</div>';
 
 	self.property = {};	
+	self.property.tabs = 'Tab1,Tab2';
 	self.property.context = 'context';
 
 	self.binds = {};
 	self.binds.field = 'model';
 
-	self.update = function (target, comp) {		
+	self.update = function (target, comp) {
 		
+		var tabs = comp.property.tabs.split(',');
+
+		$(target).find('ul.nav-tabs').html('');
+		$(target).find('div.tab-content').html('');
+
+		for(var i in tabs){
+			var tab = tabs[i];
+			$(target).find('ul.nav-tabs').append('<li><a href="#_'+i+tab+'" data-toggle="tab">'+tab+'</a></li>');
+			$(target).find('div.tab-content').append('<div class="tab-pane project-layout" id="_'+i+tab+'"><p>Body '+tab+'</p></div>');
+		}	
+
 	};
 })(window);

@@ -10,7 +10,7 @@
 			if(!comp.binds)return;
 			console.debug('MONTA TABELA DE BINDS');
 			var table = $('<table class="table"><thead><tr><th></th><th></th><th></th></tr></thead><tbody></tbody></table>');
-
+			
 			for(var i in comp.binds){
 				var property = comp.binds[i];
 

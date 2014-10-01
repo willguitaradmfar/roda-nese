@@ -8,9 +8,28 @@
 	cursor: move;
 }
 
+#palleta .project-layout{
+	border : 1px solid silver;
+	cursor: move;
+}
+
 .project-container .component{
 	border : 1px solid silver;
 	cursor: move;
+}
+
+.project-container .component:hover{
+	background-color: beige;
+}
+
+
+.project-container .project-layout{
+	border : 1px solid silver;
+	cursor: move;
+}
+
+.project-container .project-layout:hover{
+	background-color: seashell;
 }
 
 .col-md-12{	

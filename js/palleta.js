@@ -12,7 +12,7 @@ var desenhador = desenhador || {};
 			var layout = desenhador.layouts[i];
 			console.debug('ADD LAYOUT TO PALLETA ('+i+')');
 			var templ = $(layout.templ);
-			templ.addClass('component');
+			templ.addClass('project-layout');
 			palleta.find('#'+layout.category).find('.panel-body').append(templ);
 			desenhador.util.updateCompDB(templ, layout, 'data-palleta-id');
 		}
@@ -21,7 +21,7 @@ var desenhador = desenhador || {};
 			var componente = desenhador.componentes[i];
 			console.debug('ADD COMPONENT TO PALLETA ('+i+')');
 			var templ = $(componente.templ);
-			templ.addClass('component');
+			templ.addClass('component');			
 			palleta.find('#'+componente.category).find('.panel-body').append(templ);
 			desenhador.util.updateCompDB(templ, componente, 'data-palleta-id');
 		}
