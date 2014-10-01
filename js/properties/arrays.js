@@ -35,7 +35,7 @@
 
 							if(type != 'array') continue;
 
-							var key = model;
+							var key = model+'List';
 							var value = meta.resource + ' -> '+model.replace(/:/g, '')+'['+type+']';							
 
 							if(key == property)

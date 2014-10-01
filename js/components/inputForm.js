@@ -15,7 +15,7 @@
 	self.property = {};
 	self.property.label = 'Input Text';
 	self.property.placeholder = 'Placeholder';
-	self.property.model = 'model';
+	self.property.context = 'context';
 
 	self.binds = {};
 	self.binds.field = 'model';
@@ -24,7 +24,8 @@
 		$(target).attr('class', 'input-group component ');
 		$(target).find('input').attr('placeholder', comp.property.placeholder);
 		$(target).find('label').text(comp.property.label);
-		$(target).find('input').attr('data-ng-model', comp.property.model+'.'+comp.binds.field);
+		var bind = comp.binds.field.replace(':', comp.property.context+'.');
+		$(target).find('input').attr('data-ng-model', bind);
 	};
 
 })(window);

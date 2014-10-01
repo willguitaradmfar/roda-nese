@@ -126,6 +126,9 @@ var desenhador = desenhador || {};
 			var service = services[i];
 			bodyController += '\n\t\t\t$scope.'+i+' = {}';
 		}
+		bodyController += '\n\t\t\t$scope.context = {};';
+		bodyController += '\n\t\t\t$scope.context.pessoaList = [{nome : "William", idade : 28},{nome : "Alexandre", idade : 3}];'
+		
 
 		for(var i in struct._variable){
 			for(var ii in struct._variable[i]){

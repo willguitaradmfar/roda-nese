@@ -34,7 +34,7 @@
 							var type = field.type;
 							if(type.substring(0,1) == ':') continue;
 
-							var key = ':'+ii+'.'+iii+'['+type+']';
+							var key = ':'+ii+'.'+iii;
 							var value = meta.resource + ' -> ' + ii+'.'+iii+'['+type+']';
 
 							if(key == property)

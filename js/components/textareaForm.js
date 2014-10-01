@@ -17,7 +17,7 @@
 	self.property.placeholder = 'Placeholder';
 	self.property.rows = '5';
 	self.property.cols = '5';
-	self.property.model = 'model';
+	self.property.context = 'context';
 
 	self.binds = {};
 	self.binds.field = 'field';
@@ -27,7 +27,8 @@
 		$(target).find('textarea').attr('rows', comp.property.rows);
 		$(target).find('textarea').attr('cols', comp.property.cols);
 		$(target).find('textarea').attr('placeholder', comp.property.placeholder);
-		$(target).find('label').text(comp.property.label);		
-		$(target).find('textarea').attr('data-ng-model', comp.property.model+'.'+comp.binds.field);
+		$(target).find('label').text(comp.property.label);
+		var bind = comp.binds.field.replace(':', comp.property.context+'.');
+		$(target).find('textarea').attr('data-ng-model', bind);
 	};
 })(window);

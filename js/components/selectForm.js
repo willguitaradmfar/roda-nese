@@ -21,11 +21,16 @@
 	self.property.label = 'Select';
 	self.property.options = 'Option 1,Option 2,Option 3';
 	self.property.modelSelect = 'model';
-	self.property.collection = 'models';
+	self.property.context = 'context';	
 
 	self.binds = {};
-	self.binds.field = 'model';
-	self.binds.array = 'array';
+	self.binds.field = 'field';	
+
+	self.arrays = {};
+	self.arrays.lista = 'lista';
+
+	self.models = {};
+	self.models.select = 'select';
 
 	self.update = function (target, comp) {
 		$(target).attr('class', 'input-group component');
@@ -34,10 +39,17 @@
 		var options = comp.property.options.split(',');
 		for(var i in options){
 			$(target).find('select').append('<option value="'+options[i]+'">'+options[i]+'</option>');
-		}		
-		$(target).find('select').attr('data-ng-model', comp.property.modelSelect);
+		}
 
-		$(target).find('select').attr('data-ng-options', '_m.'+comp.binds.field+' for _m in '+comp.property.collection+'.'+comp.binds.array);
+		var context = comp.property.context+'.';
+
+		$(target).find('select').attr('data-ng-model', comp.models.select.replace(/:/, context));
+
+		var field = comp.binds.field.replace(/:.*\./, '');
+		var array = comp.arrays.lista.replace(':', context);
+		var options = 'item as item.'+field+' for item in '+array;
+
+		$(target).find('select').attr('data-ng-options', options);
 	};
 
 
