@@ -1,23 +1,28 @@
-var componentes = componentes || {};
+(function (global) {
+	global.desenhador = global.desenhador || {};
+	global.desenhador.componentes = global.desenhador.componentes || {};
+	global.desenhador.componentes.textareaForm = global.desenhador.componentes.textareaForm || {};
+	var self = global.desenhador.componentes.textareaForm;
 
-componentes.textareaForm = (function () {
+	self.name = 'textareaForm';
+	self.category = 'input';
 
-	var templ = '<div class="input-group">'
+	self.templ = '<div class="input-group">'
 					+'<label>Text Area</label>'
 					+'<textarea class="form-control" rows="5", cols="5" placeholder="Placeholder"></textarea>'
 				+'</div>';
 
-	var property = {};
-	property.label = 'Text Area';
-	property.placeholder = 'Placeholder';
-	property.rows = '5';
-	property.cols = '5';
-	property.model = 'model';
+	self.property = {};
+	self.property.label = 'Text Area';
+	self.property.placeholder = 'Placeholder';
+	self.property.rows = '5';
+	self.property.cols = '5';
+	self.property.model = 'model';
 
-	var binds = {};
-	binds.field = 'field';
+	self.binds = {};
+	self.binds.field = 'field';
 
-	var update = function (target, comp) {
+	self.update = function (target, comp) {
 		$(target).attr('class', 'input-group component ');
 		$(target).find('textarea').attr('rows', comp.property.rows);
 		$(target).find('textarea').attr('cols', comp.property.cols);
@@ -25,13 +30,4 @@ componentes.textareaForm = (function () {
 		$(target).find('label').text(comp.property.label);		
 		$(target).find('textarea').attr('data-ng-model', comp.property.model+'.'+comp.binds.field);
 	};
-
-	return {
-		'templ' : templ,
-		'name' : 'textareaForm',
-		'property' : property,
-		'update' : update,
-		'category' : 'input',
-		'binds' : binds
-	};
-})();
+})(window);

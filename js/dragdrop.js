@@ -28,21 +28,21 @@ var desenhador = desenhador || {};
 
 		$('.nonvisual')      
       .draggable({
-   connectToSortable: ".datasource-container",
-   cursor: "move",
-   helper: "clone",
-   revert: "invalid",
-   	start: function(event, ui) {
-       	console.debug('start draggable '+$(this));
-       	$('.datasource-container').addClass('datasource-container-evident', 300);
-     	},
-     	drag: function(event, ui) {
+         connectToSortable: ".datasource-container",
+         cursor: "move",
+         helper: "clone",
+         revert: "invalid",
+         	start: function(event, ui) {
+             	console.debug('start draggable '+$(this));
+             	$('.datasource-container').addClass('datasource-container-evident', 300);
+           	},
+           	drag: function(event, ui) {
 
-   },
-   	stop: function(event, ui) {
-       	console.debug('stop draggable'+$(this).html());
-       	$('.datasource-container').removeClass('datasource-container-evident', 1000);
-     	}
+         },
+         	stop: function(event, ui) {
+             	console.debug('stop draggable'+$(this).html());
+             	$('.datasource-container').removeClass('datasource-container-evident', 1000);
+           	}
 		});
 
 		$('.project-container').droppable({
@@ -72,8 +72,9 @@ var desenhador = desenhador || {};
           
 					console.debug('CHAMANDO FUNCTION update() ....');
 					comp.update($this, comp, function () {
-						desenhador.util.updateCompDB($this, comp);
+						  //COMPONENTES NÃO INVOCAM CALLBACK
 					});
+          desenhador.util.updateCompDB($this, comp);
 				}
 		});
 

@@ -5,11 +5,11 @@ var desenhador = desenhador || {};
 
 	desenhador.palleta = function(target) {
 		var palleta = $(target);
-		try{if(!componentes){}}catch(e){throw 'NÃO EXITE COMPONENTES PARA IMPORTAÇÃO NA PALLETA';}
-		
 
-		for(var i in componentes){
-			var componente = componentes[i];
+		try{if(!desenhador.componentes){}}catch(e){throw 'NÃO EXITE COMPONENTES PARA IMPORTAÇÃO NA PALLETA';}
+
+		for(var i in desenhador.componentes){
+			var componente = desenhador.componentes[i];
 			console.debug('ADD COMPONENT TO PALLETA ('+i+')');
 			var templ = $(componente.templ);
 			templ.addClass('component');
@@ -18,18 +18,14 @@ var desenhador = desenhador || {};
 		}
 
 		for(var i in resources){
-
 			var servico = resources[i];
-
 			var templSpan = $('<span class="btn btn-warning glyphicon glyphicon-'+(servico.icon || 'cloud')+'"></span>');
 
 			templSpan
 				.addClass('nonvisual');
 				
 			desenhador.util.updateCompDB(templSpan, servico, 'data-palleta-id');
-
 			palleta.find('#'+servico.category).find('.panel-body').append(templSpan);
-
 			console.debug('ADD RESOURCE TO PALLETA ('+i+')');
 		}
 	};

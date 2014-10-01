@@ -1,29 +1,25 @@
-var componentes = componentes || {};
+(function (global) {
+	global.desenhador = global.desenhador || {};
+	global.desenhador.componentes = global.desenhador.componentes || {};
+	global.desenhador.componentes.chartLine = global.desenhador.componentes.chartLine || {};
+	var self = global.desenhador.componentes.chartLine;
 
-componentes.chartLine = (function () {
+	self.name = 'chartLine';
+	self.category = 'chart';
 
-	var templ = '<nvd3-line-graph data="data" responsive="true" width="1000" height="500" duration="2000" guide="true" xlabel="X-AXIS" ylabel="Y-AXIS"></nvd3-line-graph>';
+	self.templ = '<nvd3-line-graph data="data" responsive="true" width="1000" height="500" duration="2000" guide="true" xlabel="X-AXIS" ylabel="Y-AXIS"></nvd3-line-graph>';
 
-	var property = {};
-	property.width = '700';
-	property.height = '500';
-	property.model = 'models';
+	self.property = {};
+	self.property.width = '700';
+	self.property.height = '500';
+	self.property.model = 'models';
 
-	var binds = {}
-	binds.array = '...';
+	self.binds = {}
+	self.binds.array = '...';
 
-	var update = function (target, comp) {
+	self.update = function (target, comp) {
 		$(target).attr('data', comp.property.model+'.'+comp.binds.array);
 		$(target).attr('width', comp.property.width);
 		$(target).attr('height', comp.property.height);
 	};
-
-	return {
-		'templ' : templ,
-		'binds' : binds,
-		'name' : 'chartLine',
-		'property' : property,
-		'update' : update,
-		'category' : 'chart'
-	};
-})();
+})(window);

@@ -1,27 +1,33 @@
-var componentes = componentes || {};
 
-componentes.selectForm = (function () {
+(function (global) {
+	global.desenhador = global.desenhador || {};
+	global.desenhador.componentes = global.desenhador.componentes || {};
+	global.desenhador.componentes.selectForm = global.desenhador.componentes.selectForm || {};
+	var self = global.desenhador.componentes.selectForm;
 
-	var templ = '<div class="input-group">'
+	self.name = 'selectForm';
+	self.category = 'input';
+
+	self.templ = '<div class="input-group">'
 					+'<label>Select</label>'
 					+'<select name="selectbasic" class="form-control">'
-     +'<option>Option 1</option>'
-     +'<option>Option 2</option>'
-     +'<option>Option 3</option>'
-   +'</select>'
-				+'</div>';
+					     +'<option>Option 1</option>'
+					     +'<option>Option 2</option>'
+					     +'<option>Option 3</option>'
+					   +'</select>'
+					+'</div>';
 
-	var property = {};
-	property.label = 'Select';
-	property.options = 'Option 1,Option 2,Option 3';
-	property.modelSelect = 'model';
-	property.collection = 'models';
+	self.property = {};
+	self.property.label = 'Select';
+	self.property.options = 'Option 1,Option 2,Option 3';
+	self.property.modelSelect = 'model';
+	self.property.collection = 'models';
 
-	var binds = {};
-	binds.field = 'model';
-	binds.array = 'array';
+	self.binds = {};
+	self.binds.field = 'model';
+	self.binds.array = 'array';
 
-	var update = function (target, comp) {
+	self.update = function (target, comp) {
 		$(target).attr('class', 'input-group component');
 		$(target).find('label').text(comp.property.label);
 		$(target).find('select').html('');
@@ -34,12 +40,5 @@ componentes.selectForm = (function () {
 		$(target).find('select').attr('data-ng-options', '_m.'+comp.binds.field+' for _m in '+comp.property.collection+'.'+comp.binds.array);
 	};
 
-	return {
-		'templ' : templ,
-		'binds' : binds,
-		'name' : 'selectForm',
-		'property' : property,
-		'update' : update,
-		'category' : 'input'
-	};
-})();
+
+})(window);

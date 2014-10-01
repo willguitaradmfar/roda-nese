@@ -1,23 +1,22 @@
-var componentes = componentes || {};
+(function (global) {
+	global.desenhador = global.desenhador || {};
+	global.desenhador.componentes = global.desenhador.componentes || {};
+	global.desenhador.componentes.label = global.desenhador.componentes.label || {};
+	var self = global.desenhador.componentes.label;
 
-componentes.label = (function () {
+	self.name = 'label';
+	self.category = 'label';
 
-	var templ = '<label class="label label-default">Label</label>';
+	self.templ = '<label class="label label-default">Label</label>';
 
-	var property = {};
-	property.label = 'Label';
-	property.tipo = {val : 'default', options : ['default', 'info', 'danger', 'success', 'warning']};
+	self.property = {};
+	self.property.label = 'Label';
+	self.property.tipo = {val : 'default', options : ['default', 'info', 'danger', 'success', 'warning']};
 
-	var update = function (target, comp) {
+	self.update = function (target, comp) {
 		$(target).attr('class', 'component label label-'+comp.property.tipo.val);
 		$(target).text(comp.property.label);
 	};
 
-	return {
-		'templ' : templ,
-		'name' : 'label',
-		'property' : property,
-		'update' : update,
-		'category' : 'label'
-	};
-})();
+
+})(window);

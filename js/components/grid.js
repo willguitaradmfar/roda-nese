@@ -1,8 +1,13 @@
-var componentes = componentes || {};
+(function (global) {
+	global.desenhador = global.desenhador || {};
+	global.desenhador.componentes = global.desenhador.componentes || {};
+	global.desenhador.componentes.grid = global.desenhador.componentes.grid || {};
+	var self = global.desenhador.componentes.grid;
 
-componentes.grid = (function () {
+	self.name = 'grid';
+	self.category = 'grids';
 
-	var templ = '<table class="table table-hover">'
+	self.templ = '<table class="table table-hover">'
 					+'<thead><tr>'
 						+'<th>Nome<th>'
 						+'<th>Tel.<th>'
@@ -15,18 +20,18 @@ componentes.grid = (function () {
 					+'</tbody>'
 				+'</table>';
 
-	var property = {};
-	property.cols = 'Nome,Idade,RG';
-	property.rows = 'name,age,rg';
-	property.limit = 10;
-	property.model = 'model';
-	property.filter = 'modelFilter';
-	property.select = 'modelSelect';
+	self.property = {};
+	self.property.cols = 'Nome,Idade,RG';
+	self.property.rows = 'name,age,rg';
+	self.property.limit = 10;
+	self.property.model = 'model';
+	self.property.filter = 'modelFilter';
+	self.property.select = 'modelSelect';
 
-	var binds = {}
-	binds.array = '...';
+	self.binds = {}
+	self.binds.array = '...';
 
-	var update = function (target, comp) {
+	self.update = function (target, comp) {
 
 		if(comp.property.model 
 			&& comp.property.model.length > 0 
@@ -61,12 +66,5 @@ componentes.grid = (function () {
 		}
 	};
 
-	return {
-		'binds' : binds,
-		'templ' : templ,
-		'name' : 'grid',
-		'property' : property,
-		'update' : update,
-		'category' : 'grids'
-	};
-})();
+
+})(window);

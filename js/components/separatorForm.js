@@ -1,20 +1,17 @@
-var componentes = componentes || {};
+(function (global) {
+	global.desenhador = global.desenhador || {};
+	global.desenhador.componentes = global.desenhador.componentes || {};
+	global.desenhador.componentes.separatorForm = global.desenhador.componentes.separatorForm || {};
+	var self = global.desenhador.componentes.separatorForm;
 
-componentes.separatorForm = (function () {
+	self.name = 'separatorForm';
+	self.category = 'label';
 
-	var templ = '<hr/>';
+	self.templ = '<hr/>';
 
-	var property = {};
+	self.property = {};
 
-	var update = function (target, comp) {
+	self.update = function (target, comp) {
 		$(target).attr('class', 'component ');
 	};
-
-	return {
-		'templ' : templ,
-		'name' : 'separatorForm',
-		'property' : property,
-		'update' : update,
-		'category' : 'label'
-	};
-})();
+})(window);

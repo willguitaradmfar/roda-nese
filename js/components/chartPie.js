@@ -1,18 +1,23 @@
-var componentes = componentes || {};
+(function (global) {
+	global.desenhador = global.desenhador || {};
+	global.desenhador.componentes = global.desenhador.componentes || {};
+	global.desenhador.componentes.chartPie = global.desenhador.componentes.chartPie || {};
+	var self = global.desenhador.componentes.chartPie;
 
-componentes.chartPie = (function () {
+	self.name = 'chartPie';
+	self.category = 'chart';
 
-	var templ = '<nvd3-pie-chart data="data" width="700" height="700" duration="500" label-type="percent" responsive="true"></nvd3-pie-chart>';
+	self.templ = '<nvd3-pie-chart data="data" width="700" height="700" duration="500" label-type="percent" responsive="true"></nvd3-pie-chart>';
 
-	var property = {};
-	property.width = '700';
-	property.height = '500';
-	property.model = 'models';
+	self.property = {};
+	self.property.width = '700';
+	self.property.height = '500';
+	self.property.model = 'models';
 
-	var binds = {}
-	binds.array = '...';
+	self.binds = {}
+	self.binds.array = '...';
 
-	var update = function (target, comp) {
+	self.update = function (target, comp) {
 		var model = comp.property.model;
 		var array = comp.property.array;
 
@@ -26,12 +31,5 @@ componentes.chartPie = (function () {
 		$(target).attr('height', comp.property.height);
 	};
 
-	return {
-		'templ' : templ,
-		'binds' : binds,
-		'name' : 'chartPie',
-		'property' : property,
-		'update' : update,
-		'category' : 'chart'
-	};
-})();
+
+})(window);

@@ -1,14 +1,19 @@
-var componentes = componentes || {};
+(function (global) {
+	global.desenhador = global.desenhador || {};
+	global.desenhador.componentes = global.desenhador.componentes || {};
+	global.desenhador.componentes.h4 = global.desenhador.componentes.h4 || {};
+	var self = global.desenhador.componentes.h4;
 
-componentes.h4 = (function () {
+	self.name = 'h4';
+	self.category = 'label';
 
-	var templ = '<h4>H4</h4>';
+	self.templ = '<h4>H4</h4>';
 
-	var property = {};
-	property.label = 'H4';
-	property.bind = 'model';
+	self.property = {};
+	self.property.label = 'H4';
+	self.property.bind = 'model';
 
-	var update = function (target, comp) {
+	self.update = function (target, comp) {
 		$(target).text(comp.property.label);
 
 		if(comp.property.bind && comp.property.bind.length > 0)
@@ -17,11 +22,4 @@ componentes.h4 = (function () {
 			$(target).removeAttr('data-ng-bind');
 	};
 
-	return {
-		'templ' : templ,
-		'name' : 'h4',
-		'property' : property,
-		'update' : update,
-		'category' : 'label'
-	};
-})();
+})(window);
