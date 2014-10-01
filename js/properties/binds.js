@@ -23,6 +23,7 @@
 				var td = $('<td></td>');
 
 				var select = $('<select name="'+name+'" class="form-control"></select>');
+				select.append('<option value="" selected>Selecione ...</option>');
 				
 				var services = desenhador.metadata.arrays;
 

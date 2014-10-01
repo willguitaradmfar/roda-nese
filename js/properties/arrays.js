@@ -23,6 +23,7 @@
 				var td = $('<td></td>');
 
 				var select = $('<select name="'+name+'" class="form-control"></select>');
+				select.append('<option value="" selected>Selecione ...</option>');
 				var services = desenhador.metadata.arrays;
 
 				desenhador.metadata.find({}, function(meta){
@@ -36,7 +37,7 @@
 							if(type != 'array') continue;
 
 							var key = model+'List';
-							var value = meta.resource + ' -> '+model.replace(/:/g, '')+'['+type+']';							
+							var value = meta.resource + ' -> '+model.replace(/:/g, '')+'List ['+type+']';							
 
 							if(key == property)
 								select.append('<option value="'+key+'" selected>'+value+'</option>');

@@ -11,13 +11,17 @@
 
 	self.property = {};
 	self.property.label = 'H1';
-	self.property.bind = 'model';
+	self.property.context = 'context';
+
+	self.binds = {};
+	self.binds.field = 'model';
 
 	self.update = function (target, comp) {
 		$(target).text(comp.property.label);
 
-		if(comp.property.bind && comp.property.bind.length > 0)
-			$(target).attr('data-ng-bind', comp.property.bind);
+		var bind = comp.binds.field.replace(':', comp.property.context+'.');
+		if(comp.binds.field)
+			$(target).attr('data-ng-bind', bind);
 		else
 			$(target).removeAttr('data-ng-bind');
 	};

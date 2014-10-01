@@ -23,6 +23,27 @@
 		return db(query).update(_update);
 	};
 
+	var process = function (obj) {
+
+		if(typeof(obj) == 'string' && obj.substring(0,1) == ':'){			
+			/*console.debug(obj);
+			console.debug(obj.replace(/^:(\w*)\.{0,1}(.*)$/, ' model: $1, field: $2'));
+			console.debug('--------------');*/
+		}
+
+		if(obj == null || typeof(obj) != 'object')
+	        return obj;
+
+	    var temp = obj.constructor(); // changed
+
+	    for(var key in obj) {
+	        if(obj.hasOwnProperty(key)) {	        	
+	            temp[key] = process(obj[key]);
+	        }
+	    }
+	    return temp;
+	};
+
 	var Metadata = function (_doc) {
 		var doc = {};
 		//MODELO DE DADOS
@@ -59,6 +80,7 @@
 
 	global.desenhador.metadata.find = find;
 	global.desenhador.metadata.findByResource = findByResource;
+	global.desenhador.metadata.process = process;
 	
 })(window);
 
@@ -215,7 +237,7 @@
 
 	actions.list = {
 		model : ':pessoa',
-		parameter : [[':pessoa.cidade.nome']],
+		parameter : [[':pessoa.end.nome']],
 		result : {
 			type : 'array',
 			model : ':pessoa'
@@ -233,7 +255,8 @@
 }
 
 desenhador.metadata.find({}, function (doc) {
-	console.log(doc);
+	desenhador.metadata.process(doc);
+	//console.log(doc);
 });
 
 

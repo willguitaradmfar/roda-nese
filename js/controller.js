@@ -127,8 +127,11 @@ var desenhador = desenhador || {};
 			bodyController += '\n\t\t\t$scope.'+i+' = {}';
 		}
 		bodyController += '\n\t\t\t$scope.context = {};';
-		bodyController += '\n\t\t\t$scope.context.pessoaList = [{nome : "William", idade : 28},{nome : "Alexandre", idade : 3}];'
-		
+
+		bodyController += '\n\t\t\$scope.context.list = '+(function (value) {
+			$scope.context.pessoaList = [{nome : "William", idade : 28, end : {nome : 'Rua Teste'}},{nome : "Alexandre", idade : 3, end : {nome : 'Rua Amazonita'}}];
+			console.debug(value);			
+		}).toString()+';';
 
 		for(var i in struct._variable){
 			for(var ii in struct._variable[i]){
@@ -138,7 +141,7 @@ var desenhador = desenhador || {};
 		}
 
 		bodyController += '\n\t\t\$scope.set = '+(function (value, path) {
-			$scope[path] = value;
+			path = value;			
 		}).toString()+';';		
 
 		for(var i in struct._functions){
