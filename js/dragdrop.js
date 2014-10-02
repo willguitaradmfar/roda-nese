@@ -1,7 +1,5 @@
-var desenhador = desenhador || {};
-
-(function(desenhador) {
-    desenhador.dragdrop = desenhador.dragdrop || {};
+(function(global) {
+    global.desenhador = global.desenhador || {};   
 
     var sortable = function(targets) {
         for (var i in targets) {
@@ -14,6 +12,11 @@ var desenhador = desenhador || {};
 
     var draggable = function(source, targets) {
 
+        var limpaComponentePalleta = function ($this) {
+          console.debug('LIMPANDO O ATRIBUTO (data-comp-id) DO COMPONENTE');          
+          $($this).removeAttr('data-comp-id');
+        };
+
         var _cb = function(target) {
             $(source).draggable({
                 connectToSortable: $(target),
@@ -22,15 +25,14 @@ var desenhador = desenhador || {};
                 revert: "invalid",
                 scroll: true,
                 start: function(event, ui) {
-                    console.debug('start draggable ' + $(this));
-                    $(target).addClass('ui-state-highlight');
+                    console.debug('start draggable ' + $(this));                    
                 },
                 drag: function(event, ui) {
 
                 },
-                stop: function(event, ui) {
-                    console.debug('stop draggable' + $(this));
-                    $(target).removeClass('ui-state-highlight');
+                stop: function(event, ui) {                  
+                    console.debug('stop draggable' + $(this));                    
+                    limpaComponentePalleta($(this));
                 }
             });
         };
@@ -80,7 +82,6 @@ var desenhador = desenhador || {};
             console.debug('CHAMANDO FUNCTION drag() ....');
             comp.drag($this, comp);
         }
-
         desenhador.util.updateCompDB($this, comp);
     };
 
@@ -110,7 +111,7 @@ var desenhador = desenhador || {};
 
 
 
-    desenhador.dragdrop = function() {
+    global.desenhador.dragdrop = function() {
         sortable(['.des-container', '.des-datasource', '.des-layout']);
         draggable($('#palleta .des-layout'), ['#project.des-container']);
         droppable(['.des-container'], overComponentProjectLayout);
@@ -133,4 +134,4 @@ var desenhador = desenhador || {};
         });
     };
 
-})(desenhador);
+})(window);

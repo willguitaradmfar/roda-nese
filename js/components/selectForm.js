@@ -41,11 +41,10 @@
 			$(target).find('select').append('<option value="'+options[i]+'">'+options[i]+'</option>');
 		}
 
-		var context = comp.property.context+'.';
-
+		var context = comp.property.context+'.';		
 		$(target).find('select').attr('data-ng-model', comp.models.select.replace(/:/, context));
 
-		var field = comp.binds.field.replace(/:.*\./, '');
+		var field = comp.binds.field.replace(/:\w*\./, '');
 		var array = comp.arrays.lista.replace(':', context);
 		var options = 'item as item.'+field+' for item in '+array;
 

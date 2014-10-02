@@ -129,7 +129,9 @@ var desenhador = desenhador || {};
 		bodyController += '\n\t\t\t$scope.context = {};';
 
 		bodyController += '\n\t\t\$scope.context.list = '+(function (value) {
-			$scope.context.pessoaList = [{nome : "William", idade : 28, end : {nome : 'Rua Teste'}},{nome : "Alexandre", idade : 3, end : {nome : 'Rua Amazonita'}}];
+			$scope.context.pessoaList = [
+				{nome : "William", idade : 28, end : {nome : 'Rua Teste', cidade : {nome : 'SBC'}}},
+				{nome : "Alexandre", idade : 3, end : {nome : 'Rua Amazonita', cidade : {nome : 'São Bernardo do Campo'}}}];
 			console.debug(value);			
 		}).toString()+';';
 

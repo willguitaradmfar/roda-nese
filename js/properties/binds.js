@@ -27,22 +27,32 @@
 				
 				var services = desenhador.metadata.arrays;
 
+				var recursive = function (model, meta, modelName) {
+					for(var  iii in model){
+						var field = model[iii];
+						var type = field.type;						
+						
+						if(type.substring(0,1) == ':') {
+							recursive(field.ref, meta, type.replace(/:/, modelName+'.'));
+							continue;
+						}
+
+						var key = ':'+modelName+'.'+iii;
+						var value = meta.resource + ' -> ' + modelName+'.'+iii+'['+type+']';
+
+						if(key == property)
+							select.append('<option value="'+key+'" selected>'+value+'</option>');
+						else
+							select.append('<option value="'+key+'">'+value+'</option>');
+					}
+				}
+
 				desenhador.metadata.find({}, function(meta){
 					for(var ii in meta.models){
 						var model = meta.models[ii];
-						for(var  iii in model){
-							var field = model[iii];
-							var type = field.type;
-							if(type.substring(0,1) == ':') continue;
-
-							var key = ':'+ii+'.'+iii;
-							var value = meta.resource + ' -> ' + ii+'.'+iii+'['+type+']';
-
-							if(key == property)
-								select.append('<option value="'+key+'" selected>'+value+'</option>');
-							else
-								select.append('<option value="'+key+'">'+value+'</option>');
-						}
+						var modelName = ii;
+						
+						recursive(model, meta, modelName);
 					}
 				});				
 

@@ -23,27 +23,6 @@
 		return db(query).update(_update);
 	};
 
-	var process = function (obj) {
-
-		if(typeof(obj) == 'string' && obj.substring(0,1) == ':'){			
-			/*console.debug(obj);
-			console.debug(obj.replace(/^:(\w*)\.{0,1}(.*)$/, ' model: $1, field: $2'));
-			console.debug('--------------');*/
-		}
-
-		if(obj == null || typeof(obj) != 'object')
-	        return obj;
-
-	    var temp = obj.constructor(); // changed
-
-	    for(var key in obj) {
-	        if(obj.hasOwnProperty(key)) {	        	
-	            temp[key] = process(obj[key]);
-	        }
-	    }
-	    return temp;
-	};
-
 	var Metadata = function (_doc) {
 		var doc = {};
 		//MODELO DE DADOS
@@ -80,22 +59,18 @@
 
 	global.desenhador.metadata.find = find;
 	global.desenhador.metadata.findByResource = findByResource;
-	global.desenhador.metadata.process = process;
-	
 })(window);
 
 
 //###################################################################################################//
 {
 	var models = {};
-	models.carro = {	
+
+	models.marca = {
 		nome : {
 			type : 'string',
 			required : true
-		},
-		modelo : {
-			type : ':modelo'			
-		}	
+		}
 	};
 
 	models.modelo = {	
@@ -104,16 +79,22 @@
 			required : true
 		},
 		marca : {
-			type : ':marca'
+			type : ':marca',
+			ref : models.marca
 		}
 	};
 
-	models.marca = {
+	models.carro = {	
 		nome : {
 			type : 'string',
 			required : true
-		}
+		},
+		modelo : {
+			type : ':modelo',
+			ref : models.modelo
+		}	
 	};
+	
 
 	models.message = {
 		message : {
@@ -170,6 +151,25 @@
 
 {
 	var models = {};
+
+	models.cidade = {
+		nome : {
+			type : 'string',
+			required : true
+		}
+	};
+
+	models.end = {
+		nome : {
+			type : 'string',
+			required : true
+		},
+		cidade : {
+			type : ':cidade',
+			ref : models.cidade
+		}
+	};
+
 	models.pessoa = {	
 		nome : {
 			type : 'string',
@@ -180,26 +180,14 @@
 			required : true
 		},
 		end : {
-			type : ':end'			
+			type : ':end',
+			ref : models.end
 		}	
 	};
 
-	models.end = {
-		nome : {
-			type : 'string',
-			required : true
-		},
-		cidade : {
-			type : ':cidade'
-		}
-	};
+	
 
-	models.cidade = {
-		nome : {
-			type : 'string',
-			required : true
-		}
-	};
+	
 
 	models.message = {
 		message : {
@@ -254,9 +242,8 @@
 		.save();
 }
 
-desenhador.metadata.find({}, function (doc) {
-	desenhador.metadata.process(doc);
-	//console.log(doc);
+desenhador.metadata.find({}, function (doc) {	
+	console.log(doc);
 });
 
 

@@ -20,14 +20,15 @@ var desenhador = desenhador || {};
 	desenhador.util.updateCompDB = function ($this, comp, field) {
 		var _field = field || 'data-comp-id';
 		
-		var id = $($this).attr(_field);
+		var id = $($this).attr(_field);		
+		
 		if(id) {
 			console.debug('ATUALIZANDO COMPONENTE ('+id+') attr('+_field+')');
 			desenhador.db.update(id, comp);
 			return id;
 		}else{			
 			id = desenhador.db.insert(desenhador.util.clone(comp)).___id;
-			console.debug('CRIANDO COMPONENTE ('+id+') attr('+_field+')');
+			console.debug('CRIANDO COMPONENTE ('+comp.name+') ('+id+') attr('+_field+')');
 			$($this).attr(_field, id);
 			return id;
 		}		

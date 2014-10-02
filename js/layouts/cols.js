@@ -7,13 +7,13 @@
 	self.name = 'cols';
 	self.category = 'layout';
 
-	self.templ = '<div class="col-lg-6 col-xs-6 col-sm-6 col-md-6 des-layout">layout</div>';				 
+	self.templ = '<div class="col-lg-6 col-xs-12 col-sm-12 col-md-6">layout</div>';				 
 
 	self.property = {};		
 	self.property.context = 'context';
 	self.property.bigDesktops = '6';
-	self.property.phones = '6';
-	self.property.tablets = '6';
+	self.property.phones = '12';
+	self.property.tablets = '12';
 	self.property.desktops = '6';
 
 	self.update = function (target, comp) {	
