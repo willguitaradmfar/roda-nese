@@ -26,8 +26,8 @@ var desenhador = desenhador || {};
 			desenhador.util.updateCompDB(templ, componente, 'data-palleta-id');
 		}
 
-		for(var i in resources){
-			var servico = resources[i];
+		for(var i in desenhador.resources){
+			var servico = desenhador.resources[i];
 			var templSpan = $('<span class="btn btn-warning glyphicon glyphicon-'+(servico.icon || 'cloud')+'"></span>');
 
 			templSpan

@@ -1,9 +1,10 @@
-var desenhador = desenhador || {};
 
-(function(desenhador) {
-	desenhador.util = desenhador.util || {};
 
-	desenhador.util.clone = function (obj) {
+(function(global) {
+	global.desenhador = global.desenhador || {};
+	global.desenhador.util = global.desenhador.util || {};
+
+	global.desenhador.util.clone = function (obj) {
 		if(obj == null || typeof(obj) != 'object')
 	        return obj;
 
@@ -17,7 +18,7 @@ var desenhador = desenhador || {};
 	    return temp;
 	};
 
-	desenhador.util.updateCompDB = function ($this, comp, field) {
+	global.desenhador.util.updateCompDB = function ($this, comp, field) {
 		var _field = field || 'data-comp-id';
 		
 		var id = $($this).attr(_field);		
@@ -34,7 +35,7 @@ var desenhador = desenhador || {};
 		}		
 	};
 
-	desenhador.util.removeCompDB = function ($this, field) {
+	global.desenhador.util.removeCompDB = function ($this, field) {
 		var _field = field || 'data-comp-id';
 
 		var id = $($this).attr(_field);		
@@ -46,7 +47,7 @@ var desenhador = desenhador || {};
 		}
 	};
 
-	desenhador.util.getCompDBById = function ($this, field) {
+	global.desenhador.util.getCompDBById = function ($this, field) {
 		var _field = field || 'data-comp-id';
 
 		var id = $($this).attr(_field);
@@ -60,11 +61,11 @@ var desenhador = desenhador || {};
 		}	
 	};
 
-	desenhador.util.eval = function (script) {
+	global.desenhador.util.eval = function (script) {
 		return eval('('+script+')');
 	};	
 
-	desenhador.util.dynamicMetadata = function (_obj) {
+	global.desenhador.util.dynamicMetadata = function (_obj) {
 		this.metadata = {};
 		this.models = {};
 		this.arrays = {};
@@ -142,7 +143,7 @@ var desenhador = desenhador || {};
 
 	};
 
-	desenhador.util.processTemplate = function (keys, values, template) {
+	global.desenhador.util.processTemplate = function (keys, values, template) {
 		if(!template) throw 'Template indefinido';		
 		var result = template.toString();
 		for(var i in keys){
@@ -153,7 +154,7 @@ var desenhador = desenhador || {};
 		return result;
 	};
 
-	desenhador.util.rest = function (config) {
+	global.desenhador.util.rest = function (config) {
 
 		var url = config.url || 'http://httpbin.org/get'
 		var data = config.data || {};
@@ -188,4 +189,4 @@ var desenhador = desenhador || {};
 			}
 		});
 	};
-})(desenhador);
+})(window);
