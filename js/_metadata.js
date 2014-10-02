@@ -24,7 +24,7 @@ var desenhador = desenhador || {};
 		if(target){
 			comps = $(target).find('.nonvisual');
 		}else{
-			comps = $('.datasource-container').find('.nonvisual');
+			comps = $('.des-datasource').find('.nonvisual');
 		}
 
 		for(var y = 0 ; y < comps.length ; y++){

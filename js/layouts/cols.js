@@ -7,7 +7,7 @@
 	self.name = 'cols';
 	self.category = 'layout';
 
-	self.templ = '<div class="col-lg-6 col-xs-6 col-sm-6 col-md-6 project-layout">layout</div>';				 
+	self.templ = '<div class="col-lg-6 col-xs-6 col-sm-6 col-md-6 des-layout">layout</div>';				 
 
 	self.property = {};		
 	self.property.context = 'context';
@@ -19,7 +19,7 @@
 	self.update = function (target, comp) {	
 
 		var _class = [];
-		_class.push('project-layout');
+		_class.push('des-layout');
 		if(comp.property.bigDesktops){
 			_class.push('col-lg-'+comp.property.bigDesktops);
 		}
@@ -36,7 +36,7 @@
 	};
 
 	self.drag = function (target, comp) {
-		//$(target).find('.container-hiden').remove();
+		
 	}
 
 })(window);

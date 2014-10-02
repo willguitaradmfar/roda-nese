@@ -59,7 +59,7 @@ var desenhador = desenhador || {};
 			comps = $(target).find('.nonvisual');
 		}else{
 			console.debug('NÃO FOI PASSADO UM ALVO');
-			comps = $('.datasource-container').find('.nonvisual');
+			comps = $('.des-datasource').find('.nonvisual');
 		}
 
 		struct._functions = {};
@@ -141,7 +141,7 @@ var desenhador = desenhador || {};
 		}
 
 		bodyController += '\n\t\t\$scope.set = '+(function (value, path) {
-			path = value;			
+			$scope[path] = value;
 		}).toString()+';';		
 
 		for(var i in struct._functions){

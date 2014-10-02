@@ -64,7 +64,7 @@
 			$(target).find('tbody > tr').html('');
 			for(var i in _rows){
 				var row = _rows[i];
-				$(target).find('tbody > tr').attr('data-ng-click', 'set(_m, '+comp.models.select.replace(':', context+'.')+')');
+				$(target).find('tbody > tr').attr('data-ng-click', 'set(_m, "'+comp.models.select.replace(':', context+'.')+'")');
 				$(target).find('tbody > tr').append('<td data-ng-bind="_m.'+row+'"></td>');
 			}
 		}

@@ -39,7 +39,7 @@
 		for(var i in tabs){
 			var tab = tabs[i];
 			$(target).find('ul.nav-tabs').append('<li><a href="#_'+i+tab+'" data-toggle="tab">'+tab+'</a></li>');
-			$(target).find('div.tab-content').append('<div class="tab-pane project-layout" id="_'+i+tab+'"><p>Body '+tab+'</p></div>');
+			$(target).find('div.tab-content').append('<div class="tab-pane des-layout" id="_'+i+tab+'"><p>Body '+tab+'</p></div>');
 		}	
 
 	};

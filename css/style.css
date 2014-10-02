@@ -1,5 +1,5 @@
 
-#palleta, .project-container{	
+#palleta, .des-container{	
 	height: 93%;
 }
 
@@ -8,27 +8,27 @@
 	cursor: move;
 }
 
-#palleta .project-layout{
+#palleta .des-layout{
 	border : 1px solid silver;
 	cursor: move;
 }
 
-.project-container .component{
+.des-container .component{
 	border : 1px solid silver;
 	cursor: move;
 }
 
-.project-container .component:hover{
+.des-container .component:hover{
 	background-color: beige;
 }
 
 
-.project-container .project-layout{
+.des-container .des-layout{
 	border : 1px solid silver;
 	cursor: move;
 }
 
-.project-container .project-layout:hover{
+.des-container .des-layout:hover{
 	background-color: seashell;
 }
 
@@ -48,7 +48,7 @@
 	margin-top: 1px;
 	background-color: #eeeeee;
 }
-.project-container{
+.des-container{
 	margin-top: 1px;
 }
 
@@ -56,11 +56,11 @@
 	float: right;
 }
 
-.project-container .component.nonvisual{
+.des-container .component.nonvisual{
 	opacity: 0.4;
 }
 
-.datasource-container{
+.des-datasource{
 	background-color: #eeeeee;
 	position: absolute;	
 	top: 6%;
@@ -69,7 +69,7 @@
 	height: 93%;	
 }
 
-.datasource-container-evident{
+.des-datasource-evident{
 	background-color: bisque;
 	position: absolute;	
 	top: 6%;

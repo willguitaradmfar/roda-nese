@@ -314,7 +314,7 @@ var desenhador = desenhador || {};
 				});
 			};
 
-			$('.project-container, .datasource-container').on('dblclick', '.component, .nonvisual', function () {
+			$('.des-container, .des-datasource').on('dblclick', '.component, .nonvisual', function () {
 
 				var $this = $(this);
 				dblclickProperty($this);

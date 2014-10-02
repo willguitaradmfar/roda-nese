@@ -10,7 +10,7 @@ logQueue.sleepThread = 1000;
 
 $(function () {
 
-	var visualizar = new desenhador.preview($('.project-container'));
+	var visualizar = new desenhador.preview($('.des-container'));
 
 	var palleta = new desenhador.palleta($('#palleta'));
 

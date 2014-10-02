@@ -12,7 +12,7 @@ var desenhador = desenhador || {};
 			var layout = desenhador.layouts[i];
 			console.debug('ADD LAYOUT TO PALLETA ('+i+')');
 			var templ = $(layout.templ);
-			templ.addClass('project-layout');
+			templ.addClass('des-layout');
 			palleta.find('#'+layout.category).find('.panel-body').append(templ);
 			desenhador.util.updateCompDB(templ, layout, 'data-palleta-id');
 		}

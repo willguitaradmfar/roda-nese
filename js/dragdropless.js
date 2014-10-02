@@ -5,15 +5,15 @@ var desenhador = desenhador || {};
 
 	desenhador.dragdrop = function () {
 
-		$( ".project-container" ).sortable({revert: true});
+		$( ".des-container" ).sortable({revert: true});
 
-		$( ".datasource-container" ).sortable({revert: true});
+		$( ".des-datasource" ).sortable({revert: true});
 
 		$('.component')
 			.not('.nonvisual')
 			.on('click', function () {
 				var $this = $(this).clone();
-				$('.project-container').append($this);
+				$('.des-container').append($this);
 
 				var comp = desenhador.util.getCompDBById($this, 'data-palleta-id');			
 
@@ -26,9 +26,9 @@ var desenhador = desenhador || {};
 		$('.nonvisual').on('click', function () {
 			var $this = $(this).clone();
 
-			$('.datasource-container').append($this);
-			$('.datasource-container').addClass('datasource-container-evident', 300);
-			$('.datasource-container').removeClass('datasource-container-evident', 1000);
+			$('.des-datasource').append($this);
+			$('.des-datasource').addClass('des-datasource-evident', 300);
+			$('.des-datasource').removeClass('des-datasource-evident', 1000);
 
 			var comp = desenhador.util.getCompDBById($this, 'data-palleta-id');
 

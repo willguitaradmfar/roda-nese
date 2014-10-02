@@ -105,12 +105,12 @@ var desenhador = desenhador || {};
 				});
 			};
 
-			$('.project-container, .datasource-container').on('click', '.component, .nonvisual', function () {
+			$('.des-container, .des-datasource').on('click', '.component, .nonvisual', function () {
 				var $this = $(this);
 				dblclickProperty($this);
 			});
 
-			$('.project-container, .datasource-container').on('dblclick', '.project-layout', function () {
+			$('.des-container, .des-datasource').on('dblclick', '.des-layout', function () {
 				var $this = $(this);
 				dblclickProperty($this);
 			});

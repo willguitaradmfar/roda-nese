@@ -42,8 +42,8 @@ var desenhador = desenhador || {};
 		var mapearEventoAbrirProjeto = function (btn, projeto) {
 			btn.on('click', function () {
 				console.debug('ABRINDO PROJETO ('+projeto.name+')');
-				$('.project-container').html(projeto.content);
-				$('.datasource-container').html(projeto.contentDatasource);
+				$('.des-container').html(projeto.content);
+				$('.des-datasource').html(projeto.contentDatasource);
 
 			});
 		};
@@ -111,8 +111,8 @@ var desenhador = desenhador || {};
 						.append('<div class="input-group"><input type="text" class="input-control"><span class=" btn btn-success glyphicon glyphicon-save" ></span></div>');
 
 		inputGroup.find('span.btn').on('click', function () {
-			var content = $('.project-container').html();
-			var contentDatasource = $('.datasource-container').html();
+			var content = $('.des-container').html();
+			var contentDatasource = $('.des-datasource').html();
 			var _nomeProjeto = inputGroup.find('input');
 			var nomeProjeto = _nomeProjeto.val();
 			if(!nomeProjeto)return;
@@ -138,7 +138,7 @@ var desenhador = desenhador || {};
 	desenhador.projects = function () {
 		$('#limpar').on('click', function () {
 			console.debug('LIMPANDO PROJETO');
-			$('.project-container').html('');
+			$('.des-container').html('');
 		});
 
 		$('#salvar').on('click', function () {
