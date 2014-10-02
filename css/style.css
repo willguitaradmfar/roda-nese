@@ -18,13 +18,18 @@
 	cursor: move;
 }
 
+.des-layout{
+	min-width: 10%; 
+	min-height: 10%;
+}
+
 .des-container .component:hover{
 	background-color: beige;
 }
 
 
 .des-container .des-layout{
-	border : 1px solid silver;
+	border : 1px solid bisque;
 	cursor: move;
 }
 
@@ -93,4 +98,14 @@
 
 #palleta .panel-title {
 	font-size: 12px;	
+}
+
+.des-hover.des-layout{
+	background-color: beige;
+	z-index: -1;
+}
+
+.des-hover.des-container{
+	background-color: seashell;
+	z-index: -1;
 }

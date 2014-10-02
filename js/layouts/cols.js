@@ -7,7 +7,7 @@
 	self.name = 'cols';
 	self.category = 'layout';
 
-	self.templ = '<div class="col-lg-6 col-xs-12 col-sm-12 col-md-6">layout</div>';				 
+	self.templ = '<div class="col-lg-6 col-xs-12 col-sm-12 col-md-6 des-layout"></div>';				 
 
 	self.property = {};		
 	self.property.context = 'context';

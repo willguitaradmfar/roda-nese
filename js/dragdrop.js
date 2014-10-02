@@ -5,7 +5,7 @@
         for (var i in targets) {
             var target = targets[i];
             $(target).sortable({
-                revert: true
+                
             });
         }
     };
@@ -19,11 +19,10 @@
 
         var _cb = function(target) {
             $(source).draggable({
-                connectToSortable: $(target),
+                connectToSortable: $(target),                
                 cursor: "move",
                 helper: "clone",
                 revert: "invalid",
-                scroll: true,
                 start: function(event, ui) {
                     console.debug('start draggable ' + $(this));                    
                 },
@@ -43,17 +42,18 @@
         }
     };
 
-    var droppable = function(targets, over) {
+    var droppable = function(targets, drop) {
         for (var i in targets) {
             var target = targets[i];
             $(target).droppable({
-                tolerance: 'pointer',
-                over: over
+                hoverClass : 'des-hover',
+                tolerance: 'touch',
+                drop: drop
             });
         }
     };
 
-    var overComponent = function(event, ui) {
+    var dropComponent = function(event, ui) {
         var $this = $(ui.draggable);
         if (!$this.hasClass('component')) {
             console.debug('COMPONENTE NÃO POSSUI A CLASS component [return]');
@@ -69,7 +69,7 @@
         desenhador.util.updateCompDB($this, comp);
     };
 
-    var overComponentNonvisual = function(event, ui) {
+    var dropComponentNonvisual = function(event, ui) {
         var $this = $(ui.draggable);
         if (!$this.hasClass('nonvisual')) {
             console.debug('COMPONENTE NÃO POSSUI A CLASS nonvisual [return]');
@@ -85,7 +85,7 @@
         desenhador.util.updateCompDB($this, comp);
     };
 
-    var overComponentProjectLayout = function(event, ui) {
+    var dropComponentProjectLayout = function(event, ui) {
         var $this = $(ui.draggable);
         if (!$this.hasClass('des-layout')) {
             console.debug('COMPONENTE NÃO POSSUI A CLASS des-layout [return]');
@@ -106,7 +106,7 @@
 
         draggable($('#palleta .component'), ['#project .des-layout']);
 
-        droppable(['.des-layout'], overComponent);
+        droppable(['.des-layout'], dropComponent);
     };
 
 
@@ -114,10 +114,10 @@
     global.desenhador.dragdrop = function() {
         sortable(['.des-container', '.des-datasource', '.des-layout']);
         draggable($('#palleta .des-layout'), ['#project.des-container']);
-        droppable(['.des-container'], overComponentProjectLayout);
+        droppable(['.des-container'], dropComponentProjectLayout);
 
         draggable($('.nonvisual'), ['.des-datasource']);        
-        droppable(['.des-datasource'], overComponentNonvisual);
+        droppable(['.des-datasource'], dropComponentNonvisual);
 
         $("#dialog").dialog({
             width: 500,
