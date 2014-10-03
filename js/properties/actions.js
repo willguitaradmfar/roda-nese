@@ -31,7 +31,7 @@
 								var parameter = action.parameter[iii];
 								var parameters = parameter.join(', ');
 
-								var key = ':'+ii+'('+parameters+')';
+								var key = meta.resource+'.'+ii+'('+parameters+')';
 								var value = meta.resource + ' -> ' + ii+'('+parameters.replace(/:/g, '')+')';
 
 								if(key == property)

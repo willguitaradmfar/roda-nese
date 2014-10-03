@@ -21,11 +21,10 @@
     self.controller._injects = {};
     self.controller._injects['$http'] = '$http';
 
-    var makeFunctionGet = function (nickname, action) {        
-        console.debug('\t', action);
-        self.controller._functions[nickname] = (function () {
-            alert('teste');
-        }).toString();       
+    var makeFunctionGet = function (nickname, action, comp) {        
+        comp.controller._functions[nickname] = (function () {
+            alert(' .. <<, ');
+        });
     };
 
     var metadata = function (comp, cb) {
@@ -58,13 +57,13 @@
                             model : ':'+(operation.items ? operation.items.type : operation.type)
                         };
                         if(operation.method == 'GET'){
-                            makeFunctionGet(nickname, actions[nickname]);                        
+                            makeFunctionGet(nickname, actions[nickname], comp);                        
                         }
                     }                    
                 }
 
                 desenhador.metadata.factory()
-                    .set('resource', 'SLB')
+                    .set('resource', comp.property.nameService)
                     .set('models', models)
                     .set('actions', actions)
                     .save();
@@ -74,7 +73,7 @@
         });
     };
 
-    self.update = function (target, comp, cb) {
+    self.update = function (target, comp, cb) {        
         metadata(comp, cb);        
     };    
 })(window);

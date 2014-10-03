@@ -20,11 +20,9 @@
 		};
 
 		var update = function (query, newObject) {
-			var result = findOne(query);			
-			
-			for(var i in result){
-				var o = result[i];				
-					o = newObject;
+			var result = findOne(query);						
+			for(var i in newObject){
+				result[i] = newObject[i];
 			}
 		};
 
@@ -71,7 +69,7 @@
 			doc.___id = id;
 			_db.push(doc);
 			return doc;
-		};	
+		};		
 
 		return {
 			insert : insert,

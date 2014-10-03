@@ -141,12 +141,12 @@
 			'500' : 'Erro'
 		}
 	};
-
+/*
 	desenhador.metadata.factory()
 		.set('resource', 'LoopBack1')
 		.set('models', models)
 		.set('actions', actions)
-		.save();
+		.save();*/
 }
 
 {
@@ -234,12 +234,12 @@
 			'500' : 'Erro'
 		}
 	};
-
+/*
 	desenhador.metadata.factory()
 		.set('resource', 'LoopBack2')
 		.set('models', models)
 		.set('actions', actions)
-		.save();
+		.save();*/
 }
 
 desenhador.metadata.find({}, function (doc) {	

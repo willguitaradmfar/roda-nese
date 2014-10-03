@@ -20,7 +20,7 @@ var desenhador = desenhador || {};
 		desenhador.metadata.metadata = {};
 
 		var comps;
-
+debugger;
 		if(target){
 			comps = $(target).find('.nonvisual');
 		}else{

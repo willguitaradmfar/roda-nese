@@ -63,7 +63,7 @@ var desenhador = desenhador || {};
 		}
 
 		struct._functions = {};
-		struct._variable = {};
+		struct._variable = {};		
 
 		for(var y = 0 ; y < comps.length ; y++){			
 
@@ -87,7 +87,7 @@ var desenhador = desenhador || {};
 				setFunctions(nameService, i, _function);
 			}
 		}
-	}
+	};
 
 	var makeController = function (target) {
 		update(target);
@@ -126,14 +126,6 @@ var desenhador = desenhador || {};
 			var service = services[i];
 			bodyController += '\n\t\t\t$scope.'+i+' = {}';
 		}
-		bodyController += '\n\t\t\t$scope.context = {};';
-
-		bodyController += '\n\t\t\$scope.context.list = '+(function (value) {
-			$scope.context.pessoaList = [
-				{nome : "William", idade : 28, end : {nome : 'Rua Teste', cidade : {nome : 'SBC'}}},
-				{nome : "Alexandre", idade : 3, end : {nome : 'Rua Amazonita', cidade : {nome : 'São Bernardo do Campo'}}}];
-			console.debug(value);			
-		}).toString()+';';
 
 		for(var i in struct._variable){
 			for(var ii in struct._variable[i]){

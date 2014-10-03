@@ -50,7 +50,6 @@ var desenhador = desenhador || {};
 				console.debug('dblclick em componente já arrastado '+comp.___id+' !!! :: ');
 
 				desenhador.controller.update();
-				desenhador.metadata.update();			
 
 				accordion = self.buildAccordion();
 
@@ -89,7 +88,7 @@ var desenhador = desenhador || {};
 				var updatePropertyComp = function($_this, _comp) {					
 					desenhador.util.updateCompDB($_this, _comp);
 					console.debug('UPDATE COMPONENT : ('+(_comp.name || _comp.property.nameService) + ' '+comp.___id+')');
-					_comp.update($_this, _comp, function () {
+					_comp.update($_this, _comp, function () {						
 						desenhador.util.updateCompDB($_this, _comp);
 					});
 				}
