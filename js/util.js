@@ -1,5 +1,3 @@
-
-
 (function(global) {
 	global.desenhador = global.desenhador || {};
 	global.desenhador.util = global.desenhador.util || {};

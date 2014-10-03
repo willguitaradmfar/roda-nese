@@ -13,14 +13,15 @@
 
 			for(var i in comp.property){
 				var property = comp.property[i];
-				var tr = $('<tr></tr>');
-				tr.append('<td>'+i+'</td>');
+				var tr = $('<tr></tr>');				
+				var label = desenhador.config.internationalization.translate(comp.name, i);
+				tr.append('<td>'+label+'</td>');
 
 				var name = 'property.'+i;
 
 				var td = $('<td></td>');
 
-				var isMultipleSelect = i.substring(0,2) == 'm_';
+				var isMultipleSelect = i.substring(0,5) == 'mult_';
 				var isTagsInsert = i.substring(0,5) == 'tags_';
 
 				if(typeof property === 'object' && property.options){

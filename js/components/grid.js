@@ -26,10 +26,10 @@
 	self.property.context = 'context';
 
 	self.binds = {};
-	self.binds.m_cols = {};	
+	self.binds.mult_cols = {};	
 
 	self.arrays = {};
-	self.arrays.lista = '...';
+	self.arrays.list = '...';
 
 	self.models = {};
 	self.models.select = 'select';
@@ -37,27 +37,26 @@
 
 	self.update = function (target, comp) {
 		var context = comp.property.context;
-		if(comp.property.context && comp.arrays.lista){
+		if(comp.property.context && comp.arrays.list){
 			
-			var lista = comp.arrays.lista.replace(':', context+'.');
+			var list = comp.arrays.list.replace(':', context+'.');
 
 			var filter = ((comp.models.filter) ? '| filter:'+comp.models.filter.replace(':', context+'.') : '');
 			var limitTo = ((comp.property.limit) ? '| limitTo:'+comp.property.limit : '');
 
 			$(target)
 				.find('tbody > tr')
-				.attr('data-ng-repeat', '_m in '+lista+' '+filter+' '+limitTo);
+				.attr('data-ng-repeat', '_m in '+list+' '+filter+' '+limitTo);
 		}
 		
 		var headers = comp.property.tags_header.split(',');
 		$(target).find('thead > tr').html('');
 		for(var i in headers){
-			var header = headers[i];
-			var parts = header.split('.');
-			$(target).find('thead > tr').append('<th>'+parts[parts.length-1]+'</th>');
+			var header = headers[i];			
+			$(target).find('thead > tr').append('<th>'+header+'</th>');
 		}		
 
-		var cols = comp.binds.m_cols;
+		var cols = comp.binds.mult_cols;
 		$(target).find('tbody > tr').html('');
 		for(var i in cols){
 			var col = cols[i];			

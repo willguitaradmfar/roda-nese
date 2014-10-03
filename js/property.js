@@ -1,9 +1,9 @@
-var desenhador = desenhador || {};
+(function(global) {
+	global.desenhador = global.desenhador || {};
 
-(function(desenhador) {
-	desenhador.property = desenhador.property || {};
+	var self = global.desenhador;
 
-	desenhador.property = function () {
+	self.property = function () {
 
 		var accordion;
 		this.buildBarraDeBotoes = function () {
@@ -118,4 +118,4 @@ var desenhador = desenhador || {};
 		};
 	};
 
-})(desenhador);
+})(window);

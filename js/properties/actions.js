@@ -13,15 +13,16 @@
 				
 				for(var i in comp.actions){
 					var property = comp.actions[i];					
-					var tr = $('<tr></tr>');
-					tr.addClass('warning');
-					tr.append('<td>'+i+'</td>');
+					var tr = $('<tr></tr>');					
+
+					var label = desenhador.config.internationalization.translate(comp.name, i);
+					tr.append('<td>'+label+'</td>');
 
 					var name = 'actions.'+i;
 
 					var td = $('<td></td>');
 
-					var isMultipleSelect = i.substring(0,2) == 'm_';
+					var isMultipleSelect = i.substring(0,5) == 'mult_';
 
 					var select = $('<select '+(isMultipleSelect ? 'multiple' : '')+' name="'+name+'" class="form-control"></select>');
 					

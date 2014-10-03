@@ -16,13 +16,14 @@
 
 				var name = 'models.'+i;
 				
-				var tr = $('<tr></tr>');
-				tr.addClass('success');
-				tr.append('<td>'+i+'</td>');
+				var tr = $('<tr></tr>');				
+
+				var label = desenhador.config.internationalization.translate(comp.name, i);
+				tr.append('<td>'+label+'</td>');
 
 				var td = $('<td></td>');
 
-				var isMultipleSelect = i.substring(0,2) == 'm_';
+				var isMultipleSelect = i.substring(0,5) == 'mult_';
 
 				var select = $('<select '+(isMultipleSelect ? 'multiple' : '')+' name="'+name+'" class="form-control"></select>');
 				

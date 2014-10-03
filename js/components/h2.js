@@ -19,11 +19,13 @@
 	self.update = function (target, comp) {
 		$(target).text(comp.property.label);
 
-		var bind = comp.binds.field.replace(':', comp.property.context+'.');
-		if(comp.binds.field)
+		if(comp.binds.field){
+			var bind = comp.binds.field.replace(':', comp.property.context+'.');
 			$(target).attr('data-ng-bind', bind);
-		else
+		}
+		else{
 			$(target).removeAttr('data-ng-bind');
+		}
 	};
 
 

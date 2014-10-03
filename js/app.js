@@ -21,4 +21,6 @@ $(function () {
 
 	var projects = new desenhador.projects();
 
+	desenhador.config.internationalization.language = 'pt_br'
+
 });
