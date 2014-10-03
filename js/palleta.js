@@ -28,7 +28,7 @@ var desenhador = desenhador || {};
 
 		for(var i in desenhador.resources){
 			var servico = desenhador.resources[i];
-			var templSpan = $('<span class="btn btn-warning glyphicon glyphicon-'+(servico.icon || 'cloud')+'"></span>');
+			var templSpan = $('<span class="btn btn-'+(servico.color || 'warning')+' glyphicon glyphicon-'+(servico.icon || 'cloud')+'"></span><span>.</span>');
 
 			templSpan
 				.addClass('nonvisual');
