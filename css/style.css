@@ -109,3 +109,7 @@
 	background-color: seashell;
 	z-index: -1;
 }
+
+.chosen-container {  
+  width: 100%;
+}

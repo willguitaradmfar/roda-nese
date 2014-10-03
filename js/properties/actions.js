@@ -41,8 +41,8 @@
 							}
 						}
 					});
-
 					td.append(select);
+					select.chosen({width:"100%"});
 					tr.append(td);
 					table.find('tbody').append(tr);
 				}			

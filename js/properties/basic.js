@@ -34,6 +34,7 @@
 						select.append('<option value="'+value+'">'+label+'</option>');
 					}
 					td.append(select);
+					select.chosen({width:"100%"});
 				}else{
 					var input = $('<input name="'+name+'" type="text" class="form-control" value="'+property+'"></input>');
 					td.append(input);

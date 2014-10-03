@@ -32,7 +32,7 @@ var desenhador = desenhador || {};
 				'add' : add,
 				'accordion' : _accordion
 			};
-		};		
+		};
 
 		this.clickOpenProperty = function () {
 			var self = this;
@@ -96,7 +96,7 @@ var desenhador = desenhador || {};
 				var btnrefresh = frame.find('.refreshComponent');
 
 				btnrefresh.on('click', function () {
-					var allComponents = frame.find('input, select');
+					var allComponents = frame.find('td > input, td > select');
 					allComponents.each(function (i, c) {
 						updatePropertyPerField(c, comp);
 					});
