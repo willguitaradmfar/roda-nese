@@ -77,11 +77,13 @@ var desenhador = desenhador || {};
 					var val = $(_this).val();
 
 					var sufix = name.split('.')[1];
+					var prefix = name.split('.')[0];					
 
 					if(_comp.property && _comp.property[sufix] && _comp.property[sufix].val){
 						_comp.property[sufix].val = val;
 					}  else	{
-						eval('comp.'+name + ' = "'+val+'"');					
+						comp[prefix][sufix] = val;
+						//eval('comp.'+name + ' = "'+val+'"');
 					}					
 				};
 

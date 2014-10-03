@@ -22,8 +22,12 @@
 
 				var td = $('<td></td>');
 
-				var select = $('<select name="'+name+'" class="form-control"></select>');
-				select.append('<option value="" selected>Selecione ...</option>');
+				var isMultipleSelect = i.substring(0,2) == 'm_';
+
+				var select = $('<select '+(isMultipleSelect ? 'multiple' : '')+' name="'+name+'" class="form-control"></select>');
+				
+				if(!isMultipleSelect)
+					select.append('<option value="" selected>Selecione ...</option>');
 				
 				var services = desenhador.metadata.arrays;
 
@@ -38,20 +42,24 @@
 						}
 
 						var key = ':'+modelName+'.'+iii;
-						var value = meta.resource + ' -> ' + modelName+'.'+iii+'['+type+']';
+						var value = meta.resource + ' -> ' + modelName+'.'+iii+'['+type+']';					
 
-						if(key == property)
+						if(typeof property == 'object' 
+							&& property.length
+							&& property.indexOf(key) >= 0){
 							select.append('<option value="'+key+'" selected>'+value+'</option>');
-						else
+						}else if(key == property){
+							select.append('<option value="'+key+'" selected>'+value+'</option>');
+						}else{
 							select.append('<option value="'+key+'">'+value+'</option>');
+						}
 					}
 				}
 
 				desenhador.metadata.find({}, function(meta){
 					for(var ii in meta.models){
 						var model = meta.models[ii];
-						var modelName = ii;
-						
+						var modelName = ii;						
 						recursive(model, meta, modelName);
 					}
 				});				

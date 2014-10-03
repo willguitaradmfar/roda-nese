@@ -19,19 +19,26 @@
 				var name = 'property.'+i;				
 
 				var td = $('<td></td>');
+
+				var isMultipleSelect = i.substring(0,2) == 'm_';
+
 				if(typeof property === 'object' && property.options){
-					var select = $('<select name="'+name+'" class="form-control"></select>');				
+					var select = $('<select '+(isMultipleSelect ? 'multiple' : '')+' name="'+name+'" class="form-control"></select>');				
 
 					for(var ii in property.options){
 						var option = property.options[ii];
-						var value = option.value || option;
-						var label = option.label || option;
+						var key = option.value || option;
+						var value = option.label || option;
 
-						if(property.val === value){
-							select.append('<option value="'+value+'" selected>'+label+'</option>');
-							continue;
+						if(typeof property == 'object' 
+							&& property.length
+							&& property.indexOf(key) >= 0){
+							select.append('<option value="'+key+'" selected>'+value+'</option>');
+						}else if(key == property.val){
+							select.append('<option value="'+key+'" selected>'+value+'</option>');
+						}else{
+							select.append('<option value="'+key+'">'+value+'</option>');
 						}
-						select.append('<option value="'+value+'">'+label+'</option>');
 					}
 					td.append(select);
 					select.chosen({width:"100%"});

@@ -21,12 +21,15 @@
 				+'</table>';
 
 	self.property = {};
-	self.property.cols = 'C1, C2';
-	self.property.rows = 'c1, c2';
+	self.property.cols = 'C1, C2';	
 	self.property.limit = 10;
 	self.property.context = 'context';
 
-	self.arrays = {}
+	self.binds = {};
+	self.binds.m_cols = {};
+	self.binds.m_header = {};
+
+	self.arrays = {};
 	self.arrays.lista = '...';
 
 	self.models = {};
@@ -47,26 +50,23 @@
 				.find('tbody > tr')
 				.attr('data-ng-repeat', '_m in '+lista+' '+filter+' '+limitTo);
 		}
-
-		if(comp.property.cols && comp.property.cols.length > 0){
-			var cols = [];
-			var _cols = comp.property.cols.split(',');
-			$(target).find('thead > tr').html('');
-			for(var i in _cols){
-				var col = _cols[i];
-				$(target).find('thead > tr').append('<th>'+col+'</th>');
-			}
+		
+		var headers = comp.binds.m_header;
+		$(target).find('thead > tr').html('');
+		for(var i in headers){
+			var header = headers[i];
+			var parts = header.split('.');
+			$(target).find('thead > tr').append('<th>'+parts[parts.length-1]+'</th>');
 		}
+		
 
-		if(comp.property.rows && comp.property.rows.length > 0){
-			var rows = [];
-			var _rows = comp.property.rows.split(',');
-			$(target).find('tbody > tr').html('');
-			for(var i in _rows){
-				var row = _rows[i];
-				$(target).find('tbody > tr').attr('data-ng-click', 'set(_m, "'+comp.models.select.replace(':', context+'.')+'")');
-				$(target).find('tbody > tr').append('<td data-ng-bind="_m.'+row+'"></td>');
-			}
+		var cols = comp.binds.m_cols;
+		$(target).find('tbody > tr').html('');
+		for(var i in cols){
+			var col = cols[i];			
+			$(target).find('tbody > tr').attr('data-ng-click', 'set(_m, "'+comp.models.select.replace(':', context+'.')+'")');
+			$(target).find('tbody > tr').append('<td data-ng-bind="_m.'+col.replace(/:\w*\./, '')+'"></td>');
+			
 		}
 	};
 

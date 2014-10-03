@@ -22,8 +22,13 @@
 
 				var td = $('<td></td>');
 
-				var select = $('<select name="'+name+'" class="form-control"></select>');
-				select.append('<option value="" selected>Selecione ...</option>');
+				var isMultipleSelect = i.substring(0,2) == 'm_';
+
+				var select = $('<select '+(isMultipleSelect ? 'multiple' : '')+' name="'+name+'" class="form-control"></select>');
+				
+				if(!isMultipleSelect)
+					select.append('<option value="" selected>Selecione ...</option>');
+				
 				var services = desenhador.metadata.arrays;
 
 				desenhador.metadata.find({}, function(meta){
@@ -39,10 +44,15 @@
 							var key = model+'List';
 							var value = meta.resource + ' -> '+model.replace(/:/g, '')+'List ['+type+']';							
 
-							if(key == property)
+							if(typeof property == 'object' 
+								&& property.length
+								&& property.indexOf(key) >= 0){
 								select.append('<option value="'+key+'" selected>'+value+'</option>');
-							else
-								select.append('<option value="'+key+'">'+value+'</option>');							
+							}else if(key == property){
+								select.append('<option value="'+key+'" selected>'+value+'</option>');
+							}else{
+								select.append('<option value="'+key+'">'+value+'</option>');
+							}							
 						}
 					});			
 

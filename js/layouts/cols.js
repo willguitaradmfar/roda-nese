@@ -9,8 +9,7 @@
 
 	self.templ = '<div class="col-lg-6 col-xs-12 col-sm-12 col-md-6 des-layout"></div>';				 
 
-	self.property = {};		
-	self.property.context = 'context';
+	self.property = {};
 	self.property.bigDesktops = '6';
 	self.property.phones = '12';
 	self.property.tablets = '12';
