@@ -22,7 +22,7 @@
 
 				var td = $('<td></td>');
 
-				var isMultipleSelect = i.substring(0,2) == 'm_';
+				var isMultipleSelect = i.substring(0,2) == 'm_';				
 
 				var select = $('<select '+(isMultipleSelect ? 'multiple' : '')+' name="'+name+'" class="form-control"></select>');
 				

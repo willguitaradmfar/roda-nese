@@ -21,13 +21,12 @@
 				+'</table>';
 
 	self.property = {};
-	self.property.cols = 'C1, C2';	
 	self.property.limit = 10;
+	self.property.tags_header = 'Col1,Col2';
 	self.property.context = 'context';
 
 	self.binds = {};
-	self.binds.m_cols = {};
-	self.binds.m_header = {};
+	self.binds.m_cols = {};	
 
 	self.arrays = {};
 	self.arrays.lista = '...';
@@ -37,7 +36,6 @@
 	self.models.filter = 'filter';
 
 	self.update = function (target, comp) {
-
 		var context = comp.property.context;
 		if(comp.property.context && comp.arrays.lista){
 			
@@ -51,14 +49,13 @@
 				.attr('data-ng-repeat', '_m in '+lista+' '+filter+' '+limitTo);
 		}
 		
-		var headers = comp.binds.m_header;
+		var headers = comp.property.tags_header.split(',');
 		$(target).find('thead > tr').html('');
 		for(var i in headers){
 			var header = headers[i];
 			var parts = header.split('.');
 			$(target).find('thead > tr').append('<th>'+parts[parts.length-1]+'</th>');
-		}
-		
+		}		
 
 		var cols = comp.binds.m_cols;
 		$(target).find('tbody > tr').html('');

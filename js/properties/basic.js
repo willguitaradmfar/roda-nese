@@ -16,11 +16,12 @@
 				var tr = $('<tr></tr>');
 				tr.append('<td>'+i+'</td>');
 
-				var name = 'property.'+i;				
+				var name = 'property.'+i;
 
 				var td = $('<td></td>');
 
 				var isMultipleSelect = i.substring(0,2) == 'm_';
+				var isTagsInsert = i.substring(0,5) == 'tags_';
 
 				if(typeof property === 'object' && property.options){
 					var select = $('<select '+(isMultipleSelect ? 'multiple' : '')+' name="'+name+'" class="form-control"></select>');				
@@ -43,8 +44,11 @@
 					td.append(select);
 					select.chosen({width:"100%"});
 				}else{
-					var input = $('<input name="'+name+'" type="text" class="form-control" value="'+property+'"></input>');
-					td.append(input);
+					var input = $('<input name="'+name+'" type="text" class="form-control" value="'+property+'"></input>');					
+					td.append(input);	
+					if(isTagsInsert){
+						input.tagsinput();
+					}
 				}
 				tr.append(td);
 				table.find('tbody').append(tr);
