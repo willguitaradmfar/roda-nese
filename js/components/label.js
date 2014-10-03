@@ -29,6 +29,4 @@
 			$(target).removeAttr('data-ng-bind');
 		}
 	};
-
-
 })(window);

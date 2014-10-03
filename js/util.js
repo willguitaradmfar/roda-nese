@@ -16,6 +16,15 @@
 	    return temp;
 	};
 
+	global.desenhador.util.bkpDB = function () {
+		return desenhador.db.bkp();
+	};
+
+	global.desenhador.util.restoreBkpDB = function (__db) {
+		return desenhador.db.restoreBkp(__db);
+	};
+
+
 	global.desenhador.util.updateCompDB = function ($this, comp, field) {
 		var _field = field || 'data-comp-id';
 		

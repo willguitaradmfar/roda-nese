@@ -26,6 +26,14 @@
 			}
 		};
 
+		var bkp = function () {
+			return _db;
+		}
+
+		var restoreBkp = function (__db) {
+			_db = __db;
+		}
+
 		var remove = function (id) {
 			var index = -1;
 			for(var i in _db){
@@ -77,7 +85,9 @@
 			findOne : findOne,
 			remove : remove,
 			count : count,
-			update : update
+			update : update,
+			bkp : bkp,
+			restoreBkp : restoreBkp
 		};
 	};
 
@@ -89,6 +99,14 @@
 	var insert = function (doc) {
 		 return database.insert(doc);
 	};
+
+	var bkp = function () {
+		return database.bkp();
+	};
+
+	var restoreBkp = function (__db) {
+		database.restoreBkp(__db);
+	}
 
 	var find = function (query, hand) {
 		hand = hand || function (d) {
@@ -132,5 +150,7 @@
 	global.desenhador.db.remove = remove;
 	global.desenhador.db.findOne = findOne;
 	global.desenhador.db.findOneById = findOneById;
+	global.desenhador.db.bkp = bkp;
+	global.desenhador.db.restoreBkp = restoreBkp;
 	
 })(window);

@@ -19,8 +19,7 @@
 
 	self.property = {};
 	self.property.label = 'Select';
-	self.property.options = 'Option 1,Option 2,Option 3';
-	self.property.modelSelect = 'model';
+	self.property.options = 'Option 1,Option 2,Option 3';	
 	self.property.context = 'context';	
 
 	self.binds = {};
