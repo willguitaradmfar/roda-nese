@@ -21,10 +21,26 @@
     self.controller._injects = {};
     self.controller._injects['$http'] = '$http';
 
+    self.arrays = {};
+    self.arrays.collection = '';
+
+    self.fGet = (function (config) {
+         $http({ method: 'GET', url: '$url$/api$pathGet$' }).
+                success(function(data, status, headers, config) {
+                    $scope.$collection$ = data;
+                }).
+                error(function(data, status, headers, config) {
+                    $scope.$nameService$.$error$.code = status;
+                    $scope.$nameService$.$error$.msg = data;
+                    console.error('ERROR : HTTP REQUEST : '+status);
+                });
+    });
+
     var makeFunctionGet = function (nickname, action, comp) {        
-        comp.controller._functions[nickname] = (function () {
-            alert(' .. <<, ');
-        });
+        comp.controller._functions[nickname] 
+            = desenhador.util.processTemplate(
+                ['url', 'pathGet', 'collection'],
+                [comp.property.url, action.path, comp.arrays.collection.replace(/:/, comp.property.context+'.')], self.fGet);
     };
 
     var metadata = function (comp, cb) {
@@ -50,6 +66,7 @@
                         var operation = api.operations[ii];
                         var nickname = operation.nickname;
                         actions[nickname] = {};
+                        actions[nickname].path = api.path;
                         actions[nickname].model = operation.type;
                         actions[nickname].parameter = [[]];
                         actions[nickname].result = {
