@@ -23,18 +23,9 @@
 	min-height: 10%;
 }
 
-.des-container .component:hover{
-	background-color: beige;
-}
-
-
 .des-container .des-layout{
 	border : 1px solid bisque;
 	cursor: move;
-}
-
-.des-container .des-layout:hover{
-	background-color: seashell;
 }
 
 #topo{	

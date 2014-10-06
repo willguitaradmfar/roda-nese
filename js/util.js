@@ -14,6 +14,17 @@
 	        }
 	    }
 	    return temp;
+	};	
+
+	global.desenhador.util.stringify = function (comp) {
+		var hand = function(key, value) {
+ 			if (typeof value === 'function') {
+ 				return value.toString();
+ 			} else {
+ 				return value;
+ 			}
+		};
+		return JSON.stringify(comp, hand);
 	};
 
 	global.desenhador.util.bkpDB = function () {
@@ -169,11 +180,11 @@
 		var method = config.method;
 
 		var _success = config.success || function (res) {
-			console.warn('FUNCTION success NÃO IMPLEMENTADA res: ('+JSON.stringify(res)+')');
+			console.warn('FUNCTION success NÃO IMPLEMENTADA res: ('+desenhador.util.stringify(res)+')');
 		};
 
 		var _error = config.error || function (res) {
-			console.warn('FUNCTION error NÃO IMPLEMENTADA res: ('+JSON.stringify(res)+')');
+			console.warn('FUNCTION error NÃO IMPLEMENTADA res: ('+Jdesenhador.util.stringify(res)+')');
 		};
 
 		$.ajax({

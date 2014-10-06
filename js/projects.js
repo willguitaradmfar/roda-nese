@@ -44,6 +44,8 @@ var desenhador = desenhador || {};
 				console.debug('ABRINDO PROJETO ('+projeto.name+')');
 				$('.des-container').html(projeto.content);
 				$('.des-datasource').html(projeto.contentDatasource);
+				
+				//TODO: fazer parse de functions persistida na base								
 				desenhador.util.restoreBkpDB(projeto.db);
 			});
 		};
@@ -125,7 +127,7 @@ var desenhador = desenhador || {};
 			projeto.contentDatasource = contentDatasource;
 			projeto.db = desenhador.util.bkpDB();
 			projeto.date = new Date;
-			localStorage[nomeProjeto] = JSON.stringify(projeto);
+			localStorage[nomeProjeto] = desenhador.util.stringify(projeto);
 
 			body.find('table').remove();
 			body.append(povoarTabelaProjetos());
@@ -140,6 +142,7 @@ var desenhador = desenhador || {};
 		$('#limpar').on('click', function () {
 			console.debug('LIMPANDO PROJETO');
 			$('.des-container').html('');
+			$('.des-datasource').html('');			
 		});
 
 		$('#salvar').on('click', function () {

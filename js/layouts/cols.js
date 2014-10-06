@@ -15,8 +15,7 @@
 	self.property.tablets = '12';
 	self.property.desktops = '6';
 
-	self.update = function (target, comp) {	
-
+	self.update = function (target, comp) {
 		var _class = [];
 		_class.push('des-layout');
 		if(comp.property.bigDesktops){
@@ -31,7 +30,7 @@
 		if(comp.property.desktops){
 			_class.push('col-md-'+comp.property.desktops);
 		}
-		$(target).attr('class', _class.join(' '));
+		$(target).attr('class', _class.join(' '));		
 	};
 
 	self.drag = function (target, comp) {

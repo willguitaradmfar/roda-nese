@@ -16,8 +16,8 @@ $(function () {
 
 	var dragdrop = desenhador.dragdrop();
 
-	var property = new desenhador.property();
-	property.clickOpenProperty();
+	var property = new desenhador.property.listenerToolsProperty();
+	
 
 	var projects = new desenhador.projects();
 
