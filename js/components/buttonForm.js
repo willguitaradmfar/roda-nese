@@ -20,9 +20,19 @@
 	self.actions.actionClick = 'action()';
 
 	self.update = function (target, comp) {
-		$(target).attr('class', 'btn component btn-'+comp.property.type.val+' glyphicon glyphicon-'+comp.property.icon.val);
-		$(target).text(comp.property.label);
+		var _class = [];
+		_class.push('component');
+		_class.push('btn');
+		_class.push('btn-'+comp.property.type.val);		
+		_class.push('glyphicon');
+		_class.push('glyphicon-'+comp.property.icon.val);
+
+		$(target).attr('class', _class.join(' '));
+
+		$(target).text(' '+comp.property.label);
+
 		var action = comp.actions.actionClick.replace(/:/g, comp.property.context+'.');
+		
 		$(target).attr('data-ng-click', action);
 	};
 
