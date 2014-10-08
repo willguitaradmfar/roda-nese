@@ -2,7 +2,9 @@
 	global.desenhador = global.desenhador || {};
 	global.desenhador.util = global.desenhador.util || {};
 
-	global.desenhador.util.clone = function (obj) {
+	var self = global.desenhador.util;
+
+	self.clone = function (obj) {
 		if(obj == null || typeof(obj) != 'object')
 	        return obj;
 
@@ -16,7 +18,13 @@
 	    return temp;
 	};	
 
-	global.desenhador.util.stringify = function (comp) {
+	self.random = function (max) {
+		max = max || 100
+		var r = Math.round(Math.random()*max);
+		return r;
+	};
+
+	self.stringify = function (comp) {
 		var hand = function(key, value) {
  			if (typeof value === 'function') {
  				return value.toString();
@@ -27,16 +35,16 @@
 		return JSON.stringify(comp, hand);
 	};
 
-	global.desenhador.util.bkpDB = function () {
+	self.bkpDB = function () {
 		return desenhador.db.bkp();
 	};
 
-	global.desenhador.util.restoreBkpDB = function (__db) {
+	self.restoreBkpDB = function (__db) {
 		return desenhador.db.restoreBkp(__db);
 	};
 
 
-	global.desenhador.util.updateCompDB = function ($this, comp, field) {
+	self.updateCompDB = function ($this, comp, field) {
 		var _field = field || 'data-comp-id';
 		
 		var id = $($this).attr(_field);		
@@ -53,7 +61,7 @@
 		}		
 	};
 
-	global.desenhador.util.removeCompDB = function ($this, field) {
+	self.removeCompDB = function ($this, field) {
 		var _field = field || 'data-comp-id';
 
 		var id = $($this).attr(_field);		
@@ -65,7 +73,7 @@
 		}
 	};
 
-	global.desenhador.util.getCompDBById = function ($this, field) {
+	self.getCompDBById = function ($this, field) {
 		var _field = field || 'data-comp-id';
 
 		var id = $($this).attr(_field);
@@ -79,11 +87,11 @@
 		}	
 	};
 
-	global.desenhador.util.eval = function (script) {
+	self.eval = function (script) {
 		return eval('('+script+')');
 	};	
 
-	global.desenhador.util.dynamicMetadata = function (_obj) {
+	self.dynamicMetadata = function (_obj) {
 		this.metadata = {};
 		this.models = {};
 		this.arrays = {};
@@ -161,7 +169,7 @@
 
 	};
 
-	global.desenhador.util.processTemplate = function (keys, values, template) {
+	self.processTemplate = function (keys, values, template) {
 		if(!template) throw 'Template indefinido';		
 		var result = template.toString();
 		for(var i in keys){
@@ -172,7 +180,7 @@
 		return result;
 	};
 
-	global.desenhador.util.rest = function (config) {
+	self.rest = function (config) {
 
 		var url = config.url || 'http://httpbin.org/get'
 		var data = config.data || {};
@@ -207,4 +215,143 @@
 			}
 		});
 	};
+
+	self.Base64 = {
+		
+		// private property
+		_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+
+		// public method for encoding
+		encode : function (input) {
+		    var output = "";
+		    var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+		    var i = 0;
+
+		    input = self.Base64._utf8_encode(input);
+
+		    while (i < input.length) {
+
+		        chr1 = input.charCodeAt(i++);
+		        chr2 = input.charCodeAt(i++);
+		        chr3 = input.charCodeAt(i++);
+
+		        enc1 = chr1 >> 2;
+		        enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+		        enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+		        enc4 = chr3 & 63;
+
+		        if (isNaN(chr2)) {
+		            enc3 = enc4 = 64;
+		        } else if (isNaN(chr3)) {
+		            enc4 = 64;
+		        }
+
+		        output = output +
+		        this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
+		        this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+
+		    }
+
+		    return output;
+		},
+
+		// public method for decoding
+		decode : function (input) {
+		    var output = "";
+		    var chr1, chr2, chr3;
+		    var enc1, enc2, enc3, enc4;
+		    var i = 0;
+
+		    input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+
+		    while (i < input.length) {
+
+		        enc1 = this._keyStr.indexOf(input.charAt(i++));
+		        enc2 = this._keyStr.indexOf(input.charAt(i++));
+		        enc3 = this._keyStr.indexOf(input.charAt(i++));
+		        enc4 = this._keyStr.indexOf(input.charAt(i++));
+
+		        chr1 = (enc1 << 2) | (enc2 >> 4);
+		        chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+		        chr3 = ((enc3 & 3) << 6) | enc4;
+
+		        output = output + String.fromCharCode(chr1);
+
+		        if (enc3 != 64) {
+		            output = output + String.fromCharCode(chr2);
+		        }
+		        if (enc4 != 64) {
+		            output = output + String.fromCharCode(chr3);
+		        }
+
+		    }
+
+		    output = self.Base64._utf8_decode(output);
+
+		    return output;
+
+		},
+
+		// private method for UTF-8 encoding
+		_utf8_encode : function (string) {
+		    string = string.replace(/\r\n/g,"\n");
+		    var utftext = "";
+
+		    for (var n = 0; n < string.length; n++) {
+
+		        var c = string.charCodeAt(n);
+
+		        if (c < 128) {
+		            utftext += String.fromCharCode(c);
+		        }
+		        else if((c > 127) && (c < 2048)) {
+		            utftext += String.fromCharCode((c >> 6) | 192);
+		            utftext += String.fromCharCode((c & 63) | 128);
+		        }
+		        else {
+		            utftext += String.fromCharCode((c >> 12) | 224);
+		            utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+		            utftext += String.fromCharCode((c & 63) | 128);
+		        }
+
+		    }
+
+		    return utftext;
+		},
+
+		// private method for UTF-8 decoding
+		_utf8_decode : function (utftext) {
+		    var string = "";
+		    var i = 0;
+		    var c = c1 = c2 = 0;
+
+		    while ( i < utftext.length ) {
+
+		        c = utftext.charCodeAt(i);
+
+		        if (c < 128) {
+		            string += String.fromCharCode(c);
+		            i++;
+		        }
+		        else if((c > 191) && (c < 224)) {
+		            c2 = utftext.charCodeAt(i+1);
+		            string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+		            i += 2;
+		        }
+		        else {
+		            c2 = utftext.charCodeAt(i+1);
+		            c3 = utftext.charCodeAt(i+2);
+		            string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+		            i += 3;
+		        }
+
+		    }
+
+		    return string;
+		}
+
+		
+
+	};
+
 })(window);

@@ -27,4 +27,14 @@
 	self.buttonForm.actionClick = 'Acao';
 	self.buttonForm.context = 'Contexto';
 
-})(window)
+	self.protheusSoap = {};
+	self.protheusSoap.nameService = 'Nome';
+	self.protheusSoap.urlWS = 'URL WS Protheus';
+	self.protheusSoap.method = 'Metodo';
+	self.protheusSoap.tagResult = 'Tag Resultado';
+	self.protheusSoap.model = 'Modelo';
+	self.protheusSoap.table = 'Tabela';
+	self.protheusSoap.context = 'Contexto';
+	
+
+})(window);

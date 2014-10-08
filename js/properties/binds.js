@@ -43,7 +43,8 @@
 						}
 
 						var key = ':'+modelName+'.'+iii;
-						var value = meta.resource + ' -> ' + modelName+'.'+iii+'['+type+']';					
+						var info = (field.info ? meta.resource + ' -> ' +field.info+'['+type+']' : meta.resource + ' -> ' + modelName+'.'+iii+'['+type+']');
+						var value = info;
 
 						if(typeof property == 'object' 
 							&& property.length
