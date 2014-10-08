@@ -16,13 +16,7 @@
     self.property.tagResult =  'GETJSONDATADETAILRESULT';
     self.property.model =  'MATA030';
     self.property.table =  'SA1';
-    self.property.context =  'context';
-
-    self.controller = {};
-    self.controller._functions = {};
-    self.controller._variables = {};
-    self.controller._injects = {};
-    self.controller._injects['$http'] = '$http';
+    self.property.context =  'context';    
 
     var types = {
         C : 'string',
@@ -33,7 +27,6 @@
 
     var processMeta = function (comp, meta) {
         var models = {};
-
         var actions = {};
 
         for(var i in meta.models){
@@ -62,7 +55,7 @@
   
 
     var metadata = function (comp, cb) {        
-        desenhador.soap.sendSoap(
+        desenhador.util.sendSoap(
             comp.property.urlWS, 
             comp.property.method, 
                 {

@@ -70,21 +70,26 @@ var desenhador = desenhador || {};
 			var comp = desenhador.util.getCompDBById($(comps[y]), 'data-comp-id');
 
 			if(!comp)continue;
-			var nameService = comp.property.nameService;
 
-			for(var i in comp.controller._injects){
-				var _inject = comp.controller._injects[i];
-				setInject(i, _inject);
+			var context = comp.property.context;
+
+			var scope = comp.controller.scope;			
+			for(var i in scope){
+				var s = scope[i];
+				console.debug(desenhador.util.processTemplateParam(s, comp.property));
+				setFunctions(context, i, desenhador.util.processTemplateParam(s, comp.property));
 			}
 
-			for(var i in comp.controller._variables){
-				var _variable = comp.controller._variables[i];
-				setVariables(nameService, i, _variable);
+			var inject = comp.controller.inject;			
+			for(var i in inject){
+				var inj = inject[i];				
+				setInject(i, inj);
 			}
 
-			for(var i in comp.controller._functions){
-				var _function = comp.controller._functions[i];
-				setFunctions(nameService, i, _function);
+			var variable = comp.controller.variable;			
+			for(var i in variable){
+				var v = variable[i];				
+				setVariables(context, i, v);
 			}
 		}
 	};
@@ -132,11 +137,7 @@ var desenhador = desenhador || {};
 				var variable = struct._variable[i][ii];
 				bodyController += '\n\t\t\t$scope.'+i+'.'+ii+' = '+variable+';';
 			}
-		}
-
-		bodyController += '\n\t\t\$scope.set = '+(function (value, path) {
-			$scope[path] = value;
-		}).toString()+';';		
+		}		
 
 		for(var i in struct._functions){
 			for(var ii in struct._functions[i]){

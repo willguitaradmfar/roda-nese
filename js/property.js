@@ -40,10 +40,7 @@
 
 	self.dblclickProperty = function ($this) {
 		var comp = desenhador.util.getCompDBById($this, 'data-comp-id');
-
-		console.debug('dblclick em componente já arrastado '+comp.___id+' !!! :: ');
-
-		desenhador.controller.update();
+		console.debug('dblclick em componente já arrastado '+comp.___id+' !!! :: ');		
 
 		accordion = self.buildAccordion();
 

@@ -29,7 +29,7 @@
 
 		$(target).text(' '+comp.property.label);
 
-		var action = comp.actions.metaactions_actionClick.replace(/:/g, comp.property.context+'.');
+		var action = comp.property.metaactions_actionClick.replace(/:/g, comp.property.context+'.');
 		
 		$(target).attr('data-ng-click', action);
 	};

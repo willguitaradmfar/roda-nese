@@ -11,6 +11,30 @@
 		return obj;
 	};
 
+	self.sendSoap = function (url, method, _parameters, tagResult, _cb_resp) {
+		self.url = url;
+		self.method = method;
+		self._parameters = _parameters;
+
+		var parameters = new SOAPClientParameters();
+		for(var i in _parameters){
+			var param  = _parameters[i];
+			parameters.add(i, param);
+		}		
+		SOAPClient.invoke(url, method, parameters, false, function (o, doc) {
+			if(!tagResult) throw '[tagResult] nao foi informado';
+
+			var query = tagResult;
+			var result = doc.querySelector(query).innerHTML;
+
+			if(_cb_resp)
+				_cb_resp(result);
+			else
+				console.debug(result);
+
+		});
+	};	
+
 	self.JSONToXml = function (json) {
 		var x2js = new X2JS();
 		if(!json) throw 'NÃO FOI PASSADO O XML';
@@ -192,6 +216,18 @@
 			result = result.replace(regex, values[i]);
 		}
 		return result;
+	};
+
+	self.processTemplateParam = function (template, parameters) {
+		if(!template) throw 'Template indefinido';
+		var _tmp = template.toString();
+
+		for(var i in parameters){
+			var param = parameters[i];
+			var regex = new RegExp('\\$'+i+'\\$', "ig");
+			_tmp = _tmp.replace(regex, param);
+		}
+		return _tmp;
 	};
 
 	self.rest = function (config) {
