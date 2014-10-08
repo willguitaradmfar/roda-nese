@@ -19,31 +19,27 @@
 
 	self.property = {};
 	self.property.label = 'Select';
-	self.property.options = 'Option 1,Option 2,Option 3';	
-	self.property.context = 'context';	
-
-	self.binds = {};
-	self.binds.field = 'field';	
+	self.property.multitxt_options = 'Option 1,Option 2,Option 3';	
+	self.property.context = 'context';
+	self.property.metafields_field = 'field';	
+	self.property.metamodels_select = 'select';
 
 	self.arrays = {};
 	self.arrays.lista = 'lista';
-
-	self.models = {};
-	self.models.select = 'select';
 
 	self.update = function (target, comp) {
 		$(target).attr('class', 'input-group component');
 		$(target).find('label').text(comp.property.label);
 		$(target).find('select').html('');
-		var options = comp.property.options.split(',');
+		var options = comp.property.multitxt_options.split(',');
 		for(var i in options){
 			$(target).find('select').append('<option value="'+options[i]+'">'+options[i]+'</option>');
 		}
 
 		var context = comp.property.context+'.';		
-		$(target).find('select').attr('data-ng-model', comp.models.select.replace(/:/, context));
+		$(target).find('select').attr('data-ng-model', comp.property.metamodels_select.replace(/:/, context));
 
-		var field = comp.binds.field.replace(/:\w*\./, '');
+		var field = comp.property.metafields_field.replace(/:\w*\./, '');
 		var array = comp.arrays.lista.replace(':', context);
 		var options = 'item as item.'+field+' for item in '+array;
 

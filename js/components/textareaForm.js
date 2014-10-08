@@ -17,10 +17,8 @@
 	self.property.placeholder = 'Placeholder';
 	self.property.rows = '5';
 	self.property.cols = '5';
-	self.property.context = 'context';
-
-	self.binds = {};
-	self.binds.field = 'field';
+	self.property.context = 'context';	
+	self.property.metafields_field = 'field';
 
 	self.update = function (target, comp) {
 		$(target).attr('class', 'input-group component ');
@@ -28,7 +26,7 @@
 		$(target).find('textarea').attr('cols', comp.property.cols);
 		$(target).find('textarea').attr('placeholder', comp.property.placeholder);
 		$(target).find('label').text(comp.property.label);
-		var bind = comp.binds.field.replace(':', comp.property.context+'.');
+		var bind = comp.property.metafields_field.replace(':', comp.property.context+'.');
 		$(target).find('textarea').attr('data-ng-model', bind);
 	};
 })(window);

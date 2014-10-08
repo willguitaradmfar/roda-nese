@@ -20,7 +20,7 @@
 			if(!content)return;
 			var property = $('<div class="panel panel-default"></div>');
 			var hProperty = $('<div class="panel-heading"><h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-property" href="#'+name+'"> '+name+'</a></h4></div>');
-			var bProperty = $('<div id="'+name+'" class="panel-collapse collapse "><div class="panel-body"></div></div>');
+			var bProperty = $('<div id="'+name+'" class="panel-collapse collapse in"><div class="panel-body"></div></div>');
 			bProperty.find('.panel-body').append(content);
 			property.append(hProperty).append(bProperty);
 			_accordion.append(property);
@@ -47,10 +47,7 @@
 
 		accordion = self.buildAccordion();
 
-		for(var i in desenhador.properties){
-			var p = desenhador.properties[i];
-			accordion.add(desenhador.properties[i].name, desenhador.properties[i].buildProperty(comp));
-		}
+		accordion.add("Config", desenhador.properties.proxy.buildProperty(comp));		
 
 		var frame = self.buildBarraDeBotoes();
 		frame.append(accordion.accordion);

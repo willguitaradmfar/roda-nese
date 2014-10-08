@@ -12,14 +12,12 @@
 	self.property = {};
 	self.property.width = '700';
 	self.property.height = '500';
-	self.property.model = 'models';
-
-	self.binds = {}
-	self.binds.array = '...';
+	self.property.metamodels_model = 'models';	
+	self.property.metafields_array = '...';
 
 	self.update = function (target, comp) {
-		var model = comp.property.model;
-		var array = comp.property.array;
+		var model = comp.property.metamodels_model;
+		var array = comp.property.metafields_array;
 
 		if(model && array){
 			$(target).attr('data', model+'.'+array);

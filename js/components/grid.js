@@ -22,18 +22,15 @@
 
 	self.property = {};
 	self.property.limit = 10;
-	self.property.tags_header = 'Col1,Col2';
-	self.property.context = 'context';
-
-	self.binds = {};
-	self.binds.mult_cols = {};	
+	self.property.multitxt_header = 'Col1,Col2';
+	self.property.metafieldsmulti_cols = '';
+	self.property.context = 'context';			
+	self.property.metamodels_select = 'select';
+	self.property.metamodels_filter = 'filter';
 
 	self.arrays = {};
 	self.arrays.list = '...';
-
-	self.models = {};
-	self.models.select = 'select';
-	self.models.filter = 'filter';
+	
 
 	self.update = function (target, comp) {
 		var context = comp.property.context;
@@ -41,7 +38,7 @@
 			
 			var list = comp.arrays.list.replace(':', context+'.');
 
-			var filter = ((comp.models.filter) ? '| filter:'+comp.models.filter.replace(':', context+'.') : '');
+			var filter = ((comp.property.metamodels_filter) ? '| filter:'+comp.property.metamodels_filter.replace(':', context+'.') : '');
 			var limitTo = ((comp.property.limit) ? '| limitTo:'+comp.property.limit : '');
 
 			$(target)
@@ -49,18 +46,18 @@
 				.attr('data-ng-repeat', '_m in '+list+' '+filter+' '+limitTo);
 		}
 		
-		var headers = comp.property.tags_header.split(',');
+		var headers = comp.property.multitxt_header.split(',');
 		$(target).find('thead > tr').html('');
 		for(var i in headers){
 			var header = headers[i];			
 			$(target).find('thead > tr').append('<th>'+header+'</th>');
 		}		
 
-		var cols = comp.binds.mult_cols;
+		var cols = comp.property.metafieldsmulti_cols;
 		$(target).find('tbody > tr').html('');
 		for(var i in cols){
 			var col = cols[i];			
-			$(target).find('tbody > tr').attr('data-ng-click', 'set(_m, "'+comp.models.select.replace(':', context+'.')+'")');
+			$(target).find('tbody > tr').attr('data-ng-click', 'set(_m, "'+comp.property.metamodels_select.replace(':', context+'.')+'")');
 			$(target).find('tbody > tr').append('<td data-ng-bind="_m.'+col.replace(/:\w*\./, '')+'"></td>');
 			
 		}

@@ -12,13 +12,11 @@
 	self.property = {};
 	self.property.width = '700';
 	self.property.height = '500';
-	self.property.model = 'models';
-
-	self.binds = {}
-	self.binds.array = '...';
+	self.property.metamodels_model = 'models';	
+	self.property.metafields_array = '...';
 
 	self.update = function (target, comp) {
-		$(target).attr('data', comp.property.model+'.'+comp.binds.array);
+		$(target).attr('data', comp.property.metamodels_model+'.'+comp.property.metafields_array);
 		$(target).attr('width', comp.property.width);
 		$(target).attr('height', comp.property.height);
 	};

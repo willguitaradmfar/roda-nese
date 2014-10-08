@@ -15,10 +15,10 @@
 	self.grid.select = 'Seleciona em';
 
 	self.cols = {};
-	self.cols.bigDesktops = 'Desktops Grandes';
-	self.cols.phones = 'Phones';
-	self.cols.tablets = 'Tables';
-	self.cols.desktops = 'Desktops';
+	self.cols.txt_bigDesktops = 'Desktops Grandes';
+	self.cols.txt_phones = 'Phones';
+	self.cols.txt_tablets = 'Tables';
+	self.cols.txt_desktops = 'Desktops';
 
 	self.buttonForm = {};
 	self.buttonForm.label = 'Etiqueta';

@@ -16,7 +16,7 @@
 			var left = offset.left;
 			var id = $(this).attr('data-comp-id');
 			
-			tools.attr('style', 'opacity: 0.5;z-index: 10; position: absolute; top:'+top+'; left: '+left+'; width : '+($(this).width()));
+			tools.attr('style', 'min-width: 100px;opacity: 0.5;z-index: 10; position: absolute; top:'+top+'; left: '+left+'; width : '+($(this).width()));
 			tools.data('data-comp-id-selected', $(this));
 
 			var comp = desenhador.util.getCompDBById($(this), 'data-comp-id');

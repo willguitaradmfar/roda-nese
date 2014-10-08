@@ -15,10 +15,10 @@
 	self.property = {};
 	self.property.titulo = 'Titulo';
 	self.property.mensagem = 'Mensagem';
-	self.property.tipo = {val : 'default', options : ['default', 'info', 'danger', 'success', 'warning']};
+	self.property.combo_tipo = {val : 'default', options : ['default', 'info', 'danger', 'success', 'warning']};
 
 	self.update = function (target, comp) {
-		$(target).attr('class', 'alert-dismissible component alert alert-'+comp.property.tipo.val);
+		$(target).attr('class', 'alert-dismissible component alert alert-'+comp.property.combo_tipo.val);
 		$(target).find('strong').text(comp.property.titulo);
 		$(target).find('> span').text(comp.property.mensagem);
 	};	
