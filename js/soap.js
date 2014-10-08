@@ -4,7 +4,7 @@
 
 	var self = global.desenhador.soap;	
 
-	self.sendSoap = function (url, method, _parameters, _cb_resp) {
+	self.sendSoap = function (url, method, _parameters, tagResult, _cb_resp) {
 		self.url = url;
 		self.method = method;
 		self._parameters = _parameters;
@@ -15,9 +15,9 @@
 			parameters.add(i, param);
 		}		
 		SOAPClient.invoke(url, method, parameters, false, function (o, doc) {
-			if(!self.tagResult) throw '[tagResult] nao foi informado';
+			if(!tagResult) throw '[tagResult] nao foi informado';
 
-			var query = self.tagResult;
+			var query = tagResult;
 			var result = doc.querySelector(query).innerHTML;
 
 			if(_cb_resp)

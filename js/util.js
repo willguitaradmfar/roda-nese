@@ -4,6 +4,20 @@
 
 	var self = global.desenhador.util;
 
+	self.xmlToJSON = function (xml) {
+		var x2js = new X2JS();
+		if(!xml) throw 'NÃO FOI PASSADO O XML';
+		var obj = x2js.xml_str2json(xml);
+		return obj;
+	};
+
+	self.JSONToXml = function (json) {
+		var x2js = new X2JS();
+		if(!json) throw 'NÃO FOI PASSADO O XML';
+		var xml = x2js.json2xml_str(json);
+		return xml;
+	};
+
 	self.clone = function (obj) {
 		if(obj == null || typeof(obj) != 'object')
 	        return obj;
@@ -217,11 +231,8 @@
 	};
 
 	self.Base64 = {
-		
-		// private property
 		_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-
-		// public method for encoding
+		
 		encode : function (input) {
 		    var output = "";
 		    var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
@@ -253,9 +264,7 @@
 		    }
 
 		    return output;
-		},
-
-		// public method for decoding
+		},		
 		decode : function (input) {
 		    var output = "";
 		    var chr1, chr2, chr3;
@@ -290,9 +299,7 @@
 
 		    return output;
 
-		},
-
-		// private method for UTF-8 encoding
+		},		
 		_utf8_encode : function (string) {
 		    string = string.replace(/\r\n/g,"\n");
 		    var utftext = "";
@@ -317,9 +324,7 @@
 		    }
 
 		    return utftext;
-		},
-
-		// private method for UTF-8 decoding
+		},		
 		_utf8_decode : function (utftext) {
 		    var string = "";
 		    var i = 0;

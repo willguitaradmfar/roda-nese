@@ -50,8 +50,6 @@
                 models[modelID][field.id].type = types[field.datatype];
                 models[modelID][field.id].info = field.info;
                 models[modelID][field.id].required = (field.obrigat == '1');
-                
-                console.debug(field);
             }            
         }
 
@@ -63,21 +61,20 @@
     };
   
 
-    var metadata = function (comp, cb) {
-        desenhador.soap.tagResult = comp.property.tagResult;
+    var metadata = function (comp, cb) {        
         desenhador.soap.sendSoap(
-            comp.property.url, 
+            comp.property.urlWS, 
             comp.property.method, 
                 {
                     USERTOKEN : "cid:"+desenhador.util.random(1000 * 10),
                     MODELID : comp.property.model,
                     TABLE : comp.property.table
-                }, 
-            function(d){
-                var meta = desenhador.util.eval(desenhador.util.Base64.decode(d));
-                processMeta(comp, meta);               
-                
-            }
+                },
+                comp.property.tagResult, 
+                function(d){
+                    var meta = desenhador.util.eval(desenhador.util.Base64.decode(d));
+                    processMeta(comp, meta);
+                }
         );
     };
 
