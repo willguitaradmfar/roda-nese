@@ -17,8 +17,8 @@
 	self.update = function (target, comp) {
 		$(target).text(comp.property.label);
 
-		if(comp.binds.metafields_field){
-			var bind = comp.binds.metafields_field.replace(':', comp.property.context+'.');
+		if(comp.property.metafields_field){
+			var bind = comp.property.metafields_field.replace(':', comp.property.context+'.');
 			$(target).attr('data-ng-bind', bind);
 		}
 		else{

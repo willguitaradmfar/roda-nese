@@ -47,7 +47,7 @@
         }
 
         desenhador.metadata.factory()
-            .set('resource', comp.property.nameService)
+            .set('resource', comp.property.context)
             .set('models', models)
             .set('actions', actions)
             .save();
