@@ -23,9 +23,7 @@
 	self.property.context = 'context';
 	self.property.metafields_field = 'field';	
 	self.property.metamodels_select = 'select';
-
-	self.arrays = {};
-	self.arrays.lista = 'lista';
+	self.property.metaarrays_list = 'list';
 
 	self.update = function (target, comp) {
 		$(target).attr('class', 'input-group component');
@@ -40,7 +38,7 @@
 		$(target).find('select').attr('data-ng-model', comp.property.metamodels_select.replace(/:/, context));
 
 		var field = comp.property.metafields_field.replace(/:\w*\./, '');
-		var array = comp.arrays.lista.replace(':', context);
+		var array = comp.property.metaarrays_list.replace(':', context);
 		var options = 'item as item.'+field+' for item in '+array;
 
 		$(target).find('select').attr('data-ng-options', options);

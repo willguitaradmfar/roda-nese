@@ -27,16 +27,13 @@
 	self.property.context = 'context';			
 	self.property.metamodels_select = 'select';
 	self.property.metamodels_filter = 'filter';
-
-	self.arrays = {};
-	self.arrays.list = '...';
-	
+	self.property.metaarrays_list = 'list';
 
 	self.update = function (target, comp) {
 		var context = comp.property.context;
-		if(comp.property.context && comp.arrays.list){
+		if(comp.property.context && comp.property.metaarrays_list){
 			
-			var list = comp.arrays.list.replace(':', context+'.');
+			var list = comp.property.metaarrays_list.replace(':', context+'.');
 
 			var filter = ((comp.property.metamodels_filter) ? '| filter:'+comp.property.metamodels_filter.replace(':', context+'.') : '');
 			var limitTo = ((comp.property.limit) ? '| limitTo:'+comp.property.limit : '');

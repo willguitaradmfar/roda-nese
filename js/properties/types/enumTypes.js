@@ -11,7 +11,8 @@
 	self.templetes['metafields'] = 'metafields';
 	self.templetes['metamodels'] = 'metamodels';
 	self.templetes['metaactions'] = 'metaactions';
-	self.templetes['metafieldsmulti'] = 'metafieldsmulti';	
+	self.templetes['metafieldsmulti'] = 'metafieldsmulti';
+	self.templetes['metaarrays'] = 'metaarrays';	
 
 	self.make = function (type) {
 		var value = self.templetes[type];
