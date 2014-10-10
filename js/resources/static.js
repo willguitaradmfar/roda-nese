@@ -14,6 +14,8 @@
     self.property.context =  'context';
     self.property.collection = 'carroList';
 
+    self.metadata = {};
+
     var metadata = function (comp, cb) {
        var models = {};
 
@@ -22,8 +24,7 @@
         models.carro = {nome : {type : 'string',required : true}, modelo : {type : ':modelo',ref : models.modelo}, power : {type : 'number'}};
         models.message = {message : {type : 'string'}}
 
-        var actions = {};
-        
+        var actions = {};        
 
         actions.list = {
             model : ':carro',
@@ -36,12 +37,10 @@
                 '500' : 'Erro'
             }
         };
-    
-        desenhador.metadata.factory()
-            .set('resource', comp.property.context)
-            .set('models', models)
-            .set('actions', actions)
-            .save();
+
+        comp.metadata.resource = comp.property.context;
+        comp.metadata.models = models;
+        comp.metadata.actions = actions;
         cb();
     };
 

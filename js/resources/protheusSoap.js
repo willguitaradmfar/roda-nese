@@ -16,7 +16,9 @@
     self.property.tagResult =  'GETJSONDATADETAILRESULT';
     self.property.model =  'MATA030';
     self.property.table =  'SA1';
-    self.property.context =  'context';    
+    self.property.context =  'context';
+
+    self.metadata = {};
 
     var types = {
         C : 'string',
@@ -46,11 +48,10 @@
             }            
         }
 
-        desenhador.metadata.factory()
-            .set('resource', comp.property.context)
-            .set('models', models)
-            .set('actions', actions)
-            .save();
+        comp.metadata.resource = comp.property.context;
+        comp.metadata.models = models;
+        comp.metadata.actions = actions;
+        
     };
   
 

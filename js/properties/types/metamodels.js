@@ -15,8 +15,6 @@
 		
 		if(!isMultipleSelect)
 			select.append('<option value="" selected>Selecione ...</option>');
-		
-		var services = desenhador.metadata.arrays;
 
 		desenhador.metadata.find({}, function(meta){
 			for(var ii in meta.models){

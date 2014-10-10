@@ -10,8 +10,6 @@
 		var name = 'property.'+field;
 
 		var select = $('<select multiple name="'+name+'" class="form-control"></select>');
-		
-		var services = desenhador.metadata.arrays;		
 
 		var recursive = function (model, meta, modelName) {
 			for(var  iii in model){

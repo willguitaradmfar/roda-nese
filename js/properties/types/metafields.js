@@ -13,8 +13,6 @@
 		
 		select.append('<option value="" selected>Selecione ...</option>');
 		
-		var services = desenhador.metadata.arrays;		
-
 		var recursive = function (model, meta, modelName) {
 			for(var  iii in model){
 				var field = model[iii];
