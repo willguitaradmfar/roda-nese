@@ -9,7 +9,7 @@
 
 		var name = 'property.'+field;		
 
-		var select = $('<select name="'+name+'" class="form-control"></select>');		
+		var select = $('<select name="'+name+'" class="form-control input-sm"></select>');		
 		
 		select.append('<option value="" selected>Selecione ...</option>');
 

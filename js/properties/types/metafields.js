@@ -9,7 +9,7 @@
 
 		var name = 'property.'+field;	
 		
-		var select = $('<select name="'+name+'" class="form-control"></select>');		
+		var select = $('<select name="'+name+'" class="form-control input-sm"></select>');		
 		
 		select.append('<option value="" selected>Selecione ...</option>');
 		
@@ -25,7 +25,7 @@
 
 				var key = ':'+modelName+'.'+iii;
 				var info = (field.info ? meta.resource + ' -> ' +field.info+'['+type+']' : meta.resource + ' -> ' + modelName+'.'+iii+'['+type+']');
-				var value = info;
+				var value = key || info;
 
 				if(typeof property == 'object' 
 					&& property.length

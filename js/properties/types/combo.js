@@ -12,7 +12,7 @@
 		var isMultipleSelect = field.substring(0,5) == 'mult_';
 		var name = 'property.'+field;
 		
-		var select = $('<select '+(isMultipleSelect ? 'multiple' : '')+' name="'+name+'" class="form-control"></select>');				
+		var select = $('<select '+(isMultipleSelect ? 'multiple' : '')+' name="'+name+'" class="form-control input-sm"></select>');				
 
 		for(var ii in property.options){
 			var option = property.options[ii];

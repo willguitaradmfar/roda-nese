@@ -11,12 +11,13 @@
 
     self.property = {};
     self.property.nameService = 'protheus';        
-    self.property.urlWS =  'http://192.168.122.94/FWWSMODEL.apw';
-    self.property.method =  'GETJSONDATADETAIL';
-    self.property.tagResult =  'GETJSONDATADETAILRESULT';
+    self.property.urlWS =  'http://192.168.122.94/FWWSMODEL.apw';    
     self.property.model =  'MATA030';
     self.property.table =  'SA1';
     self.property.context =  'context';
+
+    var method =  'GETJSONDATADETAIL';
+    var tagResult =  'GETJSONDATADETAILRESULT';
 
     self.metadata = {};
 
@@ -33,7 +34,9 @@
 
         for(var i in meta.models){
             var model = meta.models[i];
-            var modelID = model.id
+
+            //NESSE CASE (model.id) == (comp.property.table) QUE REPRESENTA O MODELO
+            var modelID = model.id // comp.property.table
 
             models[modelID] = {};
             for(var ii in model.fields){
@@ -48,23 +51,32 @@
             }            
         }
 
+        actions.list = {
+            parameter : [[]],
+            result : {
+                type : 'array',
+                model : ':'+comp.property.table
+            }
+        };
+
         comp.metadata.resource = comp.property.context;
         comp.metadata.models = models;
         comp.metadata.actions = actions;
-        
     };
   
 
-    var metadata = function (comp, cb) {        
+    var metadata = function (comp, cb) {
+        var cid = "cid:"+desenhador.util.random(1000 * 10);
+
         desenhador.util.sendSoap(
             comp.property.urlWS, 
-            comp.property.method, 
+            method, 
                 {
-                    USERTOKEN : "cid:"+desenhador.util.random(1000 * 10),
+                    USERTOKEN : cid,
                     MODELID : comp.property.model,
                     TABLE : comp.property.table
                 },
-                comp.property.tagResult, 
+                tagResult,
                 function(d){
                     var meta = desenhador.util.eval(desenhador.util.Base64.decode(d));
                     processMeta(comp, meta);

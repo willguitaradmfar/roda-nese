@@ -104,3 +104,7 @@
 .chosen-container {  
   width: 100%;
 }
+
+#dialog td {
+	font-size: 14px;
+}

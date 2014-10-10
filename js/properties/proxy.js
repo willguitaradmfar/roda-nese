@@ -9,7 +9,7 @@
 	self.buildProperty = function (comp) {			
 			if(!comp.property)return;
 			console.debug('MONTA PROPERTY BASIC');
-			var table = $('<table class="table"><thead><tr><th></th><th></th><th></th></tr></thead><tbody></tbody></table>');
+			var table = $('<table class="table"><thead><tr><th width="30%"></th><th></th></tr></thead><tbody></tbody></table>');
 
 			for(var i in comp.property){
 				var property = comp.property[i];

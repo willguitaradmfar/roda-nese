@@ -11,7 +11,7 @@
 		
 		var name = 'property.'+field;
 
-		var select = $('<select '+(isMultipleSelect ? 'multiple' : '')+' name="'+name+'" class="form-control"></select>');
+		var select = $('<select '+(isMultipleSelect ? 'multiple' : '')+' name="'+name+'" class="form-control input-sm"></select>');
 		
 		if(!isMultipleSelect)
 			select.append('<option value="" selected>Selecione ...</option>');
