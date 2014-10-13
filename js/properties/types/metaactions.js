@@ -13,9 +13,8 @@
 		var select = $('<select '+(isMultipleSelect ? 'multiple' : '')+' name="'+name+'" class="form-control input-sm"></select>');
 		
 		if(!isMultipleSelect)
-			select.append('<option value="" selected>Selecione ...</option>');
+			select.append('<option value="" selected>Selecione ...</option>');		
 		
-		var functions = desenhador.controller.getFunctions();
 		desenhador.metadata.find({}, function(meta){						
 
 			for(var ii in meta.actions){

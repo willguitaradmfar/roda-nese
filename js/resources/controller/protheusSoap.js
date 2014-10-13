@@ -10,6 +10,7 @@
 
 	self.inject = {};
 	self.inject['$http'] = '$http';
+	self.inject['soap'] = 'soap';	
 
 	self.variable = {};
 	self.variable.list = "['num1', 'num2', 'num3']";
@@ -20,10 +21,12 @@
 	};
 
 	self.scope.list = function() {
-		$scope.$context$.$table$List = [{
-			A1_FILIAL : 'TOTVS',
-			A1_LOJA : 'L1',
-			A1_COD : '00001'
-		}];		
+		soap.list({
+                    CTABLE : '$table$',
+                    CFIELDS : '$columns$'
+                }, function(d){
+                    $scope.$context$.$table$List = eval('('+d+')').Rows;
+                }
+        );
 	};	
 })(window);

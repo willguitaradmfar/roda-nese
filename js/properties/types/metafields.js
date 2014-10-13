@@ -25,7 +25,7 @@
 
 				var key = ':'+modelName+'.'+iii;
 				var info = (field.info ? meta.resource + ' -> ' +field.info+'['+type+']' : meta.resource + ' -> ' + modelName+'.'+iii+'['+type+']');
-				var value = key || info;
+				var value = info;
 
 				if(typeof property == 'object' 
 					&& property.length

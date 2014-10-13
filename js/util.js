@@ -11,10 +11,7 @@
 		return obj;
 	};
 
-	self.sendSoap = function (url, method, _parameters, tagResult, _cb_resp) {
-		self.url = url;
-		self.method = method;
-		self._parameters = _parameters;
+	self.sendSoap = function (url, method, _parameters, tagResult, _cb_resp) {		
 
 		var parameters = new SOAPClientParameters();
 		for(var i in _parameters){

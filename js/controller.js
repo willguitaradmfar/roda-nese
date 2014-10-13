@@ -5,7 +5,7 @@ var desenhador = desenhador || {};
 
 	desenhador.controller = desenhador.controller || {};
 
-	var struct = {}
+	var struct = {};
 	struct._injects = {};
 
 	//DEFAULTS
@@ -100,7 +100,7 @@ var desenhador = desenhador || {};
 	};
 
 	var _makeController = function () {
-		var bodyController = "angular.module('desenhador', ['ng-nvd3'])";
+		var bodyController = "\n\nangularApp";
 		var inj = "\n\t.controller('desenhadorCtrl', [";
 		for(var i in struct._injects){
 			inj += "'"+struct._injects[i]+"', ";
@@ -154,11 +154,7 @@ var desenhador = desenhador || {};
 	};
 
 	desenhador.controller =  {
-		'update' : update,
-		'setInject' : setInject,
-		'setFunctions' : setFunctions,
-		'setVariables' : setVariables,
-		'getFunctions' : getFunctions,
+		'update' : update,		
 		'makeController' : makeController
 	};
 })(desenhador);

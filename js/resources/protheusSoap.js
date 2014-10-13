@@ -14,6 +14,7 @@
     self.property.urlWS =  'http://192.168.122.94/FWWSMODEL.apw';    
     self.property.model =  'MATA030';
     self.property.table =  'SA1';
+    self.property.columns =  'A1_COD, A1_NOME';    
     self.property.context =  'context';
 
     var method =  'GETJSONDATADETAIL';

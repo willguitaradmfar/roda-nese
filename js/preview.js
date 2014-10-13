@@ -40,26 +40,30 @@ var desenhador = desenhador || {};
 			var width = config.width || 1024;
 			var height = config.height || 768;
 			var makeController = config.makeController || desenhador.controller.makeController;
+			var makeService = config.makeService || desenhador.service.makeService;
 			
 			console.debug('VISUALIZAR PROJETO '+title);
 
 			var head = $('<head></head>');
 
 			var script = $('<script type="text/javascript"></script>');
-			script.append(makeController());
+			script.append('\nvar angularApp = angular.module(\'desenhador\', [\'ng-nvd3\']);');
+			script.append(makeService());
+			script.append(makeController());		
 
 			var dependencysJS = makeDependencyJS([
-				'dependency/jquery/jquery-ui-1.11.1/external/jquery/jquery.js',
-				'dependency/angular.min.js',
-				'dependency/bootstrap.min.js',
-				'dependency/nvd3/d3.v3.min.js',
-				'dependency/nvd3/nv.d3.js',
-				'dependency/nvd3/ng-nvd3.js'
+				'dependencyRuntime/jquery/jquery-ui-1.11.1/external/jquery/jquery.js',
+				'dependencyRuntime/angular.min.js',
+				'dependencyRuntime/bootstrap.min.js',
+				'dependencyRuntime/nvd3/d3.v3.min.js',
+				'dependencyRuntime/nvd3/nv.d3.js',
+				'dependencyRuntime/nvd3/ng-nvd3.js',
+				'dependencyRuntime/soapjs/soapclient.js'
 			]);
 			
 			var dependencysCSS = makeDependencyCSS([
-				'dependency/bootstrap.min.css',
-				'dependency/bootstrap-theme.min.css'
+				'dependencyRuntime/bootstrap.min.css',
+				'dependencyRuntime/bootstrap-theme.min.css'
 			]);			
 
 			var content = $('<div></div>');
