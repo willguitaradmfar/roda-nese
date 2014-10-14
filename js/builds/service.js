@@ -1,16 +1,15 @@
-var desenhador = desenhador || {};
+inject.define("builds.service", ["utils.util", function (util) {
+    var self = {};
 
-(function (desenhador) {
-	var struct = {};	
+    var struct = {};	
 	struct._functions = {};
 
 	var setFunctions = function (name, _function) {
-		console.debug('SET FUNCTIONS CONTROLLER : '+name);		
-
+		console.debug('SET FUNCTIONS CONTROLLER : '+name);
 		struct._functions[name] = _function.toString();
 	};	
 
-	var update = function (target) {
+	self.update = function (target) {
 
 		console.debug('UPDATE CONTROLLER OBJ GLOBAL');
 
@@ -26,21 +25,26 @@ var desenhador = desenhador || {};
 
 		for(var y = 0 ; y < comps.length ; y++){			
 
-			var comp = desenhador.util.getCompDBById($(comps[y]), 'data-comp-id');
+			var comp = util.getCompDBById($(comps[y]), 'data-comp-id');
 
 			if(!comp)continue;
+			
+			if(!comp.service){
+				console.debug('COMPONENTE '+comp.name+' NAO TEM IMPLEMENTACAO DE SERVICE');
+				continue;
+			}
 
 			var scope = comp.service.scope;
 			for(var i in scope){
 				var s = scope[i];
-				console.debug(desenhador.util.processTemplateParam(s, comp.property));
-				setFunctions(i, desenhador.util.processTemplateParam(s, comp.property));
+				console.debug(util.processTemplateParam(s, comp.property));
+				setFunctions(i, util.processTemplateParam(s, comp.property));
 			}			
 		}
 	};
 
-	var makeService = function (target) {
-		update(target);
+	self.makeService = function (target) {
+		self.update(target);
 		return _makeService();
 	};
 
@@ -56,8 +60,5 @@ var desenhador = desenhador || {};
 		return bodyService;
 	};
 
-	desenhador.service =  {
-		'update' : update,		
-		'makeService' : makeService
-	};
-})(desenhador);
+    return self;
+}]);

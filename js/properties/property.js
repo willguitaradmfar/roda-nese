@@ -1,8 +1,6 @@
-(function(global) {
-	global.desenhador = global.desenhador || {};
-	global.desenhador.property = global.desenhador.property || {};
-
-	var self = global.desenhador.property;
+inject.define("properties.property", ["utils.util", "properties.proxy", function (util, proxy) {
+	
+	var self = {};
 
 	var accordion;
 
@@ -32,19 +30,19 @@
 	};	
 
 	self.removerComponente = function ($this, comp) {
-		desenhador.util.removeCompDB($this);
+		util.removeCompDB($this);
 		$this.remove();
 		if(comp.remove)comp.remove($this, comp);					
 		$( "#dialog" ).dialog( "close" );
 	};
 
 	self.dblclickProperty = function ($this) {
-		var comp = desenhador.util.getCompDBById($this, 'data-comp-id');
+		var comp = util.getCompDBById($this, 'data-comp-id');
 		console.debug('dblclick em componente já arrastado '+comp.___id+' !!! :: ');		
 
 		accordion = self.buildAccordion();
 
-		accordion.add("Config", desenhador.properties.proxy.buildProperty(comp));		
+		accordion.add("Config", proxy.buildProperty(comp));		
 
 		var frame = self.buildBarraDeBotoes();
 		frame.append(accordion.accordion);
@@ -71,10 +69,10 @@
 		};
 
 		var updatePropertyComp = function($_this, _comp) {					
-			desenhador.util.updateCompDB($_this, _comp);
+			util.updateCompDB($_this, _comp);
 			console.debug('UPDATE COMPONENT : ('+(_comp.name || _comp.property.nameService) + ' '+comp.___id+')');
 			_comp.update($_this, _comp, function () {
-				desenhador.util.updateCompDB($_this, _comp);
+				util.updateCompDB($_this, _comp);
 			});
 		}
 
@@ -89,4 +87,6 @@
 		});
 	};
 
-})(window);
+	return self;
+}]);
+

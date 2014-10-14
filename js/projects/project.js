@@ -1,7 +1,6 @@
-var desenhador = desenhador || {};
+inject.define("projects.project", ["utils.util", function (util) {
 
-(function(desenhador) {
-	desenhador.projects = desenhador.projects || {};
+	var self = {};
 
 	var getProjectsLocalStorage = function () {
 
@@ -11,7 +10,7 @@ var desenhador = desenhador || {};
 			try{
 				var property = localStorage[i];
 				console.debug('BUSCANDO PROPERTY EM LOCAL STORAGE '+i);
-				var projeto = desenhador.util.eval(localStorage[i]);
+				var projeto = util.eval(localStorage[i]);
 				if(projeto.name && projeto.content){
 					projetos.push(projeto);
 				}else{
@@ -33,7 +32,7 @@ var desenhador = desenhador || {};
 		var head = $('<tr></tr>')
 					.append('<th>Nome</th>')
 					.append('<th>Data</th>')
-					.append('<th colspan="3">...</th>');
+					.append('<th colspan="2">...</th>');
 
 		table.find('thead').append(head);
 
@@ -46,7 +45,7 @@ var desenhador = desenhador || {};
 				$('.des-datasource').html(projeto.contentDatasource);
 				
 				//TODO: fazer parse de functions persistida na base								
-				desenhador.util.restoreBkpDB(projeto.db);
+				util.restoreBkpDB(projeto.db);
 			});
 		};
 
@@ -56,28 +55,7 @@ var desenhador = desenhador || {};
 				localStorage.removeItem(projeto.name);
 				$(this).parents('tr').remove();
 			});
-		};
-
-		var mapearEventoVisualizarProjeto = function (btn, projeto) {
-
-			var _datasourceTmp = $('<div></div>');			
-			_datasourceTmp.append(projeto.contentDatasource);
-
-			var contentTmp = $('<div></div>');			
-			contentTmp.append(projeto.content);		
-
-			btn.on('click', function () {				
-				var preview = desenhador.preview(contentTmp.html());
-				preview.openPopup({
-					width : $('html').width(), 
-					height : $('html').height(),
-					title : 'Projeto v480',
-					makeController : function () {
-						return desenhador.controller.makeController(_datasourceTmp);
-					}
-				});
-			});
-		};
+		};		
 
 
 		for(var i in projetos){
@@ -85,17 +63,14 @@ var desenhador = desenhador || {};
 			var projeto = projetos[i];
 
 			var btnAbrir = $('<span class="btn btn-warning glyphicon glyphicon-pencil"></span>');
-			var btnRemover = $('<span class="btn btn-danger glyphicon glyphicon-trash"></span>');
-			var btnVisualizar = $('<span class="btn btn-info glyphicon glyphicon-eye-open"></span>');
+			var btnRemover = $('<span class="btn btn-danger glyphicon glyphicon-trash"></span>');			
 
 			mapearEventoAbrirProjeto(btnAbrir, projeto);
-			mapearEventoRemoverProjeto(btnRemover, projeto);
-			mapearEventoVisualizarProjeto(btnVisualizar, projeto);
+			mapearEventoRemoverProjeto(btnRemover, projeto);			
 
 			var tr = $('<tr></tr>')
 					.append($('<td></td>').text(projeto.name))
-					.append($('<td></td>').text(projeto.date))
-					.append($('<td></td>').html(btnVisualizar))
+					.append($('<td></td>').text(projeto.date))					
 					.append($('<td></td>').html(btnAbrir))
 					.append($('<td></td>').html(btnRemover));
 			table.find('tbody').append(tr);
@@ -125,9 +100,9 @@ var desenhador = desenhador || {};
 			projeto.name = nomeProjeto;
 			projeto.content = content;
 			projeto.contentDatasource = contentDatasource;
-			projeto.db = desenhador.util.bkpDB();
+			projeto.db = util.bkpDB();
 			projeto.date = new Date;
-			localStorage[nomeProjeto] = desenhador.util.stringify(projeto);
+			localStorage[nomeProjeto] = util.stringify(projeto);
 
 			body.find('table').remove();
 			body.append(povoarTabelaProjetos());
@@ -138,7 +113,7 @@ var desenhador = desenhador || {};
 		body.dialog({width : 768, height : 570, title : 'Salvar Projeto'});
 	};
 
-	desenhador.projects = function () {
+	self.projects = function () {
 		$('#limpar').on('click', function () {
 			console.debug('LIMPANDO PROJETO');
 			$('.des-container').html('');
@@ -151,4 +126,5 @@ var desenhador = desenhador || {};
 		});
 	};
 
-})(desenhador);
+	return self;
+}]);

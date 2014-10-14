@@ -1,8 +1,5 @@
-(function(global) {
-	global.desenhador = global.desenhador || {};
-	global.desenhador.util = global.desenhador.util || {};
-
-	var self = global.desenhador.util;
+inject.define("utils.util", [function () {
+	var self = {};
 
 	self.xmlToJSON = function (xml) {
 		var x2js = new X2JS();
@@ -47,7 +44,7 @@
 
 	    for(var key in obj) {
 	        if(obj.hasOwnProperty(key)) {
-	            temp[key] = desenhador.util.clone(obj[key]);
+	            temp[key] = self.clone(obj[key]);
 	        }
 	    }
 	    return temp;
@@ -89,7 +86,7 @@
 			desenhador.db.update(id, comp);
 			return id;
 		}else{			
-			id = desenhador.db.insert(desenhador.util.clone(comp)).___id;
+			id = desenhador.db.insert(self.clone(comp)).___id;
 			console.debug('CRIANDO COMPONENTE ('+comp.name+') ('+id+') attr('+_field+')');
 			$($this).attr(_field, id);
 			return id;
@@ -589,6 +586,6 @@
 
 		    return string;
 		}
-	};
-
-})(window);
+	};	
+	return self;
+}]);

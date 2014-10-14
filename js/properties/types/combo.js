@@ -1,11 +1,7 @@
-(function (global) {
-	global.desenhador = global.desenhador || {};
-	global.desenhador.properties = global.desenhador.properties || {};
-	global.desenhador.properties.types = global.desenhador.properties.types || {};
-	global.desenhador.properties.types.combo = global.desenhador.properties.types.combo || {};
-	var self = global.desenhador.properties.types.combo;
+inject.define("properties.types.combo", [function () {
+    var self = {}; 
 
-	self.make = function (comp, field, property, td) {		
+	self.make = function (comp, field, property, td) {
 
 		if(!property || !property.options) throw 'NAO PODE SER COMBO POIS NAO EXISTE A PROPRIEDADE options';
 
@@ -33,4 +29,5 @@
 		select.chosen({width:"100%"});		
 	};	
 
-})(window);
+	return self;
+}]);

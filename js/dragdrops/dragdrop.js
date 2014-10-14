@@ -1,5 +1,5 @@
-(function(global) {
-    global.desenhador = global.desenhador || {};   
+inject.define("dragdrops.dragdrop", ["utils.util", function (util) {
+    var self = {};    
 
     var sortable = function(targets) {
         for (var i in targets) {
@@ -61,12 +61,12 @@
         }
 
         var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
-        var comp = desenhador.util.getCompDBById($this, attr);
+        var comp = util.getCompDBById($this, attr);
         if (comp.drag) {
             console.debug('CHAMANDO FUNCTION drag() ....');
             comp.drag($this, comp);
         }
-        desenhador.util.updateCompDB($this, comp);
+        util.updateCompDB($this, comp);
     };
 
     var dropComponentNonvisual = function(event, ui) {
@@ -77,12 +77,12 @@
         }
 
         var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
-        var comp = desenhador.util.getCompDBById($this, attr);
+        var comp = util.getCompDBById($this, attr);
         if (comp.drag) {
             console.debug('CHAMANDO FUNCTION drag() ....');
             comp.drag($this, comp);
         }
-        desenhador.util.updateCompDB($this, comp);
+        util.updateCompDB($this, comp);
     };
 
     var dropComponentProjectLayout = function(event, ui) {
@@ -93,14 +93,14 @@
         }
 
         var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
-        var comp = desenhador.util.getCompDBById($this, attr);
+        var comp = util.getCompDBById($this, attr);
 
         if (comp.drag) {
             console.debug('CHAMANDO FUNCTION drag() ....');
             comp.drag($this, comp);
         }
 
-        desenhador.util.updateCompDB($this, comp);
+        util.updateCompDB($this, comp);
 
         sortable(['.des-container', '.des-datasource', '.des-layout']);
 
@@ -111,7 +111,7 @@
 
 
 
-    global.desenhador.dragdrop = function() {
+    self.dragdrop = function() {
         sortable(['.des-container', '.des-datasource', '.des-layout']);
         draggable($('#palleta .des-layout'), ['#project.des-container']);
         droppable(['.des-container'], dropComponentProjectLayout);
@@ -134,4 +134,5 @@
         });
     };
 
-})(window);
+    return self;
+}]);

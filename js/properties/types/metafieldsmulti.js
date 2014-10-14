@@ -1,9 +1,5 @@
-(function (global) {
-	global.desenhador = global.desenhador || {};
-	global.desenhador.properties = global.desenhador.properties || {};
-	global.desenhador.properties.types = global.desenhador.properties.types || {};
-	global.desenhador.properties.types.metafieldsmulti = global.desenhador.properties.types.metafieldsmulti || {};
-	var self = global.desenhador.properties.types.metafieldsmulti;
+inject.define("properties.types.metafieldsmulti", ["metadatas.metadata", function (metadata) {
+    var self = {}; 
 
 	self.make = function (comp, field, property, td) {
 
@@ -37,7 +33,7 @@
 			}
 		}
 
-		desenhador.metadata.find({}, function(meta){
+		metadata.find({}, function(meta){
 			for(var ii in meta.models){				
 				var model = meta.models[ii];
 				var modelName = ii;						
@@ -48,4 +44,5 @@
 		select.chosen({width:"100%"});
 	};	
 
-})(window);
+	return self;
+}]);

@@ -1,11 +1,6 @@
-var desenhador = desenhador || {};
-
-
-(function (desenhador) {
-
-	desenhador.controller = desenhador.controller || {};
-
-	var struct = {};
+inject.define("builds.controller", ["utils.util", function (util) {
+    var self = {};
+    var struct = {};
 	struct._injects = {};
 
 	//DEFAULTS
@@ -48,7 +43,7 @@ var desenhador = desenhador || {};
 		return _functions;
 	};
 
-	var update = function (target) {
+	self.update = function (target) {
 
 		console.debug('UPDATE CONTROLLER OBJ GLOBAL');
 
@@ -67,17 +62,22 @@ var desenhador = desenhador || {};
 
 		for(var y = 0 ; y < comps.length ; y++){			
 
-			var comp = desenhador.util.getCompDBById($(comps[y]), 'data-comp-id');
+			var comp = util.getCompDBById($(comps[y]), 'data-comp-id');
 
 			if(!comp)continue;
 
+			if(!comp.controller){
+				console.debug('COMPONENTE '+comp.name+' NAO TEM IMPLEMENTACAO DE CONTROLLER');
+				continue;
+			}
+
 			var context = comp.property.context;
 
-			var scope = comp.controller.scope;			
+			var scope = comp.controller.scope;
 			for(var i in scope){
 				var s = scope[i];
-				console.debug(desenhador.util.processTemplateParam(s, comp.property));
-				setFunctions(context, i, desenhador.util.processTemplateParam(s, comp.property));
+				console.debug(util.processTemplateParam(s, comp.property));
+				setFunctions(context, i, util.processTemplateParam(s, comp.property));
 			}
 
 			var inject = comp.controller.inject;			
@@ -94,8 +94,8 @@ var desenhador = desenhador || {};
 		}
 	};
 
-	var makeController = function (target) {
-		update(target);
+	self.makeController = function (target) {
+		self.update(target);
 		return _makeController();
 	};
 
@@ -152,9 +152,6 @@ var desenhador = desenhador || {};
 
 		return bodyController;
 	};
-
-	desenhador.controller =  {
-		'update' : update,		
-		'makeController' : makeController
-	};
-})(desenhador);
+	
+    return self;
+}]);

@@ -1,15 +1,8 @@
-(function(global) {
-	global.desenhador = global.desenhador || {};
-	global.desenhador.resources = global.desenhador.resources || {};
-	global.desenhador.resources.protheusSoap = global.desenhador.resources.protheusSoap || {};	
-	global.desenhador.resources.protheusSoap.service = global.desenhador.resources.protheusSoap.service || {};	
-
-	var self = global.desenhador.resources.protheusSoap.service;
-	
-	self.scope = {};	
+inject.define("resources.service.protheusSoap", [function () {
+    var self = {};
+    self.scope = {};
 
 	self.scope.soap = function () {
-
 		var list = function (_parameters, _cb_resp) {
 			var parameters = new SOAPClientParameters();
 
@@ -24,14 +17,19 @@
 				, parameters
 				, false
 				, function (o, doc) {							
-					var result = doc.querySelector("GETDATATABLERESULT").innerHTML;							
-					_cb_resp(result);							
+					var result = doc.querySelector("GETDATATABLERESULT").innerHTML;	
+					var faultString = doc.querySelector("faultstring");
+					if(faultString){
+						faultString = faultString.innerHTML;
+					}					
+					_cb_resp(faultString, result);
 				});
-	};
-
+		};
+		
 		return {
 			list : list
 		}
 	};
 
-})(window);
+    return self;
+}]);

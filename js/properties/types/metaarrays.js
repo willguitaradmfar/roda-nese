@@ -1,9 +1,5 @@
-(function (global) {
-	global.desenhador = global.desenhador || {};
-	global.desenhador.properties = global.desenhador.properties || {};
-	global.desenhador.properties.types = global.desenhador.properties.types || {};
-	global.desenhador.properties.types.metaarrays = global.desenhador.properties.types.metaarrays || {};
-	var self = global.desenhador.properties.types.metaarrays;
+inject.define("properties.types.metaarrays", ["metadatas.metadata", function (metadata) {
+    var self = {}; 
 
 	self.make = function (comp, field, property, td) {
 
@@ -13,7 +9,7 @@
 		
 		select.append('<option value="" selected>Selecione ...</option>');
 
-		desenhador.metadata.find({}, function(meta){
+		metadata.find({}, function(meta){
 
 				for(var ii in meta.actions){
 					var action = meta.actions[ii];
@@ -42,4 +38,5 @@
 		select.chosen({width:"100%"});
 	};	
 
-})(window);
+	return self;
+}]);

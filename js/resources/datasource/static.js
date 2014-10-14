@@ -1,8 +1,7 @@
-(function (global) {
-    global.desenhador = global.desenhador || {};
-    global.desenhador.resources = global.desenhador.resources || {};
-    global.desenhador.resources.static = global.desenhador.resources.static || {};
-    var self = global.desenhador.resources.static;
+inject.define("resources.datasource.static", ["resources.controller.static", function (controller) {
+    var self = {};
+
+    self.controller = controller;    
 
     self.name = 'static';
     self.category = 'datasource';
@@ -47,4 +46,6 @@
     self.update = function (target, comp, cb) {        
         metadata(comp, cb);        
     };    
-})(window);
+
+    return self;
+}]);

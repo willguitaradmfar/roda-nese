@@ -1,10 +1,8 @@
-var desenhador = desenhador || {};
+inject.define("previewers.previewer", ["builds.service", "builds.controller", function (service, controller) {
 
-(function(desenhador) {
-	desenhador.preview = desenhador.preview || {};
+	var self = {};
 
-
-	desenhador.preview = function (html) {
+	self.preview = function (html) {
 
 		var self = this;	
 
@@ -39,8 +37,8 @@ var desenhador = desenhador || {};
 			var appName = config.appName || 'desenhador';
 			var width = config.width || 1024;
 			var height = config.height || 768;
-			var makeController = config.makeController || desenhador.controller.makeController;
-			var makeService = config.makeService || desenhador.service.makeService;
+			var makeController = config.makeController || controller.makeController;
+			var makeService = config.makeService || service.makeService;
 			
 			console.debug('VISUALIZAR PROJETO '+title);
 
@@ -148,9 +146,7 @@ var desenhador = desenhador || {};
 				title : 'Projeto v1024'
 			});
 		});
+	}
 
-		return {
-			'openPopup' : self.openPopup
-		}
-	};
-})(desenhador);
+	return self;
+}]);

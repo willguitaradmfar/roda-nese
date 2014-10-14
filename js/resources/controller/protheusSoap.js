@@ -1,12 +1,6 @@
-(function(global) {
-	global.desenhador = global.desenhador || {};
-	global.desenhador.resources = global.desenhador.resources || {};
-	global.desenhador.resources.protheusSoap = global.desenhador.resources.protheusSoap || {};	
-	global.desenhador.resources.protheusSoap.controller = global.desenhador.resources.protheusSoap.controller || {};	
-
-	var self = global.desenhador.resources.protheusSoap.controller;
-
-	self.scope = {};
+inject.define("resources.controller.protheusSoap", [function () {
+    var self = {};
+    self.scope = {};
 
 	self.inject = {};
 	self.inject['$http'] = '$http';
@@ -23,10 +17,15 @@
 	self.scope.list = function() {
 		soap.list({
                     CTABLE : '$table$',
-                    CFIELDS : '$columns$'
-                }, function(d){
-                    $scope.$context$.$table$List = eval('('+d+')').Rows;
+                    CFIELDS : ''
+                }, function(error, result){
+                	if(error)
+                		$scope.$context$.$messageError$ = error;
+                	else
+                    	$scope.$context$.$table$List = eval('('+result+')').Rows;
                 }
         );
 	};	
-})(window);
+
+    return self;
+}]);

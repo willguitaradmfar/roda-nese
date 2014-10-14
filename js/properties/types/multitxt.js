@@ -1,9 +1,5 @@
-(function (global) {
-	global.desenhador = global.desenhador || {};
-	global.desenhador.properties = global.desenhador.properties || {};
-	global.desenhador.properties.types = global.desenhador.properties.types || {};
-	global.desenhador.properties.types.multitxt = global.desenhador.properties.types.multitxt || {};
-	var self = global.desenhador.properties.types.multitxt;
+inject.define("properties.types.multitxt", [function () {
+    var self = {}; 
 
 	self.make = function (comp, field, property, td) {
 		var name = 'property.'+field;
@@ -13,4 +9,5 @@
 		input.tagsinput();
 	};	
 
-})(window);
+	return self;
+}]);

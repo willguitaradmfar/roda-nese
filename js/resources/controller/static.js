@@ -1,12 +1,6 @@
-(function(global) {
-	global.desenhador = global.desenhador || {};
-	global.desenhador.resources = global.desenhador.resources || {};
-	global.desenhador.resources.static = global.desenhador.resources.static || {};	
-	global.desenhador.resources.static.controller = global.desenhador.resources.static.controller || {};	
-
-	var self = global.desenhador.resources.static.controller;
-
-	self.scope = {};
+inject.define("resources.controller.static", [function () {
+    var self = {};
+    self.scope = {};
 
 	self.inject = {};
 	self.inject['$http'] = '$http';
@@ -26,5 +20,5 @@
 	            {nome  : 'Gol', power : 22, modelo : {nome : 'Gol 1.0', marca : {nome : 'Volksvagem'}}}
 	        ];
 	};
-	
-})(window);
+    return self;
+}]);

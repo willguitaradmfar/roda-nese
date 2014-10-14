@@ -1,9 +1,5 @@
-(function (global) {
-	global.desenhador = global.desenhador || {};
-	global.desenhador.properties = global.desenhador.properties || {};
-	global.desenhador.properties.types = global.desenhador.properties.types || {};
-	global.desenhador.properties.types.txt = global.desenhador.properties.types.txt || {};
-	var self = global.desenhador.properties.types.txt;
+inject.define("properties.types.txt", [function () {
+    var self = {}; 
 
 	self.make = function (comp, field, property, td) {			
 
@@ -13,4 +9,5 @@
 		td.append(input);
 	};	
 
-})(window);
+	return self;
+}]);

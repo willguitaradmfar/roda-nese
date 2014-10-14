@@ -1,25 +1,30 @@
-(function (global) {
-	global.desenhador = global.desenhador || {};
-	global.desenhador.config = global.desenhador.config || {};
-	global.desenhador.config.internationalization = global.desenhador.config.internationalization || {};
-	var self = global.desenhador.config.internationalization;
+inject.define("config.internationalization", ["config.internationalization.translate", function (translate) {
+	
+	var self = {};
+
+	self.setLanguage = function (language) {
+		self.language = language;
+	};
 
 	self.translate = function (moduleName, key) {
-		if(!desenhador.config.internationalization[self.language]){
+
+		if(!translate[self.language]){
 			console.warn('LANGUAGEM NAO INCLUIDA');
 			return key;
 		}
-		if(!desenhador.config.internationalization[self.language][moduleName]){
+		if(!translate[self.language][moduleName]){
 			console.warn('MODULO '+moduleName+' NAO TEM TRADUCAO');
 			return key;
 		}
-		if(!desenhador.config.internationalization[self.language][moduleName][key]){
+		if(!translate[self.language][moduleName][key]){
 			console.warn('CHAVE '+key+' DO MODULO '+moduleName+' NAO TEM TRADUCAO');
 			return key;
 		}
 
-		var transated = desenhador.config.internationalization[self.language][moduleName][key];
+		var transated = translate[self.language][moduleName][key];
 		return (transated ? transated : key);
 	};
 
-})(window)
+	return self;
+
+}]);

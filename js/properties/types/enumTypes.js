@@ -1,8 +1,5 @@
-(function(global) {
-	global.desenhador = global.desenhador || {};
-	global.desenhador.enumTypes = global.desenhador.enumTypes || {};
-
-	var self = global.desenhador.enumTypes;
+inject.define("properties.types.enumTypes", [function () {
+    var self = {}; 
 
 	self.templetes = {};
 	self.templetes['txt'] = 'txt';
@@ -20,4 +17,6 @@
 			console.warn('Tipo nao encontrado');			
 		return value;
 	};		
-})(window);
+
+	return self;
+}]);

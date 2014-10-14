@@ -1,8 +1,5 @@
-(function (global) {
-    global.desenhador = global.desenhador || {};
-    global.desenhador.resources = global.desenhador.resources || {};
-    global.desenhador.resources.strongLoopBack = global.desenhador.resources.strongLoopBack || {};
-    var self = global.desenhador.resources.strongLoopBack;
+inject.define("resources.datasource.strongLoopBack", [function () {
+    var self = {};
 
     self.name = 'strongLoopBack';
     self.category = 'datasource';
@@ -93,4 +90,5 @@
     self.update = function (target, comp, cb) {        
         metadata(comp, cb);        
     };    
-})(window);
+    return self;
+}]);

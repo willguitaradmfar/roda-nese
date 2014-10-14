@@ -46,24 +46,34 @@
     	<script src="dependency/tags/bootstrap-tagsinput.min.js"></script>
     	<!-- TAGS -->	
 
-		<!-- DESENHADOR -->
-		<script src="js/util.js"></script>
-		<script src="js/property.js"></script>
-		<script src="js/property-hover.js"></script>
-		<script src="js/palleta.js"></script>
-		<script src="js/dragdrop.js"></script>
-		<script src="js/preview.js"></script>
-		<script src="js/projects.js"></script>
-		<script src="js/controller.js"></script>
-		<script src="js/service.js"></script>
-		<script src="js/metadata.js"></script>
-		<script src="js/db.js"></script>		
-		<!-- DESENHADOR -->		
+    	<!-- DESENHADOR -->
+    	<script type="text/javascript">
+    	$(function () {
+    		//inject.debug = true;
+    		inject.src = 'js/';
 
-    	<!-- internationalization -->
-    	<script src="js/config/internationalization/pt-br.js"></script>
-    	<script src="js/config/internationalization.js"></script>
-    	<!-- internationalization -->
+    		inject.define("Main", [ "utils.util", 
+    								"previewers.previewer",
+    								"palletas.palleta",
+    								"dragdrops.dragdrop",
+    								"properties.propertyHover",    								
+    								"projects.project",
+    								"config.internationalization",
+                function(util, previewer, palleta, dragdrop, property, project, internationalization){                	
+					new previewer.preview($('.des-container'));
+					new palleta.palleta($('#palleta'));
+					dragdrop.dragdrop();
+					new property.listenerToolsProperty();
+					new project.projects();
+					internationalization.setLanguage('pt_br');
+                }]);
+    	});
+    	</script>
+    	<!-- DESENHADOR -->
+
+		<!-- DESENHADOR -->
+		<script src="js/db.js"></script>
+		<!-- DESENHADOR -->
 
 		<!-- COMPONENTES -->
 		<script src="js/components/inputForm.js"></script>
@@ -90,41 +100,10 @@
 		<!-- LAYOUTS -->
 		<script src="js/layouts/tab.js"></script>
 		<script src="js/layouts/cols.js"></script>
-		<!-- LAYOUTS -->
-
-		<!-- RESOURCES -->		
-		<script src="js/resources/strongloopback.js"></script>
-		<script src="js/resources/static.js"></script>
-		<script src="js/resources/protheusSoap.js"></script>
-		<!-- RESOURCES -->
-
-		<!-- CONTROLLER -->
-		<script src="js/resources/controller/protheusSoap.js"></script>
-		<script src="js/resources/controller/static.js"></script>
-		<!-- CONTROLLER -->
-
-		<!-- SERVICE -->
-		<script src="js/resources/service/protheusSoap.js"></script>		
-		<!-- SERVICE -->
-
-		<!-- PROPERTIES -->
-		<script src="js/properties/types/txt.js"></script>
-		<script src="js/properties/types/combo.js"></script>
-		<script src="js/properties/types/multitxt.js"></script>	
-		<script src="js/properties/types/metafields.js"></script>
-		<script src="js/properties/types/metamodels.js"></script>
-		<script src="js/properties/types/metaactions.js"></script>
-		<script src="js/properties/types/metafieldsmulti.js"></script>
-		<script src="js/properties/types/metaarrays.js"></script>	
-
-		<script src="js/properties/types/enumTypes.js"></script>
-
-		<script src="js/properties/proxy.js"></script>		
-		<!-- PROPERTIES -->
+		<!-- LAYOUTS -->		
 
 		<!-- APP -->
-		<link rel="stylesheet" href="css/style.css">
-		<script src="js/app.js"></script>
+		<link rel="stylesheet" href="css/style.css">		
 		<!-- APP -->
 
 	</head>

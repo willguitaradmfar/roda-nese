@@ -24,7 +24,7 @@
 	self.property.limit = 10;
 	self.property.multitxt_header = 'Col1,Col2';
 	self.property.metafieldsmulti_cols = '';
-	self.property.context = 'context';			
+	self.property.context = 'context';	
 	self.property.metamodels_select = 'select';
 	self.property.metamodels_filter = 'filter';
 	self.property.metaarrays_list = 'list';
