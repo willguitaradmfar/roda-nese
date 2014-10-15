@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+	#div1,#div2 {
+		width:350px;
+		height:200px;
+		padding:10px;
+		border:1px solid ;
+	}
+
+	.component{
+		width: 100px;
+		height: 100px;
+		border:1px solid #aaaaaa;
+		float: left;
+		margin: 5px;
+	}
+
+	.hy{
+		border:7px solid yellow;
+	}
+	
+.container{
+	width: 200px;
+}
+
+</style>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+</head>
+<body>
+	<div>
+		<div id="div1" class="drop"></div>
+		<div id="div2" class="drop"></div>
+	</div>
+<hr/>
+	<div class="container">
+		<ul>
+			<li class="drag" style="background-color: yellow;">Comp1</li>
+			<li class="drag" style="background-color: red;">Comp2</li>
+			<li class="drag" style="background-color: blue;">Comp3</li>
+			<li class="drag" style="background-color: green;">Comp4</li>
+			<li class="drag" style="background-color: orange;">Comp5</li>
+		</ul>
+	</div>
+</body>
+<script>
+
+$(function () {
+
+	var addClass = function (doc, _class) {
+		if(doc.className.indexOf(_class) == -1 )
+			doc.className = doc.className + ' ' +_class;
+	}
+
+	var removeClass = function (doc, _class) {
+		doc.className = doc.className.replace(_class, '');
+	}
+
+	
+
+ 	var drags = document.querySelectorAll('.drag');
+
+    [].forEach.call(drags, function(d) {
+        d.addEventListener('dragstart', handleDragStart, false);
+        d.addEventListener('dragenter', handleDragEnter, false);
+        d.addEventListener('dragover', handleDragOver, false);
+        d.addEventListener('dragleave', handleDragLeave, false);
+        d.addEventListener('dragend', handleDragEnd, false);
+        d.setAttribute('draggable', 'true');
+    });
+
+    var drops = document.querySelectorAll('.drop');
+
+    [].forEach.call(drops, function(d) {    	
+        d.addEventListener('drop', drop, false);
+        d.addEventListener('dragover', handleDragOver, false);
+    });
+
+	function handleDragOver(ev) {			
+	    ev.preventDefault();	    
+	    console.debug(ev.toElement);
+	    console.debug(ev.toElement.previousElementSibling);
+	    console.debug(ev);
+	    
+	}
+
+	function handleDragEnd (ev) {		
+	}
+
+	function handleDragLeave (ev) {		
+	}	
+
+	function handleDragEnter (ev) {
+		
+	}
+
+	function handleDragStart(ev) {
+	    ev.dataTransfer.setData("text/html", ev.target.id);
+	    ev.dataTransfer.setData("color", ev.target.getAttribute('style'));
+	}
+
+	function drop(ev) {		
+	    ev.preventDefault();
+	    var data = ev.dataTransfer.getData("text/html");
+	    var color = ev.dataTransfer.getData("color");
+	    
+	    if(data){
+	    	div = document.getElementById(data);
+	    	div.style = color;
+	    	ev.target.appendChild(div);
+	    }else{
+	    	var div = document.createElement("div");	    	
+		    div.className = 'component';
+		    div.id = 'ID'+Math.round(Math.random()*100);
+		    div.innerText = div.id;
+		    div.setAttribute('draggable', 'true');
+		    div.setAttribute('style', color);
+		    div.addEventListener('dragstart', handleDragStart, false);
+	    	ev.target.appendChild(div);
+	    }	    
+	}
+});
+
+
+</script>
+</html>
