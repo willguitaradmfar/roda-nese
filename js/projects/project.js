@@ -1,4 +1,4 @@
-inject.define("projects.project", ["utils.util", function (util) {
+inject.define("projects.project", ["utils.util", "utils.dao.component", function (util, dao) {
 
 	var self = {};
 
@@ -45,7 +45,7 @@ inject.define("projects.project", ["utils.util", function (util) {
 				$('.des-datasource').html(projeto.contentDatasource);
 				
 				//TODO: fazer parse de functions persistida na base								
-				util.restoreBkpDB(projeto.db);
+				dao.restoreBkpDB(projeto.db);
 			});
 		};
 
@@ -100,7 +100,7 @@ inject.define("projects.project", ["utils.util", function (util) {
 			projeto.name = nomeProjeto;
 			projeto.content = content;
 			projeto.contentDatasource = contentDatasource;
-			projeto.db = util.bkpDB();
+			projeto.db = dao.bkpDB();
 			projeto.date = new Date;
 			localStorage[nomeProjeto] = util.stringify(projeto);
 
