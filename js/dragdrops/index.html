@@ -3,7 +3,7 @@
 <head>
 <style>
 	#div1,#div2 {
-		width:350px;
+		width:90%;
 		height:200px;
 		padding:10px;
 		border:1px solid ;
@@ -21,9 +21,15 @@
 		border:7px solid yellow;
 	}
 	
-.container{
-	width: 200px;
-}
+	.container{
+		width: 200px;
+	}
+
+	.separator{		
+		height: 100px;
+		border:1px solid #aaaaaa;
+		float: left;
+	}
 
 </style>
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
@@ -49,6 +55,9 @@
 <script>
 
 $(function () {
+
+	var separator = document.createElement("div");
+	separator.className = 'separator';
 
 	var addClass = function (doc, _class) {
 		if(doc.className.indexOf(_class) == -1 )
@@ -80,10 +89,11 @@ $(function () {
     });
 
 	function handleDragOver(ev) {			
-	    ev.preventDefault();	    
-	    console.debug(ev.toElement);
-	    console.debug(ev.toElement.previousElementSibling);
-	    console.debug(ev);
+	    ev.preventDefault();
+	    var element = ev.toElement;
+	    console.debug(element);
+	    console.debug(element);
+	    element.appendChild(separator);
 	    
 	}
 
@@ -106,21 +116,21 @@ $(function () {
 	    ev.preventDefault();
 	    var data = ev.dataTransfer.getData("text/html");
 	    var color = ev.dataTransfer.getData("color");
-	    
+	    var div;
+
 	    if(data){
 	    	div = document.getElementById(data);
-	    	div.style = color;
-	    	ev.target.appendChild(div);
+	    	div.style = color;	    	
 	    }else{
-	    	var div = document.createElement("div");	    	
+	    	div = document.createElement("div");
 		    div.className = 'component';
 		    div.id = 'ID'+Math.round(Math.random()*100);
 		    div.innerText = div.id;
 		    div.setAttribute('draggable', 'true');
 		    div.setAttribute('style', color);
 		    div.addEventListener('dragstart', handleDragStart, false);
-	    	ev.target.appendChild(div);
-	    }	    
+	    }
+	    ev.target.appendChild(div);
 	}
 });
 
