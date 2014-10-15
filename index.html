@@ -56,14 +56,16 @@
     								"palletas.palleta",
     								"dragdrops.dragdrop",
     								"properties.propertyHover",    								
-    								"projects.project",
+    								"projects.projectFileStorage",
+    								"projects.projectLocalStorage",
     								"config.internationalization",
-                function(util, previewer, palleta, dragdrop, propertyHover, project, internationalization){                	
+                function(util, previewer, palleta, dragdrop, propertyHover, projectFileStorage, projectLocalStorage, internationalization){                	
 					new previewer.preview($('.des-container'));
 					new palleta.palleta($('#palleta'));
 					dragdrop.dragdrop();
 					new propertyHover.listenerToolsProperty();
-					new project.projects();
+					new projectFileStorage.projects();
+					new projectLocalStorage.projects();
 					internationalization.setLanguage('pt_br');
                 }]);
     	});
@@ -94,9 +96,13 @@
 				  <span class="btn btn-danger dropdown-toggle glyphicon glyphicon-trash" type="button" id="limpar">
 				    
 				  </span>
-				  <span class="btn btn-success dropdown-toggle glyphicon glyphicon-save" type="button" id="salvar">
+				  <span class="btn btn-success dropdown-toggle glyphicon glyphicon-save" type="button" id="salvarLocalStorage">
 				    
 				  </span>
+
+				  <span class="btn btn-success dropdown-toggle glyphicon glyphicon-floppy-disk" type="button" id="salvarFile">
+				    
+				  </span>				  
 				  <span class="logoTOTVS"><img src="image/logo.png"></span>
 				</div>
 

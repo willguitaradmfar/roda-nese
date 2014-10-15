@@ -33,7 +33,13 @@ inject.define("utils.util", ["database.db", function (db) {
 	};	
 
 	self.eval = function (script) {
-		return eval('('+script+')');
+		var response;
+		try{
+			response = eval('('+script+')');
+		}catch(e){
+			response = eval(script);
+		}
+		return response;
 	};
 	
 	return self;

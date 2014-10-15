@@ -1,4 +1,4 @@
-inject.define("projects.project", ["utils.util", "utils.dao.component", function (util, dao) {
+inject.define("projects.projectLocalStorage", ["utils.util", "utils.dao.component", function (util, dao) {
 
 	var self = {};
 
@@ -102,7 +102,7 @@ inject.define("projects.project", ["utils.util", "utils.dao.component", function
 			projeto.contentDatasource = contentDatasource;
 			projeto.db = dao.bkpDB();
 			projeto.date = new Date;
-			localStorage[nomeProjeto] = util.stringify(projeto);
+			localStorage[nomeProjeto] = util.stringify(projeto);			
 
 			body.find('table').remove();
 			body.append(povoarTabelaProjetos());
@@ -120,7 +120,7 @@ inject.define("projects.project", ["utils.util", "utils.dao.component", function
 			$('.des-datasource').html('');			
 		});
 
-		$('#salvar').on('click', function () {
+		$('#salvarLocalStorage').on('click', function () {
 			console.debug('ABRINDO DIALOG PARA SALVAR PROJETO');
 			openSaveDialog();
 		});
