@@ -1,10 +1,10 @@
-inject.define("metadatas.metadata", ["utils.util", function (util) {
+inject.define("metadatas.metadata", ["utils.dao.component", function (dao) {
     var self = {};
 
     self.find = function (query, hand) {
 		var nonvisuals = $('.des-datasource .nonvisual');
 		nonvisuals.each(function (i, nonvisual) {
-			var comp = util.getCompDBById(nonvisual, 'data-comp-id');
+			var comp = dao.getCompDBById(nonvisual, 'data-comp-id');
 			hand(comp.metadata);
 		});
 	};		

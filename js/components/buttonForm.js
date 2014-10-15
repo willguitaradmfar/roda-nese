@@ -26,8 +26,7 @@
 
 		$(target).attr('class', _class.join(' '));
 
-		$(target).text(' '+comp.property.label);
-		debugger;
+		$(target).text(' '+comp.property.label);		
 		var action = comp.property.metaactions_actionClick;
 		
 		$(target).attr('data-ng-click', action);

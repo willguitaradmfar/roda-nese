@@ -1,4 +1,4 @@
-inject.define("properties.property", ["utils.util", "properties.proxy", function (util, proxy) {
+inject.define("properties.property", ["utils.dao.component", "properties.proxy", function (dao, proxy) {
 	
 	var self = {};
 
@@ -30,14 +30,14 @@ inject.define("properties.property", ["utils.util", "properties.proxy", function
 	};	
 
 	self.removerComponente = function ($this, comp) {
-		util.removeCompDB($this);
+		dao.removeCompDB($this);
 		$this.remove();
 		if(comp.remove)comp.remove($this, comp);					
 		$( "#dialog" ).dialog( "close" );
 	};
 
 	self.dblclickProperty = function ($this) {
-		var comp = util.getCompDBById($this, 'data-comp-id');
+		var comp = dao.getCompDBById($this, 'data-comp-id');
 		console.debug('dblclick em componente já arrastado '+comp.___id+' !!! :: ');		
 
 		accordion = self.buildAccordion();
@@ -69,10 +69,10 @@ inject.define("properties.property", ["utils.util", "properties.proxy", function
 		};
 
 		var updatePropertyComp = function($_this, _comp) {					
-			util.updateCompDB($_this, _comp);
+			dao.updateCompDB($_this, _comp);
 			console.debug('UPDATE COMPONENT : ('+(_comp.name || _comp.property.nameService) + ' '+comp.___id+')');
 			_comp.update($_this, _comp, function () {
-				util.updateCompDB($_this, _comp);
+				dao.updateCompDB($_this, _comp);
 			});
 		}
 

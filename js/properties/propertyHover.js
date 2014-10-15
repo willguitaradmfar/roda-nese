@@ -1,4 +1,4 @@
-inject.define("properties.propertyHover", ["properties.property", "utils.util", function (property, util) {
+inject.define("properties.propertyHover", ["properties.property", "utils.dao.component", function (property, dao) {
 
 	property.listenerToolsProperty = function () {
 
@@ -15,7 +15,7 @@ inject.define("properties.propertyHover", ["properties.property", "utils.util", 
 			tools.attr('style', 'min-width: 100px;opacity: 0.5;z-index: 10; position: absolute; top:'+top+'; left: '+left+'; width : '+($(this).width()));
 			tools.data('data-comp-id-selected', $(this));
 
-			var comp = util.getCompDBById($(this), 'data-comp-id');
+			var comp = dao.getCompDBById($(this), 'data-comp-id');
 			btn_label.text(comp.name + ' ID:'+comp.___id);
 		});
 
@@ -26,7 +26,7 @@ inject.define("properties.propertyHover", ["properties.property", "utils.util", 
 
 		$(document).on('click', '.tools-remove', function () {
 			var $this = $(this).parents('.tools').data('data-comp-id-selected');
-			var comp = util.getCompDBById($this, 'data-comp-id');
+			var comp = dao.getCompDBById($this, 'data-comp-id');
 			property.removerComponente($this, comp);				
 			$('.tools').attr('style', 'display:none');
 		});

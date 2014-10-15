@@ -1,7 +1,7 @@
 inject.define("palletas.palleta", [
-	"utils.util", 
-	"resources.datasource",
-	function (util, datasource) {
+	"utils.dao.component",
+	"resources.datasource",	
+	function (dao, datasource) {
 		var self = {};
 
 		self.palleta = function(target) {
@@ -15,7 +15,7 @@ inject.define("palletas.palleta", [
 				var templ = $(layout.templ);
 				templ.addClass('des-layout');
 				palleta.find('#'+layout.category).find('.panel-body').append(templ);
-				util.updateCompDB(templ, layout, 'data-palleta-id');
+				dao.updateCompDB(templ, layout, 'data-palleta-id');
 			}
 
 			for(var i in desenhador.componentes){
@@ -24,7 +24,7 @@ inject.define("palletas.palleta", [
 				var templ = $(componente.templ);
 				templ.addClass('component');			
 				palleta.find('#'+componente.category).find('.panel-body').append(templ);
-				util.updateCompDB(templ, componente, 'data-palleta-id');
+				dao.updateCompDB(templ, componente, 'data-palleta-id');
 			}
 
 			for(var i in datasource){
@@ -34,7 +34,7 @@ inject.define("palletas.palleta", [
 				templSpan
 					.addClass('nonvisual');
 					
-				util.updateCompDB(templSpan, servico, 'data-palleta-id');
+				dao.updateCompDB(templSpan, servico, 'data-palleta-id');
 				palleta.find('#'+servico.category).find('.panel-body').append(templSpan);
 				console.debug('ADD RESOURCE TO PALLETA ('+i+')');
 			}

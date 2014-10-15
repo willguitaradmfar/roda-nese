@@ -1,5 +1,6 @@
-(function(global, undefined) {
-	var db = function () {
+inject.define("database.db", [function () {
+    var self = {};
+    var db = function () {
 		var _db = [];
 		var id = 0;
 		
@@ -89,26 +90,23 @@
 			bkp : bkp,
 			restoreBkp : restoreBkp
 		};
-	};
-
-	global.desenhador = global.desenhador || {};
-	global.desenhador.db = global.desenhador.db || {};
+	};	
 
 	var database = new db();
 		
-	var insert = function (doc) {
+	self.insert = function (doc) {
 		 return database.insert(doc);
 	};
 
-	var bkp = function () {
+	self.bkp = function () {
 		return database.bkp();
 	};
 
-	var restoreBkp = function (__db) {
+	self.restoreBkp = function (__db) {
 		database.restoreBkp(__db);
 	}
 
-	var find = function (query, hand) {
+	self.find = function (query, hand) {
 		hand = hand || function (d) {
 			console.debug('ENCONTRADO : '+d.___id);
 		};
@@ -118,39 +116,30 @@
 		}
 	};
 
-	var findOne = function(query) {
+	self.findOne = function(query) {
 		var t = database.findOne(query);
 		return t;
 	};
 
-	var findOneById = function(id) {
+	self.findOneById = function(id) {
 		var t = database.findOne(id);
 		return t;
 	};
 
-	var remove = function (id) {
+	self.remove = function (id) {
 		if(!id) throw 'id indefinido'			
 		var r = database.remove(id);
 		console.debug('DELETOU '+r+' REGISTRO(S)');
 		return r;
 	};
 
-	var count = function (query) {
+	self.count = function (query) {
 		return database.count(query);
 	};
 
-	var update = function (query, _update) {
+	self.update = function (query, _update) {
 		return database.update(query, _update);
-	};	
+	};
 
-	global.desenhador.db.insert = insert;
-	global.desenhador.db.find = find;
-	global.desenhador.db.count = count;
-	global.desenhador.db.update = update;
-	global.desenhador.db.remove = remove;
-	global.desenhador.db.findOne = findOne;
-	global.desenhador.db.findOneById = findOneById;
-	global.desenhador.db.bkp = bkp;
-	global.desenhador.db.restoreBkp = restoreBkp;
-	
-})(window);
+    return self;
+}]);

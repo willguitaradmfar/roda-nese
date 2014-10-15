@@ -1,4 +1,4 @@
-inject.define("dragdrops.dragdrop", ["utils.util", function (util) {
+inject.define("dragdrops.dragdrop", ["utils.dao.component", function (dao) {
     var self = {};    
 
     var sortable = function(targets) {
@@ -61,12 +61,12 @@ inject.define("dragdrops.dragdrop", ["utils.util", function (util) {
         }
 
         var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
-        var comp = util.getCompDBById($this, attr);
+        var comp = dao.getCompDBById($this, attr);
         if (comp.drag) {
             console.debug('CHAMANDO FUNCTION drag() ....');
             comp.drag($this, comp);
         }
-        util.updateCompDB($this, comp);
+        dao.updateCompDB($this, comp);
     };
 
     var dropComponentNonvisual = function(event, ui) {
@@ -77,12 +77,12 @@ inject.define("dragdrops.dragdrop", ["utils.util", function (util) {
         }
 
         var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
-        var comp = util.getCompDBById($this, attr);
+        var comp = dao.getCompDBById($this, attr);
         if (comp.drag) {
             console.debug('CHAMANDO FUNCTION drag() ....');
             comp.drag($this, comp);
         }
-        util.updateCompDB($this, comp);
+        dao.updateCompDB($this, comp);
     };
 
     var dropComponentProjectLayout = function(event, ui) {
@@ -93,14 +93,14 @@ inject.define("dragdrops.dragdrop", ["utils.util", function (util) {
         }
 
         var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
-        var comp = util.getCompDBById($this, attr);
+        var comp = dao.getCompDBById($this, attr);
 
         if (comp.drag) {
             console.debug('CHAMANDO FUNCTION drag() ....');
             comp.drag($this, comp);
         }
 
-        util.updateCompDB($this, comp);
+        dao.updateCompDB($this, comp);
 
         sortable(['.des-container', '.des-datasource', '.des-layout']);
 

@@ -1,4 +1,4 @@
-inject.define("builds.controller", ["utils.util", function (util) {
+inject.define("builds.controller", ["utils.dao.component", "utils.processTemplate", function (dao, processTemplate) {
     var self = {};
     var struct = {};
 	struct._injects = {};
@@ -62,7 +62,7 @@ inject.define("builds.controller", ["utils.util", function (util) {
 
 		for(var y = 0 ; y < comps.length ; y++){			
 
-			var comp = util.getCompDBById($(comps[y]), 'data-comp-id');
+			var comp = dao.getCompDBById($(comps[y]), 'data-comp-id');
 
 			if(!comp)continue;
 
@@ -76,8 +76,8 @@ inject.define("builds.controller", ["utils.util", function (util) {
 			var scope = comp.controller.scope;
 			for(var i in scope){
 				var s = scope[i];
-				console.debug(util.processTemplateParam(s, comp.property));
-				setFunctions(context, i, util.processTemplateParam(s, comp.property));
+				console.debug(processTemplate.processTemplateParam(s, comp.property));
+				setFunctions(context, i, processTemplate.processTemplateParam(s, comp.property));
 			}
 
 			var inject = comp.controller.inject;			

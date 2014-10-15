@@ -1,8 +1,10 @@
 inject.define("resources.datasource.protheusSoap", [
-    "utils.util", 
+    "utils.util",
+    "utils.base64",
+    "utils.soap",
     "resources.service.protheusSoap",
     "resources.controller.protheusSoap",
-        function (util, service, controller) {
+        function (util, base64, soap, service, controller) {
 
         var self = {};
 
@@ -74,7 +76,7 @@ inject.define("resources.datasource.protheusSoap", [
         var metadata = function (comp, cb) {
             var cid = "cid:"+util.random(1000 * 10);
 
-            util.sendSoap(
+            soap.sendSoap(
                 comp.property.urlWS, 
                 method, 
                     {
@@ -84,7 +86,7 @@ inject.define("resources.datasource.protheusSoap", [
                     },
                     tagResult,
                     function(d){
-                        var meta = util.eval(util.Base64.decode(d));
+                        var meta = util.eval(base64.decode(d));
                         processMeta(comp, meta);
                     }
             );

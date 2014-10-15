@@ -1,4 +1,4 @@
-inject.define("builds.service", ["utils.util", function (util) {
+inject.define("builds.service", ["utils.dao.component", "utils.processTemplate", function (dao, processTemplate) {
     var self = {};
 
     var struct = {};	
@@ -25,7 +25,7 @@ inject.define("builds.service", ["utils.util", function (util) {
 
 		for(var y = 0 ; y < comps.length ; y++){			
 
-			var comp = util.getCompDBById($(comps[y]), 'data-comp-id');
+			var comp = dao.getCompDBById($(comps[y]), 'data-comp-id');
 
 			if(!comp)continue;
 			
@@ -37,8 +37,8 @@ inject.define("builds.service", ["utils.util", function (util) {
 			var scope = comp.service.scope;
 			for(var i in scope){
 				var s = scope[i];
-				console.debug(util.processTemplateParam(s, comp.property));
-				setFunctions(i, util.processTemplateParam(s, comp.property));
+				console.debug(processTemplate.processTemplateParam(s, comp.property));
+				setFunctions(i, processTemplate.processTemplateParam(s, comp.property));
 			}			
 		}
 	};
