@@ -51,7 +51,6 @@
     	$(function () {
     		//inject.debug = true;
     		inject.src = 'js/';
-
     		inject.define("Main", [ "utils.util", 
     								"previewers.previewer",
     								"palletas.palleta",
@@ -59,11 +58,11 @@
     								"properties.propertyHover",    								
     								"projects.project",
     								"config.internationalization",
-                function(util, previewer, palleta, dragdrop, property, project, internationalization){                	
+                function(util, previewer, palleta, dragdrop, propertyHover, project, internationalization){                	
 					new previewer.preview($('.des-container'));
 					new palleta.palleta($('#palleta'));
 					dragdrop.dragdrop();
-					new property.listenerToolsProperty();
+					new propertyHover.listenerToolsProperty();
 					new project.projects();
 					internationalization.setLanguage('pt_br');
                 }]);
@@ -71,37 +70,9 @@
     	</script>
     	<!-- DESENHADOR -->
 
-		<!-- COMPONENTES -->
-		<script src="js/components/inputForm.js"></script>
-		<script src="js/components/textareaForm.js"></script>
-		<script src="js/components/buttonForm.js"></script>
-		<script src="js/components/separatorForm.js"></script>
-		<script src="js/components/icon.js"></script>
-		<script src="js/components/label.js"></script>
-		<script src="js/components/h1.js"></script>
-		<script src="js/components/h2.js"></script>
-		<script src="js/components/h3.js"></script>
-		<script src="js/components/h4.js"></script>
-		<script src="js/components/h5.js"></script>
-		<script src="js/components/h6.js"></script>
-		<script src="js/components/alertMessage.js"></script>
-		<script src="js/components/image.js"></script>
-		<script src="js/components/selectForm.js"></script>
-		<script src="js/components/grid.js"></script>
-		<script src="js/components/chartPie.js"></script>
-		<script src="js/components/chartLine.js"></script>
-		<script src="js/components/progress.js"></script>		
-		<!-- COMPONENTES -->
-
-		<!-- LAYOUTS -->
-		<script src="js/layouts/tab.js"></script>
-		<script src="js/layouts/cols.js"></script>
-		<!-- LAYOUTS -->		
-
 		<!-- APP -->
 		<link rel="stylesheet" href="css/style.css">		
 		<!-- APP -->
-
 	</head>
 	<body>
 	<div class="container-fluid">

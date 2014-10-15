@@ -1,8 +1,7 @@
 inject.define("properties.proxy", [
 			"config.internationalization", 
-			"properties.types", 
-			"properties.types.enumTypes",  
-		function (internationalization, types, enumTypes) {
+			"properties.types",
+		function (internationalization, types) {
 			var self = {};
 			self.name = 'BASIC';
 
@@ -18,13 +17,10 @@ inject.define("properties.proxy", [
 					tr.append('<td>'+label+'</td>');				
 
 					var type = i.substring(0,i.indexOf('_')) || 'txt';
-					if(!type) throw 'CAMPO ['+i+'] DE PROPRIEDADE SEM TIPO';
-
-					var prop = enumTypes.make(type);
-					if(!prop) throw 'TIPO ['+type+'] NÃO ENCONTRADO NO ENUM';
+					if(!type) throw 'CAMPO ['+i+'] DE PROPRIEDADE SEM TIPO';					
 					
-					var module = types.types[prop];
-					if(!module) throw 'NAO ENCONTRADO DEFINICAO PARA ESSE TIPO ['+prop+']';
+					var module = types.types[type];
+					if(!module) throw 'NAO ENCONTRADO DEFINICAO PARA ESSE TIPO ['+type+']';
 					var td = $('<td></td>');
 					module.make(comp, i, property, td)
 

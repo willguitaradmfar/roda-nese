@@ -1,16 +1,16 @@
 inject.define("palletas.palleta", [
-	"utils.dao.component",
-	"resources.datasource",	
-	function (dao, datasource) {
+		"utils.dao.component",
+		"palletas.resources.datasource",
+		"palletas.components.component",
+		"palletas.layouts.layout",
+	function (dao, datasource, components, layouts) {
 		var self = {};
-
+		
 		self.palleta = function(target) {
 			var palleta = $(target);
 
-			try{if(!desenhador.componentes){}}catch(e){throw 'NÃO EXITE COMPONENTES PARA IMPORTAÇÃO NA PALLETA';}
-
-			for(var i in desenhador.layouts){
-				var layout = desenhador.layouts[i];
+			for(var i in layouts){
+				var layout = layouts[i];
 				console.debug('ADD LAYOUT TO PALLETA ('+i+')');
 				var templ = $(layout.templ);
 				templ.addClass('des-layout');
@@ -18,8 +18,8 @@ inject.define("palletas.palleta", [
 				dao.updateCompDB(templ, layout, 'data-palleta-id');
 			}
 
-			for(var i in desenhador.componentes){
-				var componente = desenhador.componentes[i];
+			for(var i in components){
+				var componente = components[i];
 				console.debug('ADD COMPONENT TO PALLETA ('+i+')');
 				var templ = $(componente.templ);
 				templ.addClass('component');			
@@ -39,7 +39,6 @@ inject.define("palletas.palleta", [
 				console.debug('ADD RESOURCE TO PALLETA ('+i+')');
 			}
 		};
-
 		return self;
 	}]);
 

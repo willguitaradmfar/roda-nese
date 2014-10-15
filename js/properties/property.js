@@ -42,7 +42,7 @@ inject.define("properties.property", ["utils.dao.component", "properties.proxy",
 
 		accordion = self.buildAccordion();
 
-		accordion.add("Config", proxy.buildProperty(comp));		
+		accordion.add("Config", proxy.buildProperty(comp));
 
 		var frame = self.buildBarraDeBotoes();
 		frame.append(accordion.accordion);

@@ -1,5 +1,5 @@
 inject.define("utils.util", ["database.db", function (db) {
-	var self = {};	
+	var self = {};
 
 	self.clone = function (obj) {
 		if(obj == null || typeof(obj) != 'object')
