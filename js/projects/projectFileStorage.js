@@ -34,12 +34,6 @@ inject.define("projects.projectFileStorage", ["utils.util", "utils.dao.component
 	};
 
 	self.projects = function () {
-		$('#limpar').on('click', function () {
-			console.debug('LIMPANDO PROJETO');
-			$('.des-container').html('');
-			$('.des-datasource').html('');			
-		});
-
 		$('#salvarFile').on('click', function () {
 			console.debug('ABRINDO DIALOG PARA SALVAR PROJETO');
 			openSaveDialog();

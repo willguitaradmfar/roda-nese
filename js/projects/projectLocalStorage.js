@@ -114,12 +114,6 @@ inject.define("projects.projectLocalStorage", ["utils.util", "utils.dao.componen
 	};
 
 	self.projects = function () {
-		$('#limpar').on('click', function () {
-			console.debug('LIMPANDO PROJETO');
-			$('.des-container').html('');
-			$('.des-datasource').html('');			
-		});
-
 		$('#salvarLocalStorage').on('click', function () {
 			console.debug('ABRINDO DIALOG PARA SALVAR PROJETO');
 			openSaveDialog();
