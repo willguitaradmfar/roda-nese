@@ -3,8 +3,9 @@ inject.define("palletas.palleta", [
 		"palletas.resources.datasource",
 		"palletas.components.component",
 		"palletas.layouts.layout",
-	function (dao, datasource, components, layouts) {
-		var self = {};
+		"utils.legend",
+	function (dao, datasource, components, layouts, legend) {
+		var self = {};		
 		
 		self.palleta = function(target) {
 			var palleta = $(target);
@@ -15,7 +16,8 @@ inject.define("palletas.palleta", [
 				var templ = $(layout.templ);
 				templ.addClass('des-layout');
 				palleta.find('#'+layout.category).find('.panel-body').append(templ);
-				dao.updateCompDB(templ, layout, 'data-palleta-id');
+				layout.location = legend.attrPalleta;
+				dao.updateCompDB(templ, layout, legend.attrPalleta);
 			}
 
 			for(var i in components){
@@ -24,19 +26,21 @@ inject.define("palletas.palleta", [
 				var templ = $(componente.templ);
 				templ.addClass('component');			
 				palleta.find('#'+componente.category).find('.panel-body').append(templ);
-				dao.updateCompDB(templ, componente, 'data-palleta-id');
+				componente.location = legend.attrPalleta;
+				dao.updateCompDB(templ, componente, legend.attrPalleta);
 			}
 
 			for(var i in datasource){
 				var servico = datasource[i];
-				var templSpan = $('<span class="btn btn-'+(servico.color || 'warning')+' glyphicon glyphicon-'+(servico.icon || 'cloud')+'"></span><span>.</span>');
-
-				templSpan
-					.addClass('nonvisual');
-					
-				dao.updateCompDB(templSpan, servico, 'data-palleta-id');
-				palleta.find('#'+servico.category).find('.panel-body').append(templSpan);
 				console.debug('ADD RESOURCE TO PALLETA ('+i+')');
+
+				var templSpan = $('<span class="btn btn-'+(servico.color || 'warning')+' glyphicon glyphicon-'+(servico.icon || 'cloud')+'"></span><span>.</span>');
+				templSpan
+					.addClass('nonvisual');				
+				palleta.find('#'+servico.category).find('.panel-body').append(templSpan);
+				
+				servico.location = legend.attrPalleta;
+				dao.updateCompDB(templSpan, servico, legend.attrPalleta);
 			}
 		};
 		return self;

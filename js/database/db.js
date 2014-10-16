@@ -102,13 +102,7 @@ inject.define("database.db", [function () {
 		return database.bkp();
 	};
 
-	self.restoreBkp = function (__db) {
-		for(var i in __db){
-			var comp = __db[i];
-			if(comp && comp.update){
-				comp.update = eval('('+comp.update+')');
-			}
-		}
+	self.restoreBkp = function (__db) {		
 		database.restoreBkp(__db);
 	}
 

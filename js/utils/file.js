@@ -6,7 +6,7 @@ inject.define("utils.file", ["utils.util", function (util) {
 
         var a = document.createElement('a');
         a.textContent = 'download';
-        a.download = name+'.des';
+        a.download = name;
         a.href = 'data:text/csv;charset=utf-8,'+escape(strSave);
         a.click();
     }
