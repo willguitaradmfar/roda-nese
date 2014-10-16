@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+
+.example {
+	width: 30%;
+	height: 300px;
+	border: 1px solid;
+	float: left;
+}
+
+.comp {
+	width: 40px;
+	height: 40px;
+	border: 1px solid;
+	float: left;
+}
+
+.comp1 {
+	width: 60px;
+	height: 60px;
+	border: 1px solid;
+	float: left;
+}
+
+.comp2 {
+	width: 80px;
+	height: 80px;
+	border: 1px solid;
+	float: left;
+}
+
+.comp3 {
+	width: 80px;
+	height: 80px;
+	border: 1px solid;
+	float: left;
+}
+
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+.example .placeholder {
+  position: relative;
+  /** More li styles **/
+}
+.example .placeholder:before {
+  position: absolute;
+  /** Define arrowhead **/
+}
+
+</style>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+  <script src="../..//dependency/injectJS/injectJS.js"></script>
+  <script src="../..//dependency/sortableJquery/jquery-sortable.js"></script>
+</head>
+<body>
+
+<div class="example target">
+  <div class="comp">1</div>
+  <div class="comp">2</div>
+  <div class="comp">3</div>
+</div>
+
+<div class="example target">
+  <div class="comp">4</div>
+  <div class="comp">5</div>
+  <div class="comp">6</div>
+</div>
+<div class="example target">
+  <div class="comp1">7</div>
+  <div class="comp1">8</div>
+  <div class="comp1">9</div>
+</div>
+<div class="example target">
+  <div class="comp2"><div class="comp3 target"></div></div>
+  <div class="comp2">11</div>
+  <div class="comp2">12</div>
+</div>
+
+</body>
+<script>
+
+$(function  () {
+  $(".target").sortable({
+  	group: 'target',
+  	containerSelector : 'div',
+  	itemSelector: ".comp, .comp1, .comp2",
+  afterMove: function (placeholder, container) {
+   
+  },
+  onDrop: function (item, container, _super) {
+    
+    _super(item)
+  }
+  });
+
+});
+
+
+</script>
+</html>

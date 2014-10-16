@@ -43,8 +43,8 @@ inject.define("palletas.components.progress", [function () {
 			_class.push('progress-bar-'+comp.property.combo_tipo.val);
 		}
 
-		if(comp.property.striped.val && comp.property.striped.val != 'none'){
-			_class.push('progress-bar-'+comp.property.striped.val);
+		if(comp.property.combo_striped.val && comp.property.combo_striped.val != 'none'){
+			_class.push('progress-bar-'+comp.property.combo_striped.val);
 		}
 
 		$(target).find('.progress-bar').attr('class', _class.join(' '));

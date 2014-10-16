@@ -5,7 +5,8 @@ inject.define("dragdrops.dragdrop", ["utils.dao.component", function (dao) {
         for (var i in targets) {
             var target = targets[i];
             $(target).sortable({
-                
+                connectWith: $(target),
+                opacity: .35
             });
         }
     };
@@ -112,7 +113,9 @@ inject.define("dragdrops.dragdrop", ["utils.dao.component", function (dao) {
 
 
     self.dragdrop = function() {
+
         sortable(['.des-container', '.des-datasource', '.des-layout']);
+
         draggable($('#palleta .des-layout'), ['#project.des-container']);
         droppable(['.des-container'], dropComponentProjectLayout);
 

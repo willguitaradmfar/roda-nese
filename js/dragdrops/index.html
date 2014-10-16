@@ -26,7 +26,7 @@
 	}
 
 	.separator{		
-		height: 100px;
+		height: 10px;
 		border:1px solid #aaaaaa;
 		float: left;
 	}
@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
   <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+  <script src="../..//dependency/injectJS/injectJS.js"></script>
 </head>
 <body>
 	<div>
@@ -59,6 +60,9 @@ $(function () {
 	var separator = document.createElement("div");
 	separator.className = 'separator';
 
+	var x = 0, y = 0;
+	var lastComponent;
+
 	var addClass = function (doc, _class) {
 		if(doc.className.indexOf(_class) == -1 )
 			doc.className = doc.className + ' ' +_class;
@@ -66,9 +70,7 @@ $(function () {
 
 	var removeClass = function (doc, _class) {
 		doc.className = doc.className.replace(_class, '');
-	}
-
-	
+	}	
 
  	var drags = document.querySelectorAll('.drag');
 
@@ -90,10 +92,56 @@ $(function () {
 
 	function handleDragOver(ev) {			
 	    ev.preventDefault();
-	    var element = ev.toElement;
-	    console.debug(element);
-	    console.debug(element);
+	    var element = ev.target;
+	    var parent = element.parentNode;
+	    var left = ev.x < x
+	    var rigth = ev.x > x;
+	    var diff = lastComponent != element;
+	    var parentLastComponent = (parent == lastComponent)	    
+	    var monitor = '';
+
+	    if(left){
+	    	//console.debug('left');
+	    	monitor += '\n direction : left';
+	    }else if(rigth){
+	    	//console.debug('rigth');
+	    	monitor += '\n direction : rigth';
+	    }
+
+	    if(parent){
+	    	monitor += '\n parent : '+parent.id;
+	    	monitor += '\n\t parent is lastComponent : '+parentLastComponent;	    	
+	    }
+
+	    if(diff && left){
+	    	//console.debug('prev', lastComponent, element);
+	    	monitor += '\n insert : prev';
+	    	monitor += '\n\t lastComponent : '+(lastComponent ? lastComponent.id : '?');
+	    	monitor += '\n\t element : '+(element ? element.id : '?');
+	    	if(!parentLastComponent){
+	    		monitor += '\n\t target : '+(lastComponent ? lastComponent.id : '?');
+	    	}
+	    }
+
+	    if(diff && rigth){
+	    	//console.debug('next', lastComponent, element);
+	    	monitor += '\n insert : next';
+	    	monitor += '\n\t lastComponent : '+(lastComponent ? lastComponent.id : '?');
+	    	monitor += '\n\t element : '+(element ? element.id : '?');
+	    	if(!parentLastComponent){
+	    		monitor += '\n\t target : '+(lastComponent ? lastComponent.id : '?');
+	    	}
+	    }
+
+	    x = ev.x;
+	    monitor += '\n -----------------------';
+
 	    element.appendChild(separator);
+	    lastComponent = element;
+	    if(diff){
+	    	//console.debug('diff');
+	    	console.debug(monitor);
+	    }    
 	    
 	}
 
