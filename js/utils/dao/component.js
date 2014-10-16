@@ -24,8 +24,7 @@ inject.define("utils.dao.component", [
 					comp.update = eval('('+comp.update+')');
 				}
 			}
-			console.debug(db.restoreBkp(__db));
-			
+			console.debug(db.restoreBkp(__db));			
 			return db.restoreBkp(__db);
 		};
 
