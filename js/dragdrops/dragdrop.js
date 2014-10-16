@@ -63,10 +63,7 @@ inject.define("dragdrops.dragdrop", ["utils.dao.component", function (dao) {
 
         var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
         var comp = dao.getCompDBById($this, attr);
-        if (comp.drag) {
-            console.debug('CHAMANDO FUNCTION drag() ....');
-            comp.drag($this, comp);
-        }
+    
         dao.updateCompDB($this, comp);
     };
 
@@ -79,10 +76,7 @@ inject.define("dragdrops.dragdrop", ["utils.dao.component", function (dao) {
 
         var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
         var comp = dao.getCompDBById($this, attr);
-        if (comp.drag) {
-            console.debug('CHAMANDO FUNCTION drag() ....');
-            comp.drag($this, comp);
-        }
+       
         dao.updateCompDB($this, comp);
     };
 
@@ -95,12 +89,7 @@ inject.define("dragdrops.dragdrop", ["utils.dao.component", function (dao) {
 
         var attr = ($this.attr('data-comp-id') ? 'data-comp-id' : 'data-palleta-id');
         var comp = dao.getCompDBById($this, attr);
-
-        if (comp.drag) {
-            console.debug('CHAMANDO FUNCTION drag() ....');
-            comp.drag($this, comp);
-        }
-
+      
         dao.updateCompDB($this, comp);
 
         sortable(['.des-container', '.des-datasource', '.des-layout']);

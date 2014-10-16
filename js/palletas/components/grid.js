@@ -3,7 +3,7 @@ inject.define("palletas.components.grid", [function () {
     self.name = 'grid';
 	self.category = 'grids';
 
-	self.templ = '<table class="table table-hover">'
+	self.templ = '<table class="table table-hover table-condensed">'
 					+'<thead><tr>'
 						+'<th>C1<th>'
 						+'<th>C2<th>'
