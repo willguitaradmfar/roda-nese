@@ -1,9 +1,14 @@
 inject.define("utils.file", ["utils.util", function (util) {
     var self = {};
      	
-    self.save = function (obj) {
-    	var strSave = util.stringify(obj);    	
-    	window.open('data:text/csv;charset=utf-8,' + (strSave));
+    self.save = function (obj, name) {
+    	var strSave = util.stringify(obj);
+
+        var a = document.createElement('a');
+        a.textContent = 'download';
+        a.download = name+'.des';
+        a.href = 'data:text/csv;charset=utf-8,'+escape(strSave);
+        a.click();
     }
 
     self.openText = function (fileReader, cb) {

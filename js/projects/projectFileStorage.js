@@ -53,7 +53,7 @@ inject.define("projects.projectFileStorage", ["utils.util", "utils.dao.component
 			projeto.contentDatasource = contentDatasource;
 			projeto.db = dao.bkpDB();
 			projeto.date = new Date;
-			file.save(projeto);
+			file.save(projeto, nomeProjeto);
 			_nomeProjeto.val('');
 		});
 
