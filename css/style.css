@@ -128,3 +128,30 @@
     cursor: inherit;
     display: block;
 }
+
+#palleta .normalComp{
+	width: 10px;
+	height:  10px;
+	border : 1px solid ;
+	display: none;
+}
+
+#palleta .miniComp{
+	width: 10px;
+	height:  10px;
+	border : 1px solid ;
+}
+
+
+#project .normalComp{
+	width: 10px;
+	height:  10px;
+	border : 1px solid ;	
+}
+
+#project .miniComp{
+	width: 10px;
+	height:  10px;
+	border : 1px solid ;
+	display: none;
+}

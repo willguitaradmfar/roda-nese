@@ -1,4 +1,4 @@
-inject.define("utils.util", ["database.db", function (db) {
+inject.define("utils.util", [function () {
 	var self = {};
 
 	self.clone = function (obj) {

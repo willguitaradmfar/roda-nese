@@ -1,6 +1,6 @@
 inject.define("properties.propertyHover", [
 		"properties.property", 
-		"utils.dao.component",
+		"utils.dao.compDB",
 		"utils.legend",
 	function (property, dao, legend) {
 

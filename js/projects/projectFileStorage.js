@@ -1,6 +1,6 @@
 inject.define("projects.projectFileStorage", [
 		"utils.util", 
-		"utils.dao.component", 
+		"utils.dao.compDB", 
 		"utils.file", 
 		"dragdrops.dragdrop",
 	function (util, dao, file, dragdrop) {

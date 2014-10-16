@@ -1,5 +1,5 @@
 inject.define("palletas.palleta", [
-		"utils.dao.component",
+		"utils.dao.compDB",
 		"palletas.resources.datasource",
 		"palletas.components.component",
 		"palletas.layouts.layout",
@@ -12,10 +12,25 @@ inject.define("palletas.palleta", [
 
 			for(var i in layouts){
 				var layout = layouts[i];
+
+				var miniComp = $('<div></div>');
+				var representation = $('<div class="btn btn-warning glyphicon glyphicon-cloud"></div>').addClass('miniComp');
+				var original = $(layout.templ).addClass('normalComp').addClass('des-layout');
+
+				miniComp
+					.append(representation)
+					.append(original);
+
+				miniComp.addClass('des-layout');
+
+				//palleta.find('#'+layout.category).find('.panel-body').append(miniComp);
+
 				console.debug('ADD LAYOUT TO PALLETA ('+i+')');
+
 				var templ = $(layout.templ);
 				templ.addClass('des-layout');
 				palleta.find('#'+layout.category).find('.panel-body').append(templ);
+
 				layout.location = legend.attrPalleta;
 				dao.updateCompDB(templ, layout, legend.attrPalleta);
 			}
@@ -31,18 +46,17 @@ inject.define("palletas.palleta", [
 			}
 
 			for(var i in datasource){
-				var servico = datasource[i];
+				var service = datasource[i];
 				console.debug('ADD RESOURCE TO PALLETA ('+i+')');
 
-				var templSpan = $('<span class="btn btn-'+(servico.color || 'warning')+' glyphicon glyphicon-'+(servico.icon || 'cloud')+'"></span><span>.</span>');
+				var templSpan = $('<span class="btn btn-'+(service.color || 'warning')+' glyphicon glyphicon-'+(service.icon || 'cloud')+'"></span><span>.</span>');
 				templSpan
 					.addClass('nonvisual');				
-				palleta.find('#'+servico.category).find('.panel-body').append(templSpan);
+				palleta.find('#'+service.category).find('.panel-body').append(templSpan);
 				
-				servico.location = legend.attrPalleta;
-				dao.updateCompDB(templSpan, servico, legend.attrPalleta);
+				service.location = legend.attrPalleta;
+				dao.updateCompDB(templSpan, service, legend.attrPalleta);
 			}
 		};
 		return self;
 	}]);
-

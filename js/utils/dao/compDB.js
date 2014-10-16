@@ -1,4 +1,4 @@
-inject.define("utils.dao.component", [
+inject.define("utils.dao.compDB", [
 		"utils.util", 
 		"database.db", 
 		"utils.legend", 

@@ -1,5 +1,5 @@
 inject.define("properties.property", [
-		"utils.dao.component", 
+		"utils.dao.compDB", 
 		"properties.proxy",
 		"utils.legend",
 	function (dao, proxy, legend) {
@@ -55,7 +55,13 @@ inject.define("properties.property", [
 			$( "#dialog" ).html(frame);
 
 			var titleDialog = (comp.name || comp.property.nameService) + ' '+comp.___id;
-			$( "#dialog" ).dialog({title : titleDialog});		
+			 $("#dialog").dialog({
+			 	title : titleDialog,
+                width: 600,
+                height: 600,
+                autoOpen: false                
+            });		
+
 			$( "#dialog" ).dialog( "open" );
 
 			var updatePropertyPerField = function (_this, _comp) {					

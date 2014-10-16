@@ -1,5 +1,5 @@
 inject.define("dragdrops.dragdrop", [
-        "utils.dao.component",
+        "utils.dao.compDB",
         "utils.legend",
     function (dao, legend) {
         var self = {};    
@@ -14,7 +14,7 @@ inject.define("dragdrops.dragdrop", [
             }
         };
 
-        var draggable = function(source, targets) {
+        var draggable = function(source, targets, drag) {
 
             var limpaComponentePalleta = function ($this) {
               console.debug('LIMPANDO O ATRIBUTO (data-comp-id) DO COMPONENTE');          
@@ -30,9 +30,7 @@ inject.define("dragdrops.dragdrop", [
                     start: function(event, ui) {
                         console.debug('start draggable ' + $(this));                    
                     },
-                    drag: function(event, ui) {
-
-                    },
+                    drag: drag,
                     stop: function(event, ui) {                  
                         console.debug('stop draggable' + $(this));                    
                         limpaComponentePalleta($(this));
@@ -97,36 +95,27 @@ inject.define("dragdrops.dragdrop", [
 
             sortable(['.des-container', '.des-datasource', '.des-layout']);
 
-            draggable($('#palleta .component'), ['#project .des-layout']);
+            draggable($('#palleta .component'), ['#project .des-layout'],
+                function(event, ui) {                   
+                    ui.helper.width(450);
+                });
 
             droppable(['.des-layout'], dropComponent);
         };
 
-
-
         self.dragdrop = function() {
-
             sortable(['.des-container', '.des-datasource', '.des-layout']);
 
-            draggable($('#palleta .des-layout'), ['#project.des-container']);
+            draggable($('#palleta .des-layout'), ['#project.des-container'], 
+                function(event, ui) {
+                    ui.helper.width(450)
+                });
+
             droppable(['.des-container'], dropComponentProjectLayout);
 
-            draggable($('.nonvisual'), ['.des-datasource']);        
-            droppable(['.des-datasource'], dropComponentNonvisual);
+            draggable($('.nonvisual'), ['.des-datasource']);
 
-            $("#dialog").dialog({
-                width: 500,
-                height: 600,
-                autoOpen: false,
-                show: {
-                    effect: "explode",
-                    duration: 300
-                },
-                hide: {
-                    effect: "explode",
-                    duration: 300
-                }
-            });
+            droppable(['.des-datasource'], dropComponentNonvisual);
         };
 
         return self;

@@ -1,5 +1,5 @@
 inject.define("metadatas.metadata", [
-		"utils.dao.component",
+		"utils.dao.compDB",
 		"utils.legend",
 	function (dao, legend) {
 	    var self = {};

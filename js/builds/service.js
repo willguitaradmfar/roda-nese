@@ -1,5 +1,5 @@
 inject.define("builds.service", [
-		"utils.dao.component", 
+		"utils.dao.compDB", 
 		"utils.processTemplate", 
 		"utils.legend",
 	function (dao, processTemplate, legend) {
