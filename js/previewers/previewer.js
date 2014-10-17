@@ -53,7 +53,7 @@ inject.define("previewers.previewer", ["builds.service", "builds.controller", fu
 				'dependencyRuntime/jquery/jquery-ui-1.11.1/external/jquery/jquery.js',
 				'dependencyRuntime/angular.min.js',
 				'dependencyRuntime/bootstrap.min.js',
-				'dependencyRuntime/nvd3/d3.v3.min.js',
+				'dependencyRuntime/d3/d3.v3.min.js',
 				'dependencyRuntime/nvd3/nv.d3.js',
 				'dependencyRuntime/nvd3/ng-nvd3.js',
 				'dependencyRuntime/soapjs/soapclient.js'

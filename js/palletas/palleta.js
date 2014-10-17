@@ -12,19 +12,6 @@ inject.define("palletas.palleta", [
 
 			for(var i in layouts){
 				var layout = layouts[i];
-
-				var miniComp = $('<div></div>');
-				var representation = $('<div class="btn btn-warning glyphicon glyphicon-cloud"></div>').addClass('miniComp');
-				var original = $(layout.templ).addClass('normalComp').addClass('des-layout');
-
-				miniComp
-					.append(representation)
-					.append(original);
-
-				miniComp.addClass('des-layout');
-
-				//palleta.find('#'+layout.category).find('.panel-body').append(miniComp);
-
 				console.debug('ADD LAYOUT TO PALLETA ('+i+')');
 
 				var templ = $(layout.templ);
@@ -39,7 +26,7 @@ inject.define("palletas.palleta", [
 				var componente = components[i];
 				console.debug('ADD COMPONENT TO PALLETA ('+i+')');
 				var templ = $(componente.templ);
-				templ.addClass('component');			
+				templ.addClass('component');
 				palleta.find('#'+componente.category).find('.panel-body').append(templ);
 				componente.location = legend.attrPalleta;
 				dao.updateCompDB(templ, componente, legend.attrPalleta);

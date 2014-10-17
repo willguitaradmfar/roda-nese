@@ -26,7 +26,7 @@ inject.define("dragdrops.dragdrop", [
                     connectToSortable: $(target),                
                     cursor: "move",
                     helper: "clone",
-                    revert: "invalid",
+                    revert: "invalid",                    
                     start: function(event, ui) {
                         console.debug('start draggable ' + $(this));                    
                     },

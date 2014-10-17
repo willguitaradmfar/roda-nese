@@ -1,10 +1,10 @@
 inject.define("palletas.resources.protheusSoap.datasource", [
-    "utils.util",
-    "utils.base64",
-    "utils.soap",
-    "palletas.resources.protheusSoap.service",
-    "palletas.resources.protheusSoap.controller",
-        function (util, base64, soap, service, controller) {
+        "utils.util",
+        "utils.base64",
+        "utils.soap",
+        "palletas.resources.protheusSoap.service",
+        "palletas.resources.protheusSoap.controller",
+    function (util, base64, soap, service, controller) {
 
         var self = {};
 

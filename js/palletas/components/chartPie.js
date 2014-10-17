@@ -3,7 +3,7 @@ inject.define("palletas.components.chartPie", [function () {
     self.name = 'chartPie';
 	self.category = 'chart';
 
-	self.templ = '<nvd3-pie-chart data="data" width="700" height="700" duration="500" label-type="percent" responsive="true"></nvd3-pie-chart>';
+	self.templ = '<nvd3-pie-chart data="data" width="700" height="700" duration="500" label-type="percent"></nvd3-pie-chart>';
 
 	self.property = {};
 	self.property.width = '700';

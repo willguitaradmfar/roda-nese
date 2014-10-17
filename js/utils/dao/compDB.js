@@ -23,8 +23,7 @@ inject.define("utils.dao.compDB", [
 				if(comp && comp.update){
 					comp.update = eval('('+comp.update+')');
 				}
-			}
-			console.debug(db.restoreBkp(__db));			
+			}			
 			return db.restoreBkp(__db);
 		};
 
