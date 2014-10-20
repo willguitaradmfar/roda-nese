@@ -1,30 +1,30 @@
-inject.define("builds.service", [
+inject.define("builds.directive", [
 		"utils.dao.compDB", 
 		"utils.processTemplate", 
 		"utils.legend",
 	function (dao, processTemplate, legend) {
 	    var self = {};
 
-	    var struct = {};	
+	    var struct = {};
 		struct._functions = {};
 
 		var setFunctions = function (name, _function) {
-			console.debug('SET FUNCTIONS SERVICE : '+name);
+			console.debug('SET FUNCTIONS DIRECTIVE : '+name);
 			struct._functions[name] = _function.toString();
 		};	
 
 		self.update = function (target) {
 
-			console.debug('UPDATE SERVICE OBJ GLOBAL');
+			console.debug('UPDATE DIRECTIVE OBJ GLOBAL');
 
 			var comps;
 
 			if(target){
 				console.debug('FOI PASSADO UM ALVO PARA COMPOR O CONTEUDO HTML');			
-				comps = $(target).find('.nonvisual');
+				comps = $(target).find('.component');
 			}else{
 				console.debug('NÃO FOI PASSADO UM ALVO');
-				comps = $('.des-datasource').find('.nonvisual');
+				comps = $('.des-container').find('.component');
 			}	
 
 			for(var y = 0 ; y < comps.length ; y++){			
@@ -33,12 +33,12 @@ inject.define("builds.service", [
 
 				if(!comp)continue;
 				
-				if(!comp.service){
-					console.debug('COMPONENTE '+comp.name+' NAO TEM IMPLEMENTACAO DE SERVICE');
+				if(!comp.directive){
+					console.warn('COMPONENTE '+comp.name+' NAO TEM IMPLEMENTACAO DE DIRECTIVE');
 					continue;
 				}
 
-				var scope = comp.service.scope;
+				var scope = comp.directive.scope;
 				for(var i in scope){
 					var s = scope[i];
 					console.debug(processTemplate.processTemplateParam(s, comp.property));
@@ -47,17 +47,17 @@ inject.define("builds.service", [
 			}
 		};
 
-		self.makeService = function (target) {
+		self.makeDirective = function (target) {
 			self.update(target);
-			return _makeService();
+			return _makeDirective();
 		};
 
-		var _makeService = function () {
+		var _makeDirective = function () {
 			var bodyService = "";
 			
 			for(var i in struct._functions){			
 					var _function = struct._functions[i];
-					bodyService += '\nangularApp.factory(\''+i+'\', '+_function+');';
+					bodyService += '\nangularApp.directive(\''+i+'\', '+_function+');';
 			}
 
 			console.debug(bodyService);

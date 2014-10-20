@@ -97,7 +97,7 @@ inject.define("dragdrops.dragdrop", [
 
             draggable($('#palleta .component'), ['#project .des-layout'],
                 function(event, ui) {                   
-                    ui.helper.width(450);
+                    //ui.helper.width(450);
                 });
 
             droppable(['.des-layout'], dropComponent);
@@ -108,7 +108,7 @@ inject.define("dragdrops.dragdrop", [
 
             draggable($('#palleta .des-layout'), ['#project.des-container'], 
                 function(event, ui) {
-                    ui.helper.width(450)
+                    //ui.helper.width(450)
                 });
 
             droppable(['.des-container'], dropComponentProjectLayout);

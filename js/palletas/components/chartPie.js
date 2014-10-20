@@ -1,28 +1,62 @@
-inject.define("palletas.components.chartPie", [function () {
-    var self = {};
-    self.name = 'chartPie';
-	self.category = 'chart';
+inject.define("palletas.components.chartPie", [
+		"palletas.components.directives.chartPie",
+	function (directive) {
+	    var self = {};
+	    self.name = 'chartPie';
+		self.category = 'chart';
 
-	self.templ = '<nvd3-pie-chart data="data" width="700" height="700" duration="500" label-type="percent"></nvd3-pie-chart>';
+		self.directive = directive;
 
-	self.property = {};
-	self.property.width = '700';
-	self.property.height = '500';
-	self.property.metamodels_model = 'models';	
-	self.property.metafields_array = '...';
+		self.templ = '<img width="100" height="100" src="image/components/chartPie.png" data-pie-chart>';
 
-	self.update = function (target, comp) {
-		var model = comp.property.metamodels_model;
-		var array = comp.property.metafields_array;
+		self.property = {};
+		self.property.width = '100';
+		self.property.height = '100';
+		self.property.context = 'context';
 
-		if(model && array){
-			$(target).attr('data', model+'.'+array);
-		}else if(model){
-			$(target).attr('data', model);
-		}
+		self.property.metafields_labelField = '';			
+		self.property.metafields_valueField = '';
+		self.property.metafields_colorField = '';
 
-		$(target).attr('width', comp.property.width);
-		$(target).attr('height', comp.property.height);
-	};
-    return self;
-}]);
+		self.property.metaarrays_list = 'list';
+
+		self.update = function (target, comp) {			
+
+			$(target).attr('width', comp.property.width);
+			$(target).attr('height', comp.property.height);
+
+			if(comp.property.metaarrays_list){
+				var data = comp.property.metaarrays_list.replace(':', comp.property.context+'.');	
+				$(target).attr('data-chart-data', data);
+			}else{
+				$(target).removeAttr('data-chart-data');
+			}			
+
+			if(comp.property.metafields_labelField){
+				var bind = comp.property.metafields_labelField.replace(/^:\w*\.(\w*)/, '$1');
+				$(target).attr('data-label-field', bind);
+			}
+			else{
+				$(target).removeAttr('ata-label-field');
+			}
+
+			if(comp.property.metafields_valueField){
+				var bind = comp.property.metafields_valueField.replace(/^:\w*\.(\w*)/, '$1');
+				$(target).attr('data-value-field', bind);
+			}
+			else{
+				$(target).removeAttr('data-value-field');
+			}
+
+			if(comp.property.metafields_colorField){
+				var bind = comp.property.metafields_colorField.replace(/^:\w*\.(\w*)/, '$1');
+				$(target).attr('data-color-field', bind);
+			}
+			else{
+				$(target).removeAttr('data-color-field');
+			}
+
+		};
+
+	    return self;
+	}]);

@@ -10,8 +10,7 @@ inject.define("palletas.resources.static.datasource", ["palletas.resources.stati
 
     self.property = {};
     self.property.nameService = 'static';
-    self.property.context =  'context';
-    self.property.collection = 'carroList';
+    self.property.context =  'context';    
 
     self.metadata = {};
 

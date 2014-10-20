@@ -42,7 +42,8 @@ inject.define("palletas.palleta", [
 				palleta.find('#'+service.category).find('.panel-body').append(templSpan);
 				
 				service.location = legend.attrPalleta;
-				dao.updateCompDB(templSpan, service, legend.attrPalleta);
+				dao.updateCompDB(templSpan, service, legend.attrPalleta);				
+				
 			}
 		};
 		return self;

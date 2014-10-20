@@ -35,5 +35,19 @@ inject.define("config.internationalization.translate", [function () {
 	pt_br.protheusSoap.table = 'Tabela';
 	pt_br.protheusSoap.context = 'Contexto';
 	
+	pt_br.chartLine = {};
+	pt_br.chartLine.context = 'Contexto';
+	pt_br.chartLine.maxPoint = 'Maximo de pontos';
+	pt_br.chartLine.metafields_labelField = 'Legenda';
+	pt_br.chartLine.metafields_valueField = 'Valor';
+	pt_br.chartLine.metaarrays_list = 'Lista';
+
+	pt_br.chartPie = {};
+	pt_br.chartPie.context = 'Contexto';
+	pt_br.chartPie.metafields_labelField = 'Legenda';
+	pt_br.chartPie.metafields_valueField = 'Valor';
+	pt_br.chartPie.metafields_colorField = 'Cor';
+	pt_br.chartPie.metaarrays_list = 'Lista';
+	
 	return self;
 }]);

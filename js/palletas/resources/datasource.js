@@ -1,9 +1,11 @@
 inject.define("palletas.resources.datasource", [
-		"palletas.resources.protheusSoap.datasource", 
+		"palletas.resources.protheusSoap.datasource",
 		"palletas.resources.static.datasource",
-	function (protheusSoap, static) {
+		"palletas.resources.protheusRest.datasource",
+	function (protheusSoap, static, protheusRest) {
 	    var self = {};
 	    self.protheusSoap = protheusSoap;	    
-	    self.static = static;	    
+	    self.static = static;
+	    self.protheusRest = protheusRest;
 	    return self;
 	}]);

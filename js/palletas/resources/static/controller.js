@@ -10,7 +10,7 @@ inject.define("palletas.resources.static.controller", [function () {
 
 	self.scope.list = function() {		
 		if(!$scope.$context$)$scope.$context$ = {};
-        $scope.$context$.$collection$ = [
+        $scope.$context$.carroList = [
 	            {nome  : 'Fusca', power : 1, modelo : {nome : 'Fusca', marca : {nome : 'Volksvagem'}}},
 	            {nome  : 'FOX', power : 14, modelo : {nome : 'FOX CITY', marca : {nome : 'Volksvagem'}}},
 	            {nome  : 'Corsa', power : 31, modelo : {nome : 'Corsa', marca : {nome : 'Chevrolet'}}},

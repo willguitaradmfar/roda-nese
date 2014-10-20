@@ -37,7 +37,12 @@ inject.define("utils.util", [function () {
 		try{
 			response = eval('('+script+')');
 		}catch(e){
-			response = eval(script);
+			try{
+				response = eval(script);
+			}catch(e){
+				console.error(e, script);
+				
+			}
 		}
 		return response;
 	};
