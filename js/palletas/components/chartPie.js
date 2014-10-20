@@ -7,7 +7,7 @@ inject.define("palletas.components.chartPie", [
 
 		self.directive = directive;
 
-		self.templ = '<img width="100" height="100" src="image/components/chartPie.png" data-pie-chart>';
+		self.templ = '<img width="50" height="50" src="image/components/chartPie.png" data-pie-chart>';
 
 		self.property = {};
 		self.property.width = '100';

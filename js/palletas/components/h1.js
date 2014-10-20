@@ -1,6 +1,5 @@
-inject.define("palletas.components.h1", [
-		"palletas.components.directives.h1",
-	function (directive) {
+inject.define("palletas.components.h1", [		
+	function () {
 	    var self = {};
 	    self.name = 'h1';
 		self.category = 'label';
@@ -11,9 +10,6 @@ inject.define("palletas.components.h1", [
 		self.property.label = 'H1';
 		self.property.context = 'context';
 		self.property.metafields_field = '';
-
-
-		self.directive = directive;		
 
 		self.update = function (target, comp) {
 			$(target).text(comp.property.label);

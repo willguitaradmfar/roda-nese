@@ -17,7 +17,10 @@ inject.define("palletas.components.component", [
 		"palletas.components.progress",
 		"palletas.components.selectForm",
 		"palletas.components.separatorForm",
-		"palletas.components.textareaForm",	
+		"palletas.components.textareaForm",
+		"palletas.components.chartBar",
+		"palletas.components.chartRadar",
+		"palletas.components.chartPolarArea",
 	function (	
 				alertMessage, 
 				buttonForm, 
@@ -37,7 +40,10 @@ inject.define("palletas.components.component", [
 				progress, 
 				selectForm, 
 				separatorForm, 
-				textareaForm) {
+				textareaForm,
+				chartBar,
+				chartRadar,
+				chartPolarArea) {
 	    var self = {};	    
 	    self.alertMessage = alertMessage;
 		self.buttonForm = buttonForm;
@@ -58,5 +64,8 @@ inject.define("palletas.components.component", [
 		self.selectForm = selectForm;
 		self.separatorForm = separatorForm;
 		self.textareaForm = textareaForm;
+		self.chartBar = chartBar;
+		self.chartRadar = chartRadar;
+		self.chartPolarArea = chartPolarArea;
 	    return self;
 	}]);

@@ -1,13 +1,13 @@
-inject.define("palletas.components.chartLine", [
-		"palletas.components.directives.chartLine",
+inject.define("palletas.components.chartRadar", [
+		"palletas.components.directives.chartRadar",
 	function (directive) {
 	    var self = {};
-	    self.name = 'chartLine';
+	    self.name = 'chartRadar';
 		self.category = 'chart';
 
 		self.directive = directive;
 
-		self.templ = '<img width="50" height="50" src="image/components/chartLine.png" data-line-chart>';
+		self.templ = '<img width="50" height="50" src="image/components/chartRadar.png" data-radar-chart>';
 
 		self.property = {};
 		self.property.width = '100';
