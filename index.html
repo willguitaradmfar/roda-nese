@@ -2,6 +2,7 @@
 	<head>
 
 		<title>Desenhador</title>
+		<meta charset="UTF-8">
 		<link rel="shortcut icon" href="image/fav/liferay.ico" type="image/vnd.microsoft.icon" />
 
 		<!-- LOG -->
@@ -28,6 +29,15 @@
 		<script src="dependency/bootstrap.min.js"></script>
 		<!-- BOOTSTRAP -->
 
+		<!-- JSZIP -->
+		<script src="dependency/zip/jszip.js" type="text/javascript"></script>		
+		<!-- JSZIP -->
+
+		<!-- GROWL -->
+		<script src="dependency/growl/jquery.growl.js" type="text/javascript"></script>
+		<link href="dependency/growl/jquery.growl.css" rel="stylesheet" type="text/css" />
+		<!-- GROWL -->
+
 		<!-- SOAP -->
 		<script src="dependency/soapjs/soapclient.js" type="text/javascript"></script>  
 		<!-- SOAP -->
@@ -49,6 +59,7 @@
     	<!-- DESENHADOR -->
     	<script type="text/javascript">
     	$(function () {
+
     		//inject.debug = true;
     		inject.src = 'js/';
     		inject.define("Main", [ "utils.util", 
@@ -59,8 +70,11 @@
     								"projects.projectFileStorage",
     								"projects.projectLocalStorage",
     								"config.internationalization",
-                function(util, previewer, palleta, dragdrop, propertyHover, projectFileStorage, projectLocalStorage, internationalization){                	
+    								"exports.exportZip",
+    								"utils.growl",
+                function(util, previewer, palleta, dragdrop, propertyHover, projectFileStorage, projectLocalStorage, internationalization, exportZip, growl){                	
 					new previewer.preview($('.des-container'));
+					exportZip.register($('.des-container'));
 					new palleta.palleta($('#palleta'));
 					dragdrop.dragdrop();
 					new propertyHover.listenerToolsProperty();
@@ -92,14 +106,14 @@
 				    <li role="presentation"><a role="menuitem" class="glyphicon glyphicon-eye-open" tabindex="-1" href="#" id="v1024"> 1024</a></li>				    
 				    <li role="presentation" class="divider"></li>
 				    <li role="presentation"><a role="menuitem" class="glyphicon glyphicon-eye-open" tabindex="-1" href="#" id="vFull"> Full</a></li>				    
-				  </ul>				  
-				  <span class="btn btn-warning dropdown-toggle glyphicon glyphicon-save" type="button" id="salvarLocalStorage">
-				    
-				  </span>
+				  </ul>
 
-				  <span class="btn btn-success dropdown-toggle glyphicon glyphicon-floppy-disk" type="button" id="salvarFile">
-				    
-				  </span>				  
+				  <span class="btn btn-danger dropdown-toggle glyphicon glyphicon-floppy-save" type="button" id="export"></span>		
+
+				  <span class="btn btn-warning dropdown-toggle glyphicon glyphicon-save" type="button" id="salvarLocalStorage"></span>
+
+				  <span class="btn btn-success dropdown-toggle glyphicon glyphicon-floppy-disk" type="button" id="salvarFile"></span>
+
 				  <span class="logoTOTVS"><img src="image/logo.png"></span>
 				</div>
 

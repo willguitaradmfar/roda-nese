@@ -2,7 +2,8 @@ inject.define("previewers.previewer", [
 		"builds.service", 
 		"builds.controller",
 		"builds.directive",
-	function (service, controller, directive) {
+		"utils.zip",
+	function (service, controller, directive, zip) {
 
 		var self = {};
 
@@ -30,7 +31,7 @@ inject.define("previewers.previewer", [
 					_dependencys.push(script);
 				}			
 				return _dependencys;
-			};
+			};			
 
 			self.openPopup = function (config) {
 
@@ -50,7 +51,7 @@ inject.define("previewers.previewer", [
 				var head = $('<head></head>');
 
 				var script = $('<script type="text/javascript"></script>');
-				script.append('\nvar angularApp = angular.module(\'desenhador\', [\'ng\']);');
+				script.append('\nvar angularApp = angular.module(\'desenhador\', []);');
 				script.append(makeDirective());
 				script.append(makeService());
 				script.append(makeController());		
@@ -148,7 +149,7 @@ inject.define("previewers.previewer", [
 					width : 1024, 
 					height : 570,
 					title : 'Projeto v1024'
-				});
+				});				
 			});
 		}
 

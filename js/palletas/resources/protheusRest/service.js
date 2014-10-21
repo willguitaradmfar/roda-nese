@@ -17,6 +17,20 @@ inject.define("palletas.resources.protheusRest.service", [function () {
 					if(config.error)config.error(data, status, headers, conf);
 				});
 		};
+
+		var post = function (config, data) {
+			var url = config.url || 'http://172.16.84.84:9090'; // maquina do (CARLOS TESTA)
+			var table = config.table || 'SA1';			
+			var OPC = config.OPC || 'SAVE';
+
+			$http.post(url+'/?OPC='+OPC+'&OPC1='+table+'&LIMIT='+limit, data).
+				success(function(data, status, headers, conf) {
+					if(config.success)config.success(data, status, headers, conf);
+				}).
+				error(function(data, status, headers, conf) {
+					if(config.error)config.error(data, status, headers, conf);
+				});
+		};
 		
 		return {
 			data : data

@@ -33,7 +33,25 @@ inject.define("palletas.resources.protheusRest.controller", [function () {
 		};
 
 		rest.data(config);
-	};	
+	};
+
+	self.scope.save = function() {
+		var config = {};
+		config.table = '$table$';		
+		config.url = "$urlRest$";		
+
+		config.success = function (data, status, headers, config) {		
+			var decodado = base64.decode(data);			
+			var result = eval('('+decodado+')');			
+			$scope.$context$.$table$List = result.CONTENT.ROWS;
+		};
+
+		config.error = function (data, status, headers, config) {
+			console.error(data, status, headers, config);
+		};
+
+		rest.post(config, $scope.$context$.$table$);
+	};
 
     return self;
 }]);
