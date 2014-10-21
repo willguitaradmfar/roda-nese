@@ -24,7 +24,16 @@ inject.define("palletas.resources.protheusRest.controller", [function () {
 
 		config.success = function (data, status, headers, config) {		
 			var decodado = base64.decode(data);			
-			var result = eval('('+decodado+')');			
+			var result = eval('('+decodado+')');
+			for(var i in result.CONTENT.ROWS){
+				var row = result.CONTENT.ROWS[i];
+				for(var ii in row){
+					var col = row[i];
+					if(!col){
+						delete col;
+					}
+				}				
+			}
 			$scope.$context$.$table$List = result.CONTENT.ROWS;
 		};
 

@@ -47,6 +47,7 @@ inject.define("exports.generator", [function () {
 				content.append(dependency);
 			}				
 			content.append($('<title></title>').text(config.title));
+			content.append($('<meta name="viewport" content="width=device-width, initial-scale=1.0">'));
 			head.append(content.html());
 
 			return head;

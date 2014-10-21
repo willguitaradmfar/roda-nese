@@ -62,15 +62,16 @@ inject.define("palletas.resources.protheusRest.datasource", [
             actions.save = {
                 parameter : [[comp.property.table]],
                 result : {
-                    type : 'array',
+                    type : 'object',
                     model : ':'+comp.property.table
                 }
             };
 
+            growl.info('FORAM PROCESSADOS '+meta.CONTENT.ROWS.length+' CAMPOS PARA O MODELO '+modelID);
+
             comp.metadata.resource = comp.property.context;
             comp.metadata.models = models;
-            comp.metadata.actions = actions;
-            
+            comp.metadata.actions = actions;            
         };
       
 
@@ -81,8 +82,9 @@ inject.define("palletas.resources.protheusRest.datasource", [
                 rest.rest({
                     method : 'GET',
                     url : url,
-                    success : function (res) {
-                        processMeta(comp, util.eval(base64.decode(res)));
+                    success : function (res) {                        
+                        growl.info('METADADOS RECEBIDOS COM SUCESSO');
+                        processMeta(comp, util.eval(base64.decode(res)));                        
                     },
                     error : function (e) {                        
                         growl.error('ERRO NA CONSULTA DE METADADOS ('+e.textStatus+')');
