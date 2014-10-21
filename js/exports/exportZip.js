@@ -3,31 +3,10 @@ inject.define("exports.exportZip", [
 		"builds.service", 
 		"builds.controller",
 		"builds.directive",
-	function (zip, service, controller, directive) {
+		"exports.generator",
+	function (zip, service, controller, directive, generator) {
 	    var self = {};
-
-	    var makeDependencyJS = function (dependencys) {
-			var _dependencys = [];
-			for(var i in dependencys){
-				var dependency = dependencys[i];
-				var script = $('<script></script>');
-				script.attr('src', dependency);
-				script.attr('type', 'text/javascript');
-				_dependencys.push(script);
-			}			
-			return _dependencys;
-		};
-
-		var makeDependencyCSS = function (dependencys) {
-			var _dependencys = [];
-			for(var i in dependencys){
-				var dependency = dependencys[i];
-				var script = $('<link rel="stylesheet" href="'+dependency+'">');				
-				_dependencys.push(script);
-			}			
-			return _dependencys;
-		};
-
+	   
 	    self.exportExecutable = function (config) {
 			if(!config) throw 'config não passado';
 
@@ -41,9 +20,7 @@ inject.define("exports.exportZip", [
 			var makeService = config.makeService || service.makeService;
 			var makeDirective = config.makeDirective || directive.makeDirective;
 			
-			console.debug('EXPORTAR PROJETO '+title + ' PARA ZIP');
-
-			var head = $('<head></head>');
+			console.debug('EXPORTAR PROJETO '+title + ' PARA ZIP');			
 
 			var fileAppJS = {};
 			fileAppJS.name = 'app.js';
@@ -53,7 +30,7 @@ inject.define("exports.exportZip", [
 			fileAppJS.content += makeController();
 			files.push(fileAppJS);
 
-			var dependencyJS = [
+			config.dependencyJS = [
 				'dependencyRuntime/jquery/jquery-ui-1.11.1/external/jquery/jquery.js',
 				'dependencyRuntime/angular.min.js',
 				'dependencyRuntime/bootstrap.min.js',					
@@ -62,28 +39,13 @@ inject.define("exports.exportZip", [
 				'app.js'
 			];
 
-			var dependencyCSS = [
+			config.dependencyCSS = [
 				'dependencyRuntime/bootstrap.min.css',
 				'dependencyRuntime/bootstrap-theme.min.css'
 			];
-
-			var dependencysJS = makeDependencyJS(dependencyJS);				
-			var dependencysCSS = makeDependencyCSS(dependencyCSS);			
-
-			var content = $('<div></div>');
-			for(var i in dependencysCSS){
-				var dependency = dependencysCSS[i];
-				console.debug('ADICIONANDO DEPENDENCIA CSS '+$(dependency).attr('href'));
-				content.append(dependency);
-			}
-			for(var i in dependencysJS){
-				var dependency = dependencysJS[i];
-				console.debug('ADICIONANDO DEPENDENCIA JS '+$(dependency).attr('src'));
-				content.append(dependency);
-			}				
-			content.append($('<title></title>').text(title));
-			head.append(content.html());						
-			
+				
+			var head = generator.makeHead(config);
+				
 			var body = $('<body></body>');
 			var ctrl = $('<div data-ng-controller="'+ctrlName+'"></div>');
 			
