@@ -19,7 +19,7 @@ inject.define("palletas.resources.static.datasource", ["palletas.resources.stati
 
         models.marca = {nome : {type : 'string', required : true}};
         models.modelo = {nome : { type : 'string',required : true},marca : {type : ':marca',ref : models.marca}};
-        models.carro = {nome : {type : 'string',required : true}, modelo : {type : ':modelo',ref : models.modelo}, power : {type : 'number'}};
+        models.carro = {nome : {type : 'string',required : true}, dtcreated : {type : 'date',required : true}, modelo : {type : ':modelo',ref : models.modelo}, power : {type : 'number'}};
         models.message = {message : {type : 'string'}}
 
         var actions = {};        

@@ -50,7 +50,7 @@ inject.define("previewers.previewer", [
 				var head = $('<head></head>');
 
 				var script = $('<script type="text/javascript"></script>');
-				script.append('\nvar angularApp = angular.module(\'desenhador\', []);');
+				script.append('\nvar angularApp = angular.module(\'desenhador\', [\'ng\']);');
 				script.append(makeDirective());
 				script.append(makeService());
 				script.append(makeController());		

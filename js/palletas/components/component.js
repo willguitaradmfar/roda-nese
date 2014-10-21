@@ -21,6 +21,7 @@ inject.define("palletas.components.component", [
 		"palletas.components.chartBar",
 		"palletas.components.chartRadar",
 		"palletas.components.chartPolarArea",
+		"palletas.components.inputDateForm",
 	function (	
 				alertMessage, 
 				buttonForm, 
@@ -43,7 +44,8 @@ inject.define("palletas.components.component", [
 				textareaForm,
 				chartBar,
 				chartRadar,
-				chartPolarArea) {
+				chartPolarArea,
+				inputDateForm) {
 	    var self = {};	    
 	    self.alertMessage = alertMessage;
 		self.buttonForm = buttonForm;
@@ -67,5 +69,6 @@ inject.define("palletas.components.component", [
 		self.chartBar = chartBar;
 		self.chartRadar = chartRadar;
 		self.chartPolarArea = chartPolarArea;
+		self.inputDateForm = inputDateForm;
 	    return self;
 	}]);

@@ -55,6 +55,13 @@ inject.define("config.internationalization.translate", [function () {
 	pt_br.chartPie.metafields_valueField = 'Valor';
 	pt_br.chartPie.metafields_colorField = 'Cor';
 	pt_br.chartPie.metaarrays_list = 'Lista';
+
+	pt_br.chartPolarArea = {};
+	pt_br.chartPolarArea.context = 'Contexto';
+	pt_br.chartPolarArea.metafields_labelField = 'Legenda';
+	pt_br.chartPolarArea.metafields_valueField = 'Valor';
+	pt_br.chartPolarArea.metafields_colorField = 'Cor';
+	pt_br.chartPolarArea.metaarrays_list = 'Lista';
 	
 	return self;
 }]);

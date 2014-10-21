@@ -4,7 +4,8 @@ inject.define("palletas.resources.protheusRest.controller", [function () {
 
 	self.inject = {};
 	self.inject['$http'] = '$http';
-	self.inject['soap'] = 'soap';	
+	self.inject['rest'] = 'rest';
+	self.inject['base64'] = 'base64';	
 
 	self.variable = {};
 	self.variable.list = "['num1', 'num2', 'num3']";
@@ -15,16 +16,23 @@ inject.define("palletas.resources.protheusRest.controller", [function () {
 	};
 
 	self.scope.list = function() {
-		soap.list({
-                    CTABLE : '$table$',
-                    CFIELDS : ''
-                }, function(error, result){
-                	if(error)
-                		$scope.$context$.$messageError$ = error;
-                	else
-                    	$scope.$context$.$table$List = eval('('+result+')').Rows;
-                }
-        );
+		var config = {};
+		config.table = '$table$';
+		config.limit = $limit$;
+		config.url = "$urlRest$";
+		config.OPC = '$OPC$';
+
+		config.success = function (data, status, headers, config) {		
+			var decodado = base64.decode(data);			
+			var result = eval('('+decodado+')');			
+			$scope.$context$.$table$List = result.CONTENT.ROWS;
+		};
+
+		config.error = function (data, status, headers, config) {
+			console.error(data, status, headers, config);
+		};
+
+		rest.data(config);
 	};	
 
     return self;

@@ -57,7 +57,7 @@ inject.define("palletas.components.directives.chartPolarArea", [function () {
             var chart = new Chart(ctx).PolarArea(scope.data);
 
             scope.$watch(function() {               
-               if(scope.data.length > chart.segments.length){
+               if(scope.data && scope.data.length && scope.data.length > chart.segments.length){
                   
                   var arr = scope.data.slice(length, scope.data.length);
 

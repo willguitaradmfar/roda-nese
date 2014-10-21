@@ -18,8 +18,10 @@ inject.define("palletas.resources.protheusRest.datasource", [
 
         self.property = {};
         self.property.nameService = 'protheus';        
-        self.property.urlRest =  'http://172.16.84.84:9090/?OPC=METADADOS';        
+        self.property.urlRest =  'http://172.16.84.84:9090';        
         self.property.table =  'SA1';
+        self.property.limit =  '30';
+        self.property.OPC =  'DATA';        
         self.property.context =  'context';
 
         self.metadata = {};
@@ -63,7 +65,7 @@ inject.define("palletas.resources.protheusRest.datasource", [
       
 
         var metadata = function (comp, cb) {
-            var url = comp.property.urlRest + "&OPC1="+comp.property.table;
+            var url = comp.property.urlRest + '/?OPC=METADADOS&OPC1='+comp.property.table;
 
             var cid = "cid:"+util.random(1000 * 10);
                 rest.rest({

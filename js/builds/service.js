@@ -6,7 +6,7 @@ inject.define("builds.service", [
 	    var self = {};
 
 	    var struct = {};	
-		struct._functions = {};
+		struct._functions = {};		
 
 		var setFunctions = function (name, _function) {
 			console.debug('SET FUNCTIONS SERVICE : '+name);
@@ -43,7 +43,8 @@ inject.define("builds.service", [
 					var s = scope[i];
 					console.debug(processTemplate.processTemplateParam(s, comp.property));
 					setFunctions(i, processTemplate.processTemplateParam(s, comp.property));
-				}			
+				}
+
 			}
 		};
 
