@@ -20,40 +20,41 @@ inject.define("palletas.components.chartPolarArea", [
 
 		self.property.metaarrays_list = 'list';
 
+		self.property.metaactions_init = '';
+
 		self.update = function (target, comp) {			
 
 			$(target).attr('width', comp.property.width);
 			$(target).attr('height', comp.property.height);
 
+			$(target).removeAttr('data-chart-data');
 			if(comp.property.metaarrays_list){
 				var data = comp.property.metaarrays_list.replace(':', comp.property.metacontext_context+'.');	
 				$(target).attr('data-chart-data', data);
-			}else{
-				$(target).removeAttr('data-chart-data');
 			}			
 
+			$(target).removeAttr('ata-label-field');
 			if(comp.property.metafields_labelField){
 				var bind = comp.property.metafields_labelField.replace(/^:\w*\.(\w*)/, '$1');
 				$(target).attr('data-label-field', bind);
 			}
-			else{
-				$(target).removeAttr('ata-label-field');
-			}
 
+			$(target).removeAttr('data-value-field');
 			if(comp.property.metafields_valueField){
 				var bind = comp.property.metafields_valueField.replace(/^:\w*\.(\w*)/, '$1');
 				$(target).attr('data-value-field', bind);
 			}
-			else{
-				$(target).removeAttr('data-value-field');
-			}
 
+			$(target).removeAttr('data-color-field');
 			if(comp.property.metafields_colorField){
 				var bind = comp.property.metafields_colorField.replace(/^:\w*\.(\w*)/, '$1');
 				$(target).attr('data-color-field', bind);
 			}
-			else{
-				$(target).removeAttr('data-color-field');
+
+			$(target).removeAttr('data-ng-init');
+			if(comp.property.metaactions_init){
+				var action = comp.property.metaactions_init;
+				$(target).attr('data-ng-init', action);
 			}
 
 		};

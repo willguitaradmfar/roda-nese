@@ -24,6 +24,7 @@ inject.define("palletas.components.grid", [function () {
 	self.property.metamodels_select = 'select';
 	self.property.metamodels_filter = 'filter';
 	self.property.metaarrays_list = 'list';
+	self.property.metaactions_init = '';
 
 	self.update = function (target, comp) {
 		var context = comp.property.metacontext_context;
@@ -44,7 +45,13 @@ inject.define("palletas.components.grid", [function () {
 		for(var i in headers){
 			var header = headers[i];			
 			$(target).find('thead > tr').append('<th>'+header+'</th>');
-		}		
+		}
+
+		$(target).removeAttr('data-ng-init');
+		if(comp.property.metaactions_init){
+			var action = comp.property.metaactions_init;
+			$(target).attr('data-ng-init', action);
+		}
 
 		var cols = comp.property.metafieldsmulti_cols;
 		$(target).find('tbody > tr').html('');

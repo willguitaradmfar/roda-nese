@@ -41,11 +41,16 @@ inject.define("palletas.resources.protheusRest.datasource", [
             var modelID = comp.property.table;
             models[modelID] = {};
 
+            if(!meta){
+                growl.error('OPS, METADADOS COM PROBLEMA');
+                return ;
+            }
+
             for(var ii in meta.CONTENT.ROWS){
                 var field = meta.CONTENT.ROWS[ii];
                 models[modelID][field.FIELD] = {};
                 if(!types[field.TYPE]){
-                    console.warn('TIPO NÃO PROVIDO '+field.datatype);
+                    console.warn('TIPO NÃO PROVIDO '+field.datatype);                    
                 }
                 models[modelID][field.FIELD].type = types[field.TYPE];
                 models[modelID][field.FIELD].info = field.INFO;                    
