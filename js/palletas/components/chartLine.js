@@ -57,5 +57,9 @@ inject.define("palletas.components.chartLine", [
 				$(target).attr('data-ng-init', action);
 			}		
 		};
+
+		self.runtime = function (target, comp) {			
+			$(target).attr('src', '');
+		}
 	    return self;
 	}]);

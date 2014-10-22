@@ -59,5 +59,9 @@ inject.define("palletas.components.chartPolarArea", [
 
 		};
 
+		self.runtime = function (target, comp) {			
+			$(target).attr('src', '');
+		}
+
 	    return self;
 	}]);

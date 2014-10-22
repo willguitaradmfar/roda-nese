@@ -22,7 +22,7 @@ inject.define("palletas.components.chartPie", [
 
 		self.property.metaactions_init = '';
 
-		self.update = function (target, comp) {			
+		self.update = function (target, comp) {
 
 			$(target).attr('width', comp.property.width);
 			$(target).attr('height', comp.property.height);
@@ -58,6 +58,10 @@ inject.define("palletas.components.chartPie", [
 			}
 
 		};
+
+		self.runtime = function (target, comp) {			
+			$(target).attr('src', '');
+		}
 
 	    return self;
 	}]);

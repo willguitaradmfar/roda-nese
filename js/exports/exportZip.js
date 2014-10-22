@@ -4,8 +4,41 @@ inject.define("exports.exportZip", [
 		"builds.controller",
 		"builds.directive",
 		"exports.generator",
-	function (zip, service, controller, directive, generator) {
+		"utils.dao.compDB",
+	function (zip, service, controller, directive, generator, dao) {
 	    var self = {};
+
+	    var importsHeadJS = [
+	    	'dependencyRuntime/jquery/jquery-ui-1.11.1/external/jquery/jquery.js',
+			'dependencyRuntime/angular.min.js',
+			'dependencyRuntime/bootstrap.min.js',
+			'dependencyRuntime/ChartJS/Chart.js',
+			'dependencyRuntime/soapjs/soapclient.js',
+			'js/app.js',
+			'js/directives/directive.js',
+			'js/services/service.js',
+			'js/controllers/controller.js'
+		];
+
+	    var importsHeadCSS = [
+	    	'dependencyRuntime/bootstrap.min.css',
+			'dependencyRuntime/bootstrap-theme.min.css'
+	    ];
+
+	    var importsCopy = [
+	    	'dependencyRuntime/jquery/jquery-ui-1.11.1/external/jquery/jquery.js',
+			'dependencyRuntime/angular.min.js',
+			'dependencyRuntime/bootstrap.min.js',
+			'dependencyRuntime/ChartJS/Chart.js',
+			'dependencyRuntime/soapjs/soapclient.js',
+			'dependencyRuntime/bootstrap.min.css',
+			'dependencyRuntime/bootstrap-theme.min.css',
+			'fonts/glyphicons-halflings-regular.woff',
+			'fonts/glyphicons-halflings-regular.ttf',
+			'fonts/glyphicons-halflings-regular.svg',
+			'fonts/glyphicons-halflings-regular.eot',
+			'image/fav/liferay.ico'
+		];	    
 	   
 	    self.exportExecutable = function (config) {
 			if(!config) throw 'config não passado';
@@ -46,22 +79,11 @@ inject.define("exports.exportZip", [
 			fileControllerJS.folder = 'js/controllers';
 			files.push(fileControllerJS);			
 
-			config.dependencyJS = [
-				'dependencyRuntime/jquery/jquery-ui-1.11.1/external/jquery/jquery.js',
-				'dependencyRuntime/angular.min.js',
-				'dependencyRuntime/bootstrap.min.js',					
-				'dependencyRuntime/ChartJS/Chart.js',
-				'dependencyRuntime/soapjs/soapclient.js',
-				'js/app.js',
-				'js/directives/directive.js',
-				'js/services/service.js',
-				'js/controllers/controller.js'				
-			];
+			config.dependencyJS = importsHeadJS;		
 
-			config.dependencyCSS = [
-				'dependencyRuntime/bootstrap.min.css',
-				'dependencyRuntime/bootstrap-theme.min.css'
-			];
+			config.dependencyCSS = importsHeadCSS;
+
+			generator.makeFileToZip(importsCopy, files);			
 				
 			var head = generator.makeHead(config);
 				
@@ -75,15 +97,23 @@ inject.define("exports.exportZip", [
 			body.attr('data-ng-app', appName);
 
 			body.append(ctrl);			
-			var _temp = $('<div></div>');						
+			var _temp = $('<div></div>');
 			_temp.append(head);
 			_temp.append(body);
 
+			var comps = $(_temp).find('.component');
+
+			for(var i = 0, len = comps.length ; i < len ; i++){				
+				var comp = dao.getCompDBById($(comps[i]), 'data-comp-id');
+				if(comp.runtime)
+					comp.runtime($(comps[i]), comp);				
+			};
+
 			var fileHTML = {};
 			fileHTML.name = 'index.html';
-			fileHTML.content = '<html>'+_temp.html()+'</html>';				
-			files.push(fileHTML);
+			fileHTML.content = '<html>'+_temp.html()+'</html>';	
 
+			files.push(fileHTML);
 
 			zip.createZip(files);
 		};
