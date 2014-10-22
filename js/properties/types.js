@@ -7,7 +7,8 @@ inject.define("properties.types", [
 				"properties.types.metamodels",
 				"properties.types.multitxt",
 				"properties.types.txt",
-	function (combo, metaactions, metaarrays, metafields, metafieldsmulti, metamodels, multitxt, txt) {
+				"properties.types.metacontext",
+	function (combo, metaactions, metaarrays, metafields, metafieldsmulti, metamodels, multitxt, txt, metacontext) {
 		var self = {};
 		self.types = {};
 		self.types['combo'] = combo;		
@@ -18,5 +19,6 @@ inject.define("properties.types", [
 		self.types['metamodels'] = metamodels;
 		self.types['multitxt'] = multitxt;
 		self.types['txt'] = txt;
+		self.types['metacontext'] = metacontext;
 		return self;
 	}]);

@@ -75,7 +75,7 @@ inject.define("exports.exportZip", [
 				self.exportExecutable({
 					width : 1024, 
 					height : 570,
-					title : 'ZIP'
+					title : 'DESENHADOR'
 				})
 			});		
 		};		

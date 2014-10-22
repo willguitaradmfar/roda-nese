@@ -23,7 +23,7 @@ inject.define("palletas.resources.protheusRest.service", [function () {
 			var table = config.table || 'SA1';			
 			var OPC = config.OPC || 'SAVE';
 
-			$http.post(url+'/?OPC='+OPC+'&OPC1='+table+'&LIMIT='+limit, data).
+			$http.post(url+'/?OPC='+OPC+'&OPC1='+table, data).
 				success(function(data, status, headers, conf) {
 					if(config.success)config.success(data, status, headers, conf);
 				}).
@@ -33,7 +33,8 @@ inject.define("palletas.resources.protheusRest.service", [function () {
 		};
 		
 		return {
-			data : data
+			data : data,
+			post : post
 		}
 	};
 

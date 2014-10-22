@@ -22,6 +22,9 @@ inject.define("palletas.components.directives.chartPolarArea", [function () {
             colorField: '@colorField'            
          },
         link: function(scope, element, attrs) {
+
+            scope.data = scope.data || [];
+
             function getRandomColor() {
                var letters = '0123456789ABCDEF'.split('');
                var color = '#';
@@ -56,7 +59,7 @@ inject.define("palletas.components.directives.chartPolarArea", [function () {
             var ctx = elem.getContext("2d");
             var chart = new Chart(ctx).PolarArea(scope.data);
 
-            scope.$watch(function() {               
+            scope.$watch('data', function() {
                if(scope.data && scope.data.length && scope.data.length > chart.segments.length){
                   
                   var arr = scope.data.slice(length, scope.data.length);

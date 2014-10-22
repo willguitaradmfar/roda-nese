@@ -20,14 +20,14 @@ inject.define("palletas.components.grid", [function () {
 	self.property.limit = 10;
 	self.property.multitxt_header = 'Col1,Col2';
 	self.property.metafieldsmulti_cols = '';
-	self.property.context = 'context';	
+	self.property.metacontext_context = 'context';
 	self.property.metamodels_select = 'select';
 	self.property.metamodels_filter = 'filter';
 	self.property.metaarrays_list = 'list';
 
 	self.update = function (target, comp) {
-		var context = comp.property.context;
-		if(comp.property.context && comp.property.metaarrays_list){
+		var context = comp.property.metacontext_context;
+		if(comp.property.metacontext_context && comp.property.metaarrays_list){
 			
 			var list = comp.property.metaarrays_list.replace(':', context+'.');
 

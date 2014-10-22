@@ -15,7 +15,7 @@ inject.define("palletas.components.selectForm", [function () {
 	self.property = {};
 	self.property.label = 'Select';
 	self.property.multitxt_options = 'Option 1,Option 2,Option 3';	
-	self.property.context = 'context';
+	self.property.metacontext_context = 'context';
 	self.property.metafields_field = 'field';	
 	self.property.metamodels_select = 'select';
 	self.property.metaarrays_list = 'list';
@@ -29,7 +29,7 @@ inject.define("palletas.components.selectForm", [function () {
 			$(target).find('select').append('<option value="'+options[i]+'">'+options[i]+'</option>');
 		}
 
-		var context = comp.property.context+'.';		
+		var context = comp.property.metacontext_context+'.';		
 		$(target).find('select').attr('data-ng-model', comp.property.metamodels_select.replace(/:/, context));
 
 		var field = comp.property.metafields_field.replace(/:\w*\./, '');

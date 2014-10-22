@@ -9,7 +9,7 @@ inject.define("palletas.components.progress", [function () {
 				+'</div>';
 
 	self.property = {};	
-	self.property.context = 'context';
+	self.property.metacontext_context = 'context';
 	self.property.maxValue = '100';
 	self.property.minValue = '0';
 	self.property.combo_tipo = {val : 'success', options : ['default', 'info', 'danger', 'success', 'warning']};
@@ -25,7 +25,7 @@ inject.define("palletas.components.progress", [function () {
 
 		var field = 50;
 		if(comp.property.metafields_value){
-			field = '{{'+comp.property.metafields_value.replace(/:/, comp.property.context+'.')+'}}';
+			field = '{{'+comp.property.metafields_value.replace(/:/, comp.property.metacontext_context+'.')+'}}';
 		}
 
 		if(comp.property.maxValue){

@@ -60,7 +60,7 @@ inject.define("palletas.resources.protheusRest.datasource", [
             };
 
             actions.save = {
-                parameter : [[comp.property.table]],
+                parameter : [[]],
                 result : {
                     type : 'object',
                     model : ':'+comp.property.table

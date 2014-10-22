@@ -1,20 +1,16 @@
 inject.define("properties.types.metamodels", ["metadatas.metadata", function (metadata) {
     var self = {}; 
 
-	self.make = function (comp, field, property, td) {
-
-		var isMultipleSelect = field.substring(0,5) == 'mult_';
+	self.make = function (comp, field, property, td) {		
 		
 		var name = 'property.'+field;
 
-		var select = $('<select '+(isMultipleSelect ? 'multiple' : '')+' name="'+name+'" class="form-control input-sm"></select>');
+		var select = $('<select name="'+name+'" class="form-control input-sm"></select>');
 		
-		if(!isMultipleSelect)
-			select.append('<option value="" selected>Selecione ...</option>');
+		select.append('<option value="" selected>Selecione ...</option>');
 
 		metadata.find({}, function(meta){
-			for(var ii in meta.models){
-				var model = meta.models[ii];
+			for(var ii in meta.models){				
 
 				var key = ':'+ii;
 				var value = meta.resource + ' -> ' + ii;

@@ -56,10 +56,13 @@ inject.define("palletas.components.directives.chartRadar", [function () {
             };
 
             var populate = function (_data) {
-               for(var i in _data){
-                  var dNew = _data[i];
+               for(var i in _data){                  
+                  var dNew = {};
+                  dNew[scope.valueField] = _data[i][scope.valueField];
+                  dNew[scope.labelField] = _data[i][scope.labelField];
+
                   if(dNew[scope.valueField])                  
-                  chart.addData([dNew[scope.valueField]], dNew[scope.labelField]);                  
+                     chart.addData([dNew[scope.valueField]], dNew[scope.labelField]);                  
                }               
             }
 
@@ -76,7 +79,7 @@ inject.define("palletas.components.directives.chartRadar", [function () {
             });
             populate(scope.data);
 
-            scope.$watch(function() {               
+            scope.$watch('data', function() {               
                var diff = diffArray(scope.data, dataOld);               
 
                var maxPoint = scope.maxPoint || 20;

@@ -12,7 +12,7 @@ inject.define("palletas.components.chartBar", [
 		self.property = {};
 		self.property.width = '100';
 		self.property.height = '100';
-		self.property.context = 'context';
+		self.property.metacontext_context = 'context';
 
 		self.property.maxPoint = '10';
 
@@ -26,7 +26,7 @@ inject.define("palletas.components.chartBar", [
 			$(target).attr('height', comp.property.height);
 
 			if(comp.property.metaarrays_list){
-				var data = comp.property.metaarrays_list.replace(':', comp.property.context+'.');	
+				var data = comp.property.metaarrays_list.replace(':', comp.property.metacontext_context+'.');	
 				$(target).attr('data-chart-data', data);
 			}else{
 				$(target).removeAttr('data-chart-data');

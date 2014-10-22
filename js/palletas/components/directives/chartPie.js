@@ -22,6 +22,9 @@ inject.define("palletas.components.directives.chartPie", [function () {
             colorField: '@colorField'            
          },
         link: function(scope, element, attrs) {
+
+            scope.data = scope.data || [];
+
             function getRandomColor() {
                var letters = '0123456789ABCDEF'.split('');
                var color = '#';
@@ -33,7 +36,7 @@ inject.define("palletas.components.directives.chartPie", [function () {
             if(scope.data && scope.data.forEach){
               scope.data.forEach(function(dNew) {
                 dNew.label = dNew[scope.labelField];
-                dNew.value = dNew[scope.valueField];
+                dNew.value = parseFloat(dNew[scope.valueField]);
 
                 var color = getRandomColor();
                 
@@ -56,7 +59,7 @@ inject.define("palletas.components.directives.chartPie", [function () {
             var ctx = elem.getContext("2d");
             var chart = new Chart(ctx).Pie(scope.data);
 
-            scope.$watch(function() {               
+            scope.$watch('data', function() {               
                if(scope.data && scope.data.length && scope.data.length > chart.segments.length){
                   
                   var arr = scope.data.slice(length, scope.data.length);
@@ -65,7 +68,7 @@ inject.define("palletas.components.directives.chartPie", [function () {
                      var a = arr[i];
                      var segment = {};
                      segment.label = a[scope.labelField];
-                     segment.value = a[scope.valueField];                     
+                     segment.value = parseFloat(a[scope.valueField]);
                      segment.color = a[scope.colorField] || getRandomColor();
                      segment.highlight = a[scope.colorField] || getRandomColor();
                      chart.addData(segment);
@@ -73,9 +76,9 @@ inject.define("palletas.components.directives.chartPie", [function () {
                }
 
                chart.segments.forEach(function(dOld) {
-                  scope.data.forEach(function(dNew) {                    
+                  scope.data.forEach(function(dNew) {
                      if (dOld.label == dNew[scope.labelField]) {
-                        dOld.value = dNew[scope.valueField];
+                        dOld.value = parseFloat(dNew[scope.valueField]);
                      }
                   });
                })
