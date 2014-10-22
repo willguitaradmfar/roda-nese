@@ -24,11 +24,27 @@ inject.define("exports.exportZip", [
 
 			var fileAppJS = {};
 			fileAppJS.name = 'app.js';
-			fileAppJS.content = '\nvar angularApp = angular.module(\'desenhador\', []);';				
-			fileAppJS.content += makeDirective();
-			fileAppJS.content += makeService();
-			fileAppJS.content += makeController();
+			fileAppJS.content = '\nvar angularApp = angular.module(\'desenhador\', []);';
+			fileAppJS.folder = 'js';
 			files.push(fileAppJS);
+
+			var fileDirectiveJS = {};
+			fileDirectiveJS.name = 'directive.js';
+			fileDirectiveJS.content = makeDirective();
+			fileDirectiveJS.folder = 'js/directives';
+			files.push(fileDirectiveJS);
+
+			var fileServiceJS = {};
+			fileServiceJS.name = 'service.js';
+			fileServiceJS.content = makeService();
+			fileServiceJS.folder = 'js/services';
+			files.push(fileServiceJS);
+
+			var fileControllerJS = {};
+			fileControllerJS.name = 'controller.js';
+			fileControllerJS.content = makeController();
+			fileControllerJS.folder = 'js/controllers';
+			files.push(fileControllerJS);			
 
 			config.dependencyJS = [
 				'dependencyRuntime/jquery/jquery-ui-1.11.1/external/jquery/jquery.js',
@@ -36,7 +52,10 @@ inject.define("exports.exportZip", [
 				'dependencyRuntime/bootstrap.min.js',					
 				'dependencyRuntime/ChartJS/Chart.js',
 				'dependencyRuntime/soapjs/soapclient.js',
-				'app.js'
+				'js/app.js',
+				'js/directives/directive.js',
+				'js/services/service.js',
+				'js/controllers/controller.js'				
 			];
 
 			config.dependencyCSS = [

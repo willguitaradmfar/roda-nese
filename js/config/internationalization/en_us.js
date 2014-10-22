@@ -13,9 +13,9 @@ inject.define("config.internationalization.en_us", [function () {
 	self.grid.metaactions_init = 'Init';
 
 	self.cols = {};
-	self.cols.txt_bigDesktops = 'Desktops Grandes';
+	self.cols.txt_bigDesktops = 'Big Desktops';
 	self.cols.txt_phones = 'Phones';
-	self.cols.txt_tablets = 'Tables';
+	self.cols.txt_tablets = 'Tablets';
 	self.cols.txt_desktops = 'Desktops';
 
 	self.buttonForm = {};
