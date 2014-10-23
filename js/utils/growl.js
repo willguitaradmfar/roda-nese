@@ -1,8 +1,11 @@
 inject.define("utils.growl", [function () {
     var self = {};
 
+    var durationDefault = 1000 * 10;
+
   	self.info = function (msg, title) {
   		var config = {};
+      config.duration = self.duration || durationDefault;
   		config.message = msg;
   		config.title = title || 'INFO';
   		$.growl(config);
@@ -10,6 +13,7 @@ inject.define("utils.growl", [function () {
 
   	self.error = function (msg, title) {
   		var config = {};
+      config.duration = self.duration || durationDefault;
   		config.message = msg;
   		config.title = title;
   		$.growl.error(config);
@@ -17,6 +21,7 @@ inject.define("utils.growl", [function () {
 
   	self.notice = function (msg, title) {
   		var config = {};
+      config.duration = self.duration || durationDefault;
   		config.message = msg;
   		config.title = title;
   		$.growl.notice(config);
@@ -24,6 +29,7 @@ inject.define("utils.growl", [function () {
 
   	self.warning = function (msg, title) {
   		var config = {};
+      config.duration = self.duration || durationDefault;
   		config.message = msg;
   		config.title = title;
   		$.growl.warning(config);

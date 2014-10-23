@@ -10,8 +10,8 @@ inject.define("palletas.components.chartPie", [
 		self.templ = '<img width="50" height="50" src="image/components/chartPie.png" data-pie-chart>';
 
 		self.property = {};
-		self.property.width = '100';
-		self.property.height = '100';
+		self.property.width = '200';
+		self.property.height = '200';
 		self.property.metacontext_context = 'context';
 
 		self.property.metafields_labelField = '';			

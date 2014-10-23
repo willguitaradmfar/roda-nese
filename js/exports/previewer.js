@@ -89,7 +89,7 @@ inject.define("exports.previewer", [
 			$('#v320').on('click', function () {
 				self.openPopup({
 					width : 320, 
-					height : 420,
+					height : 570,
 					title : 'Projeto v320'
 				});			
 			});
@@ -97,7 +97,7 @@ inject.define("exports.previewer", [
 			$('#v480').on('click', function () {
 				self.openPopup({
 					width : 480, 
-					height : 570,
+					height : 650,
 					title : 'Projeto v480'
 				});			
 			});
@@ -105,7 +105,7 @@ inject.define("exports.previewer", [
 			$('#v768').on('click', function () {
 				self.openPopup({
 					width : 768, 
-					height : 570,
+					height : 690,
 					title : 'Projeto v768'
 				});
 			});
@@ -113,7 +113,7 @@ inject.define("exports.previewer", [
 			$('#v1024').on('click', function () {
 				self.openPopup({
 					width : 1024, 
-					height : 570,
+					height : 768,
 					title : 'Projeto v1024'
 				});				
 			});

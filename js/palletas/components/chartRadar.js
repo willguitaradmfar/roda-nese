@@ -10,8 +10,8 @@ inject.define("palletas.components.chartRadar", [
 		self.templ = '<img width="50" height="50" src="image/components/chartRadar.png" data-radar-chart>';
 
 		self.property = {};
-		self.property.width = '100';
-		self.property.height = '100';
+		self.property.width = '200';
+		self.property.height = '200';
 		self.property.metacontext_context = 'context';
 
 		self.property.maxPoint = '10';

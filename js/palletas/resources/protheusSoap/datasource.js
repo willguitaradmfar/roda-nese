@@ -4,7 +4,8 @@ inject.define("palletas.resources.protheusSoap.datasource", [
         "utils.soap",
         "palletas.resources.protheusSoap.service",
         "palletas.resources.protheusSoap.controller",
-    function (util, base64, soap, service, controller) {
+        "utils.growl",
+    function (util, base64, soap, service, controller, growl) {
 
         var self = {};
 
@@ -70,6 +71,12 @@ inject.define("palletas.resources.protheusSoap.datasource", [
             comp.metadata.resource = comp.property.context;
             comp.metadata.models = models;
             comp.metadata.actions = actions;
+
+            if(models){
+                growl.info('METADADOS PROCESSADO COM SUCESSO !!!');
+            }else{
+                growl.error('METADADOS NÃO PODE SER PROCESSADO ');
+            }
         };
       
 
@@ -86,8 +93,18 @@ inject.define("palletas.resources.protheusSoap.datasource", [
                     },
                     tagResult,
                     function(d){
+                        if(d){
+                            growl.info('METADADOS RECEBIDOS !!!');
+                        }else{
+                            growl.error('NÃO FOI RECEBIDO METADADOS DO SERVER');
+                        }
                         var meta = util.eval(base64.decode(d));
-                        processMeta(comp, meta);
+                        if(meta){
+                            growl.info('METADADOS DESERIALIZADO COM SUCESSO!!!');
+                            processMeta(comp, meta);
+                        }else{
+                            growl.error('METADADOS NÃO PODE SER DESERIALIZADO');
+                        }                        
                     }
             );
         };
