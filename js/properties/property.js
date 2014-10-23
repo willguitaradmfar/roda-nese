@@ -2,7 +2,8 @@ inject.define("properties.property", [
 		"utils.dao.compDB", 
 		"properties.proxy",
 		"utils.legend",
-	function (dao, proxy, legend) {
+		"utils.util",
+	function (dao, proxy, legend, util) {
 	
 		var self = {};
 
@@ -81,6 +82,11 @@ inject.define("properties.property", [
 			var updatePropertyComp = function($_this, _comp) {					
 				dao.updateCompDB($_this, _comp);
 				console.debug('UPDATE COMPONENT : ('+(_comp.name || _comp.property.nameService) + ' '+comp.___id+')');
+
+				if(_comp.update || typeof _comp.update != 'function'){
+					_comp.update = util.eval(_comp.update);
+				}
+
 				_comp.update($_this, _comp, function () {
 					dao.updateCompDB($_this, _comp);
 				});

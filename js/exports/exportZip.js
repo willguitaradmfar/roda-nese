@@ -5,7 +5,8 @@ inject.define("exports.exportZip", [
 		"builds.directive",
 		"exports.generator",
 		"utils.dao.compDB",
-	function (zip, service, controller, directive, generator, dao) {
+		"utils.util",
+	function (zip, service, controller, directive, generator, dao, util) {
 	    var self = {};
 
 	    var importsHeadJS = [
@@ -105,8 +106,11 @@ inject.define("exports.exportZip", [
 
 			for(var i = 0, len = comps.length ; i < len ; i++){				
 				var comp = dao.getCompDBById($(comps[i]), 'data-comp-id');
-				if(comp.runtime && typeof comp.runtime == 'function')
-					comp.runtime($(comps[i]), comp);
+
+				if(comp.runtime || typeof comp.runtime != 'function'){
+					comp.runtime = util.eval(comp.runtime);
+				}				
+				comp.runtime($(comps[i]), comp);
 			};
 
 			var fileHTML = {};
