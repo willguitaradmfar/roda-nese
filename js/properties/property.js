@@ -81,9 +81,9 @@ inject.define("properties.property", [
 
 			var updatePropertyComp = function($_this, _comp) {					
 				dao.updateCompDB($_this, _comp);
-				console.debug('UPDATE COMPONENT : ('+(_comp.name || _comp.property.nameService) + ' '+comp.___id+')');
+				console.debug('UPDATE COMPONENT : ('+(_comp.name || _comp.property.nameService) + ' '+comp.___id+')');				
 
-				if(_comp.update || typeof _comp.update != 'function'){
+				if(_comp.update && typeof _comp.update != 'function'){
 					_comp.update = util.eval(_comp.update);
 				}
 

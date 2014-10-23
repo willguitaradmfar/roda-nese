@@ -52,8 +52,9 @@ inject.define("palletas.resources.protheusRest.datasource", [
                 if(!types[field.TYPE]){
                     console.warn('TIPO NÃO PROVIDO '+field.datatype);                    
                 }
+                
                 models[modelID][field.FIELD].type = types[field.TYPE];
-                models[modelID][field.FIELD].info = field.INFO;                    
+                models[modelID][field.FIELD].info = base64.decode(field.INFO);
             }
 
             actions.list = {

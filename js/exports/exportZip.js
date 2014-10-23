@@ -107,9 +107,12 @@ inject.define("exports.exportZip", [
 			for(var i = 0, len = comps.length ; i < len ; i++){				
 				var comp = dao.getCompDBById($(comps[i]), 'data-comp-id');
 
-				if(comp.runtime || typeof comp.runtime != 'function'){
+				if(!comp.runtime) continue;
+
+				if(comp.runtime && typeof comp.runtime != 'function'){
 					comp.runtime = util.eval(comp.runtime);
-				}				
+				}
+				
 				comp.runtime($(comps[i]), comp);
 			};
 
