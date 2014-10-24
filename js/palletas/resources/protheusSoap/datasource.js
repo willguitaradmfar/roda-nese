@@ -105,6 +105,8 @@ inject.define("palletas.resources.protheusSoap.datasource", [
                         }else{
                             growl.error('METADADOS NÃO PODE SER DESERIALIZADO');
                         }                        
+                    }, function (e) {
+                        growl.error('OCORREU UM ERRO NA REQUISIÇÃO DO METADATA');
                     }
             );
         };

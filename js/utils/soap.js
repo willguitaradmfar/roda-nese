@@ -1,6 +1,6 @@
 inject.define("utils.soap", [function () {
     var self = {};
-    	self.sendSoap = function (url, method, _parameters, tagResult, _cb_resp) {
+    	self.sendSoap = function (url, method, _parameters, tagResult, _cb_resp, _cb_respError) {
 
 		var parameters = new SOAPClientParameters();
 		for(var i in _parameters){
@@ -18,6 +18,13 @@ inject.define("utils.soap", [function () {
 			else
 				console.debug(result);
 
+		}, function (e) {
+
+			if(_cb_respError)
+				_cb_respError(e);
+			else
+				console.error(_cb_respError);
+			
 		});
 	};
     return self;

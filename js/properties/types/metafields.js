@@ -22,8 +22,7 @@ inject.define("properties.types.metafields", [
 						continue;
 					}					
 
-					var jsonKey = {};				
-					
+					var jsonKey = {};					
 					jsonKey.key = meta.resource + '.' + modelName+'.'+iii;
 
 					jsonKey.info = (field.info ? meta.resource + ' -> ' +field.info+'['+type+']' : meta.resource + ' -> ' + modelName+'.'+iii+'['+type+']');

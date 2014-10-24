@@ -161,19 +161,19 @@ SOAPClient.auth = false;
 SOAPClient.authUser = null;
 SOAPClient.authPass = null;
 
-SOAPClient.invoke = function(url, method, parameters, async, callback)
+SOAPClient.invoke = function(url, method, parameters, async, callback, callbackError)
 {
     if(async)
-        SOAPClient._loadWsdl(url, method, parameters, async, callback);
+        SOAPClient._loadWsdl(url, method, parameters, async, callback, callbackError);
     else
-        return SOAPClient._loadWsdl(url, method, parameters, async, callback);
+        return SOAPClient._loadWsdl(url, method, parameters, async, callback, callbackError);
 }
 
 // private: wsdl cache
 SOAPClient_cacheWsdl = new Array();
 
 // private: invoke async
-SOAPClient._loadWsdl = function(url, method, parameters, async, callback)
+SOAPClient._loadWsdl = function(url, method, parameters, async, callback, callbackError)
 {
     // load from cache?
     var wsdl = SOAPClient_cacheWsdl[url];
@@ -190,6 +190,13 @@ SOAPClient._loadWsdl = function(url, method, parameters, async, callback)
                 SOAPClient._onLoadWsdl(url, method, parameters, async, callback, xmlHttp);
         }
     }
+
+    xmlHttp.onerror = function(e){
+        if(callbackError && e.type == "error"){
+            callbackError(e);
+        }
+    }
+
     xmlHttp.send(null);
     if (!async)
         return SOAPClient._onLoadWsdl(url, method, parameters, async, callback, xmlHttp);
