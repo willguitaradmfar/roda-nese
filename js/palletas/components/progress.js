@@ -8,14 +8,11 @@ inject.define("palletas.components.progress", [function () {
 					+'</div>'
 				+'</div>';
 
-	self.property = {};	
-	self.property.metacontext_context = 'context';
+	self.property = {};
 	self.property.maxValue = '100';
 	self.property.minValue = '0';
 	self.property.combo_tipo = {val : 'success', options : ['default', 'info', 'danger', 'success', 'warning']};
-	self.property.combo_striped = {val : 'striped', options : ['striped', 'none']};
-
-	self.binds = {};
+	self.property.combo_striped = {val : 'striped', options : ['striped', 'none']};	
 	self.property.metafields_value = '';
 
 	self.update = function (target, comp) {
@@ -25,7 +22,7 @@ inject.define("palletas.components.progress", [function () {
 
 		var field = 50;
 		if(comp.property.metafields_value){
-			field = '{{'+comp.property.metafields_value.replace(/:/, comp.property.metacontext_context+'.')+'}}';
+			field = '{{'+comp.property.metafields_value.key+'}}';
 		}
 
 		if(comp.property.maxValue){

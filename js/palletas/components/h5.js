@@ -6,15 +6,14 @@ inject.define("palletas.components.h5", [function () {
 	self.templ = '<h5>H5</h5>';
 
 	self.property = {};
-	self.property.label = 'H5';
-	self.property.metacontext_context = 'context';
+	self.property.label = 'H5';	
 	self.property.metafields_field = '';	
 
 	self.update = function (target, comp) {
 		$(target).text(comp.property.label);
 
 		if(comp.property.metafields_field){
-			var bind = comp.property.metafields_field.replace(':', comp.property.metacontext_context+'.');
+			var bind = comp.property.metafields_field.key;
 			$(target).attr('data-ng-bind', bind);
 		}
 		else{

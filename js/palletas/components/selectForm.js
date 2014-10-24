@@ -16,9 +16,10 @@ inject.define("palletas.components.selectForm", [function () {
 	self.property.label = 'Select';
 	self.property.multitxt_options = 'Option 1,Option 2,Option 3';	
 	self.property.metacontext_context = 'context';
-	self.property.metafields_field = 'field';	
+	self.property.metafields_field = 'field';
 	self.property.metamodels_select = 'select';
 	self.property.metaarrays_list = 'list';
+	self.property.metaactions_init = '';
 
 	self.update = function (target, comp) {
 		$(target).attr('class', 'input-group component');
@@ -31,12 +32,22 @@ inject.define("palletas.components.selectForm", [function () {
 
 		var context = comp.property.metacontext_context+'.';		
 		$(target).find('select').attr('data-ng-model', comp.property.metamodels_select.replace(/:/, context));
+		
+		if(comp.property.metafields_field){
+			
+			var path = comp.property.metafields_field.path;
+			
+			var array = comp.property.metaarrays_list.replace(':', context);
+			var options = 'item as item.'+path+' for item in '+array;
 
-		var field = comp.property.metafields_field.replace(/:\w*\./, '');
-		var array = comp.property.metaarrays_list.replace(':', context);
-		var options = 'item as item.'+field+' for item in '+array;
+			$(target).find('select').attr('data-ng-options', options);
 
-		$(target).find('select').attr('data-ng-options', options);
+			$(target).removeAttr('data-ng-init');
+			if(comp.property.metaactions_init){
+				var action = comp.property.metaactions_init;
+				$(target).attr('data-ng-init', action);
+			}
+		}
 	};
     return self;
 }]);

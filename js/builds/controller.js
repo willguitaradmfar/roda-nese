@@ -152,8 +152,6 @@ inject.define("builds.controller", [
 
 			bodyController += '\n\t}]);';
 
-			console.debug(bodyController);
-
 			return bodyController;
 		};
 		

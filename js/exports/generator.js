@@ -58,13 +58,11 @@ inject.define("exports.generator", [
 
 				var content = $('<div></div>');
 				for(var i in dependencysCSS){
-					var dependency = dependencysCSS[i];
-					console.debug('ADICIONANDO DEPENDENCIA CSS '+$(dependency).attr('href'));
+					var dependency = dependencysCSS[i];					
 					content.append(dependency);
 				}
 				for(var i in dependencysJS){
-					var dependency = dependencysJS[i];
-					console.debug('ADICIONANDO DEPENDENCIA JS '+$(dependency).attr('src'));
+					var dependency = dependencysJS[i];					
 					content.append(dependency);
 				}
 

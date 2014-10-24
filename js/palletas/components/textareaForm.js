@@ -12,8 +12,7 @@ inject.define("palletas.components.textareaForm", [function () {
 	self.property.label = 'Text Area';
 	self.property.placeholder = 'Placeholder';
 	self.property.rows = '5';
-	self.property.cols = '5';
-	self.property.metacontext_context = 'context';	
+	self.property.cols = '5';	
 	self.property.metafields_field = 'field';
 
 	self.update = function (target, comp) {
@@ -22,7 +21,7 @@ inject.define("palletas.components.textareaForm", [function () {
 		$(target).find('textarea').attr('cols', comp.property.cols);
 		$(target).find('textarea').attr('placeholder', comp.property.placeholder);
 		$(target).find('label').text(comp.property.label);
-		var bind = comp.property.metafields_field.replace(':', comp.property.metacontext_context+'.');
+		var bind = comp.property.metafields_field.key;
 		$(target).find('textarea').attr('data-ng-model', bind);
 	};
     return self;

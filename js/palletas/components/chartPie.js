@@ -35,19 +35,19 @@ inject.define("palletas.components.chartPie", [
 
 			$(target).removeAttr('ata-label-field');
 			if(comp.property.metafields_labelField){
-				var bind = comp.property.metafields_labelField.replace(/^:\w*\.(\w*)/, '$1');
+				var bind = comp.property.metafields_labelField.field;
 				$(target).attr('data-label-field', bind);
 			}			
 
 			$(target).removeAttr('data-value-field');
 			if(comp.property.metafields_valueField){
-				var bind = comp.property.metafields_valueField.replace(/^:\w*\.(\w*)/, '$1');
+				var bind = comp.property.metafields_valueField.field;
 				$(target).attr('data-value-field', bind);
 			}
 
 			$(target).removeAttr('data-color-field');
 			if(comp.property.metafields_colorField){
-				var bind = comp.property.metafields_colorField.replace(/^:\w*\.(\w*)/, '$1');
+				var bind = comp.property.metafields_colorField.field;
 				$(target).attr('data-color-field', bind);
 			}
 

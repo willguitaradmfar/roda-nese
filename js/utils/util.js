@@ -40,7 +40,7 @@ inject.define("utils.util", [function () {
 			try{
 				response = eval(script);
 			}catch(e){
-				console.error(e, script);				
+				throw e;
 			}
 		}
 		return response;

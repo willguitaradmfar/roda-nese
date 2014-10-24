@@ -35,19 +35,19 @@ inject.define("palletas.components.chartLine", [
 
 			$(target).removeAttr('data-max-point');
 			if(comp.property.maxPoint){
-				var bind = comp.property.maxPoint.replace(/^:\w*\.(\w*)/, '$1');
+				var bind = comp.property.maxPoint;
 				$(target).attr('data-max-point', bind);
 			}
 
 			$(target).removeAttr('data-label-field');
 			if(comp.property.metafields_labelField){
-				var bind = comp.property.metafields_labelField.replace(/^:\w*\.(\w*)/, '$1');
+				var bind = comp.property.metafields_labelField.field;
 				$(target).attr('data-label-field', bind);
 			}
 
 			$(target).removeAttr('data-value-field');
 			if(comp.property.metafields_valueField){
-				var bind = comp.property.metafields_valueField.replace(/^:\w*\.(\w*)/, '$1');
+				var bind = comp.property.metafields_valueField.field;
 				$(target).attr('data-value-field', bind);
 			}
 

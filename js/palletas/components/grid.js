@@ -56,9 +56,9 @@ inject.define("palletas.components.grid", [function () {
 		var cols = comp.property.metafieldsmulti_cols;
 		$(target).find('tbody > tr').html('');
 		for(var i in cols){
-			var col = cols[i];			
+			var col = cols[i];
 			$(target).find('tbody > tr').attr('data-ng-click', 'set(_m, "'+comp.property.metamodels_select.replace(':', context+'.')+'")');
-			$(target).find('tbody > tr').append('<td data-ng-bind="_m.'+col.replace(/:\w*\./, '')+'"></td>');
+			$(target).find('tbody > tr').append('<td data-ng-bind="_m.'+col.path+'"></td>');
 			
 		}
 	};

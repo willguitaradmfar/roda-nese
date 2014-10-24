@@ -69,8 +69,25 @@ inject.define("properties.property", [
 				var name = $(_this).attr('name');
 				var val = $(_this).val();
 
+				if(val){
+					try{
+						if(typeof val == 'object' && val.length){
+							var vals = [];
+							for(var i in val){
+								vals.push(util.eval(val[i]));
+							}
+							val = vals;
+						}else{
+							val = util.eval(val);	
+						}
+						
+					}catch(e){
+						console.debug('val '+val+' não é um obj JSON');						
+					}
+				}
+
 				var sufix = name.split('.')[1];
-				var prefix = name.split('.')[0];					
+				var prefix = name.split('.')[0];
 
 				if(_comp.property && _comp.property[sufix] && _comp.property[sufix].val){
 					_comp.property[sufix].val = val;
@@ -81,7 +98,7 @@ inject.define("properties.property", [
 
 			var updatePropertyComp = function($_this, _comp) {					
 				dao.updateCompDB($_this, _comp);
-				console.debug('UPDATE COMPONENT : ('+(_comp.name || _comp.property.nameService) + ' '+comp.___id+')');				
+				console.debug('UPDATE COMPONENT : ('+(_comp.name || _comp.property.nameService) + ' '+comp.___id+')');
 
 				if(_comp.update && typeof _comp.update != 'function'){
 					_comp.update = util.eval(_comp.update);
