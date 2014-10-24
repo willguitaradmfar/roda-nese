@@ -12,7 +12,7 @@ inject.define("palletas.resources.protheusSoap.service", [function () {
 			}
 
 			SOAPClient.invoke(
-				"http://192.168.122.94/GETDATABASE.apw"
+				"http://172.16.84.95/GETDATABASE.apw"
 				, "GETDATATABLE"
 				, parameters
 				, false

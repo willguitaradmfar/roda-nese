@@ -19,7 +19,7 @@ inject.define("palletas.resources.protheusSoap.datasource", [
 
         self.property = {};
         self.property.nameService = 'protheus';        
-        self.property.urlWS =  'http://192.168.122.94/FWWSMODEL.apw';    
+        self.property.urlWS =  'http://172.16.84.95/FWWSMODEL.apw';    
         self.property.model =  'MATA030';
         self.property.table =  'SA1';
         self.property.context =  'context';
