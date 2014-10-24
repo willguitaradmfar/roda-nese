@@ -6,7 +6,6 @@ inject.define("properties.property", [
 	function (dao, proxy, legend, util) {
 	
 		var self = {};
-
 		var accordion;
 
 		self.buildBarraDeBotoes = function () {

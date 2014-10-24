@@ -14,11 +14,10 @@ inject.define("palletas.components.selectForm", [function () {
 
 	self.property = {};
 	self.property.label = 'Select';
-	self.property.multitxt_options = 'Option 1,Option 2,Option 3';	
-	self.property.metacontext_context = 'context';
+	self.property.multitxt_options = 'Option 1,Option 2,Option 3';
 	self.property.metafields_field = 'field';
-	self.property.metamodels_select = 'select';
-	self.property.metaarrays_list = 'list';
+	self.property.metafields_select = 'select';
+	self.property.metafields_list = 'list';
 	self.property.metaactions_init = '';
 
 	self.update = function (target, comp) {
@@ -29,15 +28,14 @@ inject.define("palletas.components.selectForm", [function () {
 		for(var i in options){
 			$(target).find('select').append('<option value="'+options[i]+'">'+options[i]+'</option>');
 		}
-
-		var context = comp.property.metacontext_context+'.';		
-		$(target).find('select').attr('data-ng-model', comp.property.metamodels_select.replace(/:/, context));
+			
+		$(target).find('select').attr('data-ng-model', comp.property.metafields_select.key);
 		
 		if(comp.property.metafields_field){
 			
 			var path = comp.property.metafields_field.path;
 			
-			var array = comp.property.metaarrays_list.replace(':', context);
+			var array = comp.property.metafields_list.key;
 			var options = 'item as item.'+path+' for item in '+array;
 
 			$(target).find('select').attr('data-ng-options', options);

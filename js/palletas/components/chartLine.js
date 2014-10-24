@@ -11,15 +11,14 @@ inject.define("palletas.components.chartLine", [
 
 		self.property = {};
 		self.property.width = '400';
-		self.property.height = '200';
-		self.property.metacontext_context = 'context';
+		self.property.height = '200';		
 
 		self.property.maxPoint = '10';
 
 		self.property.metafields_labelField = '';			
 		self.property.metafields_valueField = '';	
 
-		self.property.metaarrays_list = 'list';
+		self.property.metafields_list = 'list';
 
 		self.property.metaactions_init = '';
 
@@ -28,8 +27,8 @@ inject.define("palletas.components.chartLine", [
 			$(target).attr('height', comp.property.height);
 
 			$(target).removeAttr('data-chart-data');
-			if(comp.property.metaarrays_list){
-				var data = comp.property.metaarrays_list.replace(':', comp.property.metacontext_context+'.');	
+			if(comp.property.metafields_list){
+				var data = comp.property.metafields_list.key;
 				$(target).attr('data-chart-data', data);
 			}
 
