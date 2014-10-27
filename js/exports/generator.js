@@ -66,7 +66,7 @@ inject.define("exports.generator", [
 					content.append(dependency);
 				}
 
-				content.append($('<title></title>').text(config.title));
+				content.append($('<title></title>').text(config.title + ' Tema '+config.theme));
 				content.append($('<meta name="viewport" content="width=device-width, initial-scale=1.0">'));
 				content.append($('<link rel="shortcut icon" href="image/fav/liferay.ico" type="image/vnd.microsoft.icon" />'));				
 				head.append(content.html());

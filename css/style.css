@@ -1,6 +1,6 @@
 
 #palleta, .des-container{	
-	height: 93%;
+	height: 92%;
 }
 
 #palleta .component{
@@ -29,7 +29,7 @@
 }
 
 #topo{	
-	height: 6%;
+	height: 7%;
 	padding-top: 4px;
 	background-color: #eeeeee;
 }
@@ -59,7 +59,7 @@
 .des-datasource{
 	background-color: #eeeeee;
 	position: absolute;	
-	top: 6%;
+	top: 7%;
 	right : 0%;	
 	width: 50px;
 	height: 93%;	

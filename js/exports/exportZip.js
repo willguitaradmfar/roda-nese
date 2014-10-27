@@ -22,8 +22,7 @@ inject.define("exports.exportZip", [
 		];
 
 	    var importsHeadCSS = [
-	    	'dependencyRuntime/bootstrap.min.css',
-			'dependencyRuntime/bootstrap-theme.min.css'
+	    	'dependencyRuntime/bootstrap.min.css',			
 	    ];
 
 	    var importsCopy = [
@@ -32,12 +31,11 @@ inject.define("exports.exportZip", [
 			'dependencyRuntime/bootstrap.min.js',
 			'dependencyRuntime/ChartJS/Chart.js',
 			'dependencyRuntime/soapjs/soapclient.js',
-			'dependencyRuntime/bootstrap.min.css',
-			'dependencyRuntime/bootstrap-theme.min.css',
-			'fonts/glyphicons-halflings-regular.woff',
-			'fonts/glyphicons-halflings-regular.ttf',
-			'fonts/glyphicons-halflings-regular.svg',
-			'fonts/glyphicons-halflings-regular.eot',
+			'dependencyRuntime/bootstrap.min.css',			
+			'dependencyRuntime/bootstrap-theme/fonts/glyphicons-halflings-regular.woff',
+			'dependencyRuntime/bootstrap-theme/fonts/glyphicons-halflings-regular.ttf',
+			'dependencyRuntime/bootstrap-theme/fonts/glyphicons-halflings-regular.svg',
+			'dependencyRuntime/bootstrap-theme/fonts/glyphicons-halflings-regular.eot',
 			'image/fav/liferay.ico'
 		];	    
 	   
@@ -49,10 +47,16 @@ inject.define("exports.exportZip", [
 			var title = config.title || 'Titulo do Projeto';
 			var ctrlName = config.ctrl || 'desenhadorCtrl';
 			var appName = config.appName || 'desenhador';
+			
+			config.theme = config.theme || $('#theme').val();
 
 			var makeController = config.makeController || controller.makeController;
 			var makeService = config.makeService || service.makeService;
 			var makeDirective = config.makeDirective || directive.makeDirective;
+
+
+			importsHeadCSS.push('dependencyRuntime/bootstrap-theme/'+config.theme+'/bootstrap.min.css');
+			importsCopy.push('dependencyRuntime/bootstrap-theme/'+config.theme+'/bootstrap.min.css');
 			
 			console.debug('EXPORTAR PROJETO '+title + ' PARA ZIP');			
 

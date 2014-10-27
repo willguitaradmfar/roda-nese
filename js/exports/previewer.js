@@ -14,7 +14,7 @@ inject.define("exports.previewer", [
 
 			self.openPopup = function (config) {
 
-				if(!config) throw 'config não passado';
+				if(!config) throw 'config não passado';				
 
 				var title = config.title || 'Titulo do Projeto';
 				var ctrlName = config.ctrl || 'desenhadorCtrl';
@@ -25,13 +25,15 @@ inject.define("exports.previewer", [
 				var makeService = config.makeService || service.makeService;
 				var makeDirective = config.makeDirective || directive.makeDirective;
 				
-				console.debug('VISUALIZAR PROJETO '+title);				
+				config.theme = config.theme || $('#theme').val();
+				
+				console.debug('VISUALIZAR PROJETO '+title + ' com tema '+config.theme);
 
 				var script = $('<script type="text/javascript"></script>');
 				script.append('\nvar angularApp = angular.module(\'desenhador\', []);');
 				script.append(makeDirective());
 				script.append(makeService());
-				script.append(makeController());		
+				script.append(makeController());
 
 				config.dependencyJS = [
 					'dependencyRuntime/jquery/jquery-ui-1.11.1/external/jquery/jquery.js',
@@ -42,9 +44,10 @@ inject.define("exports.previewer", [
 				];
 
 				config.dependencyCSS = [
-					'dependencyRuntime/bootstrap.min.css',
-					'dependencyRuntime/bootstrap-theme.min.css'
+					'dependencyRuntime/bootstrap.min.css'					
 				];
+
+				config.dependencyCSS.push('dependencyRuntime/bootstrap-theme/'+config.theme+'/bootstrap.min.css');
 
 				var head = generator.makeHead(config);
 

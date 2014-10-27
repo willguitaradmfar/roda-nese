@@ -96,6 +96,60 @@
 		<div class="row">
 			<div class="col-md-12" id="topo">
 
+			<div class="bs-component">
+              <div class="navbar navbar-default">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="index.html">Desenhador</a>
+                </div>
+                <div class="navbar-collapse collapse navbar-responsive-collapse">
+                  <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Arquivo <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li><a class="glyphicon glyphicon-floppy-save" href="#" id="salvarLocalStorage"> Save LocalStorage</a></li>
+                        <li><a class="glyphicon glyphicon-floppy-save" href="#" id="salvarFile"> Save FileSystem</a></li>                        
+                      </ul>
+                    </li>
+                  </ul>
+                  <span class="logoTOTVS"><img src="image/logo.png"></span>                
+                  <ul class="nav navbar-nav">                    
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Visualizar <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li><a class="glyphicon glyphicon-eye-open" href="#" id="v240"> 240</a></li>
+                        <li><a class="glyphicon glyphicon-eye-open" href="#" id="v320"> 320</a></li>
+                        <li><a class="glyphicon glyphicon-eye-open" href="#" id="v480"> 480</a></li>
+                        <li><a class="glyphicon glyphicon-eye-open" href="#" id="v768"> 768</a></li>
+                        <li><a class="glyphicon glyphicon-eye-open" href="#" id="v1024"> 1024</a></li>
+                        <li class="divider"></li>
+                        <li><a class="glyphicon glyphicon-eye-open" href="#" id="vFull"> Full</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" id="export">Export ZIP</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                 <form class="navbar-form ">                    
+                    <select class="form-control col-lg-8" id="theme">
+                    	<option value="default" selected>Default</option>
+                    	<option value="cosmo">Cosmo</option>
+                    	<option value="darkly">Darkly</option>
+                    	<option value="flatly">Flatly</option>
+                    	<option value="superhero">Superhero</option>
+                    	<option value="yeti">Yeti</option>
+                    </select>
+                  </form>
+                </div>
+
+              </div>           
+
+            </div>
+
+            <!-- 
 				<div class="dropdown">				  
 				  <span class="btn btn-info dropdown-toggle glyphicon glyphicon-eye-open" type="button" id="dropdownMenu1" data-toggle="dropdown">				     			  
 				  </span>
@@ -116,7 +170,7 @@
 				  <span class="btn btn-success dropdown-toggle glyphicon glyphicon-floppy-disk" type="button" id="salvarFile"></span>
 
 				  <span class="logoTOTVS"><img src="image/logo.png"></span>
-				</div>
+				</div>-->
 
 			</div>		
 			<div class="col-md-2" id="palleta">
