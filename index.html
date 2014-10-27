@@ -25,7 +25,7 @@
 
 		<!-- BOOTSTRAP -->
 		<link rel="stylesheet" href="dependency/bootstrap.min.css">		
-		<link rel="stylesheet" href="dependency/bootstrap-theme.min.css">		
+		<link rel="stylesheet" href="dependency/bootstrap-theme/default/bootstrap.min.css">
 		<script src="dependency/bootstrap.min.js"></script>
 		<!-- BOOTSTRAP -->
 
@@ -72,7 +72,8 @@
     								"config.internationalization",
     								"exports.exportZip",
     								"utils.growl",
-                function(util, previewer, palleta, dragdrop, propertyHover, projectFileStorage, projectLocalStorage, internationalization, exportZip, growl){                	
+    								"themes.theme",
+                function(util, previewer, palleta, dragdrop, propertyHover, projectFileStorage, projectLocalStorage, internationalization, exportZip, growl, theme){
 					new previewer.preview($('.des-container'));
 					exportZip.register($('.des-container'));
 					new palleta.palleta($('#palleta'));
@@ -133,14 +134,9 @@
                       </ul>
                     </li>
                   </ul>
-                 <form class="navbar-form ">                    
-                    <select class="form-control col-lg-8" id="theme">
-                    	<option value="default" selected>Default</option>
-                    	<option value="cosmo">Cosmo</option>
-                    	<option value="darkly">Darkly</option>
-                    	<option value="flatly">Flatly</option>
-                    	<option value="superhero">Superhero</option>
-                    	<option value="yeti">Yeti</option>
+                 <form class="navbar-form">                    
+                    <select class="form-control col-lg-8" id="theme">                   	
+                    	
                     </select>
                   </form>
                 </div>

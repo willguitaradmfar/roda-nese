@@ -66,7 +66,7 @@ inject.define("palletas.resources.protheusSoap.datasource", [
                     type : 'array',
                     model : ':'+comp.property.table
                 }
-            };
+            };        
 
             comp.metadata.resource = comp.property.context;
             comp.metadata.models = models;

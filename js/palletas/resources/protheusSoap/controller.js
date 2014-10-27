@@ -25,7 +25,6 @@ inject.define("palletas.resources.protheusSoap.controller", [function () {
                     	$scope.$context$.$table$List = eval('('+result+')').Rows;
                 }
         );
-	};	
-
+	};
     return self;
 }]);
