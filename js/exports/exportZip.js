@@ -19,7 +19,8 @@ inject.define("exports.exportZip", [
 			'js/app.js',
 			'js/directives/directive.js',
 			'js/services/service.js',
-			'js/controllers/controller.js'
+			'js/controllers/controller.js',
+			'js/filters/filter.js'
 		];
 
 	    var importsHeadCSS = [
