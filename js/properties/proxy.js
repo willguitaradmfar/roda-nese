@@ -16,11 +16,10 @@ inject.define("properties.proxy", [
 					var label = internationalization.translate(comp.name, i);
 					tr.append('<td>'+label+'</td>');				
 
-					var type = i.substring(0,i.indexOf('_')) || 'txt';
-					if(!type) throw 'CAMPO ['+i+'] DE PROPRIEDADE SEM TIPO';					
+					var componentType = i.substring(0,i.indexOf('_')) || 'txt';					
 					
-					var module = types.types[type];
-					if(!module) throw 'NAO ENCONTRADO DEFINICAO PARA ESSE TIPO ['+type+']';
+					var module = types.types[componentType];
+					if(!module) throw 'NAO ENCONTRADO DEFINICAO PARA ESSE "componentType" ['+componentType+']';
 					var td = $('<td></td>');
 					module.make(comp, i, property, td)
 

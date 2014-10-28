@@ -13,7 +13,7 @@ inject.define("palletas.components.textareaForm", [function () {
 	self.property.placeholder = 'Placeholder';
 	self.property.rows = '5';
 	self.property.cols = '5';	
-	self.property.metafields_field = 'field';
+	self.property.metafields_field = {config : {types : ['string', 'number', 'date']}};
 
 	self.update = function (target, comp) {
 		$(target).attr('class', 'input-group component ');

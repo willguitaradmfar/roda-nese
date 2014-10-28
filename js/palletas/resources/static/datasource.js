@@ -21,7 +21,7 @@ inject.define("palletas.resources.static.datasource", [
            var models = {};
 
             var marca = {nome : {type : 'string', required : true}};
-            var modelo = {nome : { type : 'string',required : true},marca : {type : ':marca',ref : models.marca}};
+            var modelo = {nome : { type : 'string',required : true},marca : {type : ':marca',ref : marca}};
 
             models.revisao = {
                 codigo : {
@@ -52,7 +52,7 @@ inject.define("palletas.resources.static.datasource", [
                 }, 
                 modelo : {
                     type : ':modelo',
-                    ref : models.modelo
+                    ref : modelo
                 }, 
                 power : {
                     type : 'number'

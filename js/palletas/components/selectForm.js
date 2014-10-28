@@ -15,9 +15,9 @@ inject.define("palletas.components.selectForm", [function () {
 	self.property = {};
 	self.property.label = 'Select';
 	self.property.multitxt_options = 'Option 1,Option 2,Option 3';
-	self.property.metafields_field = 'field';
-	self.property.metafields_select = 'select';
-	self.property.metafields_list = 'list';
+	self.property.metafields_field = {config : {types : ['string', 'number', 'date']}};
+	self.property.metafields_select = {config : {types : ['object']}};
+	self.property.metafields_list = {config : {types : ['array']}};
 	self.property.metaactions_init = '';
 
 	self.update = function (target, comp) {

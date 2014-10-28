@@ -18,11 +18,12 @@ inject.define("palletas.components.grid", [function () {
 
 	self.property = {};
 	self.property.limit = 10;
-	self.property.multitxt_header = 'Col1,Col2,...';
-	self.property.metafieldsmulti_cols = '';	
-	self.property.metafields_select = 'select';
-	self.property.metafields_filter = 'filter';
-	self.property.metafields_list = 'list';
+	self.property.multitxt_header = '';
+	self.property.metafieldsmulti_cols = {config : {types : ['string', 'number', 'date']}};
+	
+	self.property.metafields_filter = {config : {types : ['object']}};
+	self.property.metafields_select = {config : {types : ['object']}};
+	self.property.metafields_list = {config : {types : ['array']}};
 	self.property.metaactions_init = '';
 
 	self.update = function (target, comp) {
@@ -58,12 +59,11 @@ inject.define("palletas.components.grid", [function () {
 		var headers = comp.property.multitxt_header.split(',');
 		$(target).find('thead > tr').html('');
 
-		if(!comp.property.multitxt_header){
+		if(headers.length != cols.length){
 			for(var i in cols){
 				var col = cols[i];			
 				$(target).find('thead > tr').append('<th>'+col.info+'</th>');
-			}
-
+			}			
 		}else {
 			for(var i in headers){
 				var header = headers[i];			

@@ -8,7 +8,7 @@ inject.define("palletas.components.label", [function () {
 	self.property = {};
 	self.property.label = 'Label';
 	self.property.combo_tipo = {val : 'default', options : ['default', 'info', 'danger', 'success', 'warning']};	
-	self.property.metafields_field = 'model';
+	self.property.metafields_field = {config : {types : ['string', 'number', 'date']}};
 
 	self.update = function (target, comp) {
 		$(target).attr('class', 'component label label-'+comp.property.combo_tipo.val);

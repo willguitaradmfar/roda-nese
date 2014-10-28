@@ -64,10 +64,10 @@ inject.define("properties.property", [
 
 			$( "#dialog" ).dialog( "open" );
 
-			var updatePropertyPerField = function (_this, _comp) {					
+			var updatePropertyPerField = function (_this, _comp) {
 				var name = $(_this).attr('name');
 				var val = $(_this).val();
-
+				
 				if(val){
 					try{
 						if(typeof val == 'object' && val.length){
@@ -84,6 +84,8 @@ inject.define("properties.property", [
 						console.debug('val '+val+' não é um obj JSON');						
 					}
 				}
+
+				if(!val) return;
 
 				var sufix = name.split('.')[1];
 				var prefix = name.split('.')[0];

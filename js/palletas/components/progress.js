@@ -12,8 +12,8 @@ inject.define("palletas.components.progress", [function () {
 	self.property.maxValue = '100';
 	self.property.minValue = '0';
 	self.property.combo_tipo = {val : 'success', options : ['default', 'info', 'danger', 'success', 'warning']};
-	self.property.combo_striped = {val : 'striped', options : ['striped', 'none']};	
-	self.property.metafields_value = '';
+	self.property.combo_striped = {val : 'striped', options : ['striped', 'none']};		
+	self.property.metafields_value = {config : {types : ['number']}};
 
 	self.update = function (target, comp) {
 

@@ -15,10 +15,9 @@ inject.define("palletas.components.chartRadar", [
 
 		self.property.maxPoint = '10';
 
-		self.property.metafields_labelField = '';			
-		self.property.metafields_valueField = '';	
-
-		self.property.metafields_list = 'list';
+		self.property.metafields_labelField  = {config : {types : ['string']}};
+		self.property.metafields_valueField = {config : {types : ['number']}};				
+		self.property.metafields_list = {config : {types : ['array']}};
 
 		self.property.metaactions_init = '';
 

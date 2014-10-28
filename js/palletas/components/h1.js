@@ -8,7 +8,7 @@ inject.define("palletas.components.h1", [
 
 		self.property = {};
 		self.property.label = 'H1';		
-		self.property.metafields_field = '';
+		self.property.metafields_field = {config : {types : ['string', 'number', 'date']}};
 
 		self.update = function (target, comp) {
 			$(target).text(comp.property.label);

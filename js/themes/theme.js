@@ -11,7 +11,7 @@ inject.define("themes.theme", [function () {
     	option.attr('value', _theme);
     	option.text(_theme);
     	theme.append(option);
-    }    
+    }   
 
     return self;
 }]);

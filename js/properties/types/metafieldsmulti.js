@@ -2,145 +2,139 @@ inject.define("properties.types.metafieldsmulti", [
 		"metadatas.metadata",
 		"utils.util",
 	function (metadata, util) {
-	    var self = {}; 
+	   var self = {};	    
 
-		self.make = function (comp, field, property, td) {
+		self.make = function (comp, fieldProperty, property, td) {
 
-			var name = 'property.'+field;
+			var contexts = {};
+
+			var name = 'property.'+fieldProperty;
 
 			var select = $('<select multiple name="'+name+'" class="form-control input-sm"></select>');
 
-			var models = {};
+			var containsTypes = function (prop, _type) {
+				if(!prop) return true;
+				if(!prop.config) return true;
+				if(!prop.config.types) return true;
 
-			var recursive = function (model, meta, modelName) {
-				for(var  iii in model){
-					var field = model[iii];
-					var type = field.type;						
-					
-					if(type.substring(0,1) == ':') {
-						recursive(field.ref, meta, type.replace(/:/, modelName+'.'));
-						continue;
-					}				
+				var types = prop.config.types;
 
-					var jsonKey = {};
-					jsonKey.key = meta.resource + '.' + modelName+'.'+iii;
-
-					var info = (field.info ? meta.resource + ' -> ' +field.info+'['+type+']' : meta.resource + ' -> ' + modelName+'.'+iii+'['+type+']');
-					
-					/*
-						carro.nome (
-							field='nome', 
-							path='nome', 
-							model='carro', 
-							type='string', 
-							modelRoot='carro')
-						carro.dtcreated (
-							field='dtcreated', 
-							path='dtcreated', 
-							model='carro', 
-							type='date', 
-							modelRoot='carro')
-						carro.modelo.nome (
-							field='nome', 
-							path='modelo.nome', 
-							model='modelo', 
-							type='string', 
-							modelRoot='carro')
-						carro.modelo.marca.nome (
-							field='nome', 
-							path='modelo.marca.nome', 
-							model='marca', 
-							type='string', 
-							modelRoot='carro')
-					*/
-					jsonKey.info = field.info || iii;
-					jsonKey.context = meta.resource;
-					jsonKey.field = iii;
-					jsonKey.path = (modelName+'.'+iii).replace(/^\w*\.(.*)$/, '$1');;					
-					jsonKey.model = modelName.replace(/^.*\.(\w*)$/, "$1");
-					jsonKey.modelRoot = modelName.replace(/^(\w*)\..*$/, '$1');
-					jsonKey.type = type;
-
-					//SET MODEL/ARRAYS
-					var sulfixArray = 'List';
-					if(!models[jsonKey.context]) models[jsonKey.context] = {};
-					if(!models[jsonKey.context][jsonKey.model]) models[jsonKey.context][jsonKey.model] = {};
-					if(!models[jsonKey.context][jsonKey.model+sulfixArray]) models[jsonKey.context][jsonKey.model+sulfixArray] = {};					
-					models[jsonKey.context][jsonKey.model].type = 'object';
-					models[jsonKey.context][jsonKey.model+sulfixArray].type = 'array';	
-
-					var strJsonKey = util.stringify(jsonKey);
-
-					var key = property.key;
-
-					var strJsonKey = util.stringify(jsonKey);
-					if(typeof property == 'object' && property.length){
-						var filter = property.filter(function(obj){
-							return obj.key == jsonKey.key
-						});	
-						if(filter.length == 1){
-							key = filter[0].key;
-						}
-					}
-
-					if(jsonKey.key == key){
-						select.append('<option value=\''+strJsonKey+'\' selected>'+info+'</option>');
-					}else{
-						select.append('<option value=\''+strJsonKey+'\'>'+info+'</option>');
+				for(var i in types){
+					var type = types[i];
+					if(type == _type){
+						return true;
 					}
 				}
-			}
+				return false;
+			};			
 
-			metadata.find({}, function(meta){
-				for(var ii in meta.models){				
-					var model = meta.models[ii];
-					var modelName = ii;						
-					recursive(model, meta, modelName);
-				}
-			});
+			var setMapaModelRoot = function (model, modelName, context) {
+				if(!contexts[context]) contexts[context] = {};
 
+				var key = context + '.' + modelName;
+				if(!contexts[context][key]) contexts[context][key] = {};
+				contexts[context][key].type = 'object';
+				contexts[context][key].field = modelName;
+				contexts[context][key].modelName = modelName;
 
-			//ADD MODELS TYPE OBJECTS/ARRAYS
-			for(var i in models){
-				var context = models[i];
-				for(var ii in context){
-					var model = context[ii];
+				var keyList = context + '.' + modelName+'List';
+				if(!contexts[context][keyList]) contexts[context][keyList] = {};
+				contexts[context][keyList].type = 'array';
+				contexts[context][keyList].field = modelName;
+				contexts[context][keyList].modelName = modelName;
+			};
 
-					var jsonKey = {};					
-					jsonKey.key = i + '.' + ii;
+			var setMapa = function (model, modelName, context) {
 
-					jsonKey.info = i + ' -> ' + ii+'['+model.type+']';					
+				if(!contexts[context]) contexts[context] = {};
 				
-					jsonKey.context = i;
-					jsonKey.field = ii;
-					jsonKey.path = (i+'.'+ii);
-					jsonKey.model = ii;
-					jsonKey.modelRoot = ii;
-					jsonKey.type = model.type;
+				for(var i in model){
+					var field = model[i];
+					var key = context + '.' + modelName+'.'+i;
+					
+					if(!contexts[context][key]) contexts[context][key] = {};
 
-					var key = property.key;
-
-					var strJsonKey = util.stringify(jsonKey);
-					if(typeof property == 'object' && property.length){
-						var filter = property.filter(function(obj){
-							return obj.key == jsonKey.key
-						});	
-						if(filter.length == 1){
-							key = filter[0].key;
-						}
-					}					
-
-					if(jsonKey.key == key){
-						select.append('<option value=\''+strJsonKey+'\' selected>'+jsonKey.info+'</option>');
-					}else{
-						select.append('<option value=\''+strJsonKey+'\'>'+jsonKey.info+'</option>');
-					}			
-
+					if(field.type.substring(0,1) == ':') {
+						contexts[context][key].type = 'object';
+						contexts[context][key].field = i;
+						contexts[context][key].modelName = modelName;
+						setMapa(field.ref, field.type.replace(/:/, modelName+'.'), context);
+						continue;
+					}
+					contexts[context][key] = field;
+					contexts[context][key].field = i;
+					contexts[context][key].modelName = modelName;
 				}
+			};
+
+			var proccess = function (_contexts, _select, td) {			
+
+				for(var i in _contexts){
+					var context = _contexts[i];
+					var contextName = i;
+					for(var ii in context){
+						var key = context[ii];
+						var keyName = ii;
+
+						if(!containsTypes(property, key.type)){
+							continue;
+						}
+
+						var jsonKey = {};
+
+						if(property)
+							jsonKey.config = property.config;
+
+						jsonKey.key = keyName;
+						var info = (key.info ? contextName + ' -> ' +key.info+'['+key.type+']' : keyName+'['+key.type+']');
+					
+						jsonKey.info = key.info || keyName;
+						jsonKey.context = contextName;
+						jsonKey.field = key.field;
+						jsonKey.path = (key.modelName+'.'+key.field).replace(/^\w*\.(.*)$/, '$1');
+						jsonKey.model = key.modelName.replace(/^.*\.(\w*)$/, "$1");
+						jsonKey.modelRoot = key.modelName.replace(/^(\w*)\..*$/, '$1');
+						jsonKey.type = key.type;
+
+						var strJsonKey = util.stringify(jsonKey);
+
+						var keyTmp = property.key;
+
+						var strJsonKey = util.stringify(jsonKey);
+						if(typeof property == 'object' && property.length){
+							var filter = property.filter(function(obj){
+								return obj.key == jsonKey.key
+							});	
+							if(filter.length == 1){
+								keyTmp = filter[0].key;
+							}
+						}
+						
+						if(jsonKey.key == keyTmp){
+							select.append('<option value=\''+strJsonKey+'\' selected>'+info+'</option>');
+						}else{
+							select.append('<option value=\''+strJsonKey+'\'>'+info+'</option>');
+						}
+					}
+				}
+			};
+
+			var metadados = metadata.findSync({});			
+
+			for(var i in metadados){				
+				var meta = metadados[i];
+				for(var ii in meta.models){
+					var model = meta.models[ii];
+					var modelName = ii;											
+					setMapaModelRoot(model, ii, meta.resource);
+					setMapa(model, ii, meta.resource);
+				}
+				proccess(contexts, select, td);			
+				
 			}
 
 			td.append(select);
-			select.chosen({width:"100%"});
+			select.chosen({width:"100%"});		
 		};	
 
 		return self;

@@ -11,7 +11,7 @@ inject.define("palletas.components.inputForm", [function () {
 	self.property = {};
 	self.property.label = 'Input Text';
 	self.property.placeholder = 'Placeholder';
-	self.property.metafields_field = 'model';
+	self.property.metafields_field = {config : {types : ['string', 'number', 'date']}};
 
 	self.update = function (target, comp) {
 		$(target).attr('class', 'input-group component ');
