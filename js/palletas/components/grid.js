@@ -39,12 +39,6 @@ inject.define("palletas.components.grid", [function () {
 				.attr('data-ng-repeat', '_m in '+list+' '+filter+' '+limitTo);
 		}
 		
-		var headers = comp.property.multitxt_header.split(',');
-		$(target).find('thead > tr').html('');
-		for(var i in headers){
-			var header = headers[i];			
-			$(target).find('thead > tr').append('<th>'+header+'</th>');
-		}
 
 		$(target).removeAttr('data-ng-init');
 		if(comp.property.metaactions_init){
@@ -53,12 +47,28 @@ inject.define("palletas.components.grid", [function () {
 		}
 
 		var cols = comp.property.metafieldsmulti_cols;
-		$(target).find('tbody > tr').html('');
+		$(target).find('tbody > tr').html('');		
+
 		for(var i in cols){
-			var col = cols[i];
+			var col = cols[i];			
 			$(target).find('tbody > tr').attr('data-ng-click', 'set(_m, "'+comp.property.metafields_select.key+'")');
-			$(target).find('tbody > tr').append('<td data-ng-bind="_m.'+col.path+'"></td>');
-			
+			$(target).find('tbody > tr').append('<td data-ng-bind="_m.'+col.path+'"></td>');			
+		}
+
+		var headers = comp.property.multitxt_header.split(',');
+		$(target).find('thead > tr').html('');
+
+		if(!comp.property.multitxt_header){
+			for(var i in cols){
+				var col = cols[i];			
+				$(target).find('thead > tr').append('<th>'+col.info+'</th>');
+			}
+
+		}else {
+			for(var i in headers){
+				var header = headers[i];			
+				$(target).find('thead > tr').append('<th>'+header+'</th>');
+			}
 		}
 	};
     return self;

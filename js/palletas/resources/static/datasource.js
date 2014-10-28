@@ -20,10 +20,44 @@ inject.define("palletas.resources.static.datasource", [
         var metadata = function (comp, cb) {
            var models = {};
 
-            models.marca = {nome : {type : 'string', required : true}};
-            models.modelo = {nome : { type : 'string',required : true},marca : {type : ':marca',ref : models.marca}};
-            models.carro = {nome : {type : 'string',required : true}, dtcreated : {type : 'date',required : true}, modelo : {type : ':modelo',ref : models.modelo}, power : {type : 'number'}};
-            models.message = {message : {type : 'string'}}
+            var marca = {nome : {type : 'string', required : true}};
+            var modelo = {nome : { type : 'string',required : true},marca : {type : ':marca',ref : models.marca}};
+
+            models.revisao = {
+                codigo : {
+                    type : 'number'
+                },
+                data : {
+                    type : 'date'
+                },
+                descricao : {
+                    type : 'string'
+                },
+                valor : {
+                    type : 'number'
+                }
+            }
+
+            models.carro = {
+                nome : {
+                    type : 'string',
+                    required : true
+                }, 
+                revisoes :{
+                    type : 'array'
+                }, 
+                dtcreated : {
+                    type : 'date', 
+                    required : true
+                }, 
+                modelo : {
+                    type : ':modelo',
+                    ref : models.modelo
+                }, 
+                power : {
+                    type : 'number'
+                }
+            };            
 
             var actions = {};        
 

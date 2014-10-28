@@ -67,6 +67,15 @@ inject.define("config.internationalization.pt_br", [function () {
 	self.chartRadar.metafields_valueField = 'Valor';
 	self.chartRadar.metafields_list = 'Lista';
 	self.chartRadar.metaactions_init = 'Iniciar';
+
+	self.selectForm = {};
+	self.selectForm.multitxt_options = 'Dados Estáticos';
+	self.selectForm.metafields_field = 'Etiqueta';
+	self.selectForm.metafields_select = 'Atribuir em ...';
+	self.selectForm.metafields_list = 'Coleção';	
+	self.selectForm.metaactions_init = 'Iniciar';
+
+	
 	
 	return self;
 }]);

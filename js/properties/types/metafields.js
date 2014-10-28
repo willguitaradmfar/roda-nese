@@ -27,7 +27,7 @@ inject.define("properties.types.metafields", [
 					var jsonKey = {};					
 					jsonKey.key = meta.resource + '.' + modelName+'.'+iii;
 
-					jsonKey.info = (field.info ? meta.resource + ' -> ' +field.info+'['+type+']' : meta.resource + ' -> ' + modelName+'.'+iii+'['+type+']');
+					var info = (field.info ? meta.resource + ' -> ' +field.info+'['+type+']' : meta.resource + ' -> ' + modelName+'.'+iii+'['+type+']');
 					
 					/*
 						carro.nome (
@@ -55,7 +55,7 @@ inject.define("properties.types.metafields", [
 							type='string', 
 							modelRoot='carro')
 					*/
-
+					jsonKey.info = field.info || iii;
 					jsonKey.context = meta.resource;
 					jsonKey.field = iii;
 					jsonKey.path = (modelName+'.'+iii).replace(/^\w*\.(.*)$/, '$1');
@@ -74,9 +74,9 @@ inject.define("properties.types.metafields", [
 					var strJsonKey = util.stringify(jsonKey);
 
 					if(jsonKey.key == property.key){
-						select.append('<option value=\''+strJsonKey+'\' selected>'+jsonKey.info+'</option>');
+						select.append('<option value=\''+strJsonKey+'\' selected>'+info+'</option>');
 					}else{
-						select.append('<option value=\''+strJsonKey+'\'>'+jsonKey.info+'</option>');
+						select.append('<option value=\''+strJsonKey+'\'>'+info+'</option>');
 					}
 				}
 			}

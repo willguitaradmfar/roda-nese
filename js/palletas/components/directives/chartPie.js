@@ -59,7 +59,7 @@ inject.define("palletas.components.directives.chartPie", [function () {
             var ctx = elem.getContext("2d");
             var chart = new Chart(ctx).Pie(scope.data);
 
-            scope.$watch('data', function() {               
+            scope.$watch('data', function() {
                if(scope.data && scope.data.length && scope.data.length > chart.segments.length){
                   
                   var arr = scope.data.slice(length, scope.data.length);

@@ -150,6 +150,29 @@ inject.define("builds.controller", [
 				}
 			}
 
+			bodyController += '\n\t\t\t$scope.set = ' +  (function (_m, target) {
+				//debugger;
+
+				var _f = target.split('.');
+
+				var re = function(_f, target){
+					var ff = _f.shift();
+					if(target[ff]){
+						if(_f.length > 0){
+							re(_f, target[ff])
+						}else{
+							target[ff] = _m;
+						}
+					}else{
+						target[ff] = _m;
+					}
+				};
+
+				re(_f, $scope);
+
+				
+			}).toString();
+
 			bodyController += '\n\t}]);';
 
 			return bodyController;
