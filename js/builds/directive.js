@@ -53,15 +53,15 @@ inject.define("builds.directive", [
 		};
 
 		var _makeDirective = function () {
-			var bodyService = "";
+			var bodyDirective = "";
 			
 			for(var i in struct._functions){			
 					var _function = struct._functions[i];
-					bodyService += '\nangularApp.directive(\''+i+'\', '+_function+');';
+					bodyDirective += '\nangularApp.directive(\''+i+'\', '+_function+');';
 			}
 
-			console.debug(bodyService);
-			return bodyService;
+			console.debug(bodyDirective);
+			return bodyDirective;
 		};
 
 	    return self;

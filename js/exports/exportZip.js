@@ -6,7 +6,8 @@ inject.define("exports.exportZip", [
 		"exports.generator",
 		"utils.dao.compDB",
 		"utils.util",
-	function (zip, service, controller, directive, generator, dao, util) {
+		"builds.filter",
+	function (zip, service, controller, directive, generator, dao, util, filter) {
 	    var self = {};
 
 	    var importsHeadJS = [
@@ -53,7 +54,7 @@ inject.define("exports.exportZip", [
 			var makeController = config.makeController || controller.makeController;
 			var makeService = config.makeService || service.makeService;
 			var makeDirective = config.makeDirective || directive.makeDirective;
-
+			var makeFilter = config.makeFilter || filter.makeFilter;
 
 			importsHeadCSS.push('dependencyRuntime/bootstrap-theme/'+config.theme+'/bootstrap.min.css');
 			importsCopy.push('dependencyRuntime/bootstrap-theme/'+config.theme+'/bootstrap.min.css');
@@ -65,6 +66,12 @@ inject.define("exports.exportZip", [
 			fileAppJS.content = '\nvar angularApp = angular.module(\'desenhador\', []);';
 			fileAppJS.folder = 'js';
 			files.push(fileAppJS);
+
+			var fileFilterJS = {};
+			fileFilterJS.name = 'filter.js';
+			fileFilterJS.content = makeFilter();
+			fileFilterJS.folder = 'js/filters';
+			files.push(fileFilterJS);
 
 			var fileDirectiveJS = {};
 			fileDirectiveJS.name = 'directive.js';

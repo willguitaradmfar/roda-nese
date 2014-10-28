@@ -4,7 +4,8 @@ inject.define("exports.previewer", [
 		"builds.directive",
 		"utils.zip",
 		"exports.generator",
-	function (service, controller, directive, zip, generator) {
+		"builds.filter",
+	function (service, controller, directive, zip, generator, filter) {
 
 		var self = {};
 
@@ -24,6 +25,7 @@ inject.define("exports.previewer", [
 				var makeController = config.makeController || controller.makeController;
 				var makeService = config.makeService || service.makeService;
 				var makeDirective = config.makeDirective || directive.makeDirective;
+				var makeFilter = config.makeFilter || filter.makeFilter;
 				
 				config.theme = config.theme || $('#theme').val();
 				
@@ -31,9 +33,11 @@ inject.define("exports.previewer", [
 
 				var script = $('<script type="text/javascript"></script>');
 				script.append('\nvar angularApp = angular.module(\'desenhador\', []);');
+				script.append(makeFilter());
 				script.append(makeDirective());
 				script.append(makeService());
 				script.append(makeController());
+
 
 				config.dependencyJS = [
 					'dependencyRuntime/jquery/jquery-ui-1.11.1/external/jquery/jquery.js',

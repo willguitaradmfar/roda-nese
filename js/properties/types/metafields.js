@@ -6,13 +6,22 @@ inject.define("properties.types.metafields", [
 
 		self.make = function (comp, fieldProperty, property, td) {
 
-			var contexts = {};
+			var contexts = {};		
 
 			var name = 'property.'+fieldProperty;
-
 			var select = $('<select name="'+name+'" class="form-control input-sm"></select>');
 
-			select.append('<option value="" selected>Selecione ...</option>');
+			var makeSelectOption = function (_property) {
+				var jsonKey = {};
+				if(_property)
+					jsonKey.config = _property.config;
+
+				var strJsonKey = util.stringify(jsonKey);
+				select.append('<option value=\''+strJsonKey+'\' selected>Selecione ...</option>');	
+				
+			}
+			
+			makeSelectOption(property);			
 
 			var containsTypes = function (prop, _type) {
 				if(!prop) return true;

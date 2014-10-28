@@ -5,7 +5,7 @@ inject.define("palletas.resources.protheusRest.controller", [function () {
 	self.inject = {};
 	self.inject['$http'] = '$http';
 	self.inject['rest'] = 'rest';
-	self.inject['base64'] = 'base64';	
+	self.inject['base64'] = 'base64';
 
 	self.variable = {};
 	self.variable.list = "['num1', 'num2', 'num3']";

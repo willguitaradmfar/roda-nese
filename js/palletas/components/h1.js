@@ -14,7 +14,7 @@ inject.define("palletas.components.h1", [
 			$(target).text(comp.property.label);
 
 			if(comp.property.metafields_field){
-				var bind = comp.property.metafields_field.key;
+				var bind = comp.property.metafields_field.key + ' | date';
 				$(target).attr('data-ng-bind', bind);
 			}
 			else{
