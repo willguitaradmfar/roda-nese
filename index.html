@@ -61,7 +61,13 @@
     	<!-- DESENHADOR -->
     	<script type="text/javascript">
     	$(function () {
+    		var i = inject.loadLibrary;
 
+    		inject.loadLibrary = function (path) {
+    			console.debug(path);    			
+    			i(path);
+    		}
+    		
     		//inject.debug = true;
     		inject.src = 'js/';
     		inject.define("Main", [ "utils.util", 

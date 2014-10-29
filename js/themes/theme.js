@@ -1,7 +1,20 @@
 inject.define("themes.theme", [function () {
     var self = {};
 
-    self.themes = ['default', 'cosmo', 'darkly', 'flatly', 'superhero', 'yeti'];
+    self.themes = [
+        'default', 
+        'cosmo', 
+        'darkly', 
+        'flatly', 
+        'superhero', 
+        'yeti', 
+        'amelia', 
+        'cyborg', 
+        'facebook', 
+        'united',
+        'slate',
+        'google-plus',
+        'sandstone'];
 
     var theme = $('#theme');
     
