@@ -8,6 +8,10 @@ inject.define("palletas.resources.static.controller", [function () {
 	self.variable = {};
 	self.variable.carroList = "[]";
 
+	self.scope.save = function(obj) {
+		alert(JSON.stringify(obj));
+	};
+
 	self.scope.list = function() {		
 		if(!$scope.$context$)$scope.$context$ = {};
 

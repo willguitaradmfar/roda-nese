@@ -19,7 +19,7 @@ inject.define("palletas.components.chartLine", [
 		self.property.metafields_valueField = {config : {types : ['number']}};
 		self.property.metafields_list = {config : {types : ['array']}};
 
-		self.property.metaactions_init = '';
+		self.property.metaactions_init = {config : {types : ['action']}};
 
 		self.update = function (target, comp) {
 			$(target).attr('width', comp.property.width);
@@ -51,7 +51,7 @@ inject.define("palletas.components.chartLine", [
 
 			$(target).removeAttr('data-ng-init');
 			if(comp.property.metaactions_init){
-				var action = comp.property.metaactions_init;
+				var action = comp.property.metaactions_init.key;
 				$(target).attr('data-ng-init', action);
 			}		
 		};

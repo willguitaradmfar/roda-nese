@@ -129,12 +129,12 @@ inject.define("properties.types.metafieldsmulti", [
 					setMapaModelRoot(model, ii, meta.resource);
 					setMapa(model, ii, meta.resource);
 				}
-				proccess(contexts, select, td);			
-				
 			}
 
+			proccess(contexts, select, td);
+
 			td.append(select);
-			select.chosen({width:"100%"});		
+			select.selectize();
 		};	
 
 		return self;

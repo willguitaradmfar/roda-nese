@@ -18,7 +18,7 @@ inject.define("palletas.components.selectForm", [function () {
 	self.property.metafields_field = {config : {types : ['string', 'number', 'date']}};
 	self.property.metafields_select = {config : {types : ['object']}};
 	self.property.metafields_list = {config : {types : ['array']}};
-	self.property.metaactions_init = '';
+	self.property.metaactions_init = {config : {types : ['action']}};
 
 	self.update = function (target, comp) {
 		$(target).attr('class', 'input-group component');
@@ -42,7 +42,7 @@ inject.define("palletas.components.selectForm", [function () {
 
 			$(target).removeAttr('data-ng-init');
 			if(comp.property.metaactions_init){
-				var action = comp.property.metaactions_init;
+				var action = comp.property.metaactions_init.key;
 				$(target).attr('data-ng-init', action);
 			}
 		}

@@ -1,42 +1,109 @@
-inject.define("properties.types.metaactions", ["metadatas.metadata", function (metadata) {
-    var self = {}; 
+inject.define("properties.types.metaactions", [
+		"metadatas.metadata",
+		"utils.util",
+	function (metadata, util) {
+	    var self = {};
 
-	self.make = function (comp, field, property, td) {
-		var name = 'property.'+field;
-		
-		var isMultipleSelect = field.substring(0,5) == 'mult_';
+			self.make = function (comp, fieldProperty, property, td) {
 
-		var select = $('<select '+(isMultipleSelect ? 'multiple' : '')+' name="'+name+'" class="form-control input-sm"></select>');
-		
-		if(!isMultipleSelect)
-			select.append('<option value="" selected>Selecione ...</option>');		
-		
-		metadata.find({}, function(meta){						
+				var contexts = {};		
 
-			for(var ii in meta.actions){
-				var action = meta.actions[ii];
-				for(var  iii in action.parameter){
-					var parameter = action.parameter[iii];
-					var parameters = parameter.join(', ');
+				var name = 'property.'+fieldProperty;
+				var select = $('<select name="'+name+'" class="form-control input-sm"></select>');
 
-					var key = meta.resource+'.'+ii+'('+parameters+')';
-					var value = meta.resource + ' -> ' + ii+'('+parameters.replace(/:/g, '')+')';
+				var makeSelectOption = function (_property) {
+					var jsonKey = {};
+					if(_property)
+						jsonKey.config = _property.config;
 
-					if(typeof property == 'object' 
-						&& property.length
-						&& property.indexOf(key) >= 0){
-						select.append('<option value="'+key+'" selected>'+value+'</option>');
-					}else if(key == property){
-						select.append('<option value="'+key+'" selected>'+value+'</option>');
-					}else{
-						select.append('<option value="'+key+'">'+value+'</option>');
+					var strJsonKey = util.stringify(jsonKey);
+					select.append('<option value=\''+strJsonKey+'\' selected>Selecione ...</option>');	
+					
+				}
+				
+				makeSelectOption(property);			
+
+				var containsTypes = function (prop, _type) {
+					if(!prop) return true;
+					if(!prop.config) return true;
+					if(!prop.config.types) return true;
+
+					var types = prop.config.types;
+
+					for(var i in types){
+						var type = types[i];
+						if(type == _type){
+							return true;
+						}
+					}
+					return false;
+				};			
+
+				var setMapaModelRoot = function (action, actionName, context) {
+					if(!contexts[context]) contexts[context] = {};
+
+					var key = context + '.' + actionName+'()';
+					if(!contexts[context][key]) contexts[context][key] = {};
+					contexts[context][key].type = 'action';
+					contexts[context][key].field = actionName;
+					contexts[context][key].actionName = actionName;
+					
+				};				
+
+				var proccess = function (_contexts, _select, td) {
+					for(var i in _contexts){
+						var context = _contexts[i];
+						var contextName = i;
+						for(var ii in context){
+							var key = context[ii];
+							var keyName = ii;
+
+							if(!containsTypes(property, key.type)){
+								continue;
+							}
+
+							var jsonKey = {};
+
+							if(property)
+								jsonKey.config = property.config;
+
+							jsonKey.key = keyName;
+							var info = (key.info ? contextName + ' -> ' +key.info : keyName);
+						
+							jsonKey.info = key.info || keyName;
+							jsonKey.context = contextName;
+							jsonKey.field = key.field;
+							jsonKey.path = (key.actionName+'.'+key.field).replace(/^\w*\.(.*)$/, '$1');
+							jsonKey.model = key.actionName.replace(/^.*\.(\w*)$/, "$1");
+							jsonKey.modelRoot = key.actionName.replace(/^(\w*)\..*$/, '$1');
+							jsonKey.type = key.type;
+
+							var strJsonKey = util.stringify(jsonKey);
+							
+							if(jsonKey.key == property.key){
+								_select.append('<option value=\''+strJsonKey+'\' selected>'+info+'</option>');
+							}else{
+								_select.append('<option value=\''+strJsonKey+'\'>'+info+'</option>');
+							}
+						}
+					}
+				};
+
+				var metadados = metadata.findSync({});
+
+				for(var i in metadados){				
+					var meta = metadados[i];
+					for(var ii in meta.actions){
+						var action = meta.actions[ii];
+						var actionName = ii;
+						setMapaModelRoot(action, actionName, meta.resource);						
 					}
 				}
-			}
-		});
-		td.append(select);
-		select.chosen({width:"100%"});
-	};
-	
-	return self;
-}]);
+				proccess(contexts, select, td);
+
+				td.append(select);
+				select.selectize();
+			};	
+
+			return self;
+	}]);

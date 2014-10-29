@@ -18,7 +18,7 @@ inject.define("palletas.components.chartPolarArea", [
 		self.property.metafields_colorField = {config : {types : ['string']}};
 		self.property.metafields_list = {config : {types : ['array']}};
 
-		self.property.metaactions_init = '';
+		self.property.metaactions_init = {config : {types : ['action']}};
 
 		self.update = function (target, comp) {			
 
@@ -51,7 +51,7 @@ inject.define("palletas.components.chartPolarArea", [
 
 			$(target).removeAttr('data-ng-init');
 			if(comp.property.metaactions_init){
-				var action = comp.property.metaactions_init;
+				var action = comp.property.metaactions_init.key;
 				$(target).attr('data-ng-init', action);
 			}
 

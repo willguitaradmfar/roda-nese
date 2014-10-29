@@ -26,7 +26,7 @@ inject.define("properties.types.combo", [function () {
 			}
 		}
 		td.append(select);
-		select.chosen({width:"100%"});		
+		select.selectize({width:"100%"});
 	};	
 
 	return self;

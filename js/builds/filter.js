@@ -4,7 +4,13 @@ inject.define("builds.filter", [
 	    var self = {};
 
 	    var struct = {};
+	    struct._injects = {};
 		struct._functions = {};
+
+		var setInject = function (name, _inject) {
+			console.debug('SET INJECTS FILTER : '+name);
+			struct._injects[name] = _inject;
+		};
 
 		var setFunctions = function (name, _function) {
 			console.debug('SET FUNCTIONS FILTER : '+name);
@@ -20,8 +26,20 @@ inject.define("builds.filter", [
 			for(var i in filters){
 				var filter = filters[i];
 				var filterName = i;
-				setFunctions(filterName, filter.filter);
+				setFunctions(filterName, filter.filter);				
 			}
+
+			for(var i in filters){
+				var filter = filters[i];
+				var filterName = i;
+				for(var ii in filter.inject){
+					var inject = filter.inject[ii];
+					var injectName = ii;
+					setInject(ii, inject);	
+				}			
+			}
+
+			
 		};
 
 		self.makeFilter= function (target) {
@@ -35,7 +53,7 @@ inject.define("builds.filter", [
 			for(var i in struct._functions){			
 					var _function = struct._functions[i];
 					var filterName = i;
-					bodyFilter += '\nangularApp.filter(\''+filterName+'\', function(){ return '+_function+'; });';
+					bodyFilter += '\nangularApp.filter(\''+filterName+'\', function('+Object.keys(struct._injects).toString()+'){ return '+_function+'; });';
 			}
 
 			console.debug(bodyFilter);

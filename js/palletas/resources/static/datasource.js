@@ -67,9 +67,15 @@ inject.define("palletas.resources.static.datasource", [
                 result : {
                     type : 'array',
                     model : ':carro'
-                },
-                messages : {                
-                    '500' : 'Erro'
+                }
+            };
+
+            actions.save = {
+                model : ':carro',
+                parameter : [[':carro']],
+                result : {
+                    type : 'object',
+                    model : ':carro'
                 }
             };
 

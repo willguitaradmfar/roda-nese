@@ -105,19 +105,11 @@ inject.define("builds.controller", [
 
 		var _makeController = function () {
 			var bodyController = "\n\nangularApp";
-			var inj = "\n\t.controller('desenhadorCtrl', [";
-			for(var i in struct._injects){
-				inj += "'"+struct._injects[i]+"', ";
-			}
+			bodyController += "\n\t.controller('desenhadorCtrl', [";		
 
-			bodyController += inj;
+			bodyController += Object.keys(struct._injects).map(function(a, i){return '\''+a+'\''}).toString();		
 
-			inj = '';
-			for(var i in struct._injects){
-				inj += ""+struct._injects[i]+", ";
-			}
-
-			bodyController += 'function('+inj.substring(0, inj.length-2)+') {';
+			bodyController += ', function('+Object.keys(struct._injects).toString()+') {';
 
 			bodyController += "\n\t\tconsole.debug('CHAMANDO CONTROLLER [desenhadorCtrl]');";
 

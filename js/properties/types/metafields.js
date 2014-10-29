@@ -2,7 +2,7 @@ inject.define("properties.types.metafields", [
 		"metadatas.metadata",
 		"utils.util",
 	function (metadata, util) {
-	    var self = {};	    
+	    var self = {};
 
 		self.make = function (comp, fieldProperty, property, td) {
 
@@ -128,12 +128,11 @@ inject.define("properties.types.metafields", [
 					setMapaModelRoot(model, ii, meta.resource);
 					setMapa(model, ii, meta.resource);
 				}
-				proccess(contexts, select, td);			
-				
 			}
+			proccess(contexts, select, td);
 
 			td.append(select);
-			select.chosen({width:"100%"});		
+			select.selectize();
 		};	
 
 		return self;
