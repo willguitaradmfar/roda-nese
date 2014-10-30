@@ -4,7 +4,7 @@ inject.define("properties.types.metafields", [
 	function (metadata, util) {
 	    var self = {};
 
-		self.make = function (comp, fieldProperty, property, td) {
+		self.make = function (comp, fieldProperty, property, td, $this) {
 
 			var contexts = {};		
 
@@ -109,7 +109,7 @@ inject.define("properties.types.metafields", [
 
 						var strJsonKey = util.stringify(jsonKey);
 						
-						if(jsonKey.key == property.key){
+						if(property.val && jsonKey.key == property.val.key){
 							_select.append('<option value=\''+strJsonKey+'\' selected>'+info+'</option>');
 						}else{
 							_select.append('<option value=\''+strJsonKey+'\'>'+info+'</option>');
@@ -132,7 +132,14 @@ inject.define("properties.types.metafields", [
 			proccess(contexts, select, td);
 
 			td.append(select);
-			select.selectize();
+			select.selectize({
+				onChange : function (val) {					
+					comp.property[fieldProperty].val = util.eval(val);
+
+					if(property.update)
+						property.update($this, util.eval(val), comp);
+				}
+			});
 		};	
 
 		return self;

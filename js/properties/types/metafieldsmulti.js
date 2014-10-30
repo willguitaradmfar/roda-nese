@@ -4,7 +4,7 @@ inject.define("properties.types.metafieldsmulti", [
 	function (metadata, util) {
 	   var self = {};	    
 
-		self.make = function (comp, fieldProperty, property, td) {
+		self.make = function (comp, fieldProperty, property, td, $this) {
 
 			var contexts = {};
 
@@ -101,8 +101,8 @@ inject.define("properties.types.metafieldsmulti", [
 						var keyTmp = property.key;
 
 						var strJsonKey = util.stringify(jsonKey);
-						if(typeof property == 'object' && property.length){
-							var filter = property.filter(function(obj){
+						if(property.val && typeof property.val == 'object' && property.val.length){
+							var filter = property.val.filter(function(obj){
 								return obj.key == jsonKey.key
 							});	
 							if(filter.length == 1){
@@ -134,7 +134,18 @@ inject.define("properties.types.metafieldsmulti", [
 			proccess(contexts, select, td);
 
 			td.append(select);
-			select.selectize();
+			select.selectize({
+				onChange : function (val) {
+					var vals = [];
+					for(var i in val){
+						vals.push(util.eval(val[i]))
+					}					
+					comp.property[fieldProperty].val = vals;
+					
+					if(property.update)
+						property.update($this, vals, comp);
+				}
+			});
 		};	
 
 		return self;

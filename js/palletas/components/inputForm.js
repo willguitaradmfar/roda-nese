@@ -9,16 +9,33 @@ inject.define("palletas.components.inputForm", [function () {
 				+'</div>';
 
 	self.property = {};
-	self.property.label = 'Input Text';
-	self.property.placeholder = 'Placeholder';
-	self.property.metafields_field = {config : {types : ['string', 'number', 'date']}};
-
-	self.update = function (target, comp) {
-		$(target).attr('class', 'input-group component ');
-		$(target).find('input').attr('placeholder', comp.property.placeholder);
-		$(target).find('label').text(comp.property.label);
-		var bind = comp.property.metafields_field.key;
-		$(target).find('input').attr('data-ng-model', bind);
+	
+	self.property.label = {
+		val : 'Input Text',
+		update : function (target, val, comp) {
+			$(target).find('label').text(val);
+		}
 	};
+	
+	self.property.placeholder = {
+		val : 'Placeholder',
+		update : function (target, val, comp) {
+			$(target).find('input').attr('placeholder', val);
+		}
+	};
+
+	self.property.metafields_field = {
+		config : {
+			types : ['string', 'number', 'date']
+		},
+		update : function (target, val, comp) {			
+			if(val.key){
+				var bind = val.key;
+				$(target).find('input').attr('data-ng-model', bind);
+			}
+		}
+	};
+
+	
     return self;
 }]);

@@ -9,8 +9,7 @@ inject.define("properties.property", [
 		var accordion;
 
 		self.buildBarraDeBotoes = function () {
-			var barraBotoes = $('<div><div class="dropdown">'
-								+'<span class="btn btn-success dropdown-toggle glyphicon glyphicon-refresh refreshComponent" type="button"></span>'							
+			var barraBotoes = $('<div><div class="dropdown">'								
 								+'</div><br/></div>');
 			return barraBotoes;
 		}
@@ -46,7 +45,7 @@ inject.define("properties.property", [
 
 			accordion = self.buildAccordion();
 
-			accordion.add("Config", proxy.buildProperty(comp));
+			accordion.add("Config", proxy.buildProperty(comp, $this));
 
 			var frame = self.buildBarraDeBotoes();
 			frame.append(accordion.accordion);
@@ -62,63 +61,7 @@ inject.define("properties.property", [
                 autoOpen: false                
             });		
 
-			$( "#dialog" ).dialog( "open" );
-
-			var updatePropertyPerField = function (_this, _comp) {
-				var name = $(_this).attr('name');
-				var val = $(_this).val();
-				
-				if(val){
-					try{
-						if(typeof val == 'object' && val.length){
-							var vals = [];
-							for(var i in val){
-								vals.push(util.eval(val[i]));
-							}
-							val = vals;
-						}else{
-							val = util.eval(val);	
-						}
-						
-					}catch(e){
-						console.debug('val '+val+' não é um obj JSON');						
-					}
-				}
-
-				if(!val) return;
-
-				var sufix = name.split('.')[1];
-				var prefix = name.split('.')[0];
-
-				if(_comp.property && _comp.property[sufix] && _comp.property[sufix].val){
-					_comp.property[sufix].val = val;
-				}  else	{
-					comp[prefix][sufix] = val;				
-				}					
-			};
-
-			var updatePropertyComp = function($_this, _comp) {					
-				dao.updateCompDB($_this, _comp);
-				console.debug('UPDATE COMPONENT : ('+(_comp.name || _comp.property.nameService) + ' '+comp.___id+')');
-
-				if(_comp.update && typeof _comp.update != 'function'){
-					_comp.update = util.eval(_comp.update);
-				}
-
-				_comp.update($_this, _comp, function () {
-					dao.updateCompDB($_this, _comp);
-				});
-			}
-
-			var btnrefresh = frame.find('.refreshComponent');
-
-			btnrefresh.on('click', function () {
-				var allComponents = frame.find('td > input, td > select');
-				allComponents.each(function (i, c) {
-					updatePropertyPerField(c, comp);
-				});
-				updatePropertyComp($this, comp)
-			});
+			$( "#dialog" ).dialog( "open" );			
 		};
 
 		return self;

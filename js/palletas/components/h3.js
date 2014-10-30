@@ -6,18 +6,25 @@ inject.define("palletas.components.h3", [function () {
 	self.templ = '<h3>H3</h3>';
 
 	self.property = {};
-	self.property.label = 'H3';	
-	self.property.metafields_field = {config : {types : ['string', 'number', 'date']}};
 
-	self.update = function (target, comp) {
-		$(target).text(comp.property.label);
-
-		if(comp.property.metafields_field){
-			var bind = comp.property.metafields_field.key;
-			$(target).attr('data-ng-bind', bind);
+	self.property.label = {
+		val : 'H3',
+		update : function (target, val, comp) {
+			$(target).text(val);
 		}
-		else{
-			$(target).removeAttr('data-ng-bind');
+	};
+
+	self.property.metafields_field = {
+		config : {
+			types : ['string', 'number', 'date']
+		},
+		update : function (target, val, comp) {
+			if(val.key){
+				var bind = val.key;
+				$(target).attr('data-ng-bind', bind);
+			}else{
+				$(target).removeAttr('data-ng-bind');
+			}
 		}
 	};
     return self;

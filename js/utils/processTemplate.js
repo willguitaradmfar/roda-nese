@@ -16,7 +16,7 @@ inject.define("utils.processTemplate", [function () {
 		var _tmp = template.toString();
 
 		for(var i in parameters){
-			var param = parameters[i];
+			var param = parameters[i].val;
 			var regex = new RegExp('\\$'+i+'\\$', "ig");
 			_tmp = _tmp.replace(regex, param);
 		}

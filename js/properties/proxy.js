@@ -5,7 +5,7 @@ inject.define("properties.proxy", [
 			var self = {};
 			self.name = 'BASIC';
 
-			self.buildProperty = function (comp) {			
+			self.buildProperty = function (comp, $this) {			
 				if(!comp.property)return;
 				console.debug('MONTA PROPERTY BASIC');
 				var table = $('<table class="table"><thead><tr><th width="30%"></th><th></th></tr></thead><tbody></tbody></table>');
@@ -21,7 +21,7 @@ inject.define("properties.proxy", [
 					var module = types.types[componentType];
 					if(!module) throw 'NAO ENCONTRADO DEFINICAO PARA ESSE "componentType" ['+componentType+']';
 					var td = $('<td></td>');
-					module.make(comp, i, property, td)
+					module.make(comp, i, property, td, $this)
 
 					tr.append(td);
 					table.find('tbody').append(tr);

@@ -17,59 +17,86 @@ inject.define("palletas.components.grid", [function () {
 				+'</table>';
 
 	self.property = {};
-	self.property.limit = 10;
-	self.property.multitxt_header = '';
-	self.property.metafieldsmulti_cols = {config : {types : ['string', 'number', 'date']}};
-	
-	self.property.metafields_filter = {config : {types : ['object']}};
-	self.property.metafields_select = {config : {types : ['object']}};
-	self.property.metafields_list = {config : {types : ['array']}};
-	self.property.metaactions_init = {config : {types : ['action']}};
 
-	self.update = function (target, comp) {
-		
-		if(comp.property.metafields_list){
+	self.property.limit = {
+		val : 10,
+		update : function (target, val) {
 			
-			var list = comp.property.metafields_list.key;
-
-			var filter = ((comp.property.metafields_filter) ? '| filter:'+comp.property.metafields_filter.key : '');
-			var limitTo = ((comp.property.limit) ? '| limitTo:'+comp.property.limit : '');
-
-			$(target)
-				.find('tbody > tr')
-				.attr('data-ng-repeat', '_m in '+list+' '+filter+' '+limitTo);
 		}
-		
+	};
 
-		$(target).removeAttr('data-ng-init');
-		if(comp.property.metaactions_init){
-			var action = comp.property.metaactions_init.key;
-			$(target).attr('data-ng-init', action);
-		}
-
-		var cols = comp.property.metafieldsmulti_cols;
-		$(target).find('tbody > tr').html('');		
-
-		for(var i in cols){
-			var col = cols[i];			
-			$(target).find('tbody > tr').attr('data-ng-click', 'set(_m, "'+comp.property.metafields_select.key+'")');
-			$(target).find('tbody > tr').append('<td data-ng-bind="_m.'+col.path+'"></td>');			
-		}
-
-		var headers = comp.property.multitxt_header.split(',');
-		$(target).find('thead > tr').html('');
-
-		if(headers.length != cols.length){
-			for(var i in cols){
-				var col = cols[i];			
-				$(target).find('thead > tr').append('<th>'+col.info+'</th>');
-			}			
-		}else {
+	self.property.multitxt_header = {
+		val : 'Col1, Col2',
+		update : function (target, val, comp) {
+			var headers = val.split(',');
+			$(target).find('thead > tr').html('');
+			
 			for(var i in headers){
 				var header = headers[i];			
 				$(target).find('thead > tr').append('<th>'+header+'</th>');
 			}
+			
 		}
 	};
+
+	self.property.metafieldsmulti_cols = {
+		config : {
+			types : ['string', 'number', 'date']
+		},
+		update : function (target, val, comp) {
+			var cols = val;
+			$(target).find('tbody > tr').html('');
+			for(var i in cols){
+				var col = cols[i];
+				if(comp.property.metafields_select
+					&& comp.property.metafields_select.val){
+						$(target).find('tbody > tr').attr('data-ng-click', 'set(_m, "'+comp.property.metafields_select.val.key+'")');	
+				}
+				
+				$(target).find('tbody > tr').append('<td data-ng-bind="_m.'+col.path+'"></td>');			
+			}
+		}
+	};
+	
+	self.property.metafields_filter = {
+		config : {
+			types : ['object']
+		}
+	};
+
+	self.property.metafields_select = {
+		config : {
+			types : ['object']
+		}
+	};
+	self.property.metafields_list = {
+		config : {
+			types : ['array']
+		},
+		update : function (target, val, comp) {
+			if(val){				
+
+				var list = val.key;
+				var filter = ((comp.property.metafields_filter.val) ? '| filter:'+comp.property.metafields_filter.val.key : '');				
+
+				$(target)
+					.find('tbody > tr')
+					.attr('data-ng-repeat', '_m in '+list+' '+filter);
+			}
+		}
+	};
+	self.property.metaactions_init = {
+		config : {
+			types : ['action']
+		},
+		update : function (target, val, comp) {
+			$(target).removeAttr('data-ng-init');
+			if(val){
+				var action = val.key;
+				$(target).attr('data-ng-init', action);
+			}
+		}
+	};
+	
     return self;
 }]);

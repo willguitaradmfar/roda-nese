@@ -9,14 +9,29 @@ inject.define("palletas.components.alertMessage", [function () {
 					   +'</div>';
 
 	self.property = {};
-	self.property.titulo = 'Titulo';
-	self.property.mensagem = 'Mensagem';
-	self.property.combo_tipo = {val : 'default', options : ['default', 'info', 'danger', 'success', 'warning']};
 
-	self.update = function (target, comp) {
-		$(target).attr('class', 'alert-dismissible component alert alert-'+comp.property.combo_tipo.val);
-		$(target).find('strong').text(comp.property.titulo);
-		$(target).find('> span').text(comp.property.mensagem);
+	self.property.titulo = {
+		val : 'Título',
+		update : function (target, val, comp) {
+			$(target).find('strong').text(val);
+		}
+	};
+
+	self.property.mensagem = {
+		val : 'Mensagem',
+		update : function (target, val, comp) {
+			$(target).find('> span').text(val);
+		}
+	};
+
+	self.property.combo_tipo = {
+		config : {
+			options : ['default', 'info', 'danger', 'success', 'warning']
+		},
+		val : 'default',
+		update : function (target, val, comp) {
+			$(target).attr('class', 'alert-dismissible component alert alert-'+val);
+		}
 	};	
     return self;
 }]);

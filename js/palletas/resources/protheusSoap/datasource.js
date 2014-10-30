@@ -18,12 +18,40 @@ inject.define("palletas.resources.protheusSoap.datasource", [
         self.color = 'primary';
 
         self.property = {};
-        self.property.nameService = 'protheus';        
-        self.property.urlWS =  'http://172.16.84.95/FWWSMODEL.apw';    
-        self.property.model =  'MATA030';
-        self.property.table =  'SA1';
-        self.property.context =  'SA1';
-        self.property.messageError = 'messageError';
+        self.property.nameService = {
+            val : 'protheus',
+            update : function (target, val, comp) {
+                metadata(comp);
+            }
+        };
+        
+        self.property.urlWS = {
+            val : 'http://172.16.84.95/FWWSMODEL.apw',
+            update : function (target, val, comp) {
+                metadata(comp);
+            }
+        };
+
+        self.property.model = {
+            val : 'MATA030',
+            update : function (target, val, comp) {
+                metadata(comp);
+            }
+        };
+
+        self.property.table = {
+            val : 'SA1',
+            update : function (target, val, comp) {
+                metadata(comp);
+            }
+        };
+
+        self.property.context = {
+            val : 'contextSA1',
+            update : function (target, val, comp) {
+                metadata(comp);
+            }
+        };
 
         var method =  'GETJSONDATADETAIL';
         var tagResult =  'GETJSONDATADETAILRESULT';
@@ -44,8 +72,8 @@ inject.define("palletas.resources.protheusSoap.datasource", [
             for(var i in meta.models){
                 var model = meta.models[i];
 
-                //NESSE CASE (model.id) == (comp.property.table) QUE REPRESENTA O MODELO
-                var modelID = model.id // comp.property.table
+                //NESSE CASE (model.id) == (comp.property.table.val) QUE REPRESENTA O MODELO
+                var modelID = model.id // comp.property.table.val
 
                 models[modelID] = {};
                 for(var ii in model.fields){
@@ -64,11 +92,11 @@ inject.define("palletas.resources.protheusSoap.datasource", [
                 parameter : [[]],
                 result : {
                     type : 'array',
-                    model : ':'+comp.property.table
+                    model : ':'+comp.property.table.val
                 }
             };        
 
-            comp.metadata.resource = comp.property.context;
+            comp.metadata.resource = comp.property.context.val;
             comp.metadata.models = models;
             comp.metadata.actions = actions;
 
@@ -80,16 +108,16 @@ inject.define("palletas.resources.protheusSoap.datasource", [
         };
       
 
-        var metadata = function (comp, cb) {
+        var metadata = function (comp) {
             var cid = "cid:"+util.random(1000 * 10);
 
             soap.sendSoap(
-                comp.property.urlWS, 
+                comp.property.urlWS.val, 
                 method, 
                     {
                         USERTOKEN : cid,
-                        MODELID : comp.property.model,
-                        TABLE : comp.property.table
+                        MODELID : comp.property.model.val,
+                        TABLE : comp.property.table.val
                     },
                     tagResult,
                     function(d){
@@ -109,11 +137,7 @@ inject.define("palletas.resources.protheusSoap.datasource", [
                         growl.error('OCORREU UM ERRO NA REQUISIÇÃO DO METADATA');
                     }
             );
-        };
-
-        self.update = function (target, comp, cb) {        
-            metadata(comp, cb);        
-        };
+        };       
 
         return self;
     }]);

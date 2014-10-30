@@ -13,39 +13,102 @@ inject.define("palletas.components.selectForm", [function () {
 					+'</div>';
 
 	self.property = {};
-	self.property.label = 'Select';
-	self.property.multitxt_options = 'Option 1,Option 2,Option 3';
-	self.property.metafields_field = {config : {types : ['string', 'number', 'date']}};
-	self.property.metafields_select = {config : {types : ['object']}};
-	self.property.metafields_list = {config : {types : ['array']}};
-	self.property.metaactions_init = {config : {types : ['action']}};
 
-	self.update = function (target, comp) {
-		$(target).attr('class', 'input-group component');
-		$(target).find('label').text(comp.property.label);
-		$(target).find('select').html('');
-		var options = comp.property.multitxt_options.split(',');
-		for(var i in options){
-			$(target).find('select').append('<option value="'+options[i]+'">'+options[i]+'</option>');
+	self.property.label = {
+		val : 'Select',
+		update : function (target, val, comp) {
+			$(target).find('label').text(val);
 		}
-			
-		$(target).find('select').attr('data-ng-model', comp.property.metafields_select.key);
-		
-		if(comp.property.metafields_field){
-			
-			var path = comp.property.metafields_field.path;
-			
-			var array = comp.property.metafields_list.key;
-			var options = 'item as item.'+path+' for item in '+array;
+	};
 
-			$(target).find('select').attr('data-ng-options', options);
+	self.property.multitxt_options = {
+		val : 'Option 1,Option 2,Option 3',
+		update : function (target, val, comp) {
+			$(target).find('select').html('');
+			var options = val.split(',');
+			for(var i in options){
+				$(target).find('select').append('<option value="'+options[i]+'">'+options[i]+'</option>');
+			}			
+		}
+	};
 
-			$(target).removeAttr('data-ng-init');
-			if(comp.property.metaactions_init){
-				var action = comp.property.metaactions_init.key;
-				$(target).attr('data-ng-init', action);
+	self.property.metafields_field = {
+		config : {
+			types : ['string', 'number', 'date']
+		},
+		update : function (target, val, comp) {
+			if(val.path){
+				
+				var path = val.path;
+				
+				var array = comp.property.metafields_list.val.key;
+				var options = 'item as item.'+path+' for item in '+array;
+
+				$(target).find('select').attr('data-ng-options', options);
+
+				$(target).removeAttr('data-ng-init');
+				if(comp.property.metaactions_init.val){
+					var action = comp.property.metaactions_init.val.key;
+					$(target).attr('data-ng-init', action);
+				}
 			}
 		}
 	};
+
+	self.property.metafields_select = {
+		config : {
+			types : ['object']
+		},
+		update : function (target, val, comp) {
+			$(target).find('select').attr('data-ng-model', val.key);
+		}
+	};
+
+	self.property.metafields_list = {
+		config : {
+			types : ['array']
+		},
+		update : function (target, val, comp) {
+			if(comp.property.metafields_field){
+				
+				var path = comp.property.metafields_field.val.path;
+				
+				var array = val.key;
+				var options = 'item as item.'+path+' for item in '+array;
+
+				$(target).find('select').attr('data-ng-options', options);
+
+				$(target).removeAttr('data-ng-init');
+				if(comp.property.metaactions_init.val){
+					var action = comp.property.metaactions_init.val.key;
+					$(target).attr('data-ng-init', action);
+				}
+			}
+		}
+	};
+
+	self.property.metaactions_init = {
+		config : {
+			types : ['action']
+		},
+		update : function (target, val, comp) {
+			if(comp.property.metafields_field.val){
+				
+				var path = comp.property.metafields_field.val.path;
+				
+				var array = val.key;
+				var options = 'item as item.'+path+' for item in '+array;
+
+				$(target).find('select').attr('data-ng-options', options);
+
+				$(target).removeAttr('data-ng-init');
+				if(val){
+					var action = val.key;
+					$(target).attr('data-ng-init', action);
+				}
+			}
+		}
+	};
+
     return self;
 }]);

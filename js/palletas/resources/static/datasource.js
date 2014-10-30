@@ -12,8 +12,20 @@ inject.define("palletas.resources.static.datasource", [
         self.color = 'success';
 
         self.property = {};
-        self.property.nameService = 'static';
-        self.property.context =  'context';    
+
+        self.property.nameService = {
+            val : 'static',
+            update : function (target, val, comp) {
+                metadata(comp);
+            }
+        };
+
+        self.property.context = {
+            val : 'context',
+            update : function (target, val, comp) {
+                metadata(comp);
+            }
+        };         
 
         self.metadata = {};
 
@@ -81,15 +93,10 @@ inject.define("palletas.resources.static.datasource", [
 
             growl.info('METADADOS static PROCESSADO !!!');
 
-            comp.metadata.resource = comp.property.context;
+            comp.metadata.resource = comp.property.context.val;
             comp.metadata.models = models;
-            comp.metadata.actions = actions;
-            cb();
-        };
-
-        self.update = function (target, comp, cb) {        
-            metadata(comp, cb);        
-        };    
+            comp.metadata.actions = actions;            
+        };          
 
         return self;
     }]);

@@ -75,7 +75,7 @@ inject.define("builds.controller", [
 					continue;
 				}
 
-				var context = comp.property.context;
+				var context = comp.property.context.val;
 
 				var scope = comp.controller.scope;
 				for(var i in scope){
