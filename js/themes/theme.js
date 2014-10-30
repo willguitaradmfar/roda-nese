@@ -2,7 +2,8 @@ inject.define("themes.theme", [function () {
     var self = {};
 
     self.themes = [
-        'default', 
+        'default',
+        'fluig',
         'cosmo', 
         'darkly', 
         'flatly', 
