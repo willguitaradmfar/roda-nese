@@ -53,7 +53,7 @@ inject.define("properties.property", [
 			$( "#dialog" ).html('');
 			$( "#dialog" ).html(frame);
 
-			var titleDialog = (comp.name || comp.property.nameService) + ' '+comp.___id;
+			var titleDialog = (comp.name || comp.property.nameService.val) + ' '+comp.___id;
 			 $("#dialog").dialog({
 			 	title : titleDialog,
                 width: 600,
