@@ -26,5 +26,19 @@ inject.define("palletas.resources.protheusSoap.controller", [function () {
                 }
         );
 	};
+
+	self.scope.save = function(obj) {
+		soap.save({
+                    CTABLE : '$table$',                    
+                    DATA : JSON.stringify(obj)
+                }, function(error, result){
+                	if(error)
+                		$scope.$context$.$messageError$ = error;
+                	else
+                    	$scope.$context$.$table$List = eval('('+result+')').Rows;
+                }
+        );
+	};
+
     return self;
 }]);

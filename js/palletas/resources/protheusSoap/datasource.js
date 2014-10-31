@@ -89,12 +89,14 @@ inject.define("palletas.resources.protheusSoap.datasource", [
             }
 
             actions.list = {
-                parameter : [[]],
-                result : {
-                    type : 'array',
-                    model : ':'+comp.property.table.val
-                }
-            };        
+                parameters : []
+            };
+
+            actions.save = {
+                parameters : [{
+                    types : ['object']
+                }]
+            };
 
             comp.metadata.resource = comp.property.context.val;
             comp.metadata.models = models;
