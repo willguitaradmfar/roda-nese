@@ -44,7 +44,7 @@ inject.define("palletas.resources.protheusRest.controller", [function () {
 		rest.data(config);
 	};
 
-	self.scope.save = function() {
+	self.scope.save = function(data) {
 		var config = {};
 		config.table = '$table$';		
 		config.url = "$urlRest$";		
@@ -59,7 +59,7 @@ inject.define("palletas.resources.protheusRest.controller", [function () {
 			console.error(data, status, headers, config);
 		};
 
-		rest.post(config, $scope.$context$.$table$);
+		rest.post(config, data);
 	};
 
     return self;

@@ -18,12 +18,47 @@ inject.define("palletas.resources.protheusRest.datasource", [
         self.color = 'warning';
 
         self.property = {};
-        self.property.nameService = 'protheus';        
-        self.property.urlRest =  'http://172.16.84.84:9090';        
-        self.property.table =  'SA1';
-        self.property.limit =  '30';
-        self.property.OPC =  'DATA';        
-        self.property.context =  'context';
+        self.property.nameService = {
+            val : 'protheusRest',
+            update : function (target, val, comp) {
+                metadata(comp);
+            }
+        };
+
+        self.property.urlRest = {
+            val : 'http://172.16.84.84:9090',
+            update : function (target, val, comp) {
+                metadata(comp);
+            }
+        };
+
+        self.property.table = {
+            val : 'SA1',
+            update : function (target, val, comp) {
+                metadata(comp);
+            }
+        };
+
+        self.property.limit = {
+            val : '30',
+            update : function (target, val, comp) {
+                metadata(comp);
+            }
+        };
+
+        self.property.OPC = {
+            val : 'DATA',
+            update : function (target, val, comp) {
+                metadata(comp);
+            }
+        };
+
+        self.property.context = {
+            val : 'contextRest',
+            update : function (target, val, comp) {
+                metadata(comp);
+            }
+        };
 
         self.metadata = {};
 
@@ -38,7 +73,7 @@ inject.define("palletas.resources.protheusRest.datasource", [
             var models = {};
             var actions = {};
 
-            var modelID = comp.property.table;
+            var modelID = comp.property.table.val;
             models[modelID] = {};
 
             if(!meta){
@@ -58,31 +93,25 @@ inject.define("palletas.resources.protheusRest.datasource", [
             }
 
             actions.list = {
-                parameter : [[]],
-                result : {
-                    type : 'array',
-                    model : ':'+comp.property.table
-                }
+               parameters : []
             };
 
             actions.save = {
-                parameter : [[]],
-                result : {
-                    type : 'object',
-                    model : ':'+comp.property.table
-                }
+                parameters : [{
+                    types : ['object']
+                }]                
             };
 
             growl.info('FORAM PROCESSADOS '+meta.CONTENT.ROWS.length+' CAMPOS PARA O MODELO '+modelID);
 
-            comp.metadata.resource = comp.property.context;
+            comp.metadata.resource = comp.property.context.val;
             comp.metadata.models = models;
             comp.metadata.actions = actions;            
         };
       
 
         var metadata = function (comp, cb) {
-            var url = comp.property.urlRest + '/?OPC=METADADOS&OPC1='+comp.property.table;
+            var url = comp.property.urlRest.val + '/?OPC=METADADOS&OPC1='+comp.property.table.val;
 
             var cid = "cid:"+util.random(1000 * 10);
                 rest.rest({
@@ -98,11 +127,7 @@ inject.define("palletas.resources.protheusRest.datasource", [
                 }
                     
             );
-        };
-
-        self.update = function (target, comp, cb) {        
-            metadata(comp, cb);        
-        };
+        };      
 
         return self;
     }]);
