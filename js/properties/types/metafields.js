@@ -93,9 +93,6 @@ inject.define("properties.types.metafields", [
 
 						var jsonKey = {};
 
-						if(property)
-							jsonKey.config = property.config;
-
 						jsonKey.key = keyName;
 						var info = (key.info ? contextName + ' -> ' +key.info+'['+key.type+']' : keyName+'['+key.type+']');
 					
@@ -118,7 +115,7 @@ inject.define("properties.types.metafields", [
 				}
 			};
 
-			var metadados = metadata.findSync({});			
+			var metadados = metadata.findSync({});
 
 			for(var i in metadados){				
 				var meta = metadados[i];
@@ -133,8 +130,9 @@ inject.define("properties.types.metafields", [
 
 			td.append(select);
 			select.selectize({
-				onChange : function (val) {					
-					comp.property[fieldProperty].val = util.eval(val);
+				onChange : function (val) {
+					if(comp.property[fieldProperty])
+						comp.property[fieldProperty].val = util.eval(val);
 
 					if(property.update)
 						property.update($this, util.eval(val), comp);

@@ -80,10 +80,7 @@ inject.define("properties.types.metafieldsmulti", [
 							continue;
 						}
 
-						var jsonKey = {};
-
-						if(property)
-							jsonKey.config = property.config;
+						var jsonKey = {};						
 
 						jsonKey.key = keyName;
 						var info = (key.info ? contextName + ' -> ' +key.info+'['+key.type+']' : keyName+'['+key.type+']');
@@ -139,8 +136,9 @@ inject.define("properties.types.metafieldsmulti", [
 					var vals = [];
 					for(var i in val){
 						vals.push(util.eval(val[i]))
-					}					
-					comp.property[fieldProperty].val = vals;
+					}
+					if(comp.property[fieldProperty])
+						comp.property[fieldProperty].val = vals;
 					
 					if(property.update)
 						property.update($this, vals, comp);

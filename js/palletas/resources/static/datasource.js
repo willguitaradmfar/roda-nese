@@ -74,21 +74,19 @@ inject.define("palletas.resources.static.datasource", [
             var actions = {};        
 
             actions.list = {
-                model : ':carro',
-                parameter : [[]],
-                result : {
-                    type : 'array',
-                    model : ':carro'
-                }
+                parameters : []                
             };
 
-            actions.save = {
-                model : ':carro',
-                parameter : [[':carro']],
-                result : {
-                    type : 'object',
-                    model : ':carro'
-                }
+            actions.save = {                
+                parameters : [{
+                    types : ['object']
+                }]
+            };
+
+            actions.remove = {
+              parameters : [{
+                    types : ['object']
+                }]  
             };
 
             growl.info('METADADOS static PROCESSADO !!!');

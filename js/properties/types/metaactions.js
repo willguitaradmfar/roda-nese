@@ -1,7 +1,8 @@
 inject.define("properties.types.metaactions", [
 		"metadatas.metadata",
 		"utils.util",
-	function (metadata, util) {
+		'properties.types.metaactionsConfig',
+	function (metadata, util, metaactionsConfig) {
 	    var self = {};
 
 			self.make = function (comp, fieldProperty, property, td, $this) {
@@ -46,6 +47,7 @@ inject.define("properties.types.metaactions", [
 					if(!contexts[context][key]) contexts[context][key] = {};
 					contexts[context][key].type = 'action';
 					contexts[context][key].field = actionName;
+					contexts[context][key].metaaction = action;
 					contexts[context][key].actionName = actionName;
 					
 				};				
@@ -62,10 +64,7 @@ inject.define("properties.types.metaactions", [
 								continue;
 							}
 
-							var jsonKey = {};
-
-							if(property)
-								jsonKey.config = property.config;
+							var jsonKey = {};							
 
 							jsonKey.key = keyName;
 							var info = (key.info ? contextName + ' -> ' +key.info : keyName);
@@ -75,13 +74,14 @@ inject.define("properties.types.metaactions", [
 							jsonKey.field = key.field;
 							jsonKey.path = (key.actionName+'.'+key.field).replace(/^\w*\.(.*)$/, '$1');
 							jsonKey.model = key.actionName.replace(/^.*\.(\w*)$/, "$1");
-							jsonKey.modelRoot = key.actionName.replace(/^(\w*)\..*$/, '$1');
+							jsonKey.modelRoot = key.actionName.replace(/^(\w*)\..*$/, '$1');							
+							jsonKey.metaaction = key.metaaction;
 							jsonKey.type = key.type;
 
 							var strJsonKey = util.stringify(jsonKey);
 							
 							if(property.val && jsonKey.key == property.val.key){
-								_select.append('<option value=\''+strJsonKey+'\' selected>'+info+'</option>');
+								_select.append('<option value=\''+strJsonKey+'\' selected>'+info+'</option>');								
 							}else{
 								_select.append('<option value=\''+strJsonKey+'\'>'+info+'</option>');
 							}
@@ -104,10 +104,14 @@ inject.define("properties.types.metaactions", [
 				td.append(select);
 				select.selectize({
 					onChange : function (val) {
-						comp.property[fieldProperty].val = util.eval(val);
+
+						if(comp.property[fieldProperty])
+							comp.property[fieldProperty].val = util.eval(val);
 						
 						if(property.update)
 							property.update($this, util.eval(val), comp);
+
+						metaactionsConfig.make(comp, fieldProperty, property, td, $this, util.eval(val));
 					}
 				});
 			};	

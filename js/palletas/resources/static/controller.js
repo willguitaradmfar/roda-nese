@@ -8,8 +8,32 @@ inject.define("palletas.resources.static.controller", [function () {
 	self.variable = {};
 	self.variable.carroList = "[]";
 
-	self.scope.save = function(obj) {
-		alert(JSON.stringify(obj));
+	self.scope.save = function(carro) {
+		var index = -1;
+		for(var i in $scope.$context$.carroList){
+			var element = $scope.$context$.carroList[i];
+			if(element.$$hashKey == carro.$$hashKey){
+				index = i;
+			}
+		}
+		if(index >= 0){
+			$scope.$context$.carroList[index] = carro;	
+		}else{
+			$scope.$context$.carroList.push(carro);
+		}
+
+		$scope.$context$.carro = {};
+	};
+
+	self.scope.remove = function(carro) {
+		var index = -1;
+		for(var i in $scope.$context$.carroList){
+			var element = $scope.$context$.carroList[i];
+			if(element.$$hashKey == carro.$$hashKey){
+				index = i;
+			}
+		}
+		$scope.$context$.carroList.splice(index, 1);		
 	};
 
 	self.scope.list = function() {		

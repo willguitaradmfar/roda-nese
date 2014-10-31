@@ -9,7 +9,8 @@ inject.define("properties.types.txt", [function () {
 		td.append(input);
 
 		input.focusout(function () {
-			comp.property[field].val = input.val();
+			if(comp.property[field])
+				comp.property[field].val = input.val();
 
 			if(property.update)
 				property.update($this, input.val(), comp);

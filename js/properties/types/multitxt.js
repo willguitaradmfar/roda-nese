@@ -23,7 +23,8 @@ inject.define("properties.types.multitxt", [function () {
 
 		$(input).on('itemRemoved', function(event) {
 		  	var val = $(event.target).val();
-		  	comp.property[field].val = val;
+		  	if(comp.property[field])
+		  		comp.property[field].val = val;
 
 		  	if(property.update)
 				property.update($this, val, comp);
