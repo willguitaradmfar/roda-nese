@@ -42,6 +42,18 @@ inject.define("exports.generator", [
 			}
 		}
 
+		self.clearContentHTML = function (_html) {
+			var newContent = $('<div></div>');
+			var content = $(_html);
+			var capsules = content.find('.capsule');
+			for(var i = 0 , len = capsules.length ; i < len ; i++){
+				var capsule = $(capsules[i]).find('.body-component');
+				capsule.removeClass('body-component');
+				newContent.append(capsule);
+			}
+			return newContent;
+		};
+
 		self.makeHead = function (config) {
 				if(!config) throw 'config não passado em makeHead';
 

@@ -5,17 +5,32 @@ inject.define("palletas.palleta", [
 		"palletas.layouts.layout",
 		"utils.legend",
 	function (dao, datasource, components, layouts, legend) {
-		var self = {};		
+		var self = {};
+
+		var generateCapsule = function (templ, name) {
+			templ = $(templ);
+			var capsule = $('<div class="capsule"></div>');
+			var hand = $('<span class="glyphicon glyphicon-move hand"> '+name+'</span>');
+
+			capsule.append(hand);
+
+			templ.addClass('body-component');
+			
+			capsule.append(templ);
+
+			return capsule;
+		};
+
 		
 		self.palleta = function(target) {
 			var palleta = $(target);
 
 			for(var i in layouts){
 				var layout = layouts[i];
-				console.debug('ADD LAYOUT TO PALLETA ('+i+')');
+				console.debug('ADD LAYOUT TO PALLETA ('+i+')');				
 
-				var templ = $(layout.templ);
-				templ.addClass('des-layout');
+				var templ = generateCapsule(layout.templ, layout.name);
+				
 				palleta.find('#'+layout.category).find('.panel-body').append(templ);
 
 				layout.location = legend.attrPalleta;
@@ -25,8 +40,9 @@ inject.define("palletas.palleta", [
 			for(var i in components){
 				var componente = components[i];
 				console.debug('ADD COMPONENT TO PALLETA ('+i+')');
-				var templ = $(componente.templ);
-				templ.addClass('component');
+
+				var templ = generateCapsule(componente.templ, componente.name);
+
 				palleta.find('#'+componente.category).find('.panel-body').append(templ);
 				componente.location = legend.attrPalleta;
 				dao.updateCompDB(templ, componente, legend.attrPalleta);

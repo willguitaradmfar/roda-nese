@@ -41,7 +41,7 @@ inject.define("exports.exportZip", [
 			'image/fav/liferay.ico'
 		];	    
 	   
-	    self.exportExecutable = function (config) {
+	    self.exportExecutable = function (config, html) {
 			if(!config) throw 'config não passado';
 
 			var files = [];
@@ -103,10 +103,9 @@ inject.define("exports.exportZip", [
 			var body = $('<body></body>');
 			var ctrl = $('<div data-ng-controller="'+ctrlName+'"></div>');
 			
-			if(!html)throw 'Conteudo HTML não passado';
-			if(!html.html)html=$(html);			
-
-			ctrl.append(html.html());
+			var cloneHTML = $(html).clone();
+			ctrl.append(generator.clearContentHTML(cloneHTML).html());
+			
 			body.attr('data-ng-app', appName);
 
 			body.append(ctrl);			
@@ -138,13 +137,13 @@ inject.define("exports.exportZip", [
 		};
 
 		self.register = function (target) {
-			html = target;
+			
 			$('#export').on('click', function () {
 				self.exportExecutable({
 					width : 1024, 
 					height : 570,
 					title : 'DESENHADOR'
-				})
+				}, target)
 			});		
 		};		
 

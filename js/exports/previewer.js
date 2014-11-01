@@ -11,7 +11,8 @@ inject.define("exports.previewer", [
 
 		self.preview = function (html) {
 
-			var self = this;					
+			var self = this;
+			
 
 			self.openPopup = function (config) {
 
@@ -62,10 +63,9 @@ inject.define("exports.previewer", [
 				var body = $('<body></body>');
 				var ctrl = $('<div data-ng-controller="'+ctrlName+'"></div>');
 				
-				if(!html)throw 'Conteudo HTML não passado';
-				if(!html.html)html=$(html);			
+				var cloneHTML = $(html).clone();
 
-				ctrl.append(html.html());
+				ctrl.append(generator.clearContentHTML(cloneHTML).html());
 				body.attr('data-ng-app', appName);
 
 				body.append(ctrl);			

@@ -6,6 +6,7 @@ inject.define("palletas.layouts.cols", [function () {
 	self.templ = '<div class="col-lg-6 col-xs-12 col-sm-12 col-md-6"></div>';				 
 
 	self.property = {};
+	
 	self.property.txt_bigDesktops = {
         val : '6',
         update : function (target, val, comp) {

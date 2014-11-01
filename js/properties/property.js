@@ -30,25 +30,47 @@ inject.define("properties.property", [
 				'add' : add,
 				'accordion' : _accordion
 			};
+		};
+
+		self.buildTab = function () {
+			var _tab = $('<div class="panel-group" id="tab-property"><ul class="nav nav-tabs" role="tablist"></ul><div class="tab-content"></div></div>');
+
+			var isFirst = false;
+
+			var add = function (name, content) {
+				if(!content)return;
+				
+				var hProperty = $('<li role="presentation" class="'+(!isFirst ? 'active' : '')+'"><a href="#'+name+'" role="tab" data-toggle="tab">'+name+'</a></li>');
+				var bProperty = $('<div role="tabpanel" class="tab-pane '+(!isFirst ? 'active' : '')+'" id="'+name+'"></div>');
+				bProperty.append(content)
+							
+				_tab.find('ul').append(hProperty);
+				_tab.find('.tab-content').append(bProperty);
+				isFirst = true;
+			}
+
+			return {
+				'add' : add,
+				'tab' : _tab
+			};
 		};	
 
 		self.removerComponente = function ($this, comp) {
 			dao.removeCompDB($this);
 			$this.remove();
-			if(comp.remove)comp.remove($this, comp);					
-			$( "#dialog" ).dialog( "close" );
+			if(comp.remove)comp.remove($this, comp);
 		};
 
-		self.dblclickProperty = function ($this) {
-			var comp = dao.getCompDBById($this, legend.attrComp);
-			console.debug('dblclick em componente já arrastado '+comp.___id+' !!! :: ');		
+		self.dblclickProperty = function ($this, comp) {
 
-			accordion = self.buildAccordion();
+			console.debug('dblclick em componente já arrastado '+comp.___id+' !!! :: ');
 
-			accordion.add("Config", proxy.buildProperty(comp, $this));
+			accordion = self.buildTab();
+
+			accordion.add("Basico", proxy.buildProperty(comp, $this));			
 
 			var frame = self.buildBarraDeBotoes();
-			frame.append(accordion.accordion);
+			frame.append(accordion.tab);
 
 			$( "#dialog" ).html('');
 			$( "#dialog" ).html(frame);

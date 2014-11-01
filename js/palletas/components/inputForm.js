@@ -3,7 +3,7 @@ inject.define("palletas.components.inputForm", [function () {
     self.name = 'inputForm';
 	self.category = 'input';
 
-	self.templ = '<div class="input-group">'
+	self.templ = '<div class="col-lg-6 col-xs-12 col-sm-12 col-md-6 input-group">'
 					+'<label>Input Text</label>'
 					+'<input type="text" class="form-control" placeholder="Placeholder">'
 				+'</div>';

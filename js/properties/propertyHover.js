@@ -6,34 +6,35 @@ inject.define("properties.propertyHover", [
 
 		property.listenerToolsProperty = function () {
 
-			$('#project').on('mouseenter', '.component, .des-layout', function(){
-				var tools = $('.tools');
+			var keys = {};
 
-				var btn_label = tools.find('.tools-label');				
-
-				var offset = $(this).offset();
-				var top = offset.top;
-				var left = offset.left;
-				var id = $(this).attr(legend.attrComp);
-				
-				tools.attr('style', 'min-width: 100px;opacity: 0.5;z-index: 10; position: absolute; top:'+top+'; left: '+left+'; width : '+($(this).width()));
-				tools.data('data-comp-id-selected', $(this));
-
-				var comp = dao.getCompDBById($(this), legend.attrComp);
-				btn_label.text(comp.name + ' ID:'+comp.___id);
-			});
-
-			$(document).on('click', '.tools-property', function () {
-				var $this = $(this).parents('.tools').data('data-comp-id-selected');
-				property.dblclickProperty($this);
-			});
-
-			$(document).on('click', '.tools-remove', function () {
-				var $this = $(this).parents('.tools').data('data-comp-id-selected');
+			keys.delete = function ($this) {				
 				var comp = dao.getCompDBById($this, legend.attrComp);
-				property.removerComponente($this, comp);				
-				$('.tools').attr('style', 'display:none');
-			});
+				property.removerComponente($this, comp);
+			}
+
+			keys.edit = function ($this) {				
+				var comp = dao.getCompDBById($this, legend.attrComp);
+				property.dblclickProperty($this.find('.body-component'), comp);
+			}
+
+			
+		    $.contextMenu({
+		        selector: '#project .capsule', 
+		        callback: function(key, options) {
+		            keys[key]($(this));
+		        },
+		        items: {
+		            "edit": {name: "Edit", icon: "edit"},
+		            //"cut": {name: "Cut", icon: "cut"},
+		            //"copy": {name: "Copy", icon: "copy"},
+		            //"paste": {name: "Paste", icon: "paste"},
+		            "delete": {name: "Delete", icon: "delete"},
+		            //"sep1": "---------",
+		            "quit": {name: "Quit", icon: "quit"}
+		        }
+		    });
+
 
 			$('.des-datasource').on('click', '.nonvisual', function () {
 				var $this = $(this);
