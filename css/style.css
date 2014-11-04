@@ -1,78 +1,27 @@
+/*
+	################################################# CONFIG TOPO  #################################################
+*/
+
 #topo{	
 	height: 7%;
 	padding-top: 4px;
 	background-color: #eeeeee;
 }
 
-#palleta{
-	padding-top: 5px;
-	margin-top: 1px;
-	background-color: #eeeeee;
-}
-
-#project{
-	margin-top: 1px;
-	padding: 2px;
-}
-
 .logoTOTVS{	
 	float: right;
 }
 
-#palleta {
-    font-size: 10px;
-}
 
-
-#palleta, #project.body-component{
-	height: 92%;
-}
-
-#palleta .capsule{	
-	display: block;
-}
-
-#palleta .hand{
-	cursor: move;	
-	width: 100%;
-	height: 20px;
-	display: block;
-}
-
-#project .body-component{
-	border : 1px solid bisque;
-	cursor: move;
-	background-color: seashell;
-	z-index: -1;	
-}
-
-#palleta .capsule:hover{
-	background-color: bisque;
-}
-
-.ms-sel-ctn{
-    overflow: auto;
-    line-height: 18px;
-    padding-right: 0px;
-    width: 100% !important;
-}
-
-#palleta .panel-title {
-	font-size: 10px;	
-}
-
-.chosen-container {  
-  width: 100%;
-}
-
-#dialog td {
-	font-size: 14px;
-}
+/*
+	################################################# FILE SAVE PROJECT  #################################################
+*/
 
 .btn-file {
     position: relative;
     overflow: hidden;
 }
+
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -89,8 +38,72 @@
     display: block;
 }
 
+/*
+	################################################# PALLETA  #################################################
+*/
+#palleta{
+	padding-top: 5px;
+	margin-top: 1px;
+	background-color: #eeeeee;
+	font-size: 10px;
+}
 
-.des-datasource{
+#palleta, #project{
+	height: 92%;
+}
+
+#palleta [data-capsule]{
+	display: block;
+}
+
+
+
+#palleta [data-body-component]:hover{
+	background-color: bisque;
+}
+
+#palleta .panel-title {
+	font-size: 10px;	
+}
+
+#palleta [data-body-component],
+#palleta [data-body-component-layout]
+{
+
+	border : 1px solid bisque;
+	cursor: move;
+}
+
+/*
+	################################################# PROJECT #################################################
+*/
+#project{
+	margin-top: 1px;
+	padding: 2px;
+}
+
+#project [data-body-component],
+#project [data-body-component-layout]{
+	border : 1px solid bisque;
+	cursor: move;
+	background-color: seashell;	
+}
+
+[data-body-component-layout]{
+	min-height: 10%;
+}
+
+/*#palleta [data-body-component],*/
+#project [data-hand], 
+#datasource [data-hand] {
+	display: none;
+}
+
+/*
+	################################################# DATASOURCE #################################################
+*/
+
+#datasource{
 	background-color: #eeeeee;
 	position: absolute;	
 	top: 7%;
@@ -99,17 +112,3 @@
 	height: 93%;	
 }
 
-.des-datasource-evident{
-	background-color: bisque;
-	position: absolute;	
-	top: 6%;
-	right : 0%;	
-	height: 93%;
-	width: 50px;
-	z-index: -100;	
-}
-
-#palleta .body-component,
-#project .hand {
-	display: none;
-}

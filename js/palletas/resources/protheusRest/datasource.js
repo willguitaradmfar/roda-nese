@@ -13,7 +13,7 @@ inject.define("palletas.resources.protheusRest.datasource", [
         self.controller = controller;
 
         self.name = 'protheusRest';
-        self.category = 'datasource';
+        self.category = 'datasourcePalleta';
         self.icon = 'cloud';
         self.color = 'warning';
 

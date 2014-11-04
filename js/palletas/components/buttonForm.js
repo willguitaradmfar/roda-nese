@@ -9,6 +9,7 @@ inject.define("palletas.components.buttonForm", [function () {
 	self.property = {};
 
 	self.property.label = {
+		category : 'basic',
 		val : 'Button',
 		update : function (target, val, comp) {
 			$(target).text(' '+val);

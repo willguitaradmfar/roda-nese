@@ -21,10 +21,10 @@ inject.define("builds.service", [
 
 			if(target){
 				console.debug('FOI PASSADO UM ALVO PARA COMPOR O CONTEUDO HTML');			
-				comps = $(target).find('.nonvisual');
+				comps = $(target).find('#datasource [data-capsule-datasource]');
 			}else{
 				console.debug('NÃO FOI PASSADO UM ALVO');
-				comps = $('.des-datasource').find('.nonvisual');
+				comps = $('#datasource [data-capsule-datasource]');
 			}	
 
 			for(var y = 0 ; y < comps.length ; y++){			

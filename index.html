@@ -79,20 +79,22 @@
     		inject.define("Main", [ "utils.util", 
     								"exports.previewer",
     								"palletas.palleta",
-    								"dragdrops.dragdrop",
-    								"properties.propertyHover",    								
+    								"dragdrops.dragdropDatasource",
+    								"dragdrops.dragdropLayout",
+    								"properties.propertyClickRight",
     								"projects.projectFileStorage",
     								"projects.projectLocalStorage",
     								"config.internationalization",
     								"exports.exportZip",
     								"utils.growl",
     								"themes.theme",
-                function(util, previewer, palleta, dragdrop, propertyHover, projectFileStorage, projectLocalStorage, internationalization, exportZip, growl, theme){
+                function(util, previewer, palleta, dragdropDatasource, dragdropLayout, propertyClickRight, projectFileStorage, projectLocalStorage, internationalization, exportZip, growl, theme){
 					new previewer.preview($('.des-container'));
 					exportZip.register($('.des-container'));
 					new palleta.palleta($('#palleta'));
-					dragdrop.dragdrop();
-					new propertyHover.listenerToolsProperty();
+					dragdropLayout.dragdrop();
+					dragdropDatasource.dragdrop();
+					propertyClickRight.listenerToolsProperty();
 					new projectFileStorage.projects();
 					new projectLocalStorage.projects();
 					internationalization.setLanguage('pt_br');
@@ -268,20 +270,20 @@
 				  <div class="panel panel-default">
 				    <div class="panel-heading">
 				      <h4 class="panel-title">
-				        <a class="accordion-toggle glyphicon glyphicon-tag" data-toggle="collapse" data-parent="#accordion" href="#datasource"> Datasource</a>
+				        <a class="accordion-toggle glyphicon glyphicon-tag" data-toggle="collapse" data-parent="#accordion" href="#datasourcePalleta"> Datasource</a>
 				      </h4>
 				    </div>
-				    <div id="datasource" class="panel-collapse collapse">
+				    <div id="datasourcePalleta" class="panel-collapse collapse">
 				      <div class="panel-body">				      	
 				      </div>
 				    </div>
 				  </div>				 
 				</div>
 			</div>
-			<div class="col-md-9 body-component des-container" id="project">
+			<div class="col-md-9 des-container" data-body-project id="project">
 				
 			</div>
-			<div class="des-datasource" id="datasource"></div>
+			<div class="des-datasource body-component" id="datasource"></div>
 		</div>
 	</div>
 		<div id="dialog"></div>

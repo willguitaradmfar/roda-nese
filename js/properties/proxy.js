@@ -1,14 +1,28 @@
 inject.define("properties.proxy", [
 			"config.internationalization", 
 			"properties.types",
-		function (internationalization, types) {
+			"properties.defatulProperty.layout",
+		function (internationalization, types, layout) {
 			var self = {};
 			self.name = 'BASIC';
 
 			self.buildProperty = function (comp, $this) {			
 				if(!comp.property)return;
 				console.debug('MONTA PROPERTY BASIC');
-				var table = $('<table class="table"><thead><tr><th width="30%"></th><th></th></tr></thead><tbody></tbody></table>');
+
+				var tabs  = {};
+
+				var getTab = function (name) {
+					if(tabs[name]){
+						return tabs[name]
+					}
+					tabs[name] = $('<table class="table"><thead><tr><th width="30%"></th><th></th></tr></thead><tbody></tbody></table>');
+					return tabs[name]
+				}
+
+				for(var i in layout.property){					
+					comp.property[i] = layout.property[i];
+				}				
 
 				for(var i in comp.property){
 					var componentType = i.substring(0,i.indexOf('_')) || 'txt';					
@@ -25,10 +39,11 @@ inject.define("properties.proxy", [
 					module.make(comp, i, property, td, $this)
 
 					tr.append(td);
-					table.find('tbody').append(tr);
+					getTab(property.category || 'basic').find('tbody').append(tr);
 				}
 
-				return table;
+
+				return tabs;
 			};		
 
 			return self;	

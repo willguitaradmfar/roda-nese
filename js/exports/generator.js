@@ -45,10 +45,10 @@ inject.define("exports.generator", [
 		self.clearContentHTML = function (_html) {
 			var newContent = $('<div></div>');
 			var content = $(_html);
-			var capsules = content.find('.capsule');
+			var capsules = content.find('[data-capsule]');
 			for(var i = 0 , len = capsules.length ; i < len ; i++){
-				var capsule = $(capsules[i]).find('.body-component');
-				capsule.removeClass('body-component');
+				var capsule = $(capsules[i]).find('[data-body-component]');
+				capsule.removeAttr('data-body-component');
 				newContent.append(capsule);
 			}
 			return newContent;

@@ -1,4 +1,4 @@
-inject.define("properties.propertyHover", [
+inject.define("properties.propertyClickRight", [
 		"properties.property", 
 		"utils.dao.compDB",
 		"utils.legend",
@@ -14,13 +14,17 @@ inject.define("properties.propertyHover", [
 			}
 
 			keys.edit = function ($this) {				
-				var comp = dao.getCompDBById($this, legend.attrComp);
-				property.dblclickProperty($this.find('.body-component'), comp);
+				var comp = dao.getCompDBById($this, legend.attrComp);				
+				property.dblclickProperty($this, comp);
 			}
 
+			keys.log = function ($this) {				
+				var comp = dao.getCompDBById($this, legend.attrComp);
+				console.debug('LOG COMP', comp);				
+			}
 			
 		    $.contextMenu({
-		        selector: '#project .capsule', 
+		        selector: '#project [data-comp-id]', 
 		        callback: function(key, options) {
 		            keys[key]($(this));
 		        },
@@ -31,15 +35,9 @@ inject.define("properties.propertyHover", [
 		            //"paste": {name: "Paste", icon: "paste"},
 		            "delete": {name: "Delete", icon: "delete"},
 		            //"sep1": "---------",
-		            "quit": {name: "Quit", icon: "quit"}
+		            "log": {name: "Log", icon: "quit"}
 		        }
 		    });
-
-
-			$('.des-datasource').on('click', '.nonvisual', function () {
-				var $this = $(this);
-				property.dblclickProperty($this);
-			});
 		};
 
 		return property;

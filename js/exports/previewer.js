@@ -11,8 +11,7 @@ inject.define("exports.previewer", [
 
 		self.preview = function (html) {
 
-			var self = this;
-			
+			var self = this;			
 
 			self.openPopup = function (config) {
 

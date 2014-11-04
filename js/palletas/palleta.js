@@ -7,18 +7,22 @@ inject.define("palletas.palleta", [
 	function (dao, datasource, components, layouts, legend) {
 		var self = {};
 
-		var generateCapsule = function (templ, name) {
+		var generateComponent = function (templ, name) {
 			templ = $(templ);
-			var capsule = $('<div class="capsule"></div>');
-			var hand = $('<span class="glyphicon glyphicon-move hand"> '+name+'</span>');
+			templ.attr('data-body-component', '');
+			return templ;
+		};
 
-			capsule.append(hand);
+		var generateComponentLayout = function (templ, name) {
+			templ = $(templ);
+			templ.attr('data-body-component-layout', '');
+			return templ;
+		};
 
-			templ.addClass('body-component');
-			
-			capsule.append(templ);
-
-			return capsule;
+		var generateComponentDataSource = function (templ, name) {
+			templ = $(templ);
+			templ.attr('data-body-component', '');
+			return templ;
 		};
 
 		
@@ -29,7 +33,7 @@ inject.define("palletas.palleta", [
 				var layout = layouts[i];
 				console.debug('ADD LAYOUT TO PALLETA ('+i+')');				
 
-				var templ = generateCapsule(layout.templ, layout.name);
+				var templ = generateComponentLayout(layout.templ, layout.name);
 				
 				palleta.find('#'+layout.category).find('.panel-body').append(templ);
 
@@ -41,7 +45,7 @@ inject.define("palletas.palleta", [
 				var componente = components[i];
 				console.debug('ADD COMPONENT TO PALLETA ('+i+')');
 
-				var templ = generateCapsule(componente.templ, componente.name);
+				var templ = generateComponent(componente.templ, componente.name);
 
 				palleta.find('#'+componente.category).find('.panel-body').append(templ);
 				componente.location = legend.attrPalleta;
@@ -52,13 +56,16 @@ inject.define("palletas.palleta", [
 				var service = datasource[i];
 				console.debug('ADD RESOURCE TO PALLETA ('+i+')');
 
-				var templSpan = $('<span class="btn btn-'+(service.color || 'warning')+' glyphicon glyphicon-'+(service.icon || 'cloud')+'"></span><span>.</span>');
+				var templSpan = $('<span class="btn btn-'+(service.color || 'warning')+' glyphicon glyphicon-'+(service.icon || 'cloud')+'"></span>');
 				templSpan
-					.addClass('nonvisual');				
-				palleta.find('#'+service.category).find('.panel-body').append(templSpan);
+					.addClass('nonvisual');
+
+				var templ = generateComponentDataSource(templSpan, service.name);				
+
+				palleta.find('#'+service.category).find('.panel-body').append(templ);
 				
 				service.location = legend.attrPalleta;
-				dao.updateCompDB(templSpan, service, legend.attrPalleta);				
+				dao.updateCompDB(templ, service, legend.attrPalleta);				
 				
 			}
 		};

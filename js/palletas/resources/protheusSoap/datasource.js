@@ -13,7 +13,7 @@ inject.define("palletas.resources.protheusSoap.datasource", [
         self.controller = controller;
 
         self.name = 'protheusSoap';
-        self.category = 'datasource';
+        self.category = 'datasourcePalleta';
         self.icon = 'globe';
         self.color = 'primary';
 

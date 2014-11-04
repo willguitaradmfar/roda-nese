@@ -2,30 +2,24 @@ inject.define("dragdrops.dragdrop", [
         "utils.dao.compDB",
         "utils.legend",
     function (dao, legend) {
-        var self = {};
+        var self = {};        
 
-        self.dragdrop = function() {
-
-            $('#project.body-component, #project .body-component').sortable({
+        self.registerEvent = function (sortable, draggable, cb) {
+          $(sortable).sortable({
+              connectWith : sortable,
               revert: true
             });
 
-            $('.capsule').draggable({
-              connectToSortable: "#project .body-component, #project.body-component",
+            $(draggable).draggable({
+              connectToSortable: sortable,
               helper: "clone",
               revert: "invalid"
             });
 
-             $('#project .body-component, #project.body-component').droppable({                
+             $(sortable).droppable({                
                 tolerance: 'touch',
-                drop: function (event, ui) {
-                    var $this = $(ui.draggable);                  
-                    var attr = ($this.attr(legend.attrComp) ? legend.attrComp : legend.attrPalleta);
-                    var comp = dao.getCompDBById($this, attr);
-                    comp.location = legend.attrComp;
-                    dao.updateCompDB($this, comp);
-                  }
-            });
+                drop: cb
+              });
         };
 
         return self;

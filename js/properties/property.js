@@ -1,12 +1,12 @@
 inject.define("properties.property", [
 		"utils.dao.compDB", 
-		"properties.proxy",
+		"properties.proxy",		
 		"utils.legend",
 		"utils.util",
 	function (dao, proxy, legend, util) {
 	
 		var self = {};
-		var accordion;
+		var tabs;
 
 		self.buildBarraDeBotoes = function () {
 			var barraBotoes = $('<div><div class="dropdown">'								
@@ -39,9 +39,11 @@ inject.define("properties.property", [
 
 			var add = function (name, content) {
 				if(!content)return;
+
+				var id = 'id-tab-'+name;
 				
-				var hProperty = $('<li role="presentation" class="'+(!isFirst ? 'active' : '')+'"><a href="#'+name+'" role="tab" data-toggle="tab">'+name+'</a></li>');
-				var bProperty = $('<div role="tabpanel" class="tab-pane '+(!isFirst ? 'active' : '')+'" id="'+name+'"></div>');
+				var hProperty = $('<li role="presentation" class="'+(!isFirst ? 'active' : '')+'"><a href="#'+id+'" role="tab" data-toggle="tab">'+name+'</a></li>');
+				var bProperty = $('<div role="tabpanel" class="tab-pane '+(!isFirst ? 'active' : '')+'" id="'+id+'"></div>');
 				bProperty.append(content)
 							
 				_tab.find('ul').append(hProperty);
@@ -65,12 +67,16 @@ inject.define("properties.property", [
 
 			console.debug('dblclick em componente já arrastado '+comp.___id+' !!! :: ');
 
-			accordion = self.buildTab();
+			tabs = self.buildTab();
 
-			accordion.add("Basico", proxy.buildProperty(comp, $this));			
+			var proxyResponse = proxy.buildProperty(comp, $this);
+			for(var i in proxyResponse){
+				tabs.add(i, $(proxyResponse[i]));
+			}		
+			
 
 			var frame = self.buildBarraDeBotoes();
-			frame.append(accordion.tab);
+			frame.append(tabs.tab);
 
 			$( "#dialog" ).html('');
 			$( "#dialog" ).html(frame);

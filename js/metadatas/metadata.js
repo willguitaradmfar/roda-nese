@@ -5,7 +5,7 @@ inject.define("metadatas.metadata", [
 	    var self = {};
 
 	    self.find = function (query, hand) {
-			var nonvisuals = $('.des-datasource .nonvisual');
+			var nonvisuals = $('#datasource [data-capsule-datasource]');
 			nonvisuals.each(function (i, nonvisual) {
 				var comp = dao.getCompDBById(nonvisual, legend.attrComp);
 				hand(comp.metadata);
@@ -13,7 +13,7 @@ inject.define("metadatas.metadata", [
 		};
 
 		 self.findSync = function (query) {
-			var nonvisuals = $('.des-datasource .nonvisual');
+			var nonvisuals = $('#datasource [data-capsule-datasource]');
 
 			var metadados = [];
 

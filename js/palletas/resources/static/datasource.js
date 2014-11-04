@@ -7,7 +7,7 @@ inject.define("palletas.resources.static.datasource", [
         self.controller = controller;    
 
         self.name = 'static';
-        self.category = 'datasource';
+        self.category = 'datasourcePalleta';
         self.icon = 'eye-open';
         self.color = 'success';
 
