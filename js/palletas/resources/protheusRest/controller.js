@@ -34,7 +34,7 @@ inject.define("palletas.resources.protheusRest.controller", [function () {
 					}
 				}				
 			}
-			$scope.$context$.$table$List = result.CONTENT.ROWS;
+			$scope.$context$.list = result.CONTENT.ROWS;
 		};
 
 		config.error = function (data, status, headers, config) {
@@ -52,7 +52,7 @@ inject.define("palletas.resources.protheusRest.controller", [function () {
 		config.success = function (data, status, headers, config) {		
 			var decodado = base64.decode(data);			
 			var result = eval('('+decodado+')');			
-			$scope.$context$.$table$List = result.CONTENT.ROWS;
+			$scope.$context$.list= result.CONTENT.ROWS;
 		};
 
 		config.error = function (data, status, headers, config) {

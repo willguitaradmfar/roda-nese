@@ -7,7 +7,7 @@ inject.define("dragdrops.dragdrop", [
         self.registerEvent = function (sortable, draggable, cb) {
           $(sortable).sortable({
               connectWith : sortable,
-              revert: true
+              revert: false
             });
 
             $(draggable).draggable({

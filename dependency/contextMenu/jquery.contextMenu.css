@@ -14,7 +14,7 @@
 
 .context-menu-list {
     margin:0; 
-    padding:0;
+    padding:5;
     
     min-width: 120px;
     max-width: 250px;
@@ -36,7 +36,7 @@
 }
 
 .context-menu-item {
-    padding: 2px 2px 2px 24px;
+    padding: 3px 2px 15px 24px;
     background-color: #EEE;
     position: relative;
     -webkit-user-select: none;

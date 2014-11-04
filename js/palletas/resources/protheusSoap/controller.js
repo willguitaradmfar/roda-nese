@@ -22,7 +22,7 @@ inject.define("palletas.resources.protheusSoap.controller", [function () {
                 	if(error)
                 		$scope.$context$.$messageError$ = error;
                 	else
-                    	$scope.$context$.$table$List = eval('('+result+')').Rows;
+                    	$scope.$context$.list = eval('('+result+')').Rows;
                 }
         );
 	};
@@ -33,9 +33,7 @@ inject.define("palletas.resources.protheusSoap.controller", [function () {
                     DATA : JSON.stringify(obj)
                 }, function(error, result){
                 	if(error)
-                		$scope.$context$.$messageError$ = error;
-                	else
-                    	$scope.$context$.$table$List = eval('('+result+')').Rows;
+                		$scope.$context$.$messageError$ = error;                	
                 }
         );
 	};

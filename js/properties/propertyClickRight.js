@@ -25,6 +25,7 @@ inject.define("properties.propertyClickRight", [
 			}
 			
 		    $.contextMenu({
+		    	zIndex : 2,
 		        selector: '[data-comp-id]',
 		        callback: function(key, options) {
 		            keys[key]($(this));
