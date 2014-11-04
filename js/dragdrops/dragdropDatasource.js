@@ -15,7 +15,10 @@ inject.define("dragdrops.dragdropDatasource", [
             dao.updateCompDB($this, comp);
           };
           
-          dragdrop.registerEvent($('#datasource'), $('#palleta [data-capsule-datasource]'), cbDropDataSource);
+          dragdrop.registerEvent(
+            $('#datasource[data-body-datasource]'), 
+            $('#palleta [data-body-component-datasource]'), 
+            cbDropDataSource);         
 
         };
         return self;

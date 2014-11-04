@@ -6,20 +6,20 @@ inject.define("palletas.resources.static.controller", [function () {
 	self.inject['$http'] = '$http';
 
 	self.variable = {};
-	self.variable.carroList = "[]";
+	self.variable.list = "[]";
 
 	self.scope.save = function(carro) {
 		var index = -1;
-		for(var i in $scope.$context$.carroList){
-			var element = $scope.$context$.carroList[i];
+		for(var i in $scope.$context$.list){
+			var element = $scope.$context$.list[i];
 			if(element.$$hashKey == carro.$$hashKey){
 				index = i;
 			}
 		}
 		if(index >= 0){
-			$scope.$context$.carroList[index] = carro;	
+			$scope.$context$.list[index] = carro;	
 		}else{
-			$scope.$context$.carroList.push(carro);
+			$scope.$context$.list.push(carro);
 		}
 
 		$scope.$context$.carro = {};
@@ -27,13 +27,13 @@ inject.define("palletas.resources.static.controller", [function () {
 
 	self.scope.remove = function(carro) {
 		var index = -1;
-		for(var i in $scope.$context$.carroList){
-			var element = $scope.$context$.carroList[i];
+		for(var i in $scope.$context$.list){
+			var element = $scope.$context$.list[i];
 			if(element.$$hashKey == carro.$$hashKey){
 				index = i;
 			}
 		}
-		$scope.$context$.carroList.splice(index, 1);		
+		$scope.$context$.list.splice(index, 1);		
 	};
 
 	self.scope.list = function() {		
@@ -45,7 +45,7 @@ inject.define("palletas.resources.static.controller", [function () {
 			return Math.round(value * 1000 ) / 10000;
 		}
 
-        $scope.$context$.carroList = [{
+        $scope.$context$.list = [{
 		   nome: 'Fusca',
 		   revisoes: [{
 		      data: new Date(),

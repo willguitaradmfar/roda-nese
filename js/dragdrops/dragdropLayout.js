@@ -12,6 +12,10 @@ inject.define("dragdrops.dragdropLayout", [
             var $this = $(ui.draggable);
             var attr = ($this.attr(legend.attrComp) ? legend.attrComp : legend.attrPalleta);
             var comp = dao.getCompDBById($this, attr);
+            if(!comp){
+                console.warn('OBJ COMP NÃO ENCONTRADO');
+                return;
+            }
             comp.location = legend.attrComp;
             dao.updateCompDB($this, comp);
             

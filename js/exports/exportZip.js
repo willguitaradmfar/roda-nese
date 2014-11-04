@@ -104,7 +104,7 @@ inject.define("exports.exportZip", [
 			var ctrl = $('<div data-ng-controller="'+ctrlName+'"></div>');
 			
 			var cloneHTML = $(html).clone();
-			ctrl.append(generator.clearContentHTML(cloneHTML).html());
+			ctrl.append(cloneHTML.html());
 			
 			body.attr('data-ng-app', appName);
 

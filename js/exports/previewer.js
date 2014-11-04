@@ -64,7 +64,7 @@ inject.define("exports.previewer", [
 				
 				var cloneHTML = $(html).clone();
 
-				ctrl.append(generator.clearContentHTML(cloneHTML).html());
+				ctrl.append(cloneHTML.html());
 				body.attr('data-ng-app', appName);
 
 				body.append(ctrl);			

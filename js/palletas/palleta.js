@@ -21,7 +21,7 @@ inject.define("palletas.palleta", [
 
 		var generateComponentDataSource = function (templ, name) {
 			templ = $(templ);
-			templ.attr('data-body-component', '');
+			templ.attr('data-body-component-datasource', '');
 			return templ;
 		};
 

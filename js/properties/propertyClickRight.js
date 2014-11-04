@@ -20,11 +20,12 @@ inject.define("properties.propertyClickRight", [
 
 			keys.log = function ($this) {				
 				var comp = dao.getCompDBById($this, legend.attrComp);
-				console.debug('LOG COMP', comp);				
+				console.debug('LOG COMP', comp);
+				console.debug('LOG TARGET', $this);
 			}
 			
 		    $.contextMenu({
-		        selector: '#project [data-comp-id]', 
+		        selector: '[data-comp-id]',
 		        callback: function(key, options) {
 		            keys[key]($(this));
 		        },

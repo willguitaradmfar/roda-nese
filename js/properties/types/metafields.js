@@ -48,7 +48,7 @@ inject.define("properties.types.metafields", [
 				contexts[context][key].field = modelName;
 				contexts[context][key].modelName = modelName;
 
-				var keyList = context + '.' + modelName+'List';
+				var keyList = context + '.' + 'list';
 				if(!contexts[context][keyList]) contexts[context][keyList] = {};
 				contexts[context][keyList].type = 'array';
 				contexts[context][keyList].field = modelName;

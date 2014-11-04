@@ -2,7 +2,8 @@ inject.define("properties.proxy", [
 			"config.internationalization", 
 			"properties.types",
 			"properties.defatulProperty.layout",
-		function (internationalization, types, layout) {
+			"utils.util",
+		function (internationalization, types, layout, util) {
 			var self = {};
 			self.name = 'BASIC';
 
@@ -20,9 +21,13 @@ inject.define("properties.proxy", [
 					return tabs[name]
 				}
 
-				for(var i in layout.property){					
-					comp.property[i] = layout.property[i];
-				}				
+				if($this.attr('data-body-component') == "" || $this.attr('data-body-component-layout') == ""){
+					for(var i in layout.property){
+						if(!comp.property[i])
+							comp.property[i] = util.clone(layout.property[i]);
+					}
+				}
+									
 
 				for(var i in comp.property){
 					var componentType = i.substring(0,i.indexOf('_')) || 'txt';					

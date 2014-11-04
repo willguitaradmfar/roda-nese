@@ -40,19 +40,7 @@ inject.define("exports.generator", [
 
 				files.push(fileJS);
 			}
-		}
-
-		self.clearContentHTML = function (_html) {
-			var newContent = $('<div></div>');
-			var content = $(_html);
-			var capsules = content.find('[data-capsule]');
-			for(var i = 0 , len = capsules.length ; i < len ; i++){
-				var capsule = $(capsules[i]).find('[data-body-component]');
-				capsule.removeAttr('data-body-component');
-				newContent.append(capsule);
-			}
-			return newContent;
-		};
+		}	
 
 		self.makeHead = function (config) {
 				if(!config) throw 'config não passado em makeHead';

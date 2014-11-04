@@ -24,7 +24,7 @@ inject.define("builds.directive", [
 				comps = $(target).find('.component');
 			}else{
 				console.debug('NÃO FOI PASSADO UM ALVO');
-				comps = $('.des-container').find('.component');
+				comps = $('#project[data-body-project] [data-body-component]');
 			}	
 
 			for(var y = 0 ; y < comps.length ; y++){			
