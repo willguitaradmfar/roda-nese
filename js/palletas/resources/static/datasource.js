@@ -1,6 +1,6 @@
 inject.define("palletas.resources.static.datasource", [
         "palletas.resources.static.controller",
-        "utils.growl",
+        "core.utils.growl",
     function (controller, growl) {
         var self = {};
 

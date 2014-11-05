@@ -1,7 +1,7 @@
 inject.define("builds.service", [
-		"utils.dao.compDB", 
-		"utils.processTemplate", 
-		"utils.legend",
+		"core.utils.dao.compDB", 
+		"core.utils.processTemplate", 
+		"core.utils.legend",
 	function (dao, processTemplate, legend) {
 	    var self = {};
 

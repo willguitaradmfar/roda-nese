@@ -76,25 +76,27 @@
     		
     		//inject.debug = true;
     		inject.src = 'js/';
-    		inject.define("Main", [ "utils.util", 
-    								"exports.previewer",
-    								"palletas.palleta",
+    		inject.define("Main", [ "core.utils.util", 
+    								"core.exports.previewer",
+    								"core.components.palleta",
+    								"core.datasource.palleta",
     								"dragdrops.dragdropDatasource",
     								"dragdrops.dragdropLayout",
-    								"properties.propertyClickRight",
+    								"core.properties.propertyClickRight",
     								"projects.projectFileStorage",
     								"projects.projectLocalStorage",
     								"config.internationalization",
-    								"exports.exportZip",
-    								"utils.growl",
+    								"core.exports.exportZip",
+    								"core.utils.growl",
     								"themes.theme",
-                function(util, previewer, palleta, dragdropDatasource, dragdropLayout, propertyClickRight, projectFileStorage, projectLocalStorage, internationalization, exportZip, growl, theme){
+                function(util, previewer, palletaComponents, palletaDatasource, dragdropDatasource, dragdropLayout, propertyClickRight, projectFileStorage, projectLocalStorage, internationalization, exportZip, growl, theme){
 					new previewer.preview($('.des-container'));
 					exportZip.register($('.des-container'));
-					new palleta.palleta($('#palleta'));
+					new palletaComponents.palleta($('#palleta'));
+					new palletaDatasource.palleta($('#palleta'));
 					dragdropLayout.dragdrop();
 					dragdropDatasource.dragdrop();
-					propertyClickRight.listenerToolsProperty();
+					propertyClickRight.init();
 					new projectFileStorage.projects();
 					new projectLocalStorage.projects();
 					internationalization.setLanguage('pt_br');
@@ -129,7 +131,7 @@
                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Arquivo <b class="caret"></b></a>
                       <ul class="dropdown-menu">
                         <li><a class="glyphicon glyphicon-floppy-save" href="#" id="salvarLocalStorage"> Save LocalStorage</a></li>
-                        <li><a class="glyphicon glyphicon-floppy-save" href="#" id="salvarFile"> Save FileSystem</a></li>                        
+                        <li><a class="glyphicon glyphicon-floppy-save" href="#" id="salvarFile"> Save FileSystem</a></li>
                       </ul>
                     </li>
                   </ul>
@@ -157,136 +159,15 @@
                   </form>
                 </div>
 
-              </div>           
-
-            </div>
-
-            <!-- 
-				<div class="dropdown">				  
-				  <span class="btn btn-info dropdown-toggle glyphicon glyphicon-eye-open" type="button" id="dropdownMenu1" data-toggle="dropdown">				     			  
-				  </span>
-				  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-				    <li role="presentation"><a role="menuitem" class="glyphicon glyphicon-eye-open" tabindex="-1" href="#" id="v240"> 240</a></li>
-				    <li role="presentation"><a role="menuitem" class="glyphicon glyphicon-eye-open" tabindex="-1" href="#" id="v320"> 320</a></li>
-				    <li role="presentation"><a role="menuitem" class="glyphicon glyphicon-eye-open" tabindex="-1" href="#" id="v480"> 480</a></li>
-				    <li role="presentation"><a role="menuitem" class="glyphicon glyphicon-eye-open" tabindex="-1" href="#" id="v768"> 768</a></li>
-				    <li role="presentation"><a role="menuitem" class="glyphicon glyphicon-eye-open" tabindex="-1" href="#" id="v1024"> 1024</a></li>				    
-				    <li role="presentation" class="divider"></li>
-				    <li role="presentation"><a role="menuitem" class="glyphicon glyphicon-eye-open" tabindex="-1" href="#" id="vFull"> Full</a></li>				    
-				  </ul>
-
-				  <span class="btn btn-danger dropdown-toggle glyphicon glyphicon-floppy-save" type="button" id="export"></span>		
-
-				  <span class="btn btn-warning dropdown-toggle glyphicon glyphicon-save" type="button" id="salvarLocalStorage"></span>
-
-				  <span class="btn btn-success dropdown-toggle glyphicon glyphicon-floppy-disk" type="button" id="salvarFile"></span>
-
-				  <span class="logoTOTVS"><img src="image/logo.png"></span>
-				</div>-->
-
-			</div>		
-			<div class="col-md-2" id="palleta">
-
-				 <div class="panel-group" id="layouts">
-
-				  <div class="panel panel-default">
-				    <div class="panel-heading">
-				      <h4 class="panel-title">
-				        <a class="accordion-toggle glyphicon glyphicon-th" data-toggle="collapse" data-parent="#layouts" href="#layout"> Layouts</a>
-				      </h4>
-				    </div>
-				    <div id="layout" class="panel-collapse collapse">
-				      <div class="panel-body">				      	
-				      </div>
-				    </div>
-				  </div>
-				 
-				</div>
-
-				<div class="panel-group" id="accordion-comp">
-
-				  <div class="panel panel-default">
-				    <div class="panel-heading">
-				      <h4 class="panel-title">
-				        <a class="accordion-toggle glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion-comp" href="#label"> Label</a>
-				      </h4>
-				    </div>
-				    <div id="label" class="panel-collapse collapse">
-				      <div class="panel-body">				       
-				      </div>
-				    </div>
-				  </div>
-
-				  <div class="panel panel-default">
-				    <div class="panel-heading">
-				      <h4 class="panel-title">
-				        <a class="accordion-toggle glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion-comp" href="#input"> Input</a>
-				      </h4>
-				    </div>
-				    <div id="input" class="panel-collapse collapse">
-				      <div class="panel-body">				        
-				      </div>
-				    </div>
-				  </div>
-
-				  <div class="panel panel-default">
-				    <div class="panel-heading">
-				      <h4 class="panel-title">
-				        <a class="accordion-toggle  glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion-comp" href="#chart"> Chart</a>
-				      </h4>
-				    </div>
-				    <div id="chart" class="panel-collapse collapse">
-				      <div class="panel-body">				        
-				      </div>
-				    </div>
-				  </div>
-
-				  <div class="panel panel-default">
-				    <div class="panel-heading">
-				      <h4 class="panel-title">
-				        <a class="accordion-toggle  glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion-comp" href="#imagem"> Imagem</a>
-				      </h4>
-				    </div>
-				    <div id="imagem" class="panel-collapse collapse">
-				      <div class="panel-body">				        
-				      </div>
-				    </div>
-				  </div>
-
-				  <div class="panel panel-default">
-				    <div class="panel-heading">
-				      <h4 class="panel-title">
-				        <a class="accordion-toggle  glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion-comp" href="#grids"> Grid</a>
-				      </h4>
-				    </div>
-				    <div id="grids" class="panel-collapse collapse">
-				      <div class="panel-body">				        
-				      </div>
-				    </div>
-				  </div>
-				</div>				 
-
-				 <div class="panel-group" id="accordion">
-				  <div class="panel panel-default">
-				    <div class="panel-heading">
-				      <h4 class="panel-title">
-				        <a class="accordion-toggle glyphicon glyphicon-tag" data-toggle="collapse" data-parent="#accordion" href="#datasourcePalleta"> Datasource</a>
-				      </h4>
-				    </div>
-				    <div id="datasourcePalleta" class="panel-collapse collapse">
-				      <div class="panel-body">				      	
-				      </div>
-				    </div>
-				  </div>				 
-				</div>
+              </div>
+            </div>           
 			</div>
-			<div class="col-md-9 des-container" data-body-project id="project">
-				
-			</div>
+
+			<div class="col-md-2" id="palleta"></div>
+			<div class="col-md-9 des-container" data-body-project id="project"></div>
 			<div class="des-datasource" data-body-datasource id="datasource"></div>
 		</div>
 	</div>
-		<div id="dialog"></div>
-		
+		<div id="dialog"></div>		
 	</body>
 </html>

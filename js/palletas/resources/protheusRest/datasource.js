@@ -1,10 +1,10 @@
 inject.define("palletas.resources.protheusRest.datasource", [
-        "utils.util",
-        "utils.base64",
-        "utils.rest",
+        "core.utils.util",
+        "core.utils.base64",
+        "core.utils.rest",
         "palletas.resources.protheusRest.service",
         "palletas.resources.protheusRest.controller",
-        "utils.growl",
+        "core.utils.growl",
     function (util, base64, rest, service, controller, growl) {
 
         var self = {};

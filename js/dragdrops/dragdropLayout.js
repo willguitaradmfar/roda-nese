@@ -1,8 +1,8 @@
 inject.define("dragdrops.dragdropLayout", [
-        "utils.dao.compDB",
-        "utils.legend",
+        "core.utils.dao.compDB",
+        "core.utils.legend",
         "dragdrops.dragdrop",
-        "properties.propertyClickRight",
+        "core.properties.propertyClickRight",
     function (dao, legend, dragdrop, propertyClickRight) {
         var self = {};
 

@@ -1,7 +1,7 @@
 inject.define("builds.directive", [
-		"utils.dao.compDB", 
-		"utils.processTemplate", 
-		"utils.legend",
+		"core.utils.dao.compDB", 
+		"core.utils.processTemplate", 
+		"core.utils.legend",
 	function (dao, processTemplate, legend) {
 	    var self = {};
 

@@ -1,6 +1,6 @@
 inject.define("dragdrops.dragdropDatasource", [
-        "utils.dao.compDB",
-        "utils.legend",
+        "core.utils.dao.compDB",
+        "core.utils.legend",
         "dragdrops.dragdrop",
     function (dao, legend, dragdrop) {
         var self = {};

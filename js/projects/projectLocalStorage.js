@@ -1,4 +1,4 @@
-inject.define("projects.projectLocalStorage", ["utils.util", "utils.dao.compDB", function (util, dao) {
+inject.define("projects.projectLocalStorage", ["core.utils.util", "core.utils.dao.compDB", function (util, dao) {
 
 	var self = {};
 

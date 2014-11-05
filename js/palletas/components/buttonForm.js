@@ -53,14 +53,19 @@ inject.define("palletas.components.buttonForm", [function () {
 			types : ['action']
 		},
 		update : function (target, val, comp) {
+			var action;
 
-			if(!val.params) return;
-			var params = Object.keys(val.params)
+			if(val.params){
+				var params = Object.keys(val.params)
 							.map(function(aa){
 								return val.params[aa].key
-							}).join(', ');		
+							}).join(', ');
+				action = val.context+'.'+val.field+'('+params+');';			
+			}else{
+				action = val.context+'.'+val.field+'();';
+			}
 
-			var action = val.context+'.'+val.field+'('+params+');';			
+			
 			$(target).attr('data-ng-click', action);
 		}
 	};
