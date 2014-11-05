@@ -1,6 +1,6 @@
 inject.define("core.datasource.palleta", [
 		"core.utils.dao.compDB",
-		"palletas.resources.datasource",
+		"plugins.datasources.datasource",
 		"core.utils.legend",
 		"core.utils.makeComponents",
 	function (dao, datasource, legend, makeComponents) {

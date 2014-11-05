@@ -1,12 +1,12 @@
 inject.define("core.exports.exportZip", [
 		"core.utils.zip",
-		"builds.service", 
-		"builds.controller",
-		"builds.directive",
+		"core.builds.service", 
+		"core.builds.controller",
+		"core.builds.directive",
 		"core.exports.generator",
 		"core.utils.dao.compDB",
 		"core.utils.util",
-		"builds.filter",
+		"core.builds.filter",
 	function (zip, service, controller, directive, generator, dao, util, filter) {
 	    var self = {};
 

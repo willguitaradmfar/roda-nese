@@ -116,7 +116,7 @@ inject.define("core.properties.types.metafieldsmulti", [
 				}
 			};
 
-			var metadados = metadata.findSync({});			
+			var metadados = metadata.findSync();			
 
 			for(var i in metadados){				
 				var meta = metadados[i];

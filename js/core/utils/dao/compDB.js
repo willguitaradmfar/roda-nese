@@ -1,6 +1,6 @@
 inject.define("core.utils.dao.compDB", [
 		"core.utils.util", 
-		"database.db", 
+		"core.utils.dao.db", 
 		"core.utils.legend", 
 	function (util, db, legend) {
 	    var self = {};

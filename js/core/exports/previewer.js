@@ -1,10 +1,10 @@
 inject.define("core.exports.previewer", [
-		"builds.service", 
-		"builds.controller",
-		"builds.directive",
+		"core.builds.service", 
+		"core.builds.controller",
+		"core.builds.directive",
 		"core.utils.zip",
 		"core.exports.generator",
-		"builds.filter",
+		"core.builds.filter",
 	function (service, controller, directive, zip, generator, filter) {
 
 		var self = {};

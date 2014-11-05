@@ -1,7 +1,7 @@
 inject.define("core.components.palleta", [
 		"core.utils.dao.compDB",		
-		"palletas.components.component",
-		"palletas.layouts.layout",
+		"plugins.components.component",
+		"plugins.layouts.layout",
 		"core.utils.legend",
 		"core.utils.makeComponents",
 	function (dao, components, layouts, legend, makeComponents) {

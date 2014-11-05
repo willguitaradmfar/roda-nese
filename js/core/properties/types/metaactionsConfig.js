@@ -22,7 +22,7 @@ inject.define("core.properties.types.metaactionsConfig", [
 
 			body.html('');
 
-			var metadados = metadata.findSync({});
+			var metadados = metadata.findSync();
 
 			var addParameter = function (parameter, index) {
 
@@ -49,10 +49,11 @@ inject.define("core.properties.types.metaactionsConfig", [
 
 				$(td).append(templateModal);
 			}
-
-			for(var iii in val.metaaction.parameters){
-				var parameter = val.metaaction.parameters[iii];
-				addParameter(parameter, iii);
+			if(val && val.metaaction && val.metaaction.parameters){
+				for(var iii in val.metaaction.parameters){
+					var parameter = val.metaaction.parameters[iii];
+					addParameter(parameter, iii);
+				}
 			}
 			
 		};
