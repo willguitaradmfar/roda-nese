@@ -13,7 +13,7 @@ inject.define("plugins.datasources.protheusRest.datasource", [
         self.controller = controller;
 
         self.name = 'protheusRest';
-        self.category = 'datasourcePalleta';
+        self.category = 'Datasource';
         self.icon = 'cloud';
         self.color = 'warning';
 

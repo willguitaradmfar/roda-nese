@@ -9,7 +9,7 @@ inject.define("plugins.datasources.static.datasource", [
         self.filter = filter;
 
         self.name = 'static';
-        self.category = 'datasourcePalleta';
+        self.category = 'Datasource';
         self.icon = 'eye-open';
         self.color = 'success';
 
