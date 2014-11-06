@@ -1,144 +1,98 @@
-inject.define("plugins.datasources.protheusSoap.datasource", [
+inject.define("plugins.datasources.dataSul.datasource", [
         "core.utils.util",
-        "core.utils.base64",
-        "core.utils.soap",
-        "plugins.datasources.protheusSoap.service",
-        "plugins.datasources.protheusSoap.controller",
+        "core.utils.base64",        
+        "plugins.datasources.dataSul.service",
+        "plugins.datasources.dataSul.controller",
         "core.utils.growl",
-    function (util, base64, soap, service, controller, growl) {
+        "plugins.datasources.dataSul.communicationDataSul",
+    function (util, base64, service, controller, growl, communicationDataSul) {
 
         var self = {};
 
         self.service = service;
         self.controller = controller;
 
-        self.name = 'protheusSoap';
+        self.name = 'dataSul';
         self.category = 'Datasource';
-        self.icon = 'globe';
-        self.color = 'primary';
+        self.icon = 'tag';
+        self.color = 'info';
 
         self.property = {};
         self.property.nameService = {
             val : 'protheus',
             update : function (target, val, comp) {
-                metadata(comp);
+                
             }
         };
         
-        self.property.urlWS = {
-            val : 'http://172.16.84.95/FWWSMODEL.apw',
-            update : function (target, val, comp) {
-                metadata(comp);
-            }
-        };
-
-        self.property.model = {
-            val : 'MATA030',
+        self.property.url = {
+            val : 'http://192.168.122.196:8089/ajax.request',
             update : function (target, val, comp) {
                 metadata(comp);
             }
         };
 
         self.property.table = {
-            val : 'SA1',
+            val : 'cidade',
             update : function (target, val, comp) {
-                metadata(comp);
+                
             }
         };
 
         self.property.context = {
-            val : 'contextSA1',
+            val : 'cxtDS',
             update : function (target, val, comp) {
-                metadata(comp);
+                
             }
-        };
-
-        var method =  'GETJSONDATADETAIL';
-        var tagResult =  'GETJSONDATADETAILRESULT';
+        };        
 
         self.metadata = {};
 
         var types = {
-            C : 'string',
-            D : 'date',
-            N : 'number',
-            M : 'string'
-        };
-
-        var processMeta = function (comp, meta) {
-            var models = {};
-            var actions = {};
-
-            for(var i in meta.models){
-                var model = meta.models[i];
-
-                //NESSE CASE (model.id) == (comp.property.table.val) QUE REPRESENTA O MODELO
-                var modelID = model.id // comp.property.table.val
-
-                models[modelID] = {};
-                for(var ii in model.fields){
-                    var field = model.fields[ii];
-                    models[modelID][field.id] = {};                
-                    if(!types[field.datatype]){
-                        console.warn('TIPO NÃO PROVIDO '+field.datatype);
-                    }
-                    models[modelID][field.id].type = types[field.datatype];
-                    models[modelID][field.id].info = field.info;
-                    models[modelID][field.id].required = (field.obrigat == '1');
-                }            
-            }
-
-            actions.list = {
-                parameters : []
-            };
-
-            actions.save = {
-                parameters : [{
-                    types : ['object']
-                }]
-            };
-
-            comp.metadata.resource = comp.property.context.val;
-            comp.metadata.models = models;
-            comp.metadata.actions = actions;
-
-            if(models){
-                growl.info('METADADOS PROCESSADO COM SUCESSO !!!');
-            }else{
-                growl.error('METADADOS NÃO PODE SER PROCESSADO ');
-            }
-        };
+            'logical' : 'boolean',
+            'date' : 'date',
+            'integer' : 'number',
+            'decimal' : 'number',
+            'character' : 'string'
+        };        
       
 
         var metadata = function (comp) {
-            var cid = "cid:"+util.random(1000 * 10);
+            var models = {};
+            var actions = {};
 
-            soap.sendSoap(
-                comp.property.urlWS.val, 
-                method, 
-                    {
-                        USERTOKEN : cid,
-                        MODELID : comp.property.model.val,
-                        TABLE : comp.property.table.val
-                    },
-                    tagResult,
-                    function(d){
-                        if(d){
-                            growl.info('METADADOS RECEBIDOS !!!');
-                        }else{
-                            growl.error('NÃO FOI RECEBIDO METADADOS DO SERVER');
-                        }
-                        var meta = util.eval(base64.decode(d));
-                        if(meta){
-                            growl.info('METADADOS DESERIALIZADO COM SUCESSO!!!');
-                            processMeta(comp, meta);
-                        }else{
-                            growl.error('METADADOS NÃO PODE SER DESERIALIZADO');
-                        }                        
-                    }, function (e) {
-                        growl.error('OCORREU UM ERRO NA REQUISIÇÃO DO METADATA');
+            models[comp.property.table.val] = {};
+
+            communicationDataSul.metadadosResult = function (data) {
+
+                growl.info('DADOS RECEBIDOS COM SUCESSO, PROCESSANDO ...');
+
+                for(var i in data){
+                    var fields = data[i];
+                    for(var ii in fields){
+                        var field = fields[ii];
+                        var fName = field.cName;
+                        models[comp.property.table.val][fName] = {};                        
+                        models[comp.property.table.val][fName].type = types[field.cDataType];
+                        models[comp.property.table.val][fName].info = util.decodeUTF(field.cLabel);
                     }
-            );
+                }
+
+                growl.info('PROCESSADOS '+Object.keys(models[comp.property.table.val]).length+' CAMPOS DA TABELA '+comp.property.table.val);
+
+                actions.list = {
+                    parameters : []                
+                };
+
+                comp.metadata.resource = comp.property.context.val;
+                comp.metadata.models = models;
+                comp.metadata.actions = actions;                
+                
+            };
+
+            communicationDataSul.table = comp.property.table.val;
+            communicationDataSul.url = comp.property.url.val;
+            communicationDataSul.getMetadados();
         };       
 
         return self;

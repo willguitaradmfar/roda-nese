@@ -69,7 +69,9 @@ inject.define("plugins.components.selectForm.selectForm", [function () {
 			types : ['array']
 		},
 		update : function (target, val, comp) {
-			if(comp.property.metafields_field){
+			if(comp.property.metafields_field
+				&& comp.property.metafields_field.val
+				&& comp.property.metafields_field.val.path){
 				
 				var path = comp.property.metafields_field.val.path;
 				

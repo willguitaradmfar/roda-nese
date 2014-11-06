@@ -29,7 +29,7 @@ inject.define("plugins.components.inputForm.inputForm", [function () {
 			types : ['string', 'number', 'date']
 		},
 		update : function (target, val, comp) {			
-			if(val.key){
+			if(val && val.key){
 				var bind = val.key;
 				$(target).find('input').attr('data-ng-model', bind);
 			}

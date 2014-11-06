@@ -1,10 +1,10 @@
-inject.define("plugins.datasources.protheusSoap.controller", [function () {
+inject.define("plugins.datasources.dataSul.controller", [function () {
     var self = {};
     self.scope = {};
 
 	self.inject = {};
 	self.inject['$http'] = '$http';
-	self.inject['soap'] = 'soap';	
+	self.inject['communicationDataSulService'] = 'communicationDataSulService';	
 
 	self.variable = {};
 	self.variable.list = "['num1', 'num2', 'num3']";
@@ -15,28 +15,15 @@ inject.define("plugins.datasources.protheusSoap.controller", [function () {
 	};
 
 	self.scope.list = function() {
-		soap.list({
-                    CTABLE : '$table$',
-                    CFIELDS : ''
-                }, function(error, result){
-                	if(error)
-                		$scope.$context$.$messageError$ = error;
-                	else
-                    	$scope.$context$.list = eval('('+result+')').Rows;
+		communicationDataSulService.list({
+                    table : '$table$',
+                    url : '$url$'
+                }, function(data){                	
+                	$scope.$context$.list = data;
+                	$scope.$digest();
                 }
         );
-	};
-
-	self.scope.save = function(obj) {
-		soap.save({
-                    CTABLE : '$table$',                    
-                    DATA : JSON.stringify(obj)
-                }, function(error, result){
-                	if(error)
-                		$scope.$context$.$messageError$ = error;                	
-                }
-        );
-	};
+	};	
 
     return self;
 }]);

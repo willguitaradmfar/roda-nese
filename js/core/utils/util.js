@@ -45,6 +45,17 @@ inject.define("core.utils.util", [function () {
 		}
 		return response;
 	};
+
+	self.normalizeVariable = function (str) {
+		return str.replace(/-/g, '_');
+	};
 	
+	self.decodeUTF = function (str) {
+
+		
+	};
+
+	
+
 	return self;
 }]);
