@@ -90,9 +90,19 @@ inject.define("plugins.datasources.dataSul.datasource", [
                 
             };
 
+            communicationDataSul.connectionRefused = function () {
+                growl.error('NÃO FOI POSSÍVEL ESTABELECER UMA CONEXÃO COM '+comp.property.url.val);
+            }
+
+            communicationDataSul.connected = function () {
+                growl.info('CONECTADO COM O SERVIDOR');
+                communicationDataSul.postMessage();
+            }
+
+
             communicationDataSul.table = comp.property.table.val;
             communicationDataSul.url = comp.property.url.val;
-            communicationDataSul.getMetadados();
+            communicationDataSul.init();
         };       
 
         return self;

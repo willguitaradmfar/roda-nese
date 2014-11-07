@@ -13,10 +13,6 @@
 		<script src="dependency/injectJS/injectJS.js"></script>
 		<!-- injectJS -->		
 
-		<!-- TAFFY -->
-		<script src="dependency/taffy/taffy-min.js"></script>
-		<!-- TAFFY -->
-
 		<!-- JQUERY -->
 		<script src="dependency/jquery/jquery-ui-1.11.1/external/jquery/jquery.js"></script>
 		<script src="dependency/jquery/jquery-ui-1.11.1/jquery-ui.js"></script>
@@ -57,8 +53,6 @@
 		<script src="dependency/selectize/selectize.min.js" type="text/javascript"></script>  
 		<!-- selectize -->
 
-
-
 		<!-- TAGS -->
 		<link rel="stylesheet" href="dependency/tags/bootstrap-tagsinput.css">  
     	<script src="dependency/tags/bootstrap-tagsinput.min.js"></script>
@@ -77,7 +71,7 @@
     		//inject.debug = true;
     		inject.src = 'js/';
     		inject.define("Main", [ "core.utils.util", 
-    								"core.exports.previewer",
+    								//"core.exports.previewer",
     								"core.components.palleta",
     								"core.datasource.palleta",
     								"core.dragdrops.dragdropDatasource",
@@ -86,20 +80,22 @@
     								"core.managerProject.projectFileStorage",
     								"core.managerProject.projectLocalStorage",
     								"config.internationalization",
-    								"core.exports.exportZip",
+    								//"core.exports.exportZip",
     								"core.utils.growl",
     								"themes.theme",
-                function(util, previewer, palletaComponents, palletaDatasource, dragdropDatasource, dragdropLayout, propertyClickRight, projectFileStorage, projectLocalStorage, internationalization, exportZip, growl, theme){
-					new previewer.preview($('.des-container'));
-					exportZip.register($('.des-container'));
-					new palletaComponents.palleta($('#palleta'));
-					new palletaDatasource.palleta($('#palleta'));
-					dragdropLayout.dragdrop();
-					dragdropDatasource.dragdrop();
-					propertyClickRight.init();
-					new projectFileStorage.projects();
-					new projectLocalStorage.projects();
-					internationalization.setLanguage('pt_br');
+                    "core.exports.handExport",
+                function(util, /*previewer,*/ palletaComponents, palletaDatasource, dragdropDatasource, dragdropLayout, propertyClickRight, projectFileStorage, projectLocalStorage, internationalization, /*exportZip,*/ growl, theme, handExport){
+        					//new previewer.preview($('.des-container'));
+        					//exportZip.register($('.des-container'));
+        					new palletaComponents.palleta($('#palleta'));
+        					new palletaDatasource.palleta($('#palleta'));
+        					dragdropLayout.dragdrop();
+        					dragdropDatasource.dragdrop();
+        					propertyClickRight.init();
+        					new projectFileStorage.projects();
+        					new projectLocalStorage.projects();
+        					internationalization.setLanguage('pt_br');
+                  handExport.init();
 					//internationalization.setLanguage('en_us');
                 }]);
     	});
@@ -138,18 +134,14 @@
                   <span class="logoTOTVS"><img src="image/logo.png"></span>                
                   <ul class="nav navbar-nav">                    
                     <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Visualizar <b class="caret"></b></a>
-                      <ul class="dropdown-menu">
-                        <li><a class="glyphicon glyphicon-eye-open" href="#" id="v240"> 240</a></li>
-                        <li><a class="glyphicon glyphicon-eye-open" href="#" id="v320"> 320</a></li>
-                        <li><a class="glyphicon glyphicon-eye-open" href="#" id="v480"> 480</a></li>
-                        <li><a class="glyphicon glyphicon-eye-open" href="#" id="v768"> 768</a></li>
-                        <li><a class="glyphicon glyphicon-eye-open" href="#" id="v1024"> 1024</a></li>
-                        <li class="divider"></li>
-                        <li><a class="glyphicon glyphicon-eye-open" href="#" id="vFull"> Full</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" id="export">Export ZIP</a></li>
-                      </ul>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Preview <b class="caret"></b></a>
+                      <ul class="dropdown-menu" id="previewer"></ul>
+                    </li>
+                  </ul>
+                   <ul class="nav navbar-nav">                    
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Build <b class="caret"></b></a>
+                      <ul class="dropdown-menu" id="export"></ul>
                     </li>
                   </ul>
                  <form class="navbar-form">                    

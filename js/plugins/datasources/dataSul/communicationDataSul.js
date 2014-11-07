@@ -9,17 +9,17 @@ inject.define("plugins.datasources.dataSul.communicationDataSul", [
         var sessionRegexMessage = /^session '(\w*)' started\s{0,}$/;
         var acceptedRegexMessage = /^the request was accepted by the session$/;
 
-        self.getMetadados = function () {            
+        self.init = function () {            
             if(!session){
                 startSession(function (sessionId) {
-                    session = sessionId;                    
+                    session = sessionId;
                     startModule(function () {
-                        listenMessage();                                                
+                        listenMessage();
                     });
                     
                 });
             }else{
-                postMessage();
+                listenMessage();
             }
         };
 
@@ -36,6 +36,10 @@ inject.define("plugins.datasources.dataSul.communicationDataSul", [
                 headers : headers,
                 success : function (res) {
                     cb(res.replace(sessionRegexMessage, "$1"));
+                }, error : function (e) {
+                    if(e.errorThrown != "timeout" && e.textStatus != "parsererror"){
+                        self.connectionRefused(e);
+                    }
                 }
             });                
         };
@@ -59,7 +63,8 @@ inject.define("plugins.datasources.dataSul.communicationDataSul", [
                 headers : headers,
                 success : function (res) {
                     
-                },done : function (res) {
+                },
+                done : function (res) {
                     cb(res);
                 }
             });
@@ -67,12 +72,16 @@ inject.define("plugins.datasources.dataSul.communicationDataSul", [
 
         self.resetSession = function () {
             session = '';
-            startSession(function (sessionId) {
-                session = sessionId;
-                startModule();
-                postMessage();
+            if(!session){
+                startSession(function (sessionId) {
+                    session = sessionId;
+                    startModule(function () {
+                        listenMessage();
+                    });                    
+                });
+            }else{
                 listenMessage();
-            });
+            }
         };       
 
         var reconect = function () {
@@ -96,7 +105,7 @@ inject.define("plugins.datasources.dataSul.communicationDataSul", [
             });  
         };
 
-        var postMessage = function (cb) {
+        self.postMessage = function (cb) {
             var data = {};
             data['session-id'] = session;
             data['strJson'] = JSON.stringify({ttEvent : [{
@@ -138,11 +147,17 @@ inject.define("plugins.datasources.dataSul.communicationDataSul", [
                 headers : headers,
                 error : function (e) {
                     if(e.errorThrown == "timeout"){
-                        listenMessage();    
+                        console.debug('TIMEOUT DE CONEXÃO LONG POLLING, RECONECTANDO ....');
+                        listenMessage();
                     }else if(e.textStatus == "parsererror"){
-                        listenMessage();    
+                        console.warn('ERRO DE PARSE JSON, RECONCECTANDO ....');
+                        listenMessage();
                     }else{
-
+                        console.warn('CONEXÃO RECUSADA, TENTANDO RECONECTAR EM 10s ....');
+                        self.connectionRefused(e);
+                        setTimeout(function () {
+                            self.resetSession();
+                        }, 1000 * 10);
                     }
                 },
                 success : function (res) {                        
@@ -160,22 +175,23 @@ inject.define("plugins.datasources.dataSul.communicationDataSul", [
                         });
 
                         if(result3001.length > 0){
+                            console.debug('MENSAGEM COM idMessage 3001, RECONECTANDO AO MODULO');
                             reconect();
                         }
 
                         if(result3000.length > 0){
-                            postMessage();
+                            console.debug('MENSAGEM COM idMessage 3000, CONECTADO !!!');                            
+                            console.debug('CONECTADO COM O SERVIDOR');
+                            self.connected();
                         }
 
                         if(resultMetadados.length > 0){
                             self.metadadosResult(resultMetadados[0]);
                         }
                     }                    
-                    listenMessage();                    
-                    
+                    listenMessage();
                 },
-                done : function (res) {
-                    console.debug(res);
+                done : function (res) {                    
                     //listenMessage();
                 }
             });           

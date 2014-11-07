@@ -28,20 +28,17 @@ inject.define("core.utils.pollingHttp", [
 				data: data,
 				timeout: timeout,
 				headers: _headers,
-				success: function( res ) {
-					console.debug('SUCESSO pollingHttp');
+				success: function( res ) {					
 					_success(res);
 				},
-				error : function(jqXHR, textStatus, errorThrown) {
-					console.warn('ERRO pollingHttp');
+				error : function(jqXHR, textStatus, errorThrown) {					
 					var e = {};
 					e.jqXHR = jqXHR;
 					e.textStatus = textStatus;
 					e.errorThrown = errorThrown;
 					_error(e);					
 				}
-			}).done(function ( res ) {
-				console.debug('DONE pollingHttp');
+			}).done(function ( res ) {				
 				_done(res);
 			});
 
