@@ -112,3 +112,16 @@
 	height: 93%;	
 }
 
+
+/*
+	################################################# TEMPORARIO #################################################
+*/
+
+
+#palleta .comp-palleta-hide{
+	display: none;
+}
+
+#project .comp-project-hide{
+	display: none;	
+}

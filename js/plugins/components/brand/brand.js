@@ -15,12 +15,11 @@ inject.define("plugins.components.brand.brand", [function () {
 				      '</button>',
 				      '<a class="navbar-brand" href="#">Brand</a>',
 				    '</div>',
-
-				    '<!-- Collect the nav links, forms, and other content for toggling -->',
+				    
 				    '<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">',
 				      '<ul class="nav navbar-nav">',
 				        '<li class="active"><a href="#">Link</a></li>',
-				        '<li><a href="#">Link</a></li>',
+				        '<li class="comp-palleta-hide"><a href="#">Link</a></li>',
 				        '<li class="dropdown">',
 				          '<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>',
 				          '<ul class="dropdown-menu" role="menu">',
@@ -34,13 +33,13 @@ inject.define("plugins.components.brand.brand", [function () {
 				          '</ul>',
 				        '</li>',
 				      '</ul>',
-				      '<form class="navbar-form navbar-left" role="search">',
+				      '<form class="navbar-form navbar-left comp-palleta-hide" role="search">',
 				        '<div class="form-group">',
 				          '<input type="text" class="form-control" placeholder="Search">',
 				        '</div>',
 				        '<button type="submit" class="btn btn-default">Submit</button>',
 				      '</form>',
-				      '<ul class="nav navbar-nav navbar-right">',
+				      '<ul class="nav navbar-nav navbar-right comp-palleta-hide">',
 				        '<li><a href="#">Link</a></li>',
 				        '<li class="dropdown">',
 				          '<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>',
@@ -53,8 +52,8 @@ inject.define("plugins.components.brand.brand", [function () {
 				          '</ul>',
 				        '</li>',
 				      '</ul>',
-				    '</div><!-- /.navbar-collapse -->',
-				  '</div><!-- /.container-fluid -->',
+				    '</div>',
+				  '</div>',
 				'</nav>'].join('');
 
 

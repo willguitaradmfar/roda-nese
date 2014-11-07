@@ -30,7 +30,7 @@ inject.define("core.exports.handExport", [
 
 	    	var project = $('#project[data-body-project]').clone();
 
-	    	clearComponents(project);
+	    	clearComponents({content : project});
 
 	    	var ctrl = $('<div data-ng-controller="'+ngController+'"></div>');
 	    	ctrl.append(project.html());
@@ -115,7 +115,8 @@ inject.define("core.exports.handExport", [
 
 				if(comp.runtime && typeof comp.runtime != 'function'){
 					comp.runtime = util.eval(comp.runtime);
-				}				
+				}
+				console.debug('EXECUTANDO RUNTIME DO CPMPONENT '+i);
 				comp.runtime($(comps[i]), comp);
 			};
 	    }

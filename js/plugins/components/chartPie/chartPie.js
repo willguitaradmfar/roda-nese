@@ -100,7 +100,7 @@ inject.define("plugins.components.chartPie.chartPie", [
 			}
 		};
 
-		self.runtime = function (target, comp) {			
+		self.runtime = function (target, comp) {
 			$(target).attr('src', '');
 		}
 

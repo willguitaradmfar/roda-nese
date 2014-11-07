@@ -70,33 +70,28 @@
     		
     		//inject.debug = true;
     		inject.src = 'js/';
-    		inject.define("Main", [ "core.utils.util", 
-    								//"core.exports.previewer",
-    								"core.components.palleta",
-    								"core.datasource.palleta",
-    								"core.dragdrops.dragdropDatasource",
-    								"core.dragdrops.dragdropLayout",
-    								"core.properties.propertyClickRight",
-    								"core.managerProject.projectFileStorage",
-    								"core.managerProject.projectLocalStorage",
-    								"config.internationalization",
-    								//"core.exports.exportZip",
-    								"core.utils.growl",
-    								"themes.theme",
-                    "core.exports.handExport",
-                function(util, /*previewer,*/ palletaComponents, palletaDatasource, dragdropDatasource, dragdropLayout, propertyClickRight, projectFileStorage, projectLocalStorage, internationalization, /*exportZip,*/ growl, theme, handExport){
-        					//new previewer.preview($('.des-container'));
-        					//exportZip.register($('.des-container'));
-        					new palletaComponents.palleta($('#palleta'));
-        					new palletaDatasource.palleta($('#palleta'));
-        					dragdropLayout.dragdrop();
-        					dragdropDatasource.dragdrop();
-        					propertyClickRight.init();
-        					new projectFileStorage.projects();
-        					new projectLocalStorage.projects();
-        					internationalization.setLanguage('pt_br');
-                  handExport.init();
-					//internationalization.setLanguage('en_us');
+    		inject.define("Main", [ "core.utils.util",     								
+                    								"core.components.palleta",
+                    								"core.datasource.palleta",
+                    								"core.dragdrops.dragdropDatasource",
+                    								"core.dragdrops.dragdropLayout",
+                    								"core.properties.propertyClickRight",
+                    								"core.managerProject.projectFileStorage",
+                    								"core.managerProject.projectLocalStorage",
+                    								"config.internationalization",    								
+                    								"core.utils.growl",
+                    								"themes.theme",
+                                    "core.exports.handExport",
+                function(util, palletaComponents, palletaDatasource, dragdropDatasource, dragdropLayout, propertyClickRight, projectFileStorage, projectLocalStorage, internationalization, growl, theme, handExport){
+            					new palletaComponents.palleta($('#palleta'));
+            					new palletaDatasource.palleta($('#palleta'));
+            					dragdropLayout.dragdrop();
+            					dragdropDatasource.dragdrop();
+            					propertyClickRight.init();
+            					new projectFileStorage.projects();
+            					new projectLocalStorage.projects();
+            					internationalization.setLanguage('pt_br');
+                      handExport.init();
                 }]);
     	});
     	</script>
@@ -110,8 +105,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12" id="topo">
-
-			<div class="bs-component">
+			   <div class="bs-component">
               <div class="navbar navbar-default">
                 <div class="navbar-header">
                   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -124,7 +118,7 @@
                 <div class="navbar-collapse collapse navbar-responsive-collapse">
                   <ul class="nav navbar-nav">
                     <li class="dropdown">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Arquivo <b class="caret"></b></a>
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
                       <ul class="dropdown-menu">
                         <li><a class="glyphicon glyphicon-floppy-save" href="#" id="salvarLocalStorage"> Save LocalStorage</a></li>
                         <li><a class="glyphicon glyphicon-floppy-save" href="#" id="salvarFile"> Save FileSystem</a></li>
@@ -144,13 +138,10 @@
                       <ul class="dropdown-menu" id="export"></ul>
                     </li>
                   </ul>
-                 <form class="navbar-form">                    
-                    <select class="form-control col-lg-8" id="theme">                   	
-                    	
-                    </select>
+                  <form class="navbar-form">                    
+                    <select class="form-control col-lg-8" id="theme"></select>
                   </form>
                 </div>
-
               </div>
             </div>           
 			</div>
